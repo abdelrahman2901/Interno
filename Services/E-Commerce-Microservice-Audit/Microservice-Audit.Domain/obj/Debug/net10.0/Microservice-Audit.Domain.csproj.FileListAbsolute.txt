@@ -1,0 +1,11 @@
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Audit.Domain\bin\Debug\net10.0\Microservice-Audit.Domain.deps.json
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Audit.Domain\bin\Debug\net10.0\Microservice-Audit.Domain.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Audit.Domain\bin\Debug\net10.0\Microservice-Audit.Domain.pdb
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Audit.Domain\obj\Debug\net10.0\Microservice-Audit.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Audit.Domain\obj\Debug\net10.0\Microservice-Audit.Domain.AssemblyInfoInputs.cache
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Audit.Domain\obj\Debug\net10.0\Microservice-Audit.Domain.AssemblyInfo.cs
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Audit.Domain\obj\Debug\net10.0\Microservice-Audit.Domain.csproj.CoreCompileInputs.cache
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Audit.Domain\obj\Debug\net10.0\Microservice-Audit.Domain.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Audit.Domain\obj\Debug\net10.0\refint\Microservice-Audit.Domain.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Audit.Domain\obj\Debug\net10.0\Microservice-Audit.Domain.pdb
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Audit.Domain\obj\Debug\net10.0\ref\Microservice-Audit.Domain.dll

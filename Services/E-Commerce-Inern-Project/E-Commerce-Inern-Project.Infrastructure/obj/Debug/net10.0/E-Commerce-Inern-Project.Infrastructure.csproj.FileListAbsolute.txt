@@ -1,0 +1,17 @@
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\bin\Debug\net10.0\E-Commerce-Inern-Project.Infrastructure.deps.json
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\bin\Debug\net10.0\E-Commerce-Inern-Project.Infrastructure.runtimeconfig.json
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\bin\Debug\net10.0\E-Commerce-Inern-Project.Infrastructure.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\bin\Debug\net10.0\E-Commerce-Inern-Project.Infrastructure.pdb
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\bin\Debug\net10.0\E-Commerce-Inern-Project.Core.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\bin\Debug\net10.0\E-Commerce-Inern-Project.Core.pdb
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\obj\Debug\net10.0\E-Commerce-Inern-Project.Infrastructure.csproj.AssemblyReference.cache
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\obj\Debug\net10.0\E-Commerce-Inern-Project.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\obj\Debug\net10.0\E-Commerce-Inern-Project.Infrastructure.AssemblyInfoInputs.cache
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\obj\Debug\net10.0\E-Commerce-Inern-Project.Infrastructure.AssemblyInfo.cs
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\obj\Debug\net10.0\E-Commerce-Inern-Project.Infrastructure.csproj.CoreCompileInputs.cache
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\obj\Debug\net10.0\E-Commer.56A2D5E1.Up2Date
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\obj\Debug\net10.0\E-Commerce-Inern-Project.Infrastructure.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\obj\Debug\net10.0\refint\E-Commerce-Inern-Project.Infrastructure.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\obj\Debug\net10.0\E-Commerce-Inern-Project.Infrastructure.pdb
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\obj\Debug\net10.0\E-Commerce-Inern-Project.Infrastructure.genruntimeconfig.cache
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.Infrastructure\obj\Debug\net10.0\ref\E-Commerce-Inern-Project.Infrastructure.dll

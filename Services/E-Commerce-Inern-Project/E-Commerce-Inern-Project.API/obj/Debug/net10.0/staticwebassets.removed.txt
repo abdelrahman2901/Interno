@@ -1,0 +1,6 @@
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.API\wwwroot\ProductsImages\Kids\Shirt\05bfed9c-30e0-4eeb-8f33-5760d81b6a8c.avif
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.API\wwwroot\ProductsImages\Kids\Short\12B5A71F-FA40-4A1A-A29B-46A3B178A909.webp
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.API\wwwroot\ProductsImages\Kids\Short\9eff40af-8414-48b8-b119-7c5e3e7e8afa.webp
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.API\wwwroot\ProductsImages\Men\4EBC7D2B-094D-462D-8136-A06D12402281.avif
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.API\wwwroot\ProductsImages\Men\D673B4DB-2100-4624-9BEC-66F2FF158463.webp
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.API\wwwroot\ProductsImages\Women\Hoddie\dc26ac38-7b05-43f8-b1dd-4f7c01c7830d.webp

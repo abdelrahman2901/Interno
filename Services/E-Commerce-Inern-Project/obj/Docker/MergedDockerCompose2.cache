@@ -1,0 +1,131 @@
+name: dockercompose9857008498764911845
+services:
+  api:
+    build:
+      context: D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project
+      dockerfile: E-Commerce-Inern-Project.API/Dockerfile
+      args:
+        BUILD_CONFIGURATION: Debug
+        LAUNCHING_FROM_VS: "true"
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: E-Commerce-Inern-Project.API
+      target: base
+    depends_on:
+      rabbitmq:
+        condition: service_started
+        required: true
+    entrypoint:
+      - dotnet
+      - --roll-forward
+      - Major
+      - /VSTools/DistrolessHelper/DistrolessHelper.dll
+      - --wait
+    environment:
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+      NUGET_FALLBACK_PACKAGES: /.nuget/fallbackpackages
+      RabbitMQ_HostName: rabbitmq
+      RabbitMQ_Password: password
+      RabbitMQ_Port: "5672"
+      RabbitMQ_UserName: user
+    image: api:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /.nuget/packages --additionalProbingPath /.nuget/fallbackpackages  "/app/bin/Debug/net10.0/E-Commerce-Inern-Project.API.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: dotnet --roll-forward Major /VSTools/DistrolessHelper/DistrolessHelper.dll --stop dotnet
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      ecommerce-network: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "5000"
+        protocol: tcp
+    tty: true
+    volumes:
+      - type: bind
+        source: D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project\E-Commerce-Inern-Project.API
+        target: /app
+        bind: {}
+      - type: bind
+        source: D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project
+        target: /src
+        bind: {}
+      - type: bind
+        source: C:\Users\ebada\vsdbg\vs2017u5
+        target: /remote_debugger
+        bind: {}
+      - type: bind
+        source: C:\Users\ebada\.nuget\packages
+        target: /.nuget/packages
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages
+        target: /.nuget/fallbackpackages
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Users\ebada\AppData\Roaming\ASP.NET\Https
+        target: /root/.aspnet/https
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Users\ebada\AppData\Roaming\ASP.NET\Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Users\ebada\AppData\Roaming\Microsoft\UserSecrets
+        target: /root/.microsoft/usersecrets
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Users\ebada\AppData\Roaming\Microsoft\UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Program Files\Microsoft Visual Studio\18\Community\MSBuild\Sdks\Microsoft.Docker.Sdk\tools\linux-x64\net6.0
+        target: /VSTools
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\extensions\Microsoft\managedprojectsystem\HotReload
+        target: /HotReloadAgent
+        read_only: true
+        bind: {}
+  rabbitmq:
+    environment:
+      RABBITMQ_DEFAULT_PASS: password
+      RABBITMQ_DEFAULT_USER: user
+    image: rabbitmq:3.13-management
+    networks:
+      ecommerce-network: null
+    ports:
+      - mode: ingress
+        target: 5672
+        published: "5672"
+        protocol: tcp
+      - mode: ingress
+        target: 15672
+        published: "15672"
+        protocol: tcp
+  redis:
+    image: redis:latest
+    networks:
+      ecommerce-network: null
+    ports:
+      - mode: ingress
+        target: 6379
+        published: "6379"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\Redis-Cache
+        target: /data
+        bind: {}
+networks:
+  ecommerce-network:
+    name: dockercompose9857008498764911845_ecommerce-network

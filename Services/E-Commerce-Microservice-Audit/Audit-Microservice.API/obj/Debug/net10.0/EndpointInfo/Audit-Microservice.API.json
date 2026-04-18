@@ -1,0 +1,95 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Audit-Microservice.API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Audit/GetAllAudit": {
+      "get": {
+        "tags": [
+          "Audit-Microservice.API"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuditResponseIEnumerableResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuditResponse": {
+        "type": "object",
+        "properties": {
+          "auditID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "createdByUser": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "updatedByUser": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "actionType": {
+            "type": "string",
+            "nullable": true
+          },
+          "entityName": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuditResponseIEnumerableResult": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AuditResponse"
+            },
+            "nullable": true
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Audit-Microservice.API"
+    }
+  ]
+}

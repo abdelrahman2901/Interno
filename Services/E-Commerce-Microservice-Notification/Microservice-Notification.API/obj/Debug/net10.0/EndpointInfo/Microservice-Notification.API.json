@@ -1,0 +1,196 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Microservice-Notification.API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Notificaiton/GetNotification": {
+      "get": {
+        "tags": [
+          "Microservice-Notification.API"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationResponseIEnumerableResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Notificaiton/GetUserNotifications/{UserID}": {
+      "get": {
+        "tags": [
+          "Microservice-Notification.API"
+        ],
+        "parameters": [
+          {
+            "name": "UserID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationResponseIEnumerableResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Notificaiton/MarkNotificationAsRead/{NotificationID}": {
+      "put": {
+        "tags": [
+          "Microservice-Notification.API"
+        ],
+        "parameters": [
+          {
+            "name": "NotificationID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Notificaiton/MarkNotificationAsReadList/{UserID}": {
+      "put": {
+        "tags": [
+          "Microservice-Notification.API"
+        ],
+        "parameters": [
+          {
+            "name": "UserID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BooleanResult": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "boolean"
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NotificationResponse": {
+        "type": "object",
+        "properties": {
+          "notificationID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "userID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "isRead": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NotificationResponseIEnumerableResult": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "errorMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationResponse"
+            },
+            "nullable": true
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Microservice-Notification.API"
+    }
+  ]
+}

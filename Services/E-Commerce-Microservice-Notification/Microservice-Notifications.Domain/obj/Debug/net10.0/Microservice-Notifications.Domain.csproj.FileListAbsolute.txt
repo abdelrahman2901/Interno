@@ -1,0 +1,11 @@
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Notification\Microservice-Notifications.Domain\bin\Debug\net10.0\Microservice-Notifications.Domain.deps.json
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Notification\Microservice-Notifications.Domain\bin\Debug\net10.0\Microservice-Notifications.Domain.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Notification\Microservice-Notifications.Domain\bin\Debug\net10.0\Microservice-Notifications.Domain.pdb
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Notification\Microservice-Notifications.Domain\obj\Debug\net10.0\Microservice-Notifications.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Notification\Microservice-Notifications.Domain\obj\Debug\net10.0\Microservice-Notifications.Domain.AssemblyInfoInputs.cache
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Notification\Microservice-Notifications.Domain\obj\Debug\net10.0\Microservice-Notifications.Domain.AssemblyInfo.cs
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Notification\Microservice-Notifications.Domain\obj\Debug\net10.0\Microservice-Notifications.Domain.csproj.CoreCompileInputs.cache
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Notification\Microservice-Notifications.Domain\obj\Debug\net10.0\Microservice-Notifications.Domain.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Notification\Microservice-Notifications.Domain\obj\Debug\net10.0\refint\Microservice-Notifications.Domain.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Notification\Microservice-Notifications.Domain\obj\Debug\net10.0\Microservice-Notifications.Domain.pdb
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Notification\Microservice-Notifications.Domain\obj\Debug\net10.0\ref\Microservice-Notifications.Domain.dll

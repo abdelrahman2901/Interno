@@ -1,0 +1,14 @@
+wwwroot\BannerImages\59A3CD28-0030-4C66-A5B4-97C96553F610.jpg
+wwwroot\BannerImages\7C43FA40-890C-43C0-9717-7B8481317B2F.jpg
+wwwroot\BannerImages\96EC0FEC-4C1C-4565-85FB-23747B54A914.avif
+wwwroot\CategoryImages\0319dc55-68c3-4072-9ebe-1b1f030a2c19.jpg
+wwwroot\CategoryImages\252edaba-8de3-42c9-8ff8-48f835ce3d0b.avif
+wwwroot\CategoryImages\93cae113-a9a8-4ac5-8ac3-193794a402cc.jpg
+wwwroot\CategoryImages\f1bd64a1-f1dc-4bdf-ad5d-ad5ed10d3935.jpg
+wwwroot\CategoryImages\f6ef48d9-ba3d-4878-9db4-b4d4b3dd1b98.jpg
+wwwroot\ProductsImages\Kids\Hoddie\D25059DE-3D10-4970-B267-DA21B3F5B49F.jpg
+wwwroot\ProductsImages\Kids\Shirt\74693F8A-3DE0-4F10-BDF6-46A785AB87D7.webp
+wwwroot\ProductsImages\Kids\Short\52E92E89-9F2C-4753-A054-C3CF12ED824E.webp
+wwwroot\ProductsImages\Men\Suits\D673B4DB-2100-4624-9BEC-66F2FF158463.webp
+wwwroot\ProductsImages\Women\Dress\89E156D6-D00A-4BFE-A2DE-21CC29E5D697.webp
+wwwroot\ProductsImages\Women\Hoddie\4EBC7D2B-094D-462D-8136-A06D12402281.avif

@@ -1,0 +1,348 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.core\\services\\cartitemservices\\cartitemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|solutionrelative:e-commerce-inern-project.core\\services\\cartitemservices\\cartitemservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.core\\services\\authservices\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|solutionrelative:e-commerce-inern-project.core\\services\\authservices\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B3A1D38-676F-6D43-1069-AEA1CCDE039C}|E-Commerce-Inern-Project.API\\E-Commerce-Inern-Project.API.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.api\\controller\\authcontrol\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B3A1D38-676F-6D43-1069-AEA1CCDE039C}|E-Commerce-Inern-Project.API\\E-Commerce-Inern-Project.API.csproj|solutionrelative:e-commerce-inern-project.api\\controller\\authcontrol\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.core\\validation\\mediatorvalidation\\validationbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|solutionrelative:e-commerce-inern-project.core\\validation\\mediatorvalidation\\validationbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.core\\features\\auth\\commands\\registeruser\\registeruserhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|solutionrelative:e-commerce-inern-project.core\\features\\auth\\commands\\registeruser\\registeruserhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B3A1D38-676F-6D43-1069-AEA1CCDE039C}|E-Commerce-Inern-Project.API\\E-Commerce-Inern-Project.API.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B3A1D38-676F-6D43-1069-AEA1CCDE039C}|E-Commerce-Inern-Project.API\\E-Commerce-Inern-Project.API.csproj|solutionrelative:e-commerce-inern-project.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1011AD5-6DDD-62A8-A07F-FEC6FB8AC853}|E-Commerce-Inern-Project.Infrastructure\\E-Commerce-Inern-Project.Infrastructure.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.infrastructure\\dbcontext\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1011AD5-6DDD-62A8-A07F-FEC6FB8AC853}|E-Commerce-Inern-Project.Infrastructure\\E-Commerce-Inern-Project.Infrastructure.csproj|solutionrelative:e-commerce-inern-project.infrastructure\\dbcontext\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.core\\identity\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|solutionrelative:e-commerce-inern-project.core\\identity\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1011AD5-6DDD-62A8-A07F-FEC6FB8AC853}|E-Commerce-Inern-Project.Infrastructure\\E-Commerce-Inern-Project.Infrastructure.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.infrastructure\\repository\\authrepo\\authrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1011AD5-6DDD-62A8-A07F-FEC6FB8AC853}|E-Commerce-Inern-Project.Infrastructure\\E-Commerce-Inern-Project.Infrastructure.csproj|solutionrelative:e-commerce-inern-project.infrastructure\\repository\\authrepo\\authrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B3A1D38-676F-6D43-1069-AEA1CCDE039C}|E-Commerce-Inern-Project.API\\E-Commerce-Inern-Project.API.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{2B3A1D38-676F-6D43-1069-AEA1CCDE039C}|E-Commerce-Inern-Project.API\\E-Commerce-Inern-Project.API.csproj|solutionrelative:e-commerce-inern-project.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B3A1D38-676F-6D43-1069-AEA1CCDE039C}|E-Commerce-Inern-Project.API\\E-Commerce-Inern-Project.API.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.api\\e-commerce-inern-project.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{2B3A1D38-676F-6D43-1069-AEA1CCDE039C}|E-Commerce-Inern-Project.API\\E-Commerce-Inern-Project.API.csproj|solutionrelative:e-commerce-inern-project.api\\e-commerce-inern-project.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.core\\rabbitmq\\rabbitmqpublisher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|solutionrelative:e-commerce-inern-project.core\\rabbitmq\\rabbitmqpublisher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2B3A1D38-676F-6D43-1069-AEA1CCDE039C}|E-Commerce-Inern-Project.API\\E-Commerce-Inern-Project.API.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.api\\controller\\paymentscontrol\\paymentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2B3A1D38-676F-6D43-1069-AEA1CCDE039C}|E-Commerce-Inern-Project.API\\E-Commerce-Inern-Project.API.csproj|solutionrelative:e-commerce-inern-project.api\\controller\\paymentscontrol\\paymentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.core\\services\\productservices\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|solutionrelative:e-commerce-inern-project.core\\services\\productservices\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.core\\services\\wishlistservices\\wishlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|solutionrelative:e-commerce-inern-project.core\\services\\wishlistservices\\wishlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.core\\dependencyinjection\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|solutionrelative:e-commerce-inern-project.core\\dependencyinjection\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-inern-project\\e-commerce-inern-project.core\\mapper\\mapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{55C2584C-A194-558E-9227-C05E0CBC5FE6}|E-Commerce-Inern-Project.Core\\E-Commerce-Inern-Project.Core.csproj|solutionrelative:e-commerce-inern-project.core\\mapper\\mapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 10,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.API\\Program.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.API\\Program.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.API\\Program.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.API\\Program.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACUAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-16T02:17:31.353Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "MapperProfile.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Mapper\\MapperProfile.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.Core\\Mapper\\MapperProfile.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Mapper\\MapperProfile.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.Core\\Mapper\\MapperProfile.cs",
+              "ViewState": "AgIAAHYAAAAAAAAAAAAYwJMAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-03T19:46:59Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.API\\appsettings.json",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.API\\appsettings.json",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.API\\appsettings.json",
+              "RelativeToolTip": "E-Commerce-Inern-Project.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-07T19:53:31.79Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "DependencyInjection.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\DependencyInjection\\DependencyInjection.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.Core\\DependencyInjection\\DependencyInjection.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\DependencyInjection\\DependencyInjection.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.Core\\DependencyInjection\\DependencyInjection.cs",
+              "ViewState": "AgIAAGQAAAAAAAAAAAAQwIIAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-07T21:47:58.722Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CartItemService.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Services\\CartItemServices\\CartItemService.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.Core\\Services\\CartItemServices\\CartItemService.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Services\\CartItemServices\\CartItemService.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.Core\\Services\\CartItemServices\\CartItemService.cs",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAiwJkAAABsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-18T19:45:11.496Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ValidationBehavior.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Validation\\MediatorValidation\\ValidationBehavior.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.Core\\Validation\\MediatorValidation\\ValidationBehavior.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Validation\\MediatorValidation\\ValidationBehavior.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.Core\\Validation\\MediatorValidation\\ValidationBehavior.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAcwCEAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-13T10:00:59.618Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.API\\Controller\\AuthControl\\AuthController.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.API\\Controller\\AuthControl\\AuthController.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.API\\Controller\\AuthControl\\AuthController.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.API\\Controller\\AuthControl\\AuthController.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAcwCQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-13T10:00:59.593Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Services\\AuthServices\\AuthService.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.Core\\Services\\AuthServices\\AuthService.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Services\\AuthServices\\AuthService.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.Core\\Services\\AuthServices\\AuthService.cs",
+              "ViewState": "AgIAALEAAAAAAAAAAAAcwLIAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-13T10:00:59.689Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RegisterUserHandler.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Features\\Auth\\Commands\\RegisterUser\\RegisterUserHandler.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.Core\\Features\\Auth\\Commands\\RegisterUser\\RegisterUserHandler.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Features\\Auth\\Commands\\RegisterUser\\RegisterUserHandler.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.Core\\Features\\Auth\\Commands\\RegisterUser\\RegisterUserHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-13T10:00:59.642Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Identity\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.Core\\Identity\\ApplicationUser.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Identity\\ApplicationUser.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.Core\\Identity\\ApplicationUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA4AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-13T10:54:02.642Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Infrastructure\\DbContext\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.Infrastructure\\DbContext\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Infrastructure\\DbContext\\ApplicationDbContext.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.Infrastructure\\DbContext\\ApplicationDbContext.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAYwEoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-13T10:55:11.121Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "E-Commerce-Inern-Project.API.csproj",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.API\\E-Commerce-Inern-Project.API.csproj",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.API\\E-Commerce-Inern-Project.API.csproj",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.API\\E-Commerce-Inern-Project.API.csproj",
+              "RelativeToolTip": "E-Commerce-Inern-Project.API\\E-Commerce-Inern-Project.API.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-04-13T10:05:52.817Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AuthRepository.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Infrastructure\\Repository\\AuthRepo\\AuthRepository.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.Infrastructure\\Repository\\AuthRepo\\AuthRepository.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Infrastructure\\Repository\\AuthRepo\\AuthRepository.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.Infrastructure\\Repository\\AuthRepo\\AuthRepository.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAwwHQAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-13T10:00:59.65Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "RabbitMQPublisher.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\RabbitMQ\\RabbitMQPublisher.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.Core\\RabbitMQ\\RabbitMQPublisher.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\RabbitMQ\\RabbitMQPublisher.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.Core\\RabbitMQ\\RabbitMQPublisher.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAcwBgAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-13T10:01:11.854Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "PaymentsController.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.API\\Controller\\PaymentsControl\\PaymentsController.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.API\\Controller\\PaymentsControl\\PaymentsController.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.API\\Controller\\PaymentsControl\\PaymentsController.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.API\\Controller\\PaymentsControl\\PaymentsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-13T10:00:26.847Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Services\\ProductServices\\ProductService.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.Core\\Services\\ProductServices\\ProductService.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Services\\ProductServices\\ProductService.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.Core\\Services\\ProductServices\\ProductService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T23:14:56.894Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "WishListService.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Services\\WishListServices\\WishListService.cs",
+              "RelativeDocumentMoniker": "E-Commerce-Inern-Project.Core\\Services\\WishListServices\\WishListService.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Inern-Project\\E-Commerce-Inern-Project.Core\\Services\\WishListServices\\WishListService.cs",
+              "RelativeToolTip": "E-Commerce-Inern-Project.Core\\Services\\WishListServices\\WishListService.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAuwIEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T22:10:18.968Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

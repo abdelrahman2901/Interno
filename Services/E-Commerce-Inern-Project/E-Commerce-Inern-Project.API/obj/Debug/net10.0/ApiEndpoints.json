@@ -1,0 +1,2407 @@
+[
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AddressControl.AddressController",
+    "Method": "CreateAddress",
+    "RelativePath": "api/Address/CreateAddress",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.Address.Commands.CreateAddressCmd.CreateAddressRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.AddressDTO.AddressResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AddressControl.AddressController",
+    "Method": "DeleteAddress",
+    "RelativePath": "api/Address/DeleteAddress/{AddressID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "AddressID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AddressControl.AddressController",
+    "Method": "GetUserAddress",
+    "RelativePath": "api/Address/GetUserAddress/{UserID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.AddressDTO.AddressDetails, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AddressControl.AddressController",
+    "Method": "GetUserAddressByID",
+    "RelativePath": "api/Address/GetUserAddressByID/{AddressID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "AddressID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.AddressDTO.AddressResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AddressControl.AddressController",
+    "Method": "UpdateAddress",
+    "RelativePath": "api/Address/UpdateAddress",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.Address.Commands.UpdateAddressCmd.UpdateAddressRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.AddressDTO.AddressResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AreaControl.AreasController",
+    "Method": "GetAllAreas",
+    "RelativePath": "api/Areas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.AreaDTO.AreaResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AreaControl.AreasController",
+    "Method": "PutArea",
+    "RelativePath": "api/Areas",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "areaRequest",
+        "Type": "E_Commerce_Inern_Project.Core.Features.Area.Commands.UpdateAreaCmd.AreaUpdateRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AreaControl.AreasController",
+    "Method": "PostArea",
+    "RelativePath": "api/Areas",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "areaRequest",
+        "Type": "E_Commerce_Inern_Project.Core.Features.Area.Commands.CreateAreaCmd.AreaRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.AreaDTO.AreaResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AreaControl.AreasController",
+    "Method": "GetAllAreas",
+    "RelativePath": "api/Areas/{AreaID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "AreaID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.AreaDTO.AreaResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AreaControl.AreasController",
+    "Method": "DeleteArea",
+    "RelativePath": "api/Areas/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AuthControl.AuthController",
+    "Method": "BlockUser",
+    "RelativePath": "api/Auth/BlockUser/{UserID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AuthControl.AuthController",
+    "Method": "ChangeUserPassword",
+    "RelativePath": "api/Auth/ChangeUserPassword",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ChangeUserPasswordRequest",
+        "Type": "E_Commerce_Inern_Project.Core.Features.Auth.Commands.ChangeUserPassword.ChangeUserPasswordCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AuthControl.AuthController",
+    "Method": "CheckPassword",
+    "RelativePath": "api/Auth/CheckPassword",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "Password",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AuthControl.AuthController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/Auth/DeleteUser/{UserID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AuthControl.AuthController",
+    "Method": "LoginUser",
+    "RelativePath": "api/Auth/LoginUser",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Login",
+        "Type": "E_Commerce_Inern_Project.Core.Features.Auth.Commands.LoginUser.LoginUserCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.AuthDTO.AuthTokenResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AuthControl.AuthController",
+    "Method": "RefreshToken",
+    "RelativePath": "api/Auth/RefreshToken",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tokenModel",
+        "Type": "E_Commerce_Inern_Project.Core.DTO.TokenDTO.TokenModelDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.AuthDTO.AuthTokenResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AuthControl.AuthController",
+    "Method": "RegisterUser",
+    "RelativePath": "api/Auth/Register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Register",
+        "Type": "E_Commerce_Inern_Project.Core.Features.Auth.Commands.RegisterUser.RegisterUserCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.AuthDTO.AuthTokenResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AuthControl.AuthController",
+    "Method": "SignOutUser",
+    "RelativePath": "api/Auth/SignOutUser/{UserID}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AuthControl.AuthController",
+    "Method": "UpdateUser",
+    "RelativePath": "api/Auth/UpdateUser",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UpdateUserRequest",
+        "Type": "E_Commerce_Inern_Project.Core.DTO.UserDTO.UserUpdateRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.UserDTO.AuthUserDetailsDTO, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.AuthControl.AuthController",
+    "Method": "UserResetPassword",
+    "RelativePath": "api/Auth/UserResetPassword/{UserID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "NewPassword",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.BannerControl.BannerController",
+    "Method": "GetAllBanners",
+    "RelativePath": "api/Banner",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.BannerSlideDTO.BannerSlideResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.BannerControl.BannerController",
+    "Method": "CreateBanner",
+    "RelativePath": "api/Banner",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Title",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Subtitle",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CTA",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "BackgroundColorID",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "AccentColorID",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "Label",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "BannerImage",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.BannerControl.BannerController",
+    "Method": "UpdateBanner",
+    "RelativePath": "api/Banner",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "BannerSlideID",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "Title",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Subtitle",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CTA",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "BackgroundColorID",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "AccentColorID",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "Label",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "BannerImage",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.BannerControl.BannerController",
+    "Method": "GetBannnerByID",
+    "RelativePath": "api/Banner/{BannerID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "BannerID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.BannerSlideDTO.BannerSlideResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.BannerControl.BannerController",
+    "Method": "DeleteBanner",
+    "RelativePath": "api/Banner/DeleteBanner/{BannerID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "BannerID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.BannerControl.BannerController",
+    "Method": "ToggleBannerActiviation",
+    "RelativePath": "api/Banner/ToggleBannerActiviation/{BannerID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "BannerID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CartControl.CartController",
+    "Method": "CreateCart",
+    "RelativePath": "api/Cart/CreateCart",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.Cart.Commands.CreateCartCmd.CreateCartRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.CartDTO.CartResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CartControl.CartController",
+    "Method": "GetUserCartItemsDetails",
+    "RelativePath": "api/Cart/GetUserCartItemsDetails/{UserID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.CartDTO.CartDetailsResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CartItemControl.CartItemController",
+    "Method": "AddCartItem",
+    "RelativePath": "api/CartItem/AddCartItem",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.CartItem.Commands.CreateCartItemCmd.CreateCartItemRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CartItemControl.CartItemController",
+    "Method": "AddCartItemList",
+    "RelativePath": "api/CartItem/AddCartItemList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.Features.CartItem.Commands.CreateCartItemCmd.CreateCartItemRequest, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CartItemControl.CartItemController",
+    "Method": "DeleteCartItem",
+    "RelativePath": "api/CartItem/DeleteCartItem/{CartItemID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CartItemID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CartItemControl.CartItemController",
+    "Method": "UpdateCartItem",
+    "RelativePath": "api/CartItem/UpdateCartItem",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.CartItem.Commands.UpdateCartItemCmd.UpdateCartItemRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.CartItemDTO.CartItemResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CategoryControl.CategoryController",
+    "Method": "CreateNewCategory",
+    "RelativePath": "api/Category",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CategoryName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ParentCategoryID",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "CategoryImage",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.CategoryDTO.CategoryResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CategoryControl.CategoryController",
+    "Method": "DeleteCategory",
+    "RelativePath": "api/Category/DeleteCategory/{CategoryID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CategoryID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CategoryControl.CategoryController",
+    "Method": "UpdateCategory",
+    "RelativePath": "api/Category/UpdateCategory",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CategoryID",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "CategoryName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ParentCategoryID",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "CategoryImage",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.CategoryDTO.CategoryResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CategoryControl.CategoryDetailsController",
+    "Method": "GetCategoryByID",
+    "RelativePath": "api/CategoryDetails/{CategoryID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CategoryID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.CategoryDTO.CategoryResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CategoryControl.CategoryDetailsController",
+    "Method": "GetCategoriesWithSubCat",
+    "RelativePath": "api/CategoryDetails/GetCategoriesWithSubCat",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.CategoryDTO.SubCategoryResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CityControl.CitiesController",
+    "Method": "GetAllCities",
+    "RelativePath": "api/Cities",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.CityDTO.CityResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CityControl.CitiesController",
+    "Method": "PutCity",
+    "RelativePath": "api/Cities",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CityRequest",
+        "Type": "E_Commerce_Inern_Project.Core.Features.City.Commands.UpdateCityCmd.CityUpdateRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CityControl.CitiesController",
+    "Method": "PostCity",
+    "RelativePath": "api/Cities",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CityRequest",
+        "Type": "E_Commerce_Inern_Project.Core.Features.City.Commands.CreateCityCmd.CityRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CityControl.CitiesController",
+    "Method": "GetAllCities",
+    "RelativePath": "api/Cities/{CityID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CityID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.CityDTO.CityResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.CityControl.CitiesController",
+    "Method": "DeleteCity",
+    "RelativePath": "api/Cities/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ColorControl.ColorController",
+    "Method": "GetAllColors",
+    "RelativePath": "api/Color",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.ColorDTO.ColorResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ColorControl.ColorController",
+    "Method": "CraeteColor",
+    "RelativePath": "api/Color",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.Color.Command.CreateColorCmd.ColorRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.ColorDTO.ColorResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ColorControl.ColorController",
+    "Method": "DeleteColor",
+    "RelativePath": "api/Color/{ColorID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ColorID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.OrderCouponControl.OrderCouponController",
+    "Method": "GetCoupons",
+    "RelativePath": "api/OrderCoupon",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.OrderCouponDTO.OrderCouponResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.OrderCouponControl.OrderCouponController",
+    "Method": "CreateCoupon",
+    "RelativePath": "api/OrderCoupon",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.OrderCoupon.Command.CreateCouponCmd.CreateCouponRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.OrderCouponControl.OrderCouponController",
+    "Method": "GetCoupon",
+    "RelativePath": "api/OrderCoupon/{CouponID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CouponID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.OrderCouponDTO.OrderCouponResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.OrderCouponControl.OrderCouponController",
+    "Method": "DeleteCoupon",
+    "RelativePath": "api/OrderCoupon/DeleteCoupon/{CouponID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CouponID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.OrderCouponControl.OrderCouponController",
+    "Method": "GetCouponByCode",
+    "RelativePath": "api/OrderCoupon/GetCouponByCode",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CouponCode",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.OrderCouponDTO.OrderCouponResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.OrderCouponControl.OrderCouponController",
+    "Method": "UpdateCoupon",
+    "RelativePath": "api/OrderCoupon/UpdateCoupon",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.OrderCoupon.Command.UpdateCouponCmd.UpdateCouponRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.OrderCouponControl.OrderCouponController",
+    "Method": "UpdateCouponActivation",
+    "RelativePath": "api/OrderCoupon/UpdateCouponActivation/{CouponID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "CouponID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.OrderControl.OrdersController",
+    "Method": "CreateOrder",
+    "RelativePath": "api/Orders",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.Orders.Command.CreateOrderCmd.CreateOrderRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.OrderDTO.OrderResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.OrderControl.OrdersController",
+    "Method": "GetAllOrders",
+    "RelativePath": "api/Orders/GetAllOrders",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.OrderDTO.OrderDetails, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.OrderControl.OrdersController",
+    "Method": "GetAllUserOrders",
+    "RelativePath": "api/Orders/GetAllUserOrders/{UserID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.OrderDTO.OrderDetails, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.OrderControl.OrdersController",
+    "Method": "GetAllOrders",
+    "RelativePath": "api/Orders/GetOrder/{OrderID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "OrderID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.OrderDTO.OrderDetails, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.OrderControl.OrdersController",
+    "Method": "UpdateOrder",
+    "RelativePath": "api/Orders/UpdateOrder",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.Orders.Command.UpdateOrderCmd.UpdateOrderRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.OrderControl.OrdersController",
+    "Method": "UpdateOrderStatus",
+    "RelativePath": "api/Orders/UpdateOrderStatus",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.Orders.Command.UpdateOrderStatusCmd.UpdateOrderStatusRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.PaymentsControl.PaymentsController",
+    "Method": "AddNewPayment",
+    "RelativePath": "api/Payments/AddNewPayment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "paymentRequest",
+        "Type": "E_Commerce_Inern_Project.Core.Features.Payments.Command.CreateNewPaymentCmd.PaymentRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.PaymentDTO.PaymentResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ProductControl.ProductController",
+    "Method": "CreateNewProduct",
+    "RelativePath": "api/Product",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ProductName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CategoryID",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Price",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "SalePrice",
+        "Type": "System.Nullable\u00601[[System.Decimal, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "SizeID",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "ColorID",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "Stock",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Active",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductImage",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ProductControl.ProductController",
+    "Method": "UpdateProduct",
+    "RelativePath": "api/Product",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ProductID",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "CategoryID",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Price",
+        "Type": "System.Decimal",
+        "IsRequired": false
+      },
+      {
+        "Name": "SizeID",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "ColorID",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "SalePrice",
+        "Type": "System.Nullable\u00601[[System.Decimal, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Stock",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Active",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "ProductImage",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ProductControl.ProductController",
+    "Method": "DeleteProduct",
+    "RelativePath": "api/Product/{ProductID}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ProductID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ProductControl.ProductController",
+    "Method": "UpdateProductRating",
+    "RelativePath": "api/Product/UpdateProductRating",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ProductID",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "Rating",
+        "Type": "System.Double",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ProductControl.ProductDetailsVWController",
+    "Method": "GetAllProductsDetails",
+    "RelativePath": "api/ProductDetailsVW",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.Domain.ViewEntites.ProductDetails_vw, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ProductControl.ProductDetailsVWController",
+    "Method": "GetProductDetailsByID",
+    "RelativePath": "api/ProductDetailsVW/{ProductID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ProductID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.Domain.ViewEntites.ProductDetails_vw, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ProductControl.ProductDetailsVWController",
+    "Method": "FilterProducts",
+    "RelativePath": "api/ProductDetailsVW/FilterProducts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Category",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "SubCategory",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Price",
+        "Type": "System.Nullable\u00601[[System.Decimal, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Size",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Color",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Sort",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.Domain.ViewEntites.ProductDetails_vw, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ProductRateControl.ProductRatesController",
+    "Method": "GetAllProductRates",
+    "RelativePath": "api/ProductRates",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.ProductRatesDTO.ProductRateResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ProductRateControl.ProductRatesController",
+    "Method": "CreateProductRateList",
+    "RelativePath": "api/ProductRates",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.ProductRatesDTO.ProductRateRequest, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ProductRateControl.ProductRatesController",
+    "Method": "GetProductRatesForProduct",
+    "RelativePath": "api/ProductRates/{ProductID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ProductID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.ProductRatesDTO.ProductRateResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ProductRateControl.ProductRatesController",
+    "Method": "DeleteProductRate",
+    "RelativePath": "api/ProductRates/{RateID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "RateID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ProductRateControl.ProductRatesController",
+    "Method": "GetUserRating",
+    "RelativePath": "api/ProductRates/GetUserRating/{UserID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.ProductRatesDTO.ProductRateResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ShippingCostsControl.ShippingCostsController",
+    "Method": "GetShippingCostsDetails",
+    "RelativePath": "api/ShippingCosts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.ShippingCostsDTO.ShippingCostDetails, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ShippingCostsControl.ShippingCostsController",
+    "Method": "CreateShippingCost",
+    "RelativePath": "api/ShippingCosts",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.ShippingCosts.Command.CreateShippingCostCmd.CreateShippingCostRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ShippingCostsControl.ShippingCostsController",
+    "Method": "DeleteShipping",
+    "RelativePath": "api/ShippingCosts/{ShippingCostID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ShippingCostID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ShippingCostsControl.ShippingCostsController",
+    "Method": "GetShippingCostDetailsByAreaID",
+    "RelativePath": "api/ShippingCosts/GetShippingCostDetailsByAreaID/{AreaID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "AreaID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.ShippingCostsDTO.ShippingCostDetails, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.ShippingCostsControl.ShippingCostsController",
+    "Method": "UpdateShippingCost",
+    "RelativePath": "api/ShippingCosts/UpdateShippingCost",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.ShippingCosts.Command.UpdateShippingCostCmd.UpdateShippingCostRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.SizeControl.SizeController",
+    "Method": "GetAllSizes",
+    "RelativePath": "api/Size",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.SizeDTO.SizeResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.SizeControl.SizeController",
+    "Method": "CraeteSize",
+    "RelativePath": "api/Size",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.SIze.Commands.CreateSizeCommand.SizeRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.SizeDTO.SizeResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.SizeControl.SizeController",
+    "Method": "DeleteSize",
+    "RelativePath": "api/Size/{SizeID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "SizeID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.UserControl.UserController",
+    "Method": "GetAllUsers",
+    "RelativePath": "api/User",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.UserDTO.AuthUserDetailsDTO, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.UserControl.UserController",
+    "Method": "GetUserDetailsByEmail",
+    "RelativePath": "api/User/GetUserDetailsByEmail",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.UserDTO.AuthUserDetailsDTO, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.UserControl.UserController",
+    "Method": "GetUserDetailsByID",
+    "RelativePath": "api/User/GetUserDetailsByID/{UserID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.UserDTO.AuthUserDetailsDTO, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.WIshListControl.WishListController",
+    "Method": "ClearUserWishList",
+    "RelativePath": "api/WishList/ClearUserWishList/{UserID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.WIshListControl.WishListController",
+    "Method": "CreateWishList",
+    "RelativePath": "api/WishList/CreateWishList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.WishList.Commands.CreateWishListCmd.CreateWishListRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.WishListDTO.WishListResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.WIshListControl.WishListController",
+    "Method": "DeleteWishList",
+    "RelativePath": "api/WishList/DeleteWishList/{WishListID}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "WishListID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.WIshListControl.WishListController",
+    "Method": "GetAllUserWishList",
+    "RelativePath": "api/WishList/GetAllUserWishList/{UserID}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[E_Commerce_Inern_Project.Core.DTO.WishListDTO.WishListDetailsResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "E_Commerce_Inern_Project.API.Controller.WIshListControl.WishListController",
+    "Method": "UpdateWishList",
+    "RelativePath": "api/WishList/UpdateWishList",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "E_Commerce_Inern_Project.Core.Features.WishList.Commands.UpdateWishListCmd.UpdateWishListRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "E_Commerce_Inern_Project.Core.Common.Result\u00601[[E_Commerce_Inern_Project.Core.DTO.WishListDTO.WishListResponse, E-Commerce-Inern-Project.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]

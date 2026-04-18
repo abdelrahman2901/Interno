@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="../Microservice-Audit.Application/Microservice-Audit.Application.csproj" Id="e300688b-f737-4634-a602-61a8f294495e" />
+  <Project Path="../Microservice-Audit.Domain/Microservice-Audit.Domain.csproj" Id="38543ffe-0a67-4002-aa99-d1037a9544c2" />
+  <Project Path="../Microservice-Notification.Core/Microservice-Audit.Core.csproj" />
+  <Project Path="../Microservice-Notification.Infrastructure/Microservice-Audit.Infrastructure.csproj" />
+  <Project Path="Audit-Microservice.API.csproj" />
+</Solution>

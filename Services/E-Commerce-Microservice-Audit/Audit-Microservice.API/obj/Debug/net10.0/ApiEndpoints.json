@@ -1,0 +1,20 @@
+[
+  {
+    "ContainingType": "Audit_Microservice.API.EndPoints.AuditEndPoint.AuditEndPoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapAuditEndPoint\u003Eb__0_0",
+    "RelativePath": "api/Audit/GetAllAudit",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Microservice_Audit.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[Microservice_Audit.Core.DTO.AuditDTO.AuditResponse, Microservice-Audit.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]

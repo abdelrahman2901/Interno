@@ -1,0 +1,92 @@
+[
+  {
+    "ContainingType": "Microservice_Notification.API.Endpoints.NotificaitonEndPoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapNotificationEndPoint\u003Eb__0_0",
+    "RelativePath": "api/Notificaiton/GetNotification",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Microservice_Notification.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[Microservice_Notification.Core.DTO.NotificationDTO.NotificationResponse, Microservice-Notification.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Microservice_Notification.API.Endpoints.NotificaitonEndPoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapNotificationEndPoint\u003Eb__0_1",
+    "RelativePath": "api/Notificaiton/GetUserNotifications/{UserID}",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Microservice_Notification.Core.Common.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[Microservice_Notification.Core.DTO.NotificationDTO.NotificationResponse, Microservice-Notification.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Microservice_Notification.API.Endpoints.NotificaitonEndPoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapNotificationEndPoint\u003Eb__0_2",
+    "RelativePath": "api/Notificaiton/MarkNotificationAsRead/{NotificationID}",
+    "HttpMethod": "PUT",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "NotificationID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Microservice_Notification.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Microservice_Notification.API.Endpoints.NotificaitonEndPoint\u002B\u003C\u003Ec",
+    "Method": "\u003CMapNotificationEndPoint\u003Eb__0_3",
+    "RelativePath": "api/Notificaiton/MarkNotificationAsReadList/{UserID}",
+    "HttpMethod": "PUT",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserID",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Microservice_Notification.Core.Common.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]

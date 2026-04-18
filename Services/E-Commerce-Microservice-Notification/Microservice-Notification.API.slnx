@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Microservice-Notification.API/Microservice-Notification.API.csproj" />
+  <Project Path="Microservice-Notification.Core/Microservice-Notification.Core.csproj" Id="31e6d28d-8248-4392-bde3-07f8a86f4234" />
+  <Project Path="Microservice-Notification.Infrastructure/Microservice-Notification.Infrastructure.csproj" Id="01ec9a0e-ebb7-43e9-82fc-1597dd8c6e1f" />
+  <Project Path="Microservice-Notifications.Application/Microservice-Notifications.Application.csproj" Id="319c31ee-3ac0-4494-bc21-30d3e8eab8f0" />
+  <Project Path="Microservice-Notifications.Domain/Microservice-Notifications.Domain.csproj" Id="3d76ada4-483e-4737-a8ca-a74f399305be" />
+</Solution>

@@ -1,0 +1,310 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Audit-Microservice.API\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{38543FFE-0A67-4002-AA99-D1037A9544C2}|..\\Microservice-Audit.Domain\\Microservice-Audit.Domain.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\microservice-audit.domain\\entity\\audit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E300688B-F737-4634-A602-61A8F294495E}|..\\Microservice-Audit.Application\\Microservice-Audit.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\microservice-audit.application\\features\\audit\\command\\createauditcmd\\createauditrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E300688B-F737-4634-A602-61A8F294495E}|..\\Microservice-Audit.Application\\Microservice-Audit.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\microservice-audit.application\\rabbitmq\\rabbitmqcreateconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B788F432-8C1C-80DC-6335-D27022376E0F}|Audit-Microservice.API.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\audit-microservice.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B788F432-8C1C-80DC-6335-D27022376E0F}|Audit-Microservice.API.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E300688B-F737-4634-A602-61A8F294495E}|..\\Microservice-Audit.Application\\Microservice-Audit.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\microservice-audit.application\\validation\\auditvalidation\\createauditrequestvalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E300688B-F737-4634-A602-61A8F294495E}|..\\Microservice-Audit.Application\\Microservice-Audit.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\microservice-audit.application\\services\\auditservices\\auditservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E300688B-F737-4634-A602-61A8F294495E}|..\\Microservice-Audit.Application\\Microservice-Audit.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\microservice-audit.application\\rabbitmq\\irabbitmqcreateconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E300688B-F737-4634-A602-61A8F294495E}|..\\Microservice-Audit.Application\\Microservice-Audit.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\microservice-audit.application\\mapper\\mapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AB5AEDFF-A68F-956B-B8B0-CBC92CA7ECC7}|..\\Microservice-Notification.Core\\Microservice-Audit.Core.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\microservice-notification.core\\common\\result.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38543FFE-0A67-4002-AA99-D1037A9544C2}|..\\Microservice-Audit.Domain\\Microservice-Audit.Domain.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\microservice-audit.domain\\repositorycontracts\\iauditrepo\\iauditrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38543FFE-0A67-4002-AA99-D1037A9544C2}|..\\Microservice-Audit.Domain\\Microservice-Audit.Domain.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\microservice-audit.domain\\enum\\actiontypeenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{345C3AB2-B95C-8440-51B0-8649522051F9}|..\\Microservice-Notification.Infrastructure\\Microservice-Audit.Infrastructure.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\microservice-notification.infrastructure\\applicationcontext\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B788F432-8C1C-80DC-6335-D27022376E0F}|Audit-Microservice.API.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\audit-microservice.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B788F432-8C1C-80DC-6335-D27022376E0F}|Audit-Microservice.API.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{345C3AB2-B95C-8440-51B0-8649522051F9}|..\\Microservice-Notification.Infrastructure\\Microservice-Audit.Infrastructure.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\microservice-notification.infrastructure\\migrations\\20260326080718_newcolumnaudit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B788F432-8C1C-80DC-6335-D27022376E0F}|Audit-Microservice.API.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\audit-microservice.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B788F432-8C1C-80DC-6335-D27022376E0F}|Audit-Microservice.API.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{345C3AB2-B95C-8440-51B0-8649522051F9}|..\\Microservice-Notification.Infrastructure\\Microservice-Audit.Infrastructure.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-audit\\microservice-notification.infrastructure\\migrations\\20260325135111_init.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Audit-Microservice.API\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Audit-Microservice.API\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAAMAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-25T13:34:37.509Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Audit.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Domain\\Entity\\Audit.cs",
+              "RelativeDocumentMoniker": "..\\Microservice-Audit.Domain\\Entity\\Audit.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Domain\\Entity\\Audit.cs",
+              "RelativeToolTip": "..\\Microservice-Audit.Domain\\Entity\\Audit.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T17:49:28.072Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CreateAuditRequest.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Application\\Features\\Audit\\Command\\CreateAuditCmd\\CreateAuditRequest.cs",
+              "RelativeDocumentMoniker": "..\\Microservice-Audit.Application\\Features\\Audit\\Command\\CreateAuditCmd\\CreateAuditRequest.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Application\\Features\\Audit\\Command\\CreateAuditCmd\\CreateAuditRequest.cs",
+              "RelativeToolTip": "..\\Microservice-Audit.Application\\Features\\Audit\\Command\\CreateAuditCmd\\CreateAuditRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T17:43:34.634Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CreateAuditRequestValidation.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Application\\Validation\\AuditValidation\\CreateAuditRequestValidation.cs",
+              "RelativeDocumentMoniker": "..\\Microservice-Audit.Application\\Validation\\AuditValidation\\CreateAuditRequestValidation.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Application\\Validation\\AuditValidation\\CreateAuditRequestValidation.cs",
+              "RelativeToolTip": "..\\Microservice-Audit.Application\\Validation\\AuditValidation\\CreateAuditRequestValidation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T17:45:10.745Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RabbitMQCreateConsumer.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Application\\RabbitMQ\\RabbitMQCreateConsumer.cs",
+              "RelativeDocumentMoniker": "..\\Microservice-Audit.Application\\RabbitMQ\\RabbitMQCreateConsumer.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Application\\RabbitMQ\\RabbitMQCreateConsumer.cs",
+              "RelativeToolTip": "..\\Microservice-Audit.Application\\RabbitMQ\\RabbitMQCreateConsumer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T17:49:29.939Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AuditService.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Application\\Services\\AuditServices\\AuditService.cs",
+              "RelativeDocumentMoniker": "..\\Microservice-Audit.Application\\Services\\AuditServices\\AuditService.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Application\\Services\\AuditServices\\AuditService.cs",
+              "RelativeToolTip": "..\\Microservice-Audit.Application\\Services\\AuditServices\\AuditService.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAoAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T17:44:50.373Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IRabbitMQCreateConsumer.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Application\\RabbitMQ\\IRabbitMQCreateConsumer.cs",
+              "RelativeDocumentMoniker": "..\\Microservice-Audit.Application\\RabbitMQ\\IRabbitMQCreateConsumer.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Application\\RabbitMQ\\IRabbitMQCreateConsumer.cs",
+              "RelativeToolTip": "..\\Microservice-Audit.Application\\RabbitMQ\\IRabbitMQCreateConsumer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T17:44:17.497Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MapperProfile.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Application\\Mapper\\MapperProfile.cs",
+              "RelativeDocumentMoniker": "..\\Microservice-Audit.Application\\Mapper\\MapperProfile.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Application\\Mapper\\MapperProfile.cs",
+              "RelativeToolTip": "..\\Microservice-Audit.Application\\Mapper\\MapperProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T17:43:59.958Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IAuditRepository.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Domain\\RepositoryContracts\\IAuditRepo\\IAuditRepository.cs",
+              "RelativeDocumentMoniker": "..\\Microservice-Audit.Domain\\RepositoryContracts\\IAuditRepo\\IAuditRepository.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Domain\\RepositoryContracts\\IAuditRepo\\IAuditRepository.cs",
+              "RelativeToolTip": "..\\Microservice-Audit.Domain\\RepositoryContracts\\IAuditRepo\\IAuditRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T17:42:26.114Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ActionTypeEnum.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Domain\\Enum\\ActionTypeEnum.cs",
+              "RelativeDocumentMoniker": "..\\Microservice-Audit.Domain\\Enum\\ActionTypeEnum.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Audit.Domain\\Enum\\ActionTypeEnum.cs",
+              "RelativeToolTip": "..\\Microservice-Audit.Domain\\Enum\\ActionTypeEnum.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-04T17:42:20.184Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Notification.Infrastructure\\ApplicationContext\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "..\\Microservice-Notification.Infrastructure\\ApplicationContext\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Notification.Infrastructure\\ApplicationContext\\ApplicationDbContext.cs",
+              "RelativeToolTip": "..\\Microservice-Notification.Infrastructure\\ApplicationContext\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-25T13:14:53.687Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Result.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Notification.Core\\Common\\Result.cs",
+              "RelativeDocumentMoniker": "..\\Microservice-Notification.Core\\Common\\Result.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Notification.Core\\Common\\Result.cs",
+              "RelativeToolTip": "..\\Microservice-Notification.Core\\Common\\Result.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-25T13:19:43.524Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Audit-Microservice.API\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Audit-Microservice.API\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-25T13:36:47.371Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "20260326080718_NewColumnAudit.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Notification.Infrastructure\\Migrations\\20260326080718_NewColumnAudit.cs",
+              "RelativeDocumentMoniker": "..\\Microservice-Notification.Infrastructure\\Migrations\\20260326080718_NewColumnAudit.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Notification.Infrastructure\\Migrations\\20260326080718_NewColumnAudit.cs",
+              "RelativeToolTip": "..\\Microservice-Notification.Infrastructure\\Migrations\\20260326080718_NewColumnAudit.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:07:18.865Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Audit-Microservice.API\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Audit-Microservice.API\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-25T14:01:32.026Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "20260325135111_init.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Notification.Infrastructure\\Migrations\\20260325135111_init.cs",
+              "RelativeDocumentMoniker": "..\\Microservice-Notification.Infrastructure\\Migrations\\20260325135111_init.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Audit\\Microservice-Notification.Infrastructure\\Migrations\\20260325135111_init.cs",
+              "RelativeToolTip": "..\\Microservice-Notification.Infrastructure\\Migrations\\20260325135111_init.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-25T13:51:11.543Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

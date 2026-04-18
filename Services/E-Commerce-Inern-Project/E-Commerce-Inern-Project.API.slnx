@@ -1,0 +1,9 @@
+<Solution>
+  <Project Path="D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project/E-Commerce-Inern-Project.API/E-Commerce-Inern-Project.API.csproj" />
+  <Project Path="D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project/E-Commerce-Inern-Project.Core/E-Commerce-Inern-Project.Core.csproj" />
+  <Project Path="D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project/E-Commerce-Inern-Project.Infrastructure/E-Commerce-Inern-Project.Infrastructure.csproj" />
+  <Project Path="D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project/E-Commerce-Intern-Project.Test/E-Commerce-Intern-Project.Test.csproj" />
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
+</Solution>

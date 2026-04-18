@@ -1,0 +1,54 @@
+name: dockercompose9857008498764911845
+services:
+  api:
+    build:
+      context: D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Inern-Project
+      dockerfile: E-Commerce-Inern-Project.API/Dockerfile
+    depends_on:
+      rabbitmq:
+        condition: service_started
+        required: true
+    environment:
+      RabbitMQ_HostName: rabbitmq
+      RabbitMQ_Password: password
+      RabbitMQ_Port: "5672"
+      RabbitMQ_UserName: user
+    networks:
+      ecommerce-network: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "5000"
+        protocol: tcp
+  rabbitmq:
+    environment:
+      RABBITMQ_DEFAULT_PASS: password
+      RABBITMQ_DEFAULT_USER: user
+    image: rabbitmq:3.13-management
+    networks:
+      ecommerce-network: null
+    ports:
+      - mode: ingress
+        target: 5672
+        published: "5672"
+        protocol: tcp
+      - mode: ingress
+        target: 15672
+        published: "15672"
+        protocol: tcp
+  redis:
+    image: redis:latest
+    networks:
+      ecommerce-network: null
+    ports:
+      - mode: ingress
+        target: 6379
+        published: "6379"
+        protocol: tcp
+    volumes:
+      - type: volume
+        target: D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\Redis-Cache
+        volume: {}
+networks:
+  ecommerce-network:
+    name: dockercompose9857008498764911845_ecommerce-network

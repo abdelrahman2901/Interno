@@ -1,0 +1,15 @@
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\obj\Debug\net10.0\Microservice-Audit.Core.csproj.AssemblyReference.cache
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\obj\Debug\net10.0\Microservice-Audit.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\obj\Debug\net10.0\Microservice-Audit.Core.AssemblyInfoInputs.cache
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\obj\Debug\net10.0\Microservice-Audit.Core.AssemblyInfo.cs
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\obj\Debug\net10.0\Microservice-Audit.Core.csproj.CoreCompileInputs.cache
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\bin\Debug\net10.0\Microservice-Audit.Core.deps.json
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\bin\Debug\net10.0\Microservice-Audit.Core.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\bin\Debug\net10.0\Microservice-Audit.Core.pdb
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\obj\Debug\net10.0\Microservice-Audit.Core.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\obj\Debug\net10.0\refint\Microservice-Audit.Core.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\obj\Debug\net10.0\Microservice-Audit.Core.pdb
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\obj\Debug\net10.0\ref\Microservice-Audit.Core.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\bin\Debug\net10.0\Microservice-Audit.Domain.dll
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\bin\Debug\net10.0\Microservice-Audit.Domain.pdb
+D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\E-Commerce-Microservice-Audit\Microservice-Notification.Core\obj\Debug\net10.0\Microser.D2B62B62.Up2Date

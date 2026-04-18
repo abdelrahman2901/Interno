@@ -1,0 +1,466 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{939C5273-1756-C9CF-7069-FF5E658A3597}|Microservice-Notification.API\\Microservice-Notification.API.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notification.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{939C5273-1756-C9CF-7069-FF5E658A3597}|Microservice-Notification.API\\Microservice-Notification.API.csproj|solutionrelative:microservice-notification.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{939C5273-1756-C9CF-7069-FF5E658A3597}|Microservice-Notification.API\\Microservice-Notification.API.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notification.api\\endpoints\\notificaitonendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{939C5273-1756-C9CF-7069-FF5E658A3597}|Microservice-Notification.API\\Microservice-Notification.API.csproj|solutionrelative:microservice-notification.api\\endpoints\\notificaitonendpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\rabbitmq\\rabbitmqcreateconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\rabbitmq\\rabbitmqcreateconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\dependencyinjection\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\dependencyinjection\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{939C5273-1756-C9CF-7069-FF5E658A3597}|Microservice-Notification.API\\Microservice-Notification.API.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notification.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{939C5273-1756-C9CF-7069-FF5E658A3597}|Microservice-Notification.API\\Microservice-Notification.API.csproj|solutionrelative:microservice-notification.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\mapper\\mapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\mapper\\mapperprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D76ADA4-483E-4737-A8CA-A74F399305BE}|Microservice-Notifications.Domain\\Microservice-Notifications.Domain.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.domain\\repositorycontracts\\inotificationsrepo\\inotificationsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D76ADA4-483E-4737-A8CA-A74F399305BE}|Microservice-Notifications.Domain\\Microservice-Notifications.Domain.csproj|solutionrelative:microservice-notifications.domain\\repositorycontracts\\inotificationsrepo\\inotificationsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01EC9A0E-EBB7-43E9-82FC-1597DD8C6E1F}|Microservice-Notification.Infrastructure\\Microservice-Notification.Infrastructure.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notification.infrastructure\\repository\\notificationsrepo\\notificationsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01EC9A0E-EBB7-43E9-82FC-1597DD8C6E1F}|Microservice-Notification.Infrastructure\\Microservice-Notification.Infrastructure.csproj|solutionrelative:microservice-notification.infrastructure\\repository\\notificationsrepo\\notificationsrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01EC9A0E-EBB7-43E9-82FC-1597DD8C6E1F}|Microservice-Notification.Infrastructure\\Microservice-Notification.Infrastructure.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notification.infrastructure\\applicationcontext\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01EC9A0E-EBB7-43E9-82FC-1597DD8C6E1F}|Microservice-Notification.Infrastructure\\Microservice-Notification.Infrastructure.csproj|solutionrelative:microservice-notification.infrastructure\\applicationcontext\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D76ADA4-483E-4737-A8CA-A74F399305BE}|Microservice-Notifications.Domain\\Microservice-Notifications.Domain.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.domain\\entity\\notifications.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D76ADA4-483E-4737-A8CA-A74F399305BE}|Microservice-Notifications.Domain\\Microservice-Notifications.Domain.csproj|solutionrelative:microservice-notifications.domain\\entity\\notifications.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\backgroundservices\\rabbitmqcreatenotifeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\backgroundservices\\rabbitmqcreatenotifeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\validation\\notificationvalidation\\createnotificationrequestvalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\validation\\notificationvalidation\\createnotificationrequestvalidation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\validation\\validationpipeline\\validationbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\validation\\validationpipeline\\validationbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\servicescontracts\\inotificationsservices\\inotificationsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\servicescontracts\\inotificationsservices\\inotificationsservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\features\\notification\\query\\getallusernotificationsq\\getallusernotificationsquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\features\\notification\\query\\getallusernotificationsq\\getallusernotificationsquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\features\\notification\\query\\getallusernotificationsq\\getallusernotificationshandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\features\\notification\\query\\getallusernotificationsq\\getallusernotificationshandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\features\\notification\\query\\getallnotificationsq\\getallnotificationsquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\features\\notification\\query\\getallnotificationsq\\getallnotificationsquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\features\\notification\\query\\getallnotificationsq\\getallnotificationshandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\features\\notification\\query\\getallnotificationsq\\getallnotificationshandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\features\\notification\\command\\marknotificationasreadlistcmd\\marknotificationasreadlistrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\features\\notification\\command\\marknotificationasreadlistcmd\\marknotificationasreadlistrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\features\\notification\\command\\marknotificationasreadlistcmd\\marknotificationasreadlisthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\features\\notification\\command\\marknotificationasreadlistcmd\\marknotificationasreadlisthandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\features\\notification\\command\\marknotificationasreadcmd\\marknotificationasreadrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\features\\notification\\command\\marknotificationasreadcmd\\marknotificationasreadrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\features\\notification\\command\\marknotificationasreadcmd\\marknotificationasreadhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\features\\notification\\command\\marknotificationasreadcmd\\marknotificationasreadhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\features\\notification\\command\\createnotifcationcmd\\createnotificationhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\features\\notification\\command\\createnotifcationcmd\\createnotificationhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notifications.application\\microservice-notifications.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{319C31EE-3AC0-4494-BC21-30D3E8EAB8F0}|Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj|solutionrelative:microservice-notifications.application\\microservice-notifications.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{939C5273-1756-C9CF-7069-FF5E658A3597}|Microservice-Notification.API\\Microservice-Notification.API.csproj|d:\\new_laptop_boda\\fullstack_projects\\e-commerce-intern-project\\e-commerce-microservice-notification\\microservice-notification.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{939C5273-1756-C9CF-7069-FF5E658A3597}|Microservice-Notification.API\\Microservice-Notification.API.csproj|solutionrelative:microservice-notification.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notification.API\\Program.cs",
+              "RelativeDocumentMoniker": "Microservice-Notification.API\\Program.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notification.API\\Program.cs",
+              "RelativeToolTip": "Microservice-Notification.API\\Program.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAC8AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-24T11:42:36.286Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NotificaitonEndPoint.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notification.API\\Endpoints\\NotificaitonEndPoint.cs",
+              "RelativeDocumentMoniker": "Microservice-Notification.API\\Endpoints\\NotificaitonEndPoint.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notification.API\\Endpoints\\NotificaitonEndPoint.cs",
+              "RelativeToolTip": "Microservice-Notification.API\\Endpoints\\NotificaitonEndPoint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-24T17:02:59.111Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "INotificationsRepository.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Domain\\RepositoryContracts\\INotificationsRepo\\INotificationsRepository.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Domain\\RepositoryContracts\\INotificationsRepo\\INotificationsRepository.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Domain\\RepositoryContracts\\INotificationsRepo\\INotificationsRepository.cs",
+              "RelativeToolTip": "Microservice-Notifications.Domain\\RepositoryContracts\\INotificationsRepo\\INotificationsRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-03T13:04:20.763Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RabbitMQCreateConsumer.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\RabbitMQ\\RabbitMQCreateConsumer.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\RabbitMQ\\RabbitMQCreateConsumer.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\RabbitMQ\\RabbitMQCreateConsumer.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\RabbitMQ\\RabbitMQCreateConsumer.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAYwEMAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-03T13:01:40.241Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "NotificationsRepository.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notification.Infrastructure\\Repository\\NotificationsRepo\\NotificationsRepository.cs",
+              "RelativeDocumentMoniker": "Microservice-Notification.Infrastructure\\Repository\\NotificationsRepo\\NotificationsRepository.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notification.Infrastructure\\Repository\\NotificationsRepo\\NotificationsRepository.cs",
+              "RelativeToolTip": "Microservice-Notification.Infrastructure\\Repository\\NotificationsRepo\\NotificationsRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T20:58:13.505Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DependencyInjection.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\DependencyInjection\\DependencyInjection.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\DependencyInjection\\DependencyInjection.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\DependencyInjection\\DependencyInjection.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\DependencyInjection\\DependencyInjection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwBoAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-03T12:59:29.621Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notification.API\\appsettings.json",
+              "RelativeDocumentMoniker": "Microservice-Notification.API\\appsettings.json",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notification.API\\appsettings.json",
+              "RelativeToolTip": "Microservice-Notification.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-24T11:47:06.316Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MapperProfile.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Mapper\\MapperProfile.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\Mapper\\MapperProfile.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Mapper\\MapperProfile.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\Mapper\\MapperProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-03T13:01:17.149Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notification.Infrastructure\\ApplicationContext\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Microservice-Notification.Infrastructure\\ApplicationContext\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notification.Infrastructure\\ApplicationContext\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Microservice-Notification.Infrastructure\\ApplicationContext\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-24T11:36:02.741Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Notifications.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Domain\\Entity\\Notifications.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Domain\\Entity\\Notifications.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Domain\\Entity\\Notifications.cs",
+              "RelativeToolTip": "Microservice-Notifications.Domain\\Entity\\Notifications.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-03T13:04:12.761Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CreateNotificationRequestValidation.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Validation\\NotificationValidation\\CreateNotificationRequestValidation.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\Validation\\NotificationValidation\\CreateNotificationRequestValidation.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Validation\\NotificationValidation\\CreateNotificationRequestValidation.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\Validation\\NotificationValidation\\CreateNotificationRequestValidation.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-03T12:58:26.662Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ValidationBehavior.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Validation\\ValidationPipeLine\\ValidationBehavior.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\Validation\\ValidationPipeLine\\ValidationBehavior.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Validation\\ValidationPipeLine\\ValidationBehavior.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\Validation\\ValidationPipeLine\\ValidationBehavior.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-03T13:03:29.614Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "INotificationsService.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\ServicesContracts\\INotificationsServices\\INotificationsService.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\ServicesContracts\\INotificationsServices\\INotificationsService.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\ServicesContracts\\INotificationsServices\\INotificationsService.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\ServicesContracts\\INotificationsServices\\INotificationsService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-03T12:58:00.477Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "RabbitMqCreateNotifeService.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\BackGroundServices\\RabbitMqCreateNotifeService.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\BackGroundServices\\RabbitMqCreateNotifeService.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\BackGroundServices\\RabbitMqCreateNotifeService.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\BackGroundServices\\RabbitMqCreateNotifeService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-03T13:00:28.593Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "GetAllUserNotificationsQuery.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllUserNotificationsQ\\GetAllUserNotificationsQuery.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllUserNotificationsQ\\GetAllUserNotificationsQuery.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllUserNotificationsQ\\GetAllUserNotificationsQuery.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllUserNotificationsQ\\GetAllUserNotificationsQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T20:43:54.778Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "GetAllUserNotificationsHandler.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllUserNotificationsQ\\GetAllUserNotificationsHandler.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllUserNotificationsQ\\GetAllUserNotificationsHandler.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllUserNotificationsQ\\GetAllUserNotificationsHandler.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllUserNotificationsQ\\GetAllUserNotificationsHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T20:43:49.076Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "GetAllNotificationsQuery.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllNotificationsQ\\GetAllNotificationsQuery.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllNotificationsQ\\GetAllNotificationsQuery.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllNotificationsQ\\GetAllNotificationsQuery.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllNotificationsQ\\GetAllNotificationsQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T20:43:45.659Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "GetAllNotificationsHandler.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllNotificationsQ\\GetAllNotificationsHandler.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllNotificationsQ\\GetAllNotificationsHandler.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllNotificationsQ\\GetAllNotificationsHandler.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\Features\\Notification\\Query\\GetAllNotificationsQ\\GetAllNotificationsHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T20:43:42.334Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "MarkNotificationAsReadListRequest.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadListCmd\\MarkNotificationAsReadListRequest.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadListCmd\\MarkNotificationAsReadListRequest.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadListCmd\\MarkNotificationAsReadListRequest.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadListCmd\\MarkNotificationAsReadListRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T20:43:39.203Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "MarkNotificationAsReadListHandler.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadListCmd\\MarkNotificationAsReadListHandler.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadListCmd\\MarkNotificationAsReadListHandler.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadListCmd\\MarkNotificationAsReadListHandler.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadListCmd\\MarkNotificationAsReadListHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T20:43:32.159Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "MarkNotificationAsReadRequest.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadCmd\\MarkNotificationAsReadRequest.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadCmd\\MarkNotificationAsReadRequest.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadCmd\\MarkNotificationAsReadRequest.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadCmd\\MarkNotificationAsReadRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T20:43:27.353Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "MarkNotificationAsReadHandler.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadCmd\\MarkNotificationAsReadHandler.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadCmd\\MarkNotificationAsReadHandler.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadCmd\\MarkNotificationAsReadHandler.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\Features\\Notification\\Command\\MarkNotificationAsReadCmd\\MarkNotificationAsReadHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T20:43:14.1Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "CreateNotificationHandler.cs",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Command\\CreateNotifcationCmd\\CreateNotificationHandler.cs",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\Features\\Notification\\Command\\CreateNotifcationCmd\\CreateNotificationHandler.cs",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Features\\Notification\\Command\\CreateNotifcationCmd\\CreateNotificationHandler.cs",
+              "RelativeToolTip": "Microservice-Notifications.Application\\Features\\Notification\\Command\\CreateNotifcationCmd\\CreateNotificationHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T20:41:38.662Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Microservice-Notifications.Application.csproj",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj",
+              "RelativeDocumentMoniker": "Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj",
+              "RelativeToolTip": "Microservice-Notifications.Application\\Microservice-Notifications.Application.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-04-01T20:45:23.499Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notification.API\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Microservice-Notification.API\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\NEw_laptop_Boda\\FullStack_Projects\\E-Commerce-Intern-Project\\E-Commerce-Microservice-Notification\\Microservice-Notification.API\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Microservice-Notification.API\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-24T12:02:41.342Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
