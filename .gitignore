@@ -1,0 +1,73 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build outputs
+bin/
+obj/
+dist/
+build/
+out/
+*.dll
+*.pdb
+*.exe
+!**/docker-compose*.yml
+
+# Visual Studio / Rider / VS Code
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+*.cache
+*.vsidx
+*.dtbcache.*
+*.suo
+*.user
+*.ncb
+*.sdf
+*.opensdf
+*.dbmdl
+*.jfm
+
+# Logs and env
+*.log
+.env
+.env.*
+!.env.example
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Redis / local data
+*.rdb
+dump.rdb
+
+# Database backups
+*.bak
+*.mdf
+*.ldf
+
+# Test / coverage
+coverage/
+TestResults/
+*.trx
+*.coverage
+
+# Publish
+publish/
+*.nupkg
+*.snupkg
+project.lock.json
+artifacts/

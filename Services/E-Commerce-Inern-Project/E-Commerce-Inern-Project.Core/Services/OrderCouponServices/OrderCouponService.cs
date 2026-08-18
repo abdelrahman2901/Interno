@@ -19,14 +19,15 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderCouponServices
         private readonly IOrderCouponRepository _orderCouponRepository;
         private readonly IMapper _mapper;
         private readonly IRabbitMQPublisher _Publisher;
+        private readonly IUserRepository _UserRepo;
         private readonly string _AuditRoutingKey = "Interno.Audit";
-        private readonly Guid AdminID= Guid.Empty;
+   
         public OrderCouponService(IOrderCouponRepository orderCouponRepository, IUserRepository UserRepo, IRabbitMQPublisher Publisher, IMapper mapper)
         {
             _orderCouponRepository = orderCouponRepository;
             _mapper = mapper;
             _Publisher = Publisher;
-            this.AdminID = UserRepo.GetApplicationUserByEmail("Admin@gmail.com").Result.Id;
+     _UserRepo = UserRepo;
         }
 
         public async Task<Result<bool>> CreateNewCoupon(CreateCouponRequest NewCouponRequest)
@@ -43,7 +44,7 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderCouponServices
             }
 
             string JsonNewValues=JsonSerializer.Serialize<OrderCoupons>(newCoupon);
-            AuditRequest AuditRequest = new(this.AdminID, ActionTypeEnum.Create, nameof(OrderCoupons), null, JsonNewValues);
+            AuditRequest AuditRequest = new(await GetAdminID(), ActionTypeEnum.Create, nameof(OrderCoupons), null, JsonNewValues);
             await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
 
             return Result<bool>.Success(newCoupon!=null);
@@ -64,7 +65,7 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderCouponServices
             }
 
             string JsonNewValues=JsonSerializer.Serialize<OrderCoupons>(Coupon);
-            AuditRequest AuditRequest = new(this.AdminID, ActionTypeEnum.Delete, nameof(OrderCoupons), JsonOldValues, JsonNewValues);
+            AuditRequest AuditRequest = new(await GetAdminID(), ActionTypeEnum.Delete, nameof(OrderCoupons), JsonOldValues, JsonNewValues);
             await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
 
             return Result<bool>.Success(Coupon.IsDeleted) ;
@@ -85,7 +86,7 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderCouponServices
             }
 
             string JsonNewValues=JsonSerializer.Serialize<OrderCoupons>(Coupon);
-            AuditRequest AuditRequest = new(this.AdminID, ActionTypeEnum.Update, nameof(OrderCoupons),JsonOldValues,JsonNewValues);
+            AuditRequest AuditRequest = new(await GetAdminID(), ActionTypeEnum.Update, nameof(OrderCoupons),JsonOldValues,JsonNewValues);
             await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
 
             return Result<bool>.Success(Coupon.IsDeleted) ;
@@ -118,7 +119,7 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderCouponServices
             }
 
             string JsonNewValues=JsonSerializer.Serialize<OrderCoupons>(Coupon);
-            AuditRequest AuditRequest = new(this.AdminID, ActionTypeEnum.Update, nameof(OrderCoupons),JsonOldValues,JsonNewValues);
+            AuditRequest AuditRequest = new(await GetAdminID(), ActionTypeEnum.Update, nameof(OrderCoupons),JsonOldValues,JsonNewValues);
             await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
 
             return Result<bool>.Success(Coupon!=null);
@@ -141,6 +142,12 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderCouponServices
                 return Result<OrderCouponResponse>.NotFound("Coupon Wasnt Found.");
             }
             return  Result<OrderCouponResponse>.Success(_mapper.Map<OrderCouponResponse>(Coupon));
+        }
+
+        private async Task<Guid> GetAdminID ()
+        {
+            var admin =await  _UserRepo.GetApplicationUserByEmail("Admin@gmail.com");
+            return admin.Id;
         }
     }
 }

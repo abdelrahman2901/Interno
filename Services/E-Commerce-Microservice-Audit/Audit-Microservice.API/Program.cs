@@ -30,13 +30,6 @@ builder.Services.AddCors(options =>
 builder.Services.AddSwaggerGen();
 
 
-//builder.Services.AddAuthentication("Bearer")
-//    .AddJwtBearer(options =>
-//    {
-//        options.Authority = "http://localhost:5099";
-//        options.Audience = "https://localhost:7054";
-//    });
-
 var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();

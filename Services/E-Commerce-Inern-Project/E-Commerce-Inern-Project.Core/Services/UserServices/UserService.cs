@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using E_Commerce_Inern_Project.Core.DTO.UserDTO;
 using E_Commerce_Inern_Project.Core.Common;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IUserRepo;
+using E_Commerce_Inern_Project.Core.DTO.UserDTO;
 using E_Commerce_Inern_Project.Core.ServicesContracts.IUserServices;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IAuthRepo;
 
 namespace E_Commerce_Inern_Project.Core.Services.UserServices
 {
@@ -11,10 +10,10 @@ namespace E_Commerce_Inern_Project.Core.Services.UserServices
     {
         private readonly IUserRepository _UserRepo;
         private readonly IMapper _mapper;
-        public UserService(IUserRepository UserRepo,IMapper mapper)
+        public UserService(IUserRepository UserRepo, IMapper mapper)
         {
             _UserRepo = UserRepo;
-           
+
             _mapper = mapper;
         }
 
@@ -25,29 +24,9 @@ namespace E_Commerce_Inern_Project.Core.Services.UserServices
             {
                 return Result<IEnumerable<AuthUserDetailsDTO>>.NotFound("No users found.");
             }
-            return Result<IEnumerable<AuthUserDetailsDTO>>.Success(users);
+            return Result<IEnumerable<AuthUserDetailsDTO>>.Success(users.Select(u => _mapper.Map<AuthUserDetailsDTO>(u)));
         }
-         
-        //public async Task<Result<ApplicationUser>> GetApplicationUserByEmail(string email)
-        //{
-        //    var user = await _UserRepo.GetApplicationUserByEmail(email);
-        //    if (user ==null)
-        //    {
-        //        return Result<ApplicationUser>.NotFound("User Doenst Exists");
-        //    }
-        //    return Result<ApplicationUser>.Success(user);
 
-        //}
-
-        //public async Task<Result<ApplicationUser>> GetApplicationUserByID(Guid userid)
-        //{
-        //    var user = await _UserRepo.GetApplicationUserByID(userid);
-        //    if (user == null)
-        //    {
-        //        return Result<ApplicationUser>.NotFound("User Doenst Exists");
-        //    }
-        //    return Result<ApplicationUser>.Success(user);
-        //}
         public async Task<Result<AuthUserDetailsDTO>> GetUserDetailsByEmail(string email)
         {
             var user = await _UserRepo.GetApplicationUserByEmail(email);

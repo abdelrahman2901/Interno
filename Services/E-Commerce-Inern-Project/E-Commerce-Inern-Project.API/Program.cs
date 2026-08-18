@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
+using Polly;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -30,13 +32,30 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
     {
         var allowedOrigins = builder.Configuration.GetSection("AllowOrigins").Get<string[]>();
-        foreach(var origin in allowedOrigins)
+
+        foreach (var orign in allowedOrigins)
         {
-            Console.WriteLine(origin);
+            Console.WriteLine(orign);
         }
         policy.WithOrigins(allowedOrigins)
-        .AllowAnyHeader()
-        .AllowAnyMethod();
+          .WithHeaders("Authorization", "origin", "accept", "content-type", "Accept-Language")
+          .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+          .AllowCredentials();
+    });
+});
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    {
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        Description = "Enter Your JWT Token"
+    });
+    c.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+    {
+        [new OpenApiSecuritySchemeReference("Bearer", document)] = []
     });
 });
 

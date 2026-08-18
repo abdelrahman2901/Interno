@@ -20,7 +20,7 @@ namespace E_Commerce_Inern_Project.Infrastructure.DbContext
         public DbSet<CartItems> CartItems { get; set; }
         public DbSet<WishList> WishList { get; set; }
         public DbSet<Payments> Payments { get; set; }
-        public DbSet<Order> Orders{ get; set; }
+        public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItems> OrderItems { get; set; }
         public DbSet<ShippingCosts> ShippingCosts { get; set; }
         public DbSet<OrderCoupons> OrderCoupon { get; set; }
@@ -31,23 +31,16 @@ namespace E_Commerce_Inern_Project.Infrastructure.DbContext
         {
             base.OnModelCreating(builder);
 
-            //var hasher= new PasswordHasher<ApplicationUser>();
-            //string passwordhashed = hasher.HashPassword(null, "Admin123");
-            //builder.Entity<ApplicationUser>().HasData(new ApplicationUser
-            //{
-            //    Id = Guid.Parse("57F2F45D-B062-40EB-BEAF-0CF31E196D64"),
-            //    UserName = "admin@gmail.com",
-            //    NormalizedUserName = "ADMIN",
-            //    PersonName = "admin",
-            //    Email = "admin@gmail.com",
-            //    NormalizedEmail = "ADMIN@GMAIL.COM",
-            //    EmailConfirmed = true,
-            //    PasswordHash = passwordhashed,  
-            //    SecurityStamp = "4AA279DC-CFC5-4B21-96C7-52AABB89F127",
-            //});
-           
+
             #region OLD
-            builder.Entity<ProductRates>().HasOne(u=>u.User).WithMany(p=>p.ProductRates).HasForeignKey(u=>u.UserID).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<ApplicationUser>()
+                .HasMany(r => r.Roles)
+                .WithMany()
+                .UsingEntity<IdentityUserRole<Guid>>(
+                j => j.HasOne<ApplicationRole>().WithMany().HasForeignKey(r => r.RoleId),
+                j => j.HasOne<ApplicationUser>().WithMany().HasForeignKey(r => r.UserId));
+
+            builder.Entity<ProductRates>().HasOne(u => u.User).WithMany(p => p.ProductRates).HasForeignKey(u => u.UserID).OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<BannerSlide>().HasOne(c => c.BackgroundColor).WithMany(c => c.BannerSlides).HasForeignKey(r => r.BackgroundColorID).OnDelete(DeleteBehavior.NoAction);
 
@@ -72,7 +65,7 @@ namespace E_Commerce_Inern_Project.Infrastructure.DbContext
             builder.Entity<OrderItems>().HasOne(ot => ot.Order).WithMany(o => o.OrderItems).HasForeignKey(ot => ot.OrderID).OnDelete(DeleteBehavior.NoAction);
 
 
- 
+
             builder.Entity<Cart>().HasIndex(u => u.UserID).IsUnique();
 
             builder.Entity<CartItems>().HasOne(u => u.Cart)
@@ -95,45 +88,45 @@ namespace E_Commerce_Inern_Project.Infrastructure.DbContext
                 .HasForeignKey(r => r.UserID)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Entity<Address>().HasOne(a=>a.City).WithMany(c=>c.Addresses).HasForeignKey(a=>a.CityID).OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<Address>().HasOne(a=>a.Area).WithMany(c=>c.Addresses).HasForeignKey(a=>a.AreaID).OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<Address>().HasOne(a=>a.User).WithMany(c=>c.Addresses).HasForeignKey(a=>a.UserID).OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<Area>().HasOne(a=>a.City)
-                .WithMany(r=>r.Areas)
-                .HasForeignKey(c=>c.CityID)
+            builder.Entity<Address>().HasOne(a => a.City).WithMany(c => c.Addresses).HasForeignKey(a => a.CityID).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Address>().HasOne(a => a.Area).WithMany(c => c.Addresses).HasForeignKey(a => a.AreaID).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Address>().HasOne(a => a.User).WithMany(c => c.Addresses).HasForeignKey(a => a.UserID).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Area>().HasOne(a => a.City)
+                .WithMany(r => r.Areas)
+                .HasForeignKey(c => c.CityID)
                 .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Size>().HasData(
 new Size
 {
-SizeID = Guid.Parse("4F0406B9-FE94-487F-9049-0B28DA2C9274"),
-SizeName = "Small"
+    SizeID = Guid.Parse("4F0406B9-FE94-487F-9049-0B28DA2C9274"),
+    SizeName = "Small"
 },
 new Size
 
 {
-SizeID = Guid.Parse("730323EA-7E2E-4EC1-98F2-78FA1AA7C5E9"),
-SizeName = "Medium"
+    SizeID = Guid.Parse("730323EA-7E2E-4EC1-98F2-78FA1AA7C5E9"),
+    SizeName = "Medium"
 },
 new Size
 {
-SizeID = Guid.Parse("67AF942F-AEEB-4A4D-964B-0EFFC559368E"),
-SizeName = "Large"
+    SizeID = Guid.Parse("67AF942F-AEEB-4A4D-964B-0EFFC559368E"),
+    SizeName = "Large"
 },
 new Size
 {
-SizeID = Guid.Parse("D43285B3-B034-42CC-8795-E5FFFB245654"),
-SizeName = "X Large"
+    SizeID = Guid.Parse("D43285B3-B034-42CC-8795-E5FFFB245654"),
+    SizeName = "X Large"
 },
 new Size
 {
-SizeID = Guid.Parse("66A0C1C9-9DB3-421A-87D0-F8C965687703"),
-SizeName = "XX Large"
+    SizeID = Guid.Parse("66A0C1C9-9DB3-421A-87D0-F8C965687703"),
+    SizeName = "XX Large"
 }
 );
             builder.Entity<Product>().HasOne(p => p.Size).WithMany(p => p.Products).HasForeignKey(p => p.SizeID).OnDelete(DeleteBehavior.NoAction);
 
-            builder.Entity<Product>().HasOne(p=>p.Color).WithMany(p=>p.Products).HasForeignKey(p=>p.ColorID).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Product>().HasOne(p => p.Color).WithMany(p => p.Products).HasForeignKey(p => p.ColorID).OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Colors>().HasIndex(p => p.ColorName).IsUnique();
             builder.Entity<Colors>().HasData(
         new Colors

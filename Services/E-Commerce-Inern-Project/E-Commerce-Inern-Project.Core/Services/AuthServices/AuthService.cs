@@ -100,7 +100,7 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
             {
                 return Result<AuthTokenResponse>.NotFound("User not found");
             }
-            bool AccountValidation = await _AuthRepo.AccountValidation(user.PersonName, Login.Password);
+            bool AccountValidation = await _AuthRepo.AccountValidation(user.UserName, Login.Password);
             if (!AccountValidation)
             {
                 return Result<AuthTokenResponse>.BadRequest("Incorrect password Or Email");

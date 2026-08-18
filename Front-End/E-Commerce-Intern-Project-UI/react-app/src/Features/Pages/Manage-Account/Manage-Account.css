@@ -1,0 +1,48 @@
+.account-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 32px;
+  padding: 32px 24px;
+  min-height: calc(100vh - 68px);
+}
+.account-main {
+  background: white;
+  border-radius: 8px;
+  padding: 32px;
+  min-height: 600px;
+}
+
+.section-title {
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  color: #2c2c2c;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-section {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .account-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .account-main {
+    padding: 20px;
+  }
+
+  .section-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

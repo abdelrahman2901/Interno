@@ -8,15 +8,16 @@ namespace E_Commerce_Inern_Project.Core.Identity
         public string PersonName { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpirtation { get; set; }
-        public bool IsDeleted { get; set; }= false;
-        public bool IsBlocked { get; set; }=false;
-        
+        public bool IsDeleted { get; set; } = false;
+        public bool IsBlocked { get; set; } = false;
+
 
         public ICollection<Address> Addresses { get; set; }
-        
+
         public ICollection<ProductRates> ProductRates { get; set; }
         public ICollection<WishList> WishLists { get; set; }
         public ICollection<Order> Orders { get; set; }
         public ICollection<Payments> Payments { get; set; }
+        public ICollection<ApplicationRole> Roles { get; set; }
     }
 }

@@ -1,0 +1,20 @@
+export class ProductDetails {
+  productID: string = "";
+  categoryID: string = "";
+  parentcategoryID: string = "";
+  categoryName: string = "";
+  parentCategoryName: string = "";
+  productName: string = "";
+  price: number = 0;
+  sizeID: string = "";
+  colorID: string = "";
+  sizeName: string = "";
+  colorName: string = "";
+  salePrice: number = 0;
+  stock: number = 0;
+  rating: number = 0;
+  productImageUrl: string = "";
+  createdAt: string = "";
+  IsDeleted: boolean = false;
+  active: boolean = false;
+}

@@ -1,0 +1,18 @@
+export const entityNames: string[] = [
+  "address",
+  "area",
+  "city",
+  "bannerSlide",
+  "cart",
+  "cartItems",
+  "category",
+  "colors",
+  "order",
+  "orderCoupons",
+  "orderItems",
+  "payments",
+  "product",
+  "productRates",
+  "size",
+  "wishlist",
+];

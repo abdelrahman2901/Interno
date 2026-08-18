@@ -20,23 +20,12 @@ namespace E_Commerce_Inern_Project.Infrastructure.Repository.UserRepo
             _UserManager = usermanager;
         }
 
-        public async Task<IEnumerable<AuthUserDetailsDTO>> GetAllUsers()
+        public async Task<IEnumerable<ApplicationUser>> GetAllUsers()
         {
             try
             {
 
-             return   await (from user in _context.Users
-                       join userRoles in _context.UserRoles on user.Id equals userRoles.UserId
-                       join role in _context.Roles on userRoles.RoleId equals role.Id
-                       select new AuthUserDetailsDTO
-                       {
-                           Email = user.Email,
-                           IsBlocked = user.IsBlocked,
-                           PersonName = user.PersonName,
-                           PhoneNumber = user.PhoneNumber,
-                           Role = role.Name,
-                           userID = user.Id
-                       }).AsNoTracking().ToListAsync();
+             return   await  _context.Users.Include(r=>r.Roles).AsNoTracking().ToListAsync();
             }
             catch (Exception ex)
             {
