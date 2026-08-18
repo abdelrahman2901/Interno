@@ -32,9 +32,12 @@ services:
     ports: 
      - "6379:6379"
     volumes:
-     - D:\NEw_laptop_Boda\FullStack_Projects\E-Commerce-Intern-Project\Redis-Cache:/data
+     - redis-data:/data
     networks:
         - ecommerce-network
 
 networks:
-  ecommerce-network:
+    ecommerce-network:
+
+volumes:
+  redis-data:
