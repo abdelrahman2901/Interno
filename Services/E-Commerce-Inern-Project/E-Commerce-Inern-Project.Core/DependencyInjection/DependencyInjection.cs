@@ -1,5 +1,4 @@
 ﻿using E_Commerce_Inern_Project.Core.BackGroundServices.RabbitMQServices;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ICartItemRepo;
 using E_Commerce_Inern_Project.Core.Features.Area.Query.GetAllAreasQ;
 using E_Commerce_Inern_Project.Core.Mapper;
 using E_Commerce_Inern_Project.Core.RabbitMQ;
@@ -53,7 +52,7 @@ namespace E_Commerce_Inern_Project.Core.DependencyInjection
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddCore(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection AddCore(this IServiceCollection services, IConfiguration configuration)
         {
             //color
             services.AddScoped<IColorService, ColorService>();
@@ -81,9 +80,9 @@ namespace E_Commerce_Inern_Project.Core.DependencyInjection
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             //Area
-            services.AddScoped<IAreaService,AreaService>();
+            services.AddScoped<IAreaService, AreaService>();
             //City
-            services.AddScoped<ICityService,CityService>();
+            services.AddScoped<ICityService, CityService>();
 
             //Address
             services.AddScoped<IAddressService, AddressService>();
@@ -99,7 +98,7 @@ namespace E_Commerce_Inern_Project.Core.DependencyInjection
             services.AddScoped<IWishListService, WishListService>();
             //Payments
             services.AddScoped<IPaymentService, PaymentService>();
-            
+
             //ShippingCost
             services.AddScoped<IShippingCostsService, ShippingCostsService>();
             //Coupon
@@ -125,16 +124,16 @@ namespace E_Commerce_Inern_Project.Core.DependencyInjection
             services.AddAutoMapper(sfg => { }, typeof(MapperProfile));
 
             //RabbitMQ
-            services.AddSingleton<IRabbitMQPublisher,RabbitMQPublisher>();
+            services.AddSingleton<IRabbitMQPublisher, RabbitMQPublisher>();
 
-            // polly policies for RabbitMQ in case of connection failures, it will retry 3 times with a delay of 2 seconds between each retry
-            services.AddSingleton<IAsyncPolicy>(Policy.Handle<Exception>().WaitAndRetryAsync(3,retry=>TimeSpan.FromSeconds(2)));
+            // polly policies for RabbitMQ in case of connection failures, it will retry 3 times with a delay of 2 power the retry seconds between each retry
+            services.AddSingleton<IAsyncPolicy, AsyncPolicy>();
 
             //background service for initializing RabbitMQ connection and channel
             services.AddHostedService<RabbitMQInitializationService>();
 
             string RedisConfig = $"{configuration["Redis:Host"]}:{configuration["Redis:Port"]}";
-          
+
             services.AddStackExchangeRedisCache(options => options.Configuration = RedisConfig);
 
             return services;
