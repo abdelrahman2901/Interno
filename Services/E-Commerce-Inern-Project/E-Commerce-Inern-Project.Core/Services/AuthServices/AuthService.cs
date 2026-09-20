@@ -1,16 +1,19 @@
 ﻿using AutoMapper;
 using E_Commerce_Inern_Project.Core.Common;
+using E_Commerce_Inern_Project.Core.Domain.Entity;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IAuthRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ICartRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ITransectionRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IUserRepo;
+using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IUserRolesRepo;
 using E_Commerce_Inern_Project.Core.DTO.AuthDTO;
 using E_Commerce_Inern_Project.Core.DTO.TokenDTO;
 using E_Commerce_Inern_Project.Core.DTO.UserDTO;
+using E_Commerce_Inern_Project.Core.Enums;
 using E_Commerce_Inern_Project.Core.Features.Auth.Commands.ChangeUserPassword;
 using E_Commerce_Inern_Project.Core.Features.Auth.Commands.LoginUser;
 using E_Commerce_Inern_Project.Core.Features.Auth.Commands.RegisterUser;
-using E_Commerce_Inern_Project.Core.Identity;
+using E_Commerce_Inern_Project.Core.Policies;
 using E_Commerce_Inern_Project.Core.RabbitMQ;
 using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
 using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
@@ -31,19 +34,23 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
         private readonly ICartRepository _CartRepo;
         private readonly IRabbitMQPublisher _Publish;
         private readonly IMapper _Mapper;
-        private readonly IAsyncPolicy _asyncPolicy;
+        //private readonly IPollyPolicy _asyncPolicy;
+        private readonly IAsyncPolicy _policy;
+        private readonly IUserRolesRepository _UserRolesRepo;
         private readonly string AuditRoutingKey = "Interno.Audit";
 
-        public AuthService(IAuthRepository AuthRepo, IAsyncPolicy asyncPolicy, IRabbitMQPublisher Publish, IUserRepository UserRepo, ICartRepository CartRepo, ITransectionRepository Transection, IJwtService JwtService, IMapper Mapper)
+        public AuthService(IAuthRepository AuthRepo, IPollyPolicy asyncPolicy, IRabbitMQPublisher Publish, IUserRepository UserRepo, IUserRolesRepository UserRolesRepo, ICartRepository CartRepo, ITransectionRepository Transection, IJwtService JwtService, IMapper Mapper)
         {
             _AuthRepo = AuthRepo;
             _UserRepo = UserRepo;
+            _UserRolesRepo = UserRolesRepo;
             _JwtService = JwtService;
             _CartRepo = CartRepo;
             _Transection = Transection;
             _Mapper = Mapper;
-            _asyncPolicy = asyncPolicy;
+            //_asyncPolicy = asyncPolicy;
             _Publish = Publish;
+            _policy = asyncPolicy.GetPolicy();
         }
 
         public async Task<Result<bool>> ChangeUserPassword(ChangeUserPasswordCommand Request)
@@ -53,15 +60,27 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
             {
                 return Result<bool>.NotFound("User not found");
             }
+            if (!await _AuthRepo.IsPasswordCorrect(user.UserID, Request.CurrentPassword))
+            {
+                return Result<bool>.BadRequest("Incorrect current password");
+            }
+
             string jsonOldValues = JsonSerializer.Serialize<ApplicationUser>(user);
 
-            if (!await _AuthRepo.ChangeUserPassword(user, Request.CurrentPassword, Request.NewPassword))
+
+            user.Password = Request.NewPassword;
+
+            if (!await _AuthRepo.SaveChanges())
             {
                 return Result<bool>.BadRequest("Failed to change password");
             }
-            string jsonNewValues = JsonSerializer.Serialize<ApplicationUser>(await _UserRepo.GetApplicationUserByID(Request.UserID));
-            AuditRequest AuditRequest = new(user.Id, ActionTypeEnum.ChangePassword, nameof(ApplicationUser), jsonOldValues, jsonNewValues);
-            await _asyncPolicy.ExecuteAsync(async () =>
+            string jsonNewValues = JsonSerializer.Serialize<ApplicationUser>(user);
+            AuditRequest AuditRequest = new(user.UserID, ActionTypeEnum.ChangePassword, nameof(ApplicationUser), jsonOldValues, jsonNewValues);
+            //var retryPolicy = _AsyncPolicy.GetRetryPolicy();
+            //var circuitPolicy = _AsyncPolicy.GetCircuiteBreakerPolicy();
+            //var policy =  Policy.WrapAsync(retryPolicy, circuitPolicy);   
+            //var policy = _asyncPolicy.GetPolicy();
+            await _policy.ExecuteAsync(async () =>
             {
                 await _Publish.Publish(AuditRoutingKey, AuditRequest);
             });
@@ -76,16 +95,22 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
                 return Result<bool>.NotFound("User not found");
             }
             string jsonOldValues = JsonSerializer.Serialize<ApplicationUser>(User);
-            if (!await _AuthRepo.UserResetPassword(User, NewPassword))
+            User.Password = NewPassword;
+
+            if (!await _AuthRepo.SaveChanges())
             {
-                return Result<bool>.BadRequest("Failed to reset password");
+                return Result<bool>.BadRequest("Failed to change password");
             }
 
-            string jsonNewValues = JsonSerializer.Serialize<ApplicationUser>(await _UserRepo.GetApplicationUserByID(UserID));
+            string jsonNewValues = JsonSerializer.Serialize<ApplicationUser>(User);
 
-            AuditRequest Request = new(User.Id, ActionTypeEnum.ResetPassword, nameof(ApplicationUser), jsonOldValues, jsonNewValues);
-            
-            await _asyncPolicy.ExecuteAsync(async () =>
+            AuditRequest Request = new(User.UserID, ActionTypeEnum.ResetPassword, nameof(ApplicationUser), jsonOldValues, jsonNewValues);
+
+            //var retryPolicy = _AsyncPolicy.GetRetryPolicy();
+            //var circuitPolicy = _AsyncPolicy.GetCircuiteBreakerPolicy();
+            //var policy =  Policy.WrapAsync(retryPolicy, circuitPolicy);
+            //var policy = _asyncPolicy.GetPolicy();
+            await _policy.ExecuteAsync(async () =>
             {
                 await _Publish.Publish(AuditRoutingKey, Request);
             });
@@ -100,29 +125,28 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
             {
                 return Result<AuthTokenResponse>.NotFound("User not found");
             }
-            bool AccountValidation = await _AuthRepo.AccountValidation(user.UserName, Login.Password);
+            bool AccountValidation = await _AuthRepo.IsPasswordCorrect(user.UserID, Login.Password);
             if (!AccountValidation)
             {
                 return Result<AuthTokenResponse>.BadRequest("Incorrect password Or Email");
             }
 
-            bool result = await _AuthRepo.SignIn(user);
-            if (!result)
-            {
-                return Result<AuthTokenResponse>.InternalError("Failed to login");
-            }
             AuthTokenResponse TokenDetails = await _JwtService.CreateJwtToken(user);
 
             user.RefreshTokenExpirtation = TokenDetails.RefreshTokenExpirationDateTime;
             user.RefreshToken = TokenDetails.RefreshToken;
-            if (!await _AuthRepo.UpdateUser(user))
+            if (!await _AuthRepo.SaveChanges())
             {
                 return Result<AuthTokenResponse>.InternalError("Failed to update user with refresh token");
             }
 
 
-            AuditRequest Request = new(user.Id, ActionTypeEnum.Login, nameof(ApplicationUser), null, null);
-            await _asyncPolicy.ExecuteAsync(async () =>
+            AuditRequest Request = new(user.UserID, ActionTypeEnum.Login, nameof(ApplicationUser), null, null);
+            //var retryPolicy = _AsyncPolicy.GetRetryPolicy();
+            //var circuitPolicy = _AsyncPolicy.GetCircuiteBreakerPolicy();
+            //var policy =  Policy.WrapAsync(retryPolicy, circuitPolicy);
+            //var policy = _asyncPolicy.GetPolicy();
+            await _policy.ExecuteAsync(async () =>
             {
                 await _Publish.Publish(AuditRoutingKey, Request);
             });
@@ -134,14 +158,13 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
         {
             try
             {
-
                 Result<ClaimsPrincipal?> principal = _JwtService.GetPrincipalFromJwtToken(tokenModel.token);
                 if (principal == null || !principal.IsSuccess)
                 {
                     return Result<AuthTokenResponse>.BadRequest(principal.ErrorMessage);
                 }
 
-                ApplicationUser? user = await _UserRepo.GetApplicationUserByEmail(principal.Data?.FindFirstValue(ClaimTypes.Email));
+                ApplicationUser? user = await _UserRepo.GetApplicationUserByEmail(principal.Data?.FindFirst(ClaimTypes.Email).Value);
 
                 if (user == null || user.RefreshToken != tokenModel.refreshToken || user.RefreshTokenExpirtation <= DateTime.UtcNow)
                 {
@@ -154,7 +177,7 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
                 user.RefreshToken = authenticationResponse.RefreshToken;
                 user.RefreshTokenExpirtation = authenticationResponse.RefreshTokenExpirationDateTime;
 
-                return await _AuthRepo.UpdateUser(user) ? Result<AuthTokenResponse>.Success(authenticationResponse)
+                return await _AuthRepo.SaveChanges() ? Result<AuthTokenResponse>.Success(authenticationResponse)
                      : Result<AuthTokenResponse>.InternalError("Failed To Update User After Refresh Token");
             }
             catch (Exception ex)
@@ -182,33 +205,27 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
                 }
 
                 ApplicationUser user = _Mapper.Map<ApplicationUser>(Register);
-                var Registerresult = await _AuthRepo.RegisterUser(user, Register.Password);
+                var Registerresult = await _AuthRepo.RegisterUser(user);
                 if (!Registerresult)
                 {
 
                     return Result<AuthTokenResponse>.InternalError("Failed to register user");
                 }
 
-                if (!await _AuthRepo.AddUserToRole(user, "User"))
+                if (!await _UserRolesRepo.AddUserToRole(user.UserID, RolesEnum.Customer))
                 {
                     return Result<AuthTokenResponse>.InternalError("Failed to assign role to user after registration");
-                }
-
-
-                if (!await _AuthRepo.SignIn(user))
-                {
-                    return Result<AuthTokenResponse>.InternalError("Failed to sign in after registration");
                 }
 
                 var token = await _JwtService.CreateJwtToken(user);
                 user.RefreshTokenExpirtation = token.RefreshTokenExpirationDateTime;
                 user.RefreshToken = token.RefreshToken;
 
-                if (!await _AuthRepo.UpdateUser(user))
+                if (!await _AuthRepo.SaveChanges())
                 {
                     return Result<AuthTokenResponse>.InternalError("Failed to update user with refresh token after registration");
                 }
-                var CartREsult = await _CartRepo.CreateCart(new() { CartID = Guid.NewGuid(), UserID = user.Id, CreatedDate = DateTime.Now });
+                var CartREsult = await _CartRepo.CreateCart(new() { CartID = Guid.NewGuid(), UserID = user.UserID, CreatedDate = DateTime.Now });
                 if (CartREsult == null)
                 {
                     return Result<AuthTokenResponse>.InternalError("Failed To Create User Cart");
@@ -218,9 +235,13 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
                     return Result<AuthTokenResponse>.InternalError("Failed To Save Changes For User Cart");
                 }
 
-                string JsonNewValues=JsonSerializer.Serialize<ApplicationUser>(user);
-                AuditRequest Request = new(user.Id, ActionTypeEnum.Register, nameof(ApplicationUser),null, JsonNewValues);
-                await _asyncPolicy.ExecuteAsync(async () =>
+                string JsonNewValues = JsonSerializer.Serialize<ApplicationUser>(user);
+                AuditRequest Request = new(user.UserID, ActionTypeEnum.Register, nameof(ApplicationUser), null, JsonNewValues);
+                //var retryPolicy = _AsyncPolicy.GetRetryPolicy();
+                //var circuitPolicy = _AsyncPolicy.GetCircuiteBreakerPolicy();
+                //var policy =  Policy.WrapAsync(retryPolicy, circuitPolicy);
+                //var policy = _asyncPolicy.GetPolicy();
+                await _policy.ExecuteAsync(async () =>
                 {
                     await _Publish.Publish(AuditRoutingKey, Request);
                 });
@@ -238,14 +259,26 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
 
         public async Task<Result<bool>> SignOut(Guid UserID)
         {
-            bool result = await _AuthRepo.SignOut();
-            if (!result)
+            var user = await _UserRepo.GetApplicationUserByID(UserID);
+            if (user == null)
             {
-                return Result<bool>.InternalError("Failed to sign out");
+                return Result<bool>.NotFound("User not found");
             }
 
-            AuditRequest Request = new(UserID, ActionTypeEnum.Logout, nameof(ApplicationUser),null,null);
-            await _asyncPolicy.ExecuteAsync(async () =>
+            user.RefreshToken = null;
+            user.RefreshTokenExpirtation = null;
+
+            if (!await _UserRepo.SaveChanges())
+            {
+                return Result<bool>.InternalError("Failed to sign out user");
+            }
+
+            AuditRequest Request = new(UserID, ActionTypeEnum.Logout, nameof(ApplicationUser), null, null);
+            //var retryPolicy = _AsyncPolicy.GetRetryPolicy();
+            //var circuitPolicy = _AsyncPolicy.GetCircuiteBreakerPolicy();
+            //var policy =  Policy.WrapAsync(retryPolicy, circuitPolicy);
+            //var policy = _asyncPolicy.GetPolicy();
+            await _policy.ExecuteAsync(async () =>
             {
                 await _Publish.Publish(AuditRoutingKey, Request);
             });
@@ -263,17 +296,20 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
             string jsonOldValues = JsonSerializer.Serialize<ApplicationUser>(user);
             _Mapper.Map(UpdateRequeset, user);
 
-            var Result = await _AuthRepo.UpdateUser(user);
+            var Result = await _AuthRepo.SaveChanges();
             if (!Result)
             {
                 return Result<AuthUserDetailsDTO?>.InternalError("Failed to update user");
             }
 
             AuthUserDetailsDTO UserDetails = _Mapper.Map<AuthUserDetailsDTO>(user);
-            UserDetails.Role = await _UserRepo.GetUserRole(user);
             string jsonNewValues = JsonSerializer.Serialize<ApplicationUser>(user);
-            AuditRequest Request = new(user.Id, ActionTypeEnum.Update, nameof(ApplicationUser), jsonOldValues, jsonNewValues);
-            await _asyncPolicy.ExecuteAsync(async () =>
+            AuditRequest Request = new(user.UserID, ActionTypeEnum.Update, nameof(ApplicationUser), jsonOldValues, jsonNewValues);
+            //var retryPolicy = _AsyncPolicy.GetRetryPolicy();
+            //var circuitPolicy = _AsyncPolicy.GetCircuiteBreakerPolicy();
+            //var policy =  Policy.WrapAsync(retryPolicy, circuitPolicy);
+            //var policy = _asyncPolicy.GetPolicy();
+            await _policy.ExecuteAsync(async () =>
             {
                 await _Publish.Publish(AuditRoutingKey, Request);
             });
@@ -291,17 +327,22 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
             User.IsDeleted = true;
 
 
-            if (!await _AuthRepo.UpdateUser(User))
+            if (!await _AuthRepo.SaveChanges())
             {
                 return Result<bool>.InternalError("Failed to delete user");
             }
 
-            string JsonOldValues=JsonSerializer.Serialize<ApplicationUser>(User);
-            AuditRequest Request = new(User.Id, ActionTypeEnum.Delete, nameof(ApplicationUser),JsonOldValues,null);
-            await _asyncPolicy.ExecuteAsync(async () =>
+            string JsonOldValues = JsonSerializer.Serialize<ApplicationUser>(User);
+            AuditRequest Request = new(User.UserID, ActionTypeEnum.Delete, nameof(ApplicationUser), JsonOldValues, null);
+            //var retryPolicy = _AsyncPolicy.GetRetryPolicy();
+            //var circuitPolicy = _AsyncPolicy.GetCircuiteBreakerPolicy();
+            //var policy =  Policy.WrapAsync(retryPolicy, circuitPolicy);
+            //var policy = _asyncPolicy.GetPolicy();
+            await _policy.ExecuteAsync(async () =>
             {
                 await _Publish.Publish(AuditRoutingKey, Request);
             });
+            
 
             return Result<bool>.Success(true);
         }
@@ -316,14 +357,18 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
             string JsonOldValues = JsonSerializer.Serialize<ApplicationUser>(User);
             User.IsBlocked = true;
 
-            if (!await _AuthRepo.UpdateUser(User))
+            if (!await _AuthRepo.SaveChanges())
             {
                 Result<bool>.InternalError("Failed to Block user");
             }
 
             string JsonNewValues = JsonSerializer.Serialize<ApplicationUser>(User);
-            AuditRequest Request = new(User.Id, ActionTypeEnum.Blocked, nameof(ApplicationUser),JsonOldValues,JsonNewValues);
-            await _asyncPolicy.ExecuteAsync(async () =>
+            AuditRequest Request = new(User.UserID, ActionTypeEnum.Blocked, nameof(ApplicationUser), JsonOldValues, JsonNewValues);
+            //var retryPolicy = _AsyncPolicy.GetRetryPolicy();
+            //var circuitPolicy = _AsyncPolicy.GetCircuiteBreakerPolicy();
+            //var policy =  Policy.WrapAsync(retryPolicy, circuitPolicy);
+            //var policy = _asyncPolicy.GetPolicy();
+            await _policy.ExecuteAsync(async () =>
             {
                 await _Publish.Publish(AuditRoutingKey, Request);
             });
@@ -333,13 +378,7 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
 
         public async Task<Result<bool>> CheckPassword(Guid UserID, string Password)
         {
-            ApplicationUser? user = await _UserRepo.GetApplicationUserByID(UserID);
-            if (user == null)
-            {
-                return Result<bool>.NotFound("User Doesnt Exists");
-            }
-
-            bool result = await _AuthRepo.IsPasswordCorrect(user, Password);
+            bool result = await _AuthRepo.IsPasswordCorrect(UserID, Password);
             if (!result)
             {
                 return Result<bool>.BadRequest("Wrong Password");

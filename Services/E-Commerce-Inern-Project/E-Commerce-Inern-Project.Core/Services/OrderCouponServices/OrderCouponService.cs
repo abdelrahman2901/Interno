@@ -147,7 +147,7 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderCouponServices
         private async Task<Guid> GetAdminID ()
         {
             var admin =await  _UserRepo.GetApplicationUserByEmail("Admin@gmail.com");
-            return admin.Id;
+            return admin.UserID;
         }
     }
 }

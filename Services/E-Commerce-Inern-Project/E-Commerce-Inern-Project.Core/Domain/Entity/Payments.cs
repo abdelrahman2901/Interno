@@ -1,5 +1,4 @@
 ﻿using E_Commerce_Inern_Project.Core.Enums;
-using E_Commerce_Inern_Project.Core.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

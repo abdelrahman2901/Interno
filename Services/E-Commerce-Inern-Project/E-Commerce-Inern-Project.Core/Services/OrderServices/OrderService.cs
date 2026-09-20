@@ -12,6 +12,7 @@ using E_Commerce_Inern_Project.Core.DTO.OrderDTO;
 using E_Commerce_Inern_Project.Core.Features.Orders.Command.CreateOrderCmd;
 using E_Commerce_Inern_Project.Core.Features.Orders.Command.UpdateOrderCmd;
 using E_Commerce_Inern_Project.Core.Features.Orders.Command.UpdateOrderStatusCmd;
+using E_Commerce_Inern_Project.Core.Policies;
 using E_Commerce_Inern_Project.Core.RabbitMQ;
 using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
 using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
@@ -33,11 +34,12 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderServices
         private readonly IUserRepository _UserRepo;
         private readonly IMapper _mapper;
         private readonly IRabbitMQPublisher _Publisher;
-        private readonly IAsyncPolicy _asyncPolicy;
+        //private readonly IPollyPolicy _asyncPolicy;
+        private readonly IAsyncPolicy _policy;
         private readonly string _AuditRoutingKey = "Interno.Audit";
         private readonly string _NotificationRoutingKey = "Interno.Notification";
 
-        public OrderService(IOrdersRepository ordersRepository, IAsyncPolicy asyncPolicy, IRabbitMQPublisher Publisher, IUserRepository UserRepo, IProductRepository ProductRepo, ICartRepository CartRepo,
+        public OrderService(IOrdersRepository ordersRepository, IPollyPolicy asyncPolicy, IRabbitMQPublisher Publisher, IUserRepository UserRepo, IProductRepository ProductRepo, ICartRepository CartRepo,
             IOrderItemsRepoistory OrderItemRepo, ITransectionRepository TransectionRepo,
             ICartItemRepository CartItemRepo, IMapper mapper)
         {
@@ -49,8 +51,9 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderServices
             _OrderItemRepo = OrderItemRepo;
             _mapper = mapper;
             _UserRepo = UserRepo;
-            _asyncPolicy = asyncPolicy;
+            //_asyncPolicy = asyncPolicy;
             _Publisher = Publisher;
+           _policy = asyncPolicy.GetPolicy();
         }
 
         public async Task<Result<bool>> UpdateOrderStatus(UpdateOrderStatusRequest request)
@@ -60,23 +63,26 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderServices
             {
                 return Result<bool>.NotFound("Order Wasnt Found.");
             }
-            string JsonOldValues= JsonSerializer.Serialize<Order>(order);
+            string JsonOldValues = JsonSerializer.Serialize<Order>(order);
 
             order.OrderStatus = request.NewStatus;
             if (!await _ordersRepository.SaveChanges())
             {
                 return Result<bool>.InternalError("Failed To SaveChanges.");
             }
-            
+
             string JsonNewValues = JsonSerializer.Serialize<Order>(order);
-            AuditRequest AuditRequest = new(await GetAdminID(), ActionTypeEnum.Update, nameof(Order), JsonOldValues, JsonNewValues  );
+            AuditRequest AuditRequest = new(await GetAdminID(), ActionTypeEnum.Update, nameof(Order), JsonOldValues, JsonNewValues);
             CreateNotificationRequest NotifeRequest = new(order.UserID, $"Order {request.NewStatus} Successfully");
-            await _asyncPolicy.ExecuteAsync(async () =>
+            //var retryPolicy = _asyncPolicy.GetRetryPolicy();
+            //var circuitPolicy = _asyncPolicy.GetCircuiteBreakerPolicy();
+            //var policy = Policy.WrapAsync(retryPolicy, circuitPolicy);
+            await _policy.ExecuteAsync(async () =>
             {
                 await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
             });
 
-            await _asyncPolicy.ExecuteAsync(async () =>
+            await _policy.ExecuteAsync(async () =>
             {
                 await _Publisher.Publish(_NotificationRoutingKey, NotifeRequest);
             });
@@ -127,12 +133,16 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderServices
                 string JsonNewValues = JsonSerializer.Serialize<Order>(order);
                 AuditRequest AuditRequest = new(order.UserID, ActionTypeEnum.Create, nameof(Order), null, JsonNewValues);
                 CreateNotificationRequest NotifeRequeset = new(order.UserID, "Order Created Successfully ");
-                await _asyncPolicy.ExecuteAsync(async () =>
+                //var retryPolicy = _asyncPolicy.GetRetryPolicy();
+                //var circuitPolicy = _asyncPolicy.GetCircuiteBreakerPolicy();
+                //var policy = Policy.WrapAsync(retryPolicy, circuitPolicy);
+                await _policy.ExecuteAsync(async () =>
                 {
                     await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
                 });
 
-                await _asyncPolicy.ExecuteAsync(async () =>
+                 
+                await _policy.ExecuteAsync(async () =>
                 {
                     await _Publisher.Publish(_NotificationRoutingKey, AuditRequest);
                 });
@@ -186,7 +196,11 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderServices
 
             string JsonNewValues = JsonSerializer.Serialize<Order>(order);
             AuditRequest AuditRequest = new(order.UserID, ActionTypeEnum.Update, nameof(Order), JsonOldValues, JsonNewValues);
-            await _asyncPolicy.ExecuteAsync(async () =>
+            //var retryPolicy = _asyncPolicy.GetRetryPolicy();
+            //var circuitPolicy = _asyncPolicy.GetCircuiteBreakerPolicy();
+            //var policy = Policy.WrapAsync(retryPolicy, circuitPolicy);
+
+            await _policy.ExecuteAsync(async () =>
             {
                 await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
             });
@@ -217,8 +231,11 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderServices
             }
 
             string JsonNewValues = JsonSerializer.Serialize<List<OrderItems>>(orderItems);
-            AuditRequest AuditRequest = new(UserID, ActionTypeEnum.Create, nameof(OrderItems),null,JsonNewValues);
-            await _asyncPolicy.ExecuteAsync(async () =>
+            AuditRequest AuditRequest = new(UserID, ActionTypeEnum.Create, nameof(OrderItems), null, JsonNewValues);
+            //var retryPolicy = _asyncPolicy.GetRetryPolicy();
+            //var circuitPolicy = _asyncPolicy.GetCircuiteBreakerPolicy();
+            //var policy = Policy.WrapAsync(retryPolicy, circuitPolicy);
+            await _policy.ExecuteAsync(async () =>
             {
                 await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
             });
@@ -240,7 +257,10 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderServices
             }
             string JsonNewValues = JsonSerializer.Serialize<IEnumerable<CartItems>>(cartItems);
             AuditRequest AuditRequest = new(UserID, ActionTypeEnum.Delete, nameof(CartItems), JsonOldValues, JsonNewValues);
-            await _asyncPolicy.ExecuteAsync(async () =>
+            //var retryPolicy = _asyncPolicy.GetRetryPolicy();
+            //var circuitPolicy = _asyncPolicy.GetCircuiteBreakerPolicy();
+            //var policy = Policy.WrapAsync(retryPolicy, circuitPolicy);
+            await _policy.ExecuteAsync(async () =>
             {
                 await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
             });
@@ -260,7 +280,7 @@ namespace E_Commerce_Inern_Project.Core.Services.OrderServices
         private async Task<Guid> GetAdminID()
         {
             var admin = await _UserRepo.GetApplicationUserByEmail("admin@gmail.com");
-            return admin.Id;
+            return admin.UserID;
         }
     }
 }

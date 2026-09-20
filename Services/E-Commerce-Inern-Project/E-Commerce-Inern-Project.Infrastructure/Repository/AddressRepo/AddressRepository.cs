@@ -1,6 +1,6 @@
 ﻿using E_Commerce_Inern_Project.Core.Domain.Entity;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IAddressRepo;
-using E_Commerce_Inern_Project.Infrastructure.DbContext;
+using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -8,9 +8,9 @@ namespace E_Commerce_Inern_Project.Infrastructure.Repository.AddressRepo
 {
     public class AddressRepository : IAddressRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDBContext _context;
         private readonly ILogger<AddressRepository> _logger;
-        public AddressRepository(ApplicationDbContext db, ILogger<AddressRepository> logger)
+        public AddressRepository(ApplicationDBContext db, ILogger<AddressRepository> logger)
         {
             _context = db;
             _logger = logger;

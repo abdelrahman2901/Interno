@@ -6,6 +6,5 @@ namespace E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ITransectionR
     public interface ITransectionRepository
     {
         public Task<IDbContextTransaction?> BeginTransactionAsync();
-
     }
 }

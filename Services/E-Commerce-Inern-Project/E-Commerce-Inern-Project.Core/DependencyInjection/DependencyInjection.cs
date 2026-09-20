@@ -1,6 +1,7 @@
 ﻿using E_Commerce_Inern_Project.Core.BackGroundServices.RabbitMQServices;
 using E_Commerce_Inern_Project.Core.Features.Area.Query.GetAllAreasQ;
 using E_Commerce_Inern_Project.Core.Mapper;
+using E_Commerce_Inern_Project.Core.Policies;
 using E_Commerce_Inern_Project.Core.RabbitMQ;
 using E_Commerce_Inern_Project.Core.Services.AddressServices;
 using E_Commerce_Inern_Project.Core.Services.AreaServices;
@@ -11,7 +12,7 @@ using E_Commerce_Inern_Project.Core.Services.CartServices;
 using E_Commerce_Inern_Project.Core.Services.CategoryServices;
 using E_Commerce_Inern_Project.Core.Services.CityServices;
 using E_Commerce_Inern_Project.Core.Services.ColorServices;
-using E_Commerce_Inern_Project.Core.Services.JWTService;
+using E_Commerce_Inern_Project.Core.Services.JwtServices;
 using E_Commerce_Inern_Project.Core.Services.OrderCouponServices;
 using E_Commerce_Inern_Project.Core.Services.OrderServices;
 using E_Commerce_Inern_Project.Core.Services.PaymentServices;
@@ -127,7 +128,7 @@ namespace E_Commerce_Inern_Project.Core.DependencyInjection
             services.AddSingleton<IRabbitMQPublisher, RabbitMQPublisher>();
 
             // polly policies for RabbitMQ in case of connection failures, it will retry 3 times with a delay of 2 power the retry seconds between each retry
-            services.AddSingleton<IAsyncPolicy, AsyncPolicy>();
+            services.AddSingleton<IPollyPolicy, PollyPolicy>();
 
             //background service for initializing RabbitMQ connection and channel
             services.AddHostedService<RabbitMQInitializationService>();

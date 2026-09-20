@@ -1,14 +1,11 @@
 using E_Commerce_Inern_Project.Core.DependencyInjection;
-using E_Commerce_Inern_Project.Core.Identity;
-using E_Commerce_Inern_Project.Infrastructure.DbContext;
+using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
 using E_Commerce_Inern_Project.Infrastructure.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
-using Polly;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -19,7 +16,7 @@ builder.Services.AddControllers().AddJsonOptions(cfg =>
 {
     cfg.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
- Console.WriteLine(builder.Environment.EnvironmentName);
+Console.WriteLine(builder.Environment.EnvironmentName);
 
 builder.Services.AddCore(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -58,18 +55,6 @@ builder.Services.AddSwaggerGen(c =>
         [new OpenApiSecuritySchemeReference("Bearer", document)] = []
     });
 });
-
-// identity
-builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(option =>
-{
-    option.Password.RequiredLength = 5;
-    option.Password.RequireNonAlphanumeric = false;
-    option.Password.RequireDigit = true;
-    option.Password.RequireUppercase = false;
-}).AddEntityFrameworkStores<ApplicationDbContext>()
-.AddDefaultTokenProviders()
-.AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
-.AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>();
 
 
 //RateLimit
@@ -129,14 +114,23 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDBContext>();
+    db.Database.Migrate();
+}
+
 app.UseStaticFiles();
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseCors();
-app.UseHttpsRedirection();
-app.UseHsts();
+if (!string.Equals(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"), "true", StringComparison.OrdinalIgnoreCase))
+{
+    app.UseHttpsRedirection();
+    app.UseHsts();
+}
 
 app.UseRouting();
 

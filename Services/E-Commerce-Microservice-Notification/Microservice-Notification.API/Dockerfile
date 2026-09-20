@@ -15,6 +15,8 @@ WORKDIR /src
 COPY ["Microservice-Notification.API/Microservice-Notification.API.csproj", "Microservice-Notification.API/"]
 COPY ["Microservice-Notification.Core/Microservice-Notification.Core.csproj", "Microservice-Notification.Core/"]
 COPY ["Microservice-Notification.Infrastructure/Microservice-Notification.Infrastructure.csproj", "Microservice-Notification.Infrastructure/"]
+COPY ["Microservice-Notifications.Application/Microservice-Notifications.Application.csproj", "Microservice-Notifications.Application/"]
+COPY ["Microservice-Notifications.Domain/Microservice-Notifications.Domain.csproj", "Microservice-Notifications.Domain/"]
 RUN dotnet restore "./Microservice-Notification.API/Microservice-Notification.API.csproj"
 COPY . .
 WORKDIR "/src/Microservice-Notification.API"

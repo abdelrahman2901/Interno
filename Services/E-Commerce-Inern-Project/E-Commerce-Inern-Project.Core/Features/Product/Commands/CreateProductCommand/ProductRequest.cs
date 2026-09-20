@@ -15,5 +15,4 @@ namespace E_Commerce_Inern_Project.Core.Features.Product.Commands.CreateProductC
         public bool Active { get; set; }
         public IFormFile? ProductImage { get; set; }
     }
-            
 }

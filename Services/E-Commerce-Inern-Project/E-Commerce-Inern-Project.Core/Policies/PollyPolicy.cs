@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.CircuitBreaker;
-using Polly.Extensions.Http;
 
 namespace E_Commerce_Inern_Project.Core.Policies
 {
@@ -13,30 +12,34 @@ namespace E_Commerce_Inern_Project.Core.Policies
             _logger = logger;
         }
 
-        public IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+        public IAsyncPolicy GetPolicy()
         {
-            IAsyncPolicy<HttpResponseMessage> policy =
-       HttpPolicyExtensions
-           .HandleTransientHttpError()
-           .WaitAndRetryAsync(
-               retryCount: 3,
-               sleepDurationProvider: retry =>
-                   TimeSpan.FromSeconds(Math.Pow(2, retry)),
-               onRetry: (outcome, timespan, retryAttempt, context) =>
-               {
-                   _logger.LogInformation(
-                       "Retry {RetryAttempt} after {Delay} seconds",
-                       retryAttempt,
-                       timespan.TotalSeconds);
-               });
-
+            var policy = Policy.WrapAsync(GetRetryPolicy(), GetCircuiteBreakerPolicy());
             return policy;
         }
 
-        public IAsyncPolicy<HttpResponseMessage> GetCircuiteBreakerPolicy()
+        private IAsyncPolicy GetRetryPolicy()
         {
-            AsyncCircuitBreakerPolicy<HttpResponseMessage> policy = Policy.HandleResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode).CircuitBreakerAsync(
-                handledEventsAllowedBeforeBreaking: 3, durationOfBreak: TimeSpan.FromMinutes(1), onBreak: (outcome, timespan) =>
+         return   Policy
+          .Handle<Exception>()
+          .WaitAndRetryAsync(
+              3,
+              retry => TimeSpan.FromSeconds(Math.Pow(2, retry)),
+              onRetry: (exception, timespan, retryAttempt, context) =>
+              {
+                  _logger.LogInformation(
+                      "Retry {RetryAttempt} after {Delay} seconds",
+                      retryAttempt,
+                      timespan.TotalSeconds);
+              });
+        }
+
+        private IAsyncPolicy GetCircuiteBreakerPolicy()
+        {
+            return  Policy.Handle<Exception>().CircuitBreakerAsync(
+                exceptionsAllowedBeforeBreaking: 3, 
+                durationOfBreak: TimeSpan.FromMinutes(1),
+                onBreak: (outcome, timespan) =>
                 {
                     _logger.LogInformation($"Circuit breaker opened for {timespan.TotalMinutes} minutes due to consecutive 3 failures. The subsequent requests will be blocked");
                 },
@@ -44,7 +47,6 @@ namespace E_Commerce_Inern_Project.Core.Policies
                 {
                     _logger.LogInformation($"Circuit breaker closed. The subsequent requests will be allowed.");
                 });
-            return policy;
         }
     }
 }

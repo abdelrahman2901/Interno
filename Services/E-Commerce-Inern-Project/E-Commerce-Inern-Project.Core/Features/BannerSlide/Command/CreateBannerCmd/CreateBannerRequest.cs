@@ -2,7 +2,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
-
 namespace E_Commerce_Inern_Project.Core.Features.BannerSlide.Command.CreateBannerCmd
 {
     public class CreateBannerRequest : IRequest<Result<bool>>

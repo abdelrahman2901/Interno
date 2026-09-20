@@ -9,6 +9,7 @@ using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IUserRepo;
 using E_Commerce_Inern_Project.Core.Features.Product.Commands.CreateProductCommand;
 using E_Commerce_Inern_Project.Core.Features.Product.Commands.UpdateProductCommand;
 using E_Commerce_Inern_Project.Core.Features.Product.Commands.UpdateProductRatingCommand;
+using E_Commerce_Inern_Project.Core.Policies;
 using E_Commerce_Inern_Project.Core.RabbitMQ;
 using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
 using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
@@ -30,11 +31,12 @@ namespace E_Commerce_Inern_Project.Core.Services.ProductServices
         private readonly IMapper _Mapper;
         private readonly ILogger<ProductService> _logger;
         private readonly IRabbitMQPublisher _Publisher;
-        private readonly IAsyncPolicy _AsyncPolicy;
+        //private readonly IPollyPolicy _AsyncPolicy;
+        private readonly IAsyncPolicy _policy;
         private readonly ITransectionRepository _Transection;
         private readonly string _CurrentDIr = $@"{Directory.GetCurrentDirectory()}\wwwroot\ProductsImages";
         private readonly string AuditKey = "Interno.Audit";
-        public ProductService(IProductRepository productRepo, ITransectionRepository Transection, IAsyncPolicy AsyncPolicy, IUserRepository UserRepo, ICategoryRepository CategoryRepo, IRabbitMQPublisher Publisher, IProductRatesRepository ProductRatesRepo, IMapper mapper, ILogger<ProductService> logger)
+        public ProductService(IProductRepository productRepo, ITransectionRepository Transection, IPollyPolicy AsyncPolicy, IUserRepository UserRepo, ICategoryRepository CategoryRepo, IRabbitMQPublisher Publisher, IProductRatesRepository ProductRatesRepo, IMapper mapper, ILogger<ProductService> logger)
         {
             _productRepo = productRepo;
             _ProductRatesRepo = ProductRatesRepo;
@@ -42,9 +44,10 @@ namespace E_Commerce_Inern_Project.Core.Services.ProductServices
             _UserRepo = UserRepo;
             _Publisher = Publisher;
             _Mapper = mapper;
-            _AsyncPolicy = AsyncPolicy;
+            //_AsyncPolicy = AsyncPolicy;
             _logger = logger;
             _Transection = Transection;
+            _policy = AsyncPolicy.GetPolicy();
         }
 
         public async Task<Result<bool>> CreateProductAsync(ProductRequest request)
@@ -96,7 +99,10 @@ namespace E_Commerce_Inern_Project.Core.Services.ProductServices
 
                 string JsonNewValues = JsonSerializer.Serialize<Product>(newProduct);
                 AuditRequest AuditRequest = new(await GetAdminID(), ActionTypeEnum.Create, nameof(Product), null, JsonNewValues);
-                await _AsyncPolicy.ExecuteAsync(async () =>
+                //var retryPolicy = _AsyncPolicy.GetRetryPolicy();
+                //var circuitPolicy = _AsyncPolicy.GetCircuiteBreakerPolicy();
+                //var policy = Policy.WrapAsync(retryPolicy, circuitPolicy);
+                await _policy.ExecuteAsync(async () =>
                 {
                     await _Publisher.Publish(AuditKey, AuditRequest);
                 });
@@ -136,7 +142,10 @@ namespace E_Commerce_Inern_Project.Core.Services.ProductServices
 
             string JsonNewValues = JsonSerializer.Serialize<Product>(Product);
             AuditRequest AuditRequest = new(await GetAdminID(), ActionTypeEnum.Delete, nameof(Product), JsonOldValues, JsonNewValues);
-            await _AsyncPolicy.ExecuteAsync(async () =>
+            //var retryPolicy = _AsyncPolicy.GetRetryPolicy();
+            //var circuitPolicy = _AsyncPolicy.GetCircuiteBreakerPolicy();
+            //var policy = Policy.WrapAsync(retryPolicy, circuitPolicy);
+            await _policy.ExecuteAsync(async () =>
             {
                 await _Publisher.Publish(AuditKey, AuditRequest);
             });
@@ -204,7 +213,10 @@ namespace E_Commerce_Inern_Project.Core.Services.ProductServices
 
                 string JsonNewValues = JsonSerializer.Serialize<Product>(existing);
                 AuditRequest AuditRequest = new(await GetAdminID(), ActionTypeEnum.Update, nameof(Product), JsonOldValues, JsonNewValues);
-                await _AsyncPolicy.ExecuteAsync(async () =>
+                //var retryPolicy = _AsyncPolicy.GetRetryPolicy();
+                //var circuitPolicy = _AsyncPolicy.GetCircuiteBreakerPolicy();
+                //var policy = Policy.WrapAsync(retryPolicy, circuitPolicy);
+                await _policy.ExecuteAsync(async () =>
                 {
                     await _Publisher.Publish(AuditKey, AuditRequest);
                 });
@@ -236,7 +248,11 @@ namespace E_Commerce_Inern_Project.Core.Services.ProductServices
 
             string JsonNewValues = JsonSerializer.Serialize<Product>(existing);
             AuditRequest AuditRequest = new(await GetAdminID(), ActionTypeEnum.Update, nameof(Product), JsonOldValues, JsonNewValues);
-            await _AsyncPolicy.ExecuteAsync(async () =>
+            //var retryPolicy = _AsyncPolicy.GetRetryPolicy();
+            //var circuitPolicy = _AsyncPolicy.GetCircuiteBreakerPolicy();
+            //var policy =  Policy.WrapAsync(retryPolicy, circuitPolicy);
+            //var policy = _AsyncPolicy.GetPolicy();
+            await _policy.ExecuteAsync(async () =>
             {
                 await _Publisher.Publish(AuditKey, AuditRequest);
             });
@@ -315,7 +331,7 @@ namespace E_Commerce_Inern_Project.Core.Services.ProductServices
         private async Task<Guid> GetAdminID()
         {
             var admin = await _UserRepo.GetApplicationUserByEmail("admin@gmail.com");
-            return admin.Id;
+            return admin.UserID;
         }
     }
 }

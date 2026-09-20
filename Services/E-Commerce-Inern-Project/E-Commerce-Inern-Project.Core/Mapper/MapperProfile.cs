@@ -43,7 +43,6 @@ using E_Commerce_Inern_Project.Core.Features.ShippingCosts.Command.CreateShippin
 using E_Commerce_Inern_Project.Core.Features.ShippingCosts.Command.UpdateShippingCostCmd;
 using E_Commerce_Inern_Project.Core.Features.SIze.Commands.CreateSizeCommand;
 using E_Commerce_Inern_Project.Core.Features.WishList.Commands.CreateWishListCmd;
-using E_Commerce_Inern_Project.Core.Identity;
 namespace E_Commerce_Inern_Project.Core.Mapper
 {
     public class MapperProfile : Profile
@@ -51,11 +50,12 @@ namespace E_Commerce_Inern_Project.Core.Mapper
         public MapperProfile()
         {
             //User
-            CreateMap<RegisterUserCommand, ApplicationUser>().ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
+            CreateMap<RegisterUserCommand, ApplicationUser>().ForMember(dest => dest.UserID, opt => opt.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.PersonName, opt => opt.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email));
-            CreateMap<ApplicationUser, AuthUserDetailsDTO>().ForMember(dest => dest.userID, src => src.MapFrom(s => s.Id));
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
+            CreateMap<ApplicationUser, AuthUserDetailsDTO>().ForMember(dest => dest.userID, src => src.MapFrom(s => s.UserID));
             CreateMap<UserUpdateRequest, ApplicationUser>();
+
             //Product
             CreateMap<ProductRequest, Product>()
                 .ForMember(dest => dest.ProductID,opt =>opt.MapFrom( src => Guid.NewGuid()))

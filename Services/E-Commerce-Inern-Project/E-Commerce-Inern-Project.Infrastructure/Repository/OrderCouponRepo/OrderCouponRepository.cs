@@ -1,6 +1,6 @@
 ﻿using E_Commerce_Inern_Project.Core.Domain.Entity;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IOrderCouponRepo;
-using E_Commerce_Inern_Project.Infrastructure.DbContext;
+using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -8,10 +8,10 @@ namespace E_Commerce_Inern_Project.Infrastructure.Repository.OrderCouponRepo
 {
     public class OrderCouponRepository : IOrderCouponRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDBContext _context;
         private readonly ILogger<OrderCouponRepository> _logger;
 
-        public OrderCouponRepository(ApplicationDbContext context, ILogger<OrderCouponRepository>logger)
+        public OrderCouponRepository(ApplicationDBContext context, ILogger<OrderCouponRepository>logger)
         {
             _context = context;
             _logger = logger;

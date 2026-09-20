@@ -1,6 +1,6 @@
 ﻿using E_Commerce_Inern_Project.Core.Domain.Entity;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IAreaRepo;
-using E_Commerce_Inern_Project.Infrastructure.DbContext;
+using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -9,9 +9,9 @@ namespace E_Commerce_Inern_Project.Infrastructure.Repository.AreaRepo
     public class AreaRepository : IAreaRepository
     {
 
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDBContext _context;
         private readonly ILogger<AreaRepository> _logger;
-        public AreaRepository(ApplicationDbContext context, ILogger<AreaRepository> logger)
+        public AreaRepository(ApplicationDBContext context, ILogger<AreaRepository> logger)
         {
             _context = context;
             _logger = logger;

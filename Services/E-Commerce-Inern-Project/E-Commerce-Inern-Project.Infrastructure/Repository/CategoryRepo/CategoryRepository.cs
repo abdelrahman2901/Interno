@@ -1,7 +1,6 @@
-﻿
-using E_Commerce_Inern_Project.Core.Domain.Entity;
+﻿using E_Commerce_Inern_Project.Core.Domain.Entity;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ICategoryRepo;
-using E_Commerce_Inern_Project.Infrastructure.DbContext;
+using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -9,9 +8,9 @@ namespace E_Commerce_Inern_Project.Infrastructure.Repository.CategoryRepo
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDBContext _context;
         private readonly ILogger<CategoryRepository> _logger;
-        public CategoryRepository(ApplicationDbContext context, ILogger<CategoryRepository> logger)
+        public CategoryRepository(ApplicationDBContext context, ILogger<CategoryRepository> logger)
         {
             _context = context;
             _logger = logger;

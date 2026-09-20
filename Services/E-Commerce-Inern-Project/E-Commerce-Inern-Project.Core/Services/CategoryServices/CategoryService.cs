@@ -287,7 +287,7 @@ namespace E_Commerce_Inern_Project.Core.Services.CategoryServices
         {
             var admin = await _UserRepo.GetApplicationUserByEmail("Admin@gmail.com");
 
-            return admin.Id;
+            return admin.UserID;
         }
     }
 }

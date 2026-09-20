@@ -13,6 +13,10 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Audit-Microservice.API/Audit-Microservice.API.csproj", "Audit-Microservice.API/"]
+COPY ["Microservice-Audit.Application/Microservice-Audit.Application.csproj", "Microservice-Audit.Application/"]
+COPY ["Microservice-Notification.Core/Microservice-Audit.Core.csproj", "Microservice-Notification.Core/"]
+COPY ["Microservice-Notification.Infrastructure/Microservice-Audit.Infrastructure.csproj", "Microservice-Notification.Infrastructure/"]
+COPY ["Microservice-Audit.Domain/Microservice-Audit.Domain.csproj", "Microservice-Audit.Domain/"]
 RUN dotnet restore "./Audit-Microservice.API/Audit-Microservice.API.csproj"
 COPY . .
 WORKDIR "/src/Audit-Microservice.API"

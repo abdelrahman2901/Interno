@@ -1,5 +1,5 @@
 ﻿using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ITransectionRepo;
-using E_Commerce_Inern_Project.Infrastructure.DbContext;
+using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 
@@ -7,9 +7,9 @@ namespace E_Commerce_Inern_Project.Infrastructure.Repository.TransectionRepo
 {
     public class TransectionRepository : ITransectionRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDBContext _context;
         private readonly ILogger<TransectionRepository> _logger;
-        public TransectionRepository(ApplicationDbContext context, ILogger<TransectionRepository> logger)
+        public TransectionRepository(ApplicationDBContext context, ILogger<TransectionRepository> logger)
         {
             _context = context;
             _logger = logger;

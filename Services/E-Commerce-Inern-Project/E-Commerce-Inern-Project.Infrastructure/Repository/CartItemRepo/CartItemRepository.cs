@@ -1,6 +1,6 @@
 ﻿using E_Commerce_Inern_Project.Core.Domain.Entity;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ICartItemRepo;
-using E_Commerce_Inern_Project.Infrastructure.DbContext;
+using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -8,9 +8,9 @@ namespace E_Commerce_Inern_Project.Infrastructure.Repository.CartItemRepo
 {
     public class CartItemRepository : ICartItemRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDBContext _context;
         private readonly ILogger<CartItemRepository> _logger;
-        public CartItemRepository(ApplicationDbContext context, ILogger<CartItemRepository> logger)
+        public CartItemRepository(ApplicationDBContext context, ILogger<CartItemRepository> logger)
         {
             _context = context;
             _logger = logger;

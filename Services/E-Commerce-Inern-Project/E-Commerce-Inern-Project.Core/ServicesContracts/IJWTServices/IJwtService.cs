@@ -1,7 +1,7 @@
 ﻿using E_Commerce_Inern_Project.Core.DTO.AuthDTO;
 using E_Commerce_Inern_Project.Core.Common;
-using E_Commerce_Inern_Project.Core.Identity;
 using System.Security.Claims;
+using E_Commerce_Inern_Project.Core.Domain.Entity;
 
 namespace E_Commerce_Inern_Project.Core.ServicesContracts.IJWTServices
 {

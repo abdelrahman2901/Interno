@@ -1,6 +1,6 @@
 ﻿using E_Commerce_Inern_Project.Core.Domain.Entity;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IWishListRepo;
-using E_Commerce_Inern_Project.Infrastructure.DbContext;
+using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -8,9 +8,9 @@ namespace E_Commerce_Inern_Project.Infrastructure.Repository.WishListRepo
 {
     public class WishListRepository : IWishListRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDBContext _context;
         private readonly ILogger<WishListRepository> _logger;
-        public WishListRepository(ApplicationDbContext context,ILogger<WishListRepository> logger)
+        public WishListRepository(ApplicationDBContext context,ILogger<WishListRepository> logger)
         {
             _context = context;
             _logger = logger;

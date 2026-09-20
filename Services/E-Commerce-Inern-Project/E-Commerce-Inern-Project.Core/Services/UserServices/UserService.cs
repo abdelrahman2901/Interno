@@ -35,7 +35,6 @@ namespace E_Commerce_Inern_Project.Core.Services.UserServices
                 return Result<AuthUserDetailsDTO>.NotFound("User Doenst Exists");
             }
             AuthUserDetailsDTO userDetails = _mapper.Map<AuthUserDetailsDTO>(user);
-            userDetails.Role = await _UserRepo.GetUserRole(user);
             return Result<AuthUserDetailsDTO>.Success(userDetails);
         }
 
@@ -47,29 +46,8 @@ namespace E_Commerce_Inern_Project.Core.Services.UserServices
                 return Result<AuthUserDetailsDTO>.NotFound("User Doenst Exists");
             }
             AuthUserDetailsDTO userDetails = _mapper.Map<AuthUserDetailsDTO>(user);
-            userDetails.Role = await _UserRepo.GetUserRole(user);
             return Result<AuthUserDetailsDTO>.Success(userDetails);
         }
-
-        //public async Task<Result<bool>> IsAccountDeleted(string Email)
-        //{
-        //    ApplicationUser? user = await _UserRepo.GetApplicationUserByEmail(Email);
-        //    if (user == null)
-        //    {
-        //        return Result<bool>.NotFound("User Doenst Exists");
-        //    }
-
-        //    return Result<bool>.Success(user.IsDeleted);
-        //}
-
-        //public async Task<Result<bool>> IsEmailAlreadyRegister(string Email)
-        //{
-        //    bool result = await _UserRepo.IsEmailAlreadyRegister(Email);
-        //    if (!result)
-        //    {
-        //        return Result<bool>.NotFound("Email is not Registered");
-        //    }
-        //    return Result<bool>.Success(result);
-        //}
+ 
     }
 }

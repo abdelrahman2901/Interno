@@ -1,6 +1,6 @@
 ﻿using E_Commerce_Inern_Project.Core.Domain.Entity;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IOrdersRepo;
-using E_Commerce_Inern_Project.Infrastructure.DbContext;
+using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -8,9 +8,9 @@ namespace E_Commerce_Inern_Project.Infrastructure.Repository.OrderRepo
 {
     public class OrderRepoistory : IOrdersRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDBContext _context;
         private readonly ILogger<OrderRepoistory> _logger;
-        public OrderRepoistory(ApplicationDbContext context, ILogger<OrderRepoistory> logger)
+        public OrderRepoistory(ApplicationDBContext context, ILogger<OrderRepoistory> logger)
         {
             _context = context;
             _logger = logger;

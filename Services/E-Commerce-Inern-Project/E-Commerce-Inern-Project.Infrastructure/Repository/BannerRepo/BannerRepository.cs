@@ -1,7 +1,7 @@
 ﻿
 using E_Commerce_Inern_Project.Core.Domain.Entity;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IBannerRepo;
-using E_Commerce_Inern_Project.Infrastructure.DbContext;
+using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -9,10 +9,10 @@ namespace E_Commerce_Inern_Project.Infrastructure.Repository.BannerRepo
 {
     public class BannerRepository : IBannerRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDBContext _context;
         private readonly ILogger<BannerRepository> _logger;
 
-        public BannerRepository(ApplicationDbContext context, ILogger<BannerRepository> logger)
+        public BannerRepository(ApplicationDBContext context, ILogger<BannerRepository> logger)
         {
             _context = context;
             _logger = logger;

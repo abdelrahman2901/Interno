@@ -1,7 +1,4 @@
-﻿using E_Commerce_Inern_Project.Core.DTO.CategoryDTO;
-using E_Commerce_Inern_Project.Core.DTO.SizeDTO;
-using System.ComponentModel.DataAnnotations;
-
+﻿
 namespace E_Commerce_Inern_Project.Core.Domain.ViewEntites
 {
     public class ProductDetails_vw

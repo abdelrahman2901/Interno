@@ -13,12 +13,14 @@ using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IOrdersRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IPaymentRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IProductRatesRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IProductRepo;
+using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IRolesRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IShippingCostsRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ISizeRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ITransectionRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IUserRepo;
+using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IUserRolesRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IWishListRepo;
-using E_Commerce_Inern_Project.Infrastructure.DbContext;
+using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
 using E_Commerce_Inern_Project.Infrastructure.Repository.AddressRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.AreaRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.AuthRepo;
@@ -34,10 +36,12 @@ using E_Commerce_Inern_Project.Infrastructure.Repository.OrderRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.PaymentRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.ProductRatesRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.ProductRepo;
+using E_Commerce_Inern_Project.Infrastructure.Repository.RolesRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.ShippingCostRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.SizeRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.TransectionRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.UserRepo;
+using E_Commerce_Inern_Project.Infrastructure.Repository.UserRolesRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.WishListRepo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -106,11 +110,13 @@ namespace E_Commerce_Inern_Project.Infrastructure.DependencyInjection
             //Product Rating
             services.AddScoped<IProductRatesRepository, ProductRatesRepository>();
 
+            //UserRoles
+            services.AddScoped<IUserRolesRepository, UserRolesRepository>();
 
             //Transection
             services.AddScoped<ITransectionRepository,TransectionRepository>();
             //DbContext
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<ApplicationDBContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("Default"));
             });

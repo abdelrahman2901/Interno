@@ -1,14 +1,12 @@
 ﻿using E_Commerce_Inern_Project.Core.Domain.Entity;
-using E_Commerce_Inern_Project.Core.Identity;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using E_Commerce_Inern_Project.Core.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace E_Commerce_Inern_Project.Infrastructure.DbContext
+namespace E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
+    public class ApplicationDBContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions options) : base(options) { }
+        public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
         public DbSet<Product> Product { get; set; }
         public DbSet<Category> Category { get; set; }
         public DbSet<Colors> Color { get; set; }
@@ -26,6 +24,9 @@ namespace E_Commerce_Inern_Project.Infrastructure.DbContext
         public DbSet<OrderCoupons> OrderCoupon { get; set; }
         public DbSet<BannerSlide> BannerSlides { get; set; }
         public DbSet<ProductRates> ProductRates { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<ApplicationRole> ApplicationRole { get; set; }
+        public DbSet<ApplicationUserRoles> ApplicationUserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -33,12 +34,21 @@ namespace E_Commerce_Inern_Project.Infrastructure.DbContext
 
 
             #region OLD
-            builder.Entity<ApplicationUser>()
-                .HasMany(r => r.Roles)
-                .WithMany()
-                .UsingEntity<IdentityUserRole<Guid>>(
-                j => j.HasOne<ApplicationRole>().WithMany().HasForeignKey(r => r.RoleId),
-                j => j.HasOne<ApplicationUser>().WithMany().HasForeignKey(r => r.UserId));
+
+            builder.Entity<ApplicationUserRoles>().HasKey(r => new { r.UserID, r.RoleID });
+            builder.Entity<ApplicationUser>().Property(r=>r.Gender).HasConversion<string>();
+
+            builder.Entity<ApplicationUserRoles>()
+                .HasOne(r => r.User)
+                .WithMany(r => r.Roles)
+                .HasForeignKey(x => x.UserID)
+                .OnDelete(DeleteBehavior.Cascade); ;
+
+            builder.Entity<ApplicationUserRoles>()
+               .HasOne(r => r.Role)
+               .WithMany(r => r.UserRoles)
+               .HasForeignKey(x => x.RoleID)
+               .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<ProductRates>().HasOne(u => u.User).WithMany(p => p.ProductRates).HasForeignKey(u => u.UserID).OnDelete(DeleteBehavior.NoAction);
 
@@ -197,20 +207,17 @@ new Size
             builder.Entity<ApplicationRole>().HasData(
               new ApplicationRole
               {
-                  Id = Guid.Parse("BFFBE3E7-4ADF-4BB5-83DB-6880F743D5DA"),
-                  Name = "Admin",
-                  NormalizedName = "ADMIN",
-                  ConcurrencyStamp = Guid.Parse("1C23EDF8-0BC4-41E4-BF72-F89F0594EAD7").ToString()
-                  ,
-                  RoleDescription = "Admin role with full permissions"
+                  RoleID = Guid.Parse("BFFBE3E7-4ADF-4BB5-83DB-6880F743D5DA"),
+                  RoleName = "Admin",
+                  RoleDescription = "Admin role with full permissions",
+                  RoleEnumID = RolesEnum.Admin,
 
               }, new ApplicationRole
               {
-                  Id = Guid.Parse("BCF2E140-CF5C-4352-A238-E04C7F220E64"),
-                  Name = "User",
-                  NormalizedName = "USER",
+                  RoleID = Guid.Parse("BCF2E140-CF5C-4352-A238-E04C7F220E64"),
+                  RoleName = "Customer",
                   RoleDescription = "User role with limited permissions",
-                  ConcurrencyStamp = Guid.Parse("3D02C4F7-16A9-47F9-BE71-3E27A0B9C46B").ToString()
+                  RoleEnumID = RolesEnum.Customer,
               });
 
             builder.Entity<Category>().HasOne(p => p.ParentCategory)

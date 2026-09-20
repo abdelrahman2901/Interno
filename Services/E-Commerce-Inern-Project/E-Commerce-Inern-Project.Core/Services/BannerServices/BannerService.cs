@@ -12,7 +12,6 @@ using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
 using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
 using E_Commerce_Inern_Project.Core.ServicesContracts.IBannerServices;
 using Microsoft.AspNetCore.Http;
-using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.Json;
 
@@ -281,7 +280,7 @@ namespace E_Commerce_Inern_Project.Core.Services.BannerServices
         private async Task<Guid> GetAdminID()
         {
                 var admin = await _UserRepo.GetApplicationUserByEmail("Admin@gmail.com");
-            return admin.Id;
+            return admin.UserID;
         }
   
     }

@@ -1,7 +1,9 @@
 using Audit_Microservice.API.EndPoints.AuditEndPoints;
-using Microservice_Audit.Application.Features.Audit.Query.GetAllAuditQ;
-using Microservice_Audit.Infrastructure.DependencyInjection;
 using Microservice_Audit.Application.DependencyInjection;
+using Microservice_Audit.Application.Features.Audit.Query.GetAllAuditQ;
+using Microservice_Audit.Infrastructure.ApplicationContext;
+using Microservice_Audit.Infrastructure.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,13 @@ builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+}
+
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseRouting();

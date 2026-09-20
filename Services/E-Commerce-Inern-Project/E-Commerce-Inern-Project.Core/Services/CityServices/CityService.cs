@@ -158,7 +158,7 @@ namespace E_Commerce_Inern_Project.Core.Services.CityServices
         private async Task<Guid> GetAdminID()
         {
             var admin = await _UserRepo.GetApplicationUserByEmail("admin@gmail.com");
-            return admin.Id;
+            return admin.UserID;
         }
 
     }
