@@ -1,7 +1,7 @@
 ﻿using E_Commerce_Inern_Project.Core.Common;
-using E_Commerce_Inern_Project.Core.DTO.AddressDTO;
 using E_Commerce_Inern_Project.Core.Features.Address.Commands.CreateAddressCmd;
 using E_Commerce_Inern_Project.Core.Features.Address.Commands.UpdateAddressCmd;
+using E_Commerce_Interno.Domain.DTO.AddressDTO;
 
 namespace E_Commerce_Inern_Project.Core.ServicesContracts.IAddressServices
 {

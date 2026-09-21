@@ -2,7 +2,7 @@ import axios from "axios";
 import { IResponse } from "../../DTO/API-Response/IResponse";
 import { NotificationModel } from "../../DTO/NotificationDTO/NotificationModel";
 
-const Base_API = "https://localhost:7054/api/Notificaiton";
+const Base_API = "http://localhost:5002/api/Notificaiton";
 export const GetAllNotifications = async (): Promise<
   IResponse<NotificationModel[]>
 > => {

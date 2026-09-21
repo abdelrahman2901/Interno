@@ -2,7 +2,7 @@ import axios from "axios";
 import { RefreshToken } from "../Services/AuthServices/AuthUserService";
 
 export const API = axios.create({
-  baseURL: "https://localhost:7164/api",
+  baseURL: "http://localhost:5000/api",
 });
 
 API.interceptors.request.use(

@@ -122,7 +122,8 @@ namespace E_Commerce_Inern_Project.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
@@ -140,10 +141,16 @@ namespace E_Commerce_Inern_Project.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PersonName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RefreshToken")
                         .HasColumnType("nvarchar(max)");
@@ -153,7 +160,31 @@ namespace E_Commerce_Inern_Project.Infrastructure.Migrations
 
                     b.HasKey("UserID");
 
-                    b.ToTable("ApplicationUser");
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
+
+                    b.ToTable("ApplicationUser", t =>
+                        {
+                            t.HasCheckConstraint("CK_ApplicationUser_PhoneNumber", "LEN(PhoneNumber) = 13\r\nAND LEFT(PhoneNumber, 3) = '+20'\r\nAND SUBSTRING(PhoneNumber, 4, 1) = '1'\r\nAND SUBSTRING(PhoneNumber, 5, 1) IN ('0', '1', '2', '5')\r\nAND PhoneNumber NOT LIKE '%[^0-9+]%'");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            UserID = new Guid("d1a9b5c3-4f2e-4a6b-8c1d-9f3e2a1b5c3d"),
+                            Email = "Admin@gmail.com",
+                            Gender = "Male",
+                            IsBlocked = false,
+                            IsDeleted = false,
+                            IsGmailVerified = true,
+                            IsPhoneNumberVerified = true,
+                            Password = "Admin12",
+                            PersonName = "Admin User",
+                            PhoneNumber = "+201066761644"
+                        });
                 });
 
             modelBuilder.Entity("E_Commerce_Inern_Project.Core.Domain.Entity.ApplicationUserRoles", b =>
@@ -172,6 +203,14 @@ namespace E_Commerce_Inern_Project.Infrastructure.Migrations
                     b.HasIndex("RoleID");
 
                     b.ToTable("ApplicationUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserID = new Guid("d1a9b5c3-4f2e-4a6b-8c1d-9f3e2a1b5c3d"),
+                            RoleID = new Guid("bffbe3e7-4adf-4bb5-83db-6880f743d5da"),
+                            IsDeleted = false
+                        });
                 });
 
             modelBuilder.Entity("E_Commerce_Inern_Project.Core.Domain.Entity.Area", b =>

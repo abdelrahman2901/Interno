@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using E_Commerce_Inern_Project.Core.Domain.Entity;
 using E_Commerce_Inern_Project.Core.Domain.ViewEntites;
-using E_Commerce_Inern_Project.Core.DTO.AddressDTO;
-using E_Commerce_Inern_Project.Core.DTO.AreaDTO;
 using E_Commerce_Inern_Project.Core.DTO.BannerSlideDTO;
 using E_Commerce_Inern_Project.Core.DTO.CartDTO;
 using E_Commerce_Inern_Project.Core.DTO.CartItemDTO;
@@ -38,11 +36,13 @@ using E_Commerce_Inern_Project.Core.Features.Orders.Command.UpdateOrderCmd;
 using E_Commerce_Inern_Project.Core.Features.Payments.Command.CreateNewPaymentCmd;
 using E_Commerce_Inern_Project.Core.Features.Product.Commands.CreateProductCommand;
 using E_Commerce_Inern_Project.Core.Features.Product.Commands.UpdateProductCommand;
-using E_Commerce_Inern_Project.Core.Features.ProductRates.Command.CreateProductRateCmd;
 using E_Commerce_Inern_Project.Core.Features.ShippingCosts.Command.CreateShippingCostCmd;
 using E_Commerce_Inern_Project.Core.Features.ShippingCosts.Command.UpdateShippingCostCmd;
 using E_Commerce_Inern_Project.Core.Features.SIze.Commands.CreateSizeCommand;
 using E_Commerce_Inern_Project.Core.Features.WishList.Commands.CreateWishListCmd;
+using E_Commerce_Interno.Domain.DTO.AddressDTO;
+using E_Commerce_Interno.Domain.DTO.AreaDTO;
+using E_Commerce_Interno.Domain.DTO.UserDTO;
 namespace E_Commerce_Inern_Project.Core.Mapper
 {
     public class MapperProfile : Profile
@@ -53,12 +53,14 @@ namespace E_Commerce_Inern_Project.Core.Mapper
             CreateMap<RegisterUserCommand, ApplicationUser>().ForMember(dest => dest.UserID, opt => opt.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.PersonName, opt => opt.MapFrom(src => src.UserName))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));
-            CreateMap<ApplicationUser, AuthUserDetailsDTO>().ForMember(dest => dest.userID, src => src.MapFrom(s => s.UserID));
+            CreateMap<ApplicationUser, AuthUserDetailsDTO>()
+                .ForMember(dest => dest.Roles, src => src.MapFrom(s => s.Roles.Select(r => r.RoleID)))
+                .ForMember(dest => dest.userID, src => src.MapFrom(s => s.UserID));
             CreateMap<UserUpdateRequest, ApplicationUser>();
 
             //Product
             CreateMap<ProductRequest, Product>()
-                .ForMember(dest => dest.ProductID,opt =>opt.MapFrom( src => Guid.NewGuid()))
+                .ForMember(dest => dest.ProductID, opt => opt.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => DateTime.Now));
             CreateMap<ProductUpdateRequest, Product>();
             CreateMap<Product, ProductDetails_vw>()
@@ -84,7 +86,7 @@ namespace E_Commerce_Inern_Project.Core.Mapper
 
             //area
             CreateMap<Area, AreaResponse>();
-            CreateMap<AreaRequest, Area>().ForMember(dest=>dest.AreaID,opt=>opt.MapFrom(src=>Guid.NewGuid()));
+            CreateMap<AreaRequest, Area>().ForMember(dest => dest.AreaID, opt => opt.MapFrom(src => Guid.NewGuid()));
             CreateMap<AreaUpdateRequest, Area>();
             //city
             CreateMap<City, CityResponse>();
@@ -96,7 +98,7 @@ namespace E_Commerce_Inern_Project.Core.Mapper
             CreateMap<Address, AddressResponse>();
             CreateMap<CreateAddressRequest, Address>().ForMember(dest => dest.AddressID, opt => opt.MapFrom(src => Guid.NewGuid()));
             CreateMap<UpdateAddressRequest, Address>();
-            CreateMap<Address, AddressDetails>().ForMember(dest=>dest.CityName, opt=>opt.MapFrom(src=>src.City.CityName))
+            CreateMap<Address, AddressDetails>().ForMember(dest => dest.CityName, opt => opt.MapFrom(src => src.City.CityName))
                 .ForMember(dest => dest.AreaName, opt => opt.MapFrom(src => src.Area.AreaName));
 
 
@@ -106,18 +108,18 @@ namespace E_Commerce_Inern_Project.Core.Mapper
             CreateMap<Cart, CartResponse>();
 
             //CartItem
-              CreateMap<CartItems,CartItemResponse>();
+            CreateMap<CartItems, CartItemResponse>();
             CreateMap<CreateCartItemRequest, CartItems>()
-                .ForMember(dest=>dest.CartItemID,opt=>opt.MapFrom(src=>Guid.NewGuid()))
+                .ForMember(dest => dest.CartItemID, opt => opt.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.AddedDate, opt => opt.MapFrom(src => DateTime.Now));
-            CreateMap<CartItems,CartItemDetailsResponse>().ForMember(dest=>dest.Product,opt=>opt.MapFrom(src=>src.Product))
+            CreateMap<CartItems, CartItemDetailsResponse>().ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product))
                 .ForMember(dest => dest.Cart, opt => opt.MapFrom(src => src.Cart));
 
             //WishList
             CreateMap<CreateWishListRequest, WishList>().ForMember(dest => dest.WishlistID, opt => opt.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.AddedDate, opt => opt.MapFrom(src => DateTime.Now));
             CreateMap<WishList, WishListResponse>();
-            CreateMap<WishList, WishListDetailsResponse>().ForMember(dest=>dest.Product,opt=>opt.MapFrom(src=>src.Product));
+            CreateMap<WishList, WishListDetailsResponse>().ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product));
 
             //Payment
             CreateMap<PaymentRequest, Payments>().ForMember(dest => dest.PaymentID, opt => opt.MapFrom(src => Guid.NewGuid()))
@@ -127,10 +129,10 @@ namespace E_Commerce_Inern_Project.Core.Mapper
             //ShippingCost
             CreateMap<CreateShippingCostRequest, ShippingCosts>().ForMember(dest => dest.ShippingCostID, opt => opt.MapFrom(src => Guid.NewGuid()));
             CreateMap<UpdateShippingCostRequest, ShippingCosts>();
-            CreateMap<ShippingCosts, ShippingCostDetails>().ForMember(dest=>dest.Area,opt=>opt.MapFrom(src=>src.Area));
+            CreateMap<ShippingCosts, ShippingCostDetails>().ForMember(dest => dest.Area, opt => opt.MapFrom(src => src.Area));
 
             //OrderCoupon
-            CreateMap<CreateCouponRequest, OrderCoupons>().ForMember(dest=>dest.OrderCouponID,opt=>opt.MapFrom(src=>Guid.NewGuid()));
+            CreateMap<CreateCouponRequest, OrderCoupons>().ForMember(dest => dest.OrderCouponID, opt => opt.MapFrom(src => Guid.NewGuid()));
             CreateMap<OrderCoupons, OrderCouponResponse>();
             CreateMap<UpdateCouponRequest, OrderCoupons>();
 
@@ -138,7 +140,7 @@ namespace E_Commerce_Inern_Project.Core.Mapper
             CreateMap<CreateOrderRequest, Order>()
                 .ForMember(dest => dest.OrderID, opt => opt.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(src => DateTime.Now))
-                .ForMember(dest => dest.OrderNumber, opt => opt.MapFrom(src => $"ORD-{DateTime.Now.Year}-{Guid.NewGuid().ToString().Substring(0,4)}" ));
+                .ForMember(dest => dest.OrderNumber, opt => opt.MapFrom(src => $"ORD-{DateTime.Now.Year}-{Guid.NewGuid().ToString().Substring(0, 4)}"));
             CreateMap<Order, OrderDetails>()
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.Address))
                 .ForMember(dest => dest.UserEmail, opt => opt.MapFrom(src => src.User.Email))
@@ -162,7 +164,7 @@ namespace E_Commerce_Inern_Project.Core.Mapper
             CreateMap<OrderItemRequest, OrderItems>().ForMember(r => r.OrderItemID, opt => opt.MapFrom(src => Guid.NewGuid()));
             CreateMap<CartItems, OrderItems>().ForMember(r => r.OrderItemID, opt => opt.MapFrom(src => Guid.NewGuid()))
                 .ForMember(r => r.IsDeleted, opt => opt.Ignore())
-                .ForMember(r => r.AddedDate, opt => opt.MapFrom(src=>DateTime.Now));
+                .ForMember(r => r.AddedDate, opt => opt.MapFrom(src => DateTime.Now));
             CreateMap<UpdateOrderItemRequest, OrderItems>();
             CreateMap<OrderItems, OrderItemDetails>();
 

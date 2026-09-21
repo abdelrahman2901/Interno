@@ -32,11 +32,47 @@ namespace E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext
         {
             base.OnModelCreating(builder);
 
-
+            builder.Entity<ApplicationUser>().HasData(new ApplicationUser()
+            {
+                UserID = Guid.Parse("D1A9B5C3-4F2E-4A6B-8C1D-9F3E2A1B5C3D"),
+                PersonName = "Admin User",
+                Email = "Admin@gmail.com",
+                PhoneNumber = "+201066761644",
+                Gender = GenderEnum.Male,
+                Password = "Admin12",
+                IsGmailVerified = true,
+                IsPhoneNumberVerified = true,
+                IsBlocked = false,
+                IsDeleted = false,
+                RefreshToken = null,
+                RefreshTokenExpirtation = null,
+            });
+            builder.Entity<ApplicationUserRoles>().HasData(new ApplicationUserRoles()
+            {
+                UserID = Guid.Parse("D1A9B5C3-4F2E-4A6B-8C1D-9F3E2A1B5C3D"),
+                RoleID = Guid.Parse("BFFBE3E7-4ADF-4BB5-83DB-6880F743D5DA")
+            });
+            builder.Entity<ApplicationUser>().HasIndex(r => r.Email).IsUnique();
+            builder.Entity<ApplicationUser>().HasIndex(r => r.PhoneNumber).IsUnique();
+            builder.Entity<ApplicationUser>()
+           .ToTable(t =>
+           {
+               t.HasCheckConstraint(
+                   "CK_ApplicationUser_PhoneNumber",
+                   """
+            LEN(PhoneNumber) = 13
+            AND LEFT(PhoneNumber, 3) = '+20'
+            AND SUBSTRING(PhoneNumber, 4, 1) = '1'
+            AND SUBSTRING(PhoneNumber, 5, 1) IN ('0', '1', '2', '5')
+            AND PhoneNumber NOT LIKE '%[^0-9+]%'
+            """
+               );
+           });
             #region OLD
 
             builder.Entity<ApplicationUserRoles>().HasKey(r => new { r.UserID, r.RoleID });
             builder.Entity<ApplicationUser>().Property(r=>r.Gender).HasConversion<string>();
+          
 
             builder.Entity<ApplicationUserRoles>()
                 .HasOne(r => r.User)
@@ -49,6 +85,9 @@ namespace E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext
                .WithMany(r => r.UserRoles)
                .HasForeignKey(x => x.RoleID)
                .OnDelete(DeleteBehavior.Cascade);
+
+          
+
 
             builder.Entity<ProductRates>().HasOne(u => u.User).WithMany(p => p.ProductRates).HasForeignKey(u => u.UserID).OnDelete(DeleteBehavior.NoAction);
 

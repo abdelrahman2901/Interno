@@ -38,8 +38,25 @@ namespace E_Commerce_Inern_Project.Infrastructure.Repository.UserRepo
         {
             try
             {
-                return await _context.ApplicationUser.FirstOrDefaultAsync(u => u.Email == email && !u.IsDeleted);
+                return await _context.ApplicationUser.Include(r => r.Roles).FirstOrDefaultAsync(u => u.Email == email && !u.IsDeleted);
 
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while retrieving  user  Exception:{Message} ", ex.Message);
+                if (ex.InnerException != null)
+                {
+                    _logger.LogError("Inner Exception:{Message} ", ex.InnerException.Message);
+                }
+                return null;
+            }
+        }
+
+        public async Task<ApplicationUser?> GetApplicationUserByPhoneNumber(string Phone)
+        {
+            try
+            {
+                return await _context.ApplicationUser.Include(r => r.Roles).FirstOrDefaultAsync(u => u.PhoneNumber == Phone && !u.IsDeleted);
             }
             catch (Exception ex)
             {
@@ -56,7 +73,7 @@ namespace E_Commerce_Inern_Project.Infrastructure.Repository.UserRepo
         {
             try
             {
-                return await _context.ApplicationUser.FirstOrDefaultAsync(u => u.UserID == userID && !u.IsDeleted);
+                return await _context.ApplicationUser.Include(r => r.Roles).FirstOrDefaultAsync(u => u.UserID == userID && !u.IsDeleted);
             }
             catch (Exception ex)
             {

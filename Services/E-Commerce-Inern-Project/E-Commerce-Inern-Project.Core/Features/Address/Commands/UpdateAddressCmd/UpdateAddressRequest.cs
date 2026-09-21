@@ -1,8 +1,18 @@
 ﻿using E_Commerce_Inern_Project.Core.Common;
-using E_Commerce_Inern_Project.Core.DTO.AddressDTO;
+using E_Commerce_Interno.Domain.DTO.AddressDTO;
 using MediatR;
 namespace E_Commerce_Inern_Project.Core.Features.Address.Commands.UpdateAddressCmd
 {
-    public record UpdateAddressRequest(Guid AddressID, string AddressLabel, string MainAddress, string? BackUpAddress,
-     Guid CityID, Guid AreaID, string BackUpPhoneNumber,bool IsDeleted, bool IsDefault) : IRequest<Result<AddressResponse>>;
+    public class UpdateAddressRequest : IRequest<Result<AddressResponse>>
+    {
+        public Guid AddressID { get; }
+        public string AddressLabel { get; }
+        public string MainAddress { get; }
+        public string? BackUpAddress { get; }
+        public Guid CityID { get; }
+        public Guid AreaID { get; }
+        public string BackUpPhoneNumber { get; }
+        public bool IsDeleted { get; }
+        public bool IsDefault { get; }
+    }
 }

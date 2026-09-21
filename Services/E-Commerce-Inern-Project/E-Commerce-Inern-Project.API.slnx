@@ -1,9 +1,10 @@
 <Solution>
+  <Project Path="../E-Commerce-Interno.Domain/E-Commerce-Interno.Domain.csproj" Id="1050cec5-e3c5-426b-a49a-c5c655057818" />
   <Project Path="docker-compose.dcproj">
     <Build />
   </Project>
-  <Project Path="E-Commerce-Inern-Project.API/E-Commerce-Inern-Project.API.csproj" />
-  <Project Path="E-Commerce-Inern-Project.Core/E-Commerce-Inern-Project.Core.csproj" />
-  <Project Path="E-Commerce-Inern-Project.Infrastructure/E-Commerce-Inern-Project.Infrastructure.csproj" />
-  <Project Path="E-Commerce-Intern-Project.Test/E-Commerce-Intern-Project.Test.csproj" />
+  <Project Path="E-Commerce-Inern-Project.API/E-Commerce-Inerno.API.csproj" />
+  <Project Path="E-Commerce-Inern-Project.Core/E-Commerce-Inerno.Core.csproj" />
+  <Project Path="E-Commerce-Inern-Project.Infrastructure/E-Commerce-Inerno.Infrastructure.csproj" />
+  <Project Path="E-Commerce-Intern-Project.Test/E-Commerce-Interno.Test.csproj" />
 </Solution>

@@ -1,10 +1,11 @@
 ﻿using E_Commerce_Inern_Project.Core.Common;
 using E_Commerce_Inern_Project.Core.DTO.AuthDTO;
-using E_Commerce_Inern_Project.Core.DTO.TokenDTO;
 using E_Commerce_Inern_Project.Core.DTO.UserDTO;
 using E_Commerce_Inern_Project.Core.Features.Auth.Commands.ChangeUserPassword;
 using E_Commerce_Inern_Project.Core.Features.Auth.Commands.LoginUser;
 using E_Commerce_Inern_Project.Core.Features.Auth.Commands.RegisterUser;
+using E_Commerce_Interno.Domain.DTO.TokenDTO;
+using E_Commerce_Interno.Domain.DTO.UserDTO;
 
 namespace E_Commerce_Inern_Project.Core.ServicesContracts.IAuthServices
 {  

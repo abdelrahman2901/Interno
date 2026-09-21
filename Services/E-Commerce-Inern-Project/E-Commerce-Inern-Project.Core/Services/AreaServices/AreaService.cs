@@ -4,13 +4,13 @@ using E_Commerce_Inern_Project.Core.Common;
 using E_Commerce_Inern_Project.Core.Domain.Entity;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IAreaRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IUserRepo;
-using E_Commerce_Inern_Project.Core.DTO.AreaDTO;
 using E_Commerce_Inern_Project.Core.Features.Area.Commands.CreateAreaCmd;
 using E_Commerce_Inern_Project.Core.Features.Area.Commands.UpdateAreaCmd;
 using E_Commerce_Inern_Project.Core.RabbitMQ;
 using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
 using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
 using E_Commerce_Inern_Project.Core.ServicesContracts.IAreaServices;
+using E_Commerce_Interno.Domain.DTO.AreaDTO;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 

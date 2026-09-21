@@ -1,0 +1,80 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>E_Commerce_Inern_Project.API</RootNamespace>
+    <UserSecretsId>85b625f4-ffcb-449c-8ad6-6fdc0e145e37</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
+    <PackageReference Include="MediatR" Version="14.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2" />
+    <PackageReference Include="NuGet.Packaging" Version="7.9.0" />
+    <PackageReference Include="NuGet.Protocol" Version="7.9.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="10.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="10.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.2.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.22.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\E-Commerce-Inern-Project.Core\E-Commerce-Inerno.Core.csproj" />
+    <ProjectReference Include="..\E-Commerce-Inern-Project.Infrastructure\E-Commerce-Inerno.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\AddressControl\Commands\" />
+    <Folder Include="Controllers\AddressControl\Queries\" />
+    <Folder Include="Controllers\AreaControl\Commands\" />
+    <Folder Include="Controllers\AreaControl\Queries\" />
+    <Folder Include="Controllers\AuthControl\Commands\" />
+    <Folder Include="Controllers\AuthControl\Queries\" />
+    <Folder Include="Controllers\BannerControl\Commands\" />
+    <Folder Include="Controllers\BannerControl\Queries\" />
+    <Folder Include="Controllers\CartControl\Commands\" />
+    <Folder Include="Controllers\CartControl\Queries\" />
+    <Folder Include="Controllers\CartItemControl\Commands\" />
+    <Folder Include="Controllers\CartItemControl\Queries\" />
+    <Folder Include="Controllers\CategoryControl\Commands\" />
+    <Folder Include="Controllers\CategoryControl\Queries\" />
+    <Folder Include="Controllers\CityControl\Commands\" />
+    <Folder Include="Controllers\CityControl\Queries\" />
+    <Folder Include="Controllers\ColorControl\Commands\" />
+    <Folder Include="Controllers\ColorControl\Queries\" />
+    <Folder Include="Controllers\OrderControl\Commands\" />
+    <Folder Include="Controllers\OrderControl\Queries\" />
+    <Folder Include="Controllers\OrderCouponControl\Commands\" />
+    <Folder Include="Controllers\OrderCouponControl\Queries\" />
+    <Folder Include="Controllers\PaymentsControl\Commands\" />
+    <Folder Include="Controllers\PaymentsControl\Queries\" />
+    <Folder Include="Controllers\ProductControl\Commands\" />
+    <Folder Include="Controllers\ProductControl\Queries\" />
+    <Folder Include="Controllers\ProductRateControl\Commands\" />
+    <Folder Include="Controllers\ProductRateControl\Queries\" />
+    <Folder Include="Controllers\ShippingCostsControl\Commands\" />
+    <Folder Include="Controllers\ShippingCostsControl\Queries\" />
+    <Folder Include="Controllers\SizeControl\Commands\" />
+    <Folder Include="Controllers\SizeControl\Queries\" />
+    <Folder Include="Controllers\UserControl\Commands\" />
+    <Folder Include="Controllers\UserControl\Queries\" />
+    <Folder Include="Controllers\WIshListControl\Commands\" />
+    <Folder Include="Controllers\WIshListControl\Queries\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+</Project>

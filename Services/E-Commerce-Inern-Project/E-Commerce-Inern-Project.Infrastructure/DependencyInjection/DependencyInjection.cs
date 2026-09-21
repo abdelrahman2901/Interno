@@ -13,7 +13,6 @@ using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IOrdersRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IPaymentRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IProductRatesRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IProductRepo;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IRolesRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IShippingCostsRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ISizeRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ITransectionRepo;
@@ -36,7 +35,6 @@ using E_Commerce_Inern_Project.Infrastructure.Repository.OrderRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.PaymentRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.ProductRatesRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.ProductRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.RolesRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.ShippingCostRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.SizeRepo;
 using E_Commerce_Inern_Project.Infrastructure.Repository.TransectionRepo;
@@ -61,7 +59,7 @@ namespace E_Commerce_Inern_Project.Infrastructure.DependencyInjection
 
             //Categories
             services.AddScoped<ICategoryRepository, CategoryRepository>();
-            
+
             //Products
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductViewRepository, ProductViewRepository>();
@@ -76,21 +74,21 @@ namespace E_Commerce_Inern_Project.Infrastructure.DependencyInjection
             services.AddScoped<IAreaRepository, AreaRepository>();
             //city
             services.AddScoped<ICityRepository, CityRepository>();
-            
+
             //Address
-            services.AddScoped<IAddressRepository,AddressRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
 
             //Cart
-            services.AddScoped<ICartRepository,CartRepository>();
-            
+            services.AddScoped<ICartRepository, CartRepository>();
+
             //CartItem
-            services.AddScoped<ICartItemRepository,CartItemRepository>();
-            
+            services.AddScoped<ICartItemRepository, CartItemRepository>();
+
             //WIshList
-            services.AddScoped<IWishListRepository,WishListRepository>();
+            services.AddScoped<IWishListRepository, WishListRepository>();
 
             //Payment
-            services.AddScoped<IPaymentRepository,PaymentRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
 
             //ShippingCost
             services.AddScoped<IShippingCostsRepository, ShippingCostRepository>();
@@ -103,10 +101,10 @@ namespace E_Commerce_Inern_Project.Infrastructure.DependencyInjection
 
             //Order Item
             services.AddScoped<IOrderItemsRepoistory, OrderItemsRepoistory>();
-           
+
             //Banner
             services.AddScoped<IBannerRepository, BannerRepository>();
-            
+
             //Product Rating
             services.AddScoped<IProductRatesRepository, ProductRatesRepository>();
 
@@ -114,7 +112,7 @@ namespace E_Commerce_Inern_Project.Infrastructure.DependencyInjection
             services.AddScoped<IUserRolesRepository, UserRolesRepository>();
 
             //Transection
-            services.AddScoped<ITransectionRepository,TransectionRepository>();
+            services.AddScoped<ITransectionRepository, TransectionRepository>();
             //DbContext
             services.AddDbContext<ApplicationDBContext>(options =>
             {

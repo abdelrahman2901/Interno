@@ -7,7 +7,6 @@ using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ITransectionRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IUserRepo;
 using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IUserRolesRepo;
 using E_Commerce_Inern_Project.Core.DTO.AuthDTO;
-using E_Commerce_Inern_Project.Core.DTO.TokenDTO;
 using E_Commerce_Inern_Project.Core.DTO.UserDTO;
 using E_Commerce_Inern_Project.Core.Enums;
 using E_Commerce_Inern_Project.Core.Features.Auth.Commands.ChangeUserPassword;
@@ -19,6 +18,8 @@ using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
 using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
 using E_Commerce_Inern_Project.Core.ServicesContracts.IAuthServices;
 using E_Commerce_Inern_Project.Core.ServicesContracts.IJWTServices;
+using E_Commerce_Interno.Domain.DTO.TokenDTO;
+using E_Commerce_Interno.Domain.DTO.UserDTO;
 using Polly;
 using System.Security.Claims;
 using System.Text.Json;
@@ -83,6 +84,7 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
             await _policy.ExecuteAsync(async () =>
             {
                 await _Publish.Publish(AuditRoutingKey, AuditRequest);
+                
             });
             return Result<bool>.Success(true);
         }
@@ -287,7 +289,7 @@ namespace E_Commerce_Inern_Project.Core.Services.AuthServices
 
         public async Task<Result<AuthUserDetailsDTO?>> UpdateUser(UserUpdateRequest UpdateRequeset)
         {
-            ApplicationUser? user = await _UserRepo.GetApplicationUserByID(UpdateRequeset.userID);
+            ApplicationUser? user = await _UserRepo.GetApplicationUserByID(UpdateRequeset.UserID);
             if (user == null)
             {
                 return Result<AuthUserDetailsDTO?>.NotFound("User not found");

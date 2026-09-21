@@ -1,7 +1,7 @@
 ﻿using E_Commerce_Inern_Project.Core.Common;
-using E_Commerce_Inern_Project.Core.DTO.AreaDTO;
 using E_Commerce_Inern_Project.Core.Features.Area.Commands.CreateAreaCmd;
 using E_Commerce_Inern_Project.Core.Features.Area.Commands.UpdateAreaCmd;
+using E_Commerce_Interno.Domain.DTO.AreaDTO;
 
 namespace E_Commerce_Inern_Project.Core.ServicesContracts.IAreaServices
 {

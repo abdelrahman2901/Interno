@@ -1,5 +1,5 @@
 ﻿using E_Commerce_Inern_Project.Core.Common;
-using E_Commerce_Inern_Project.Core.DTO.AreaDTO;
+using E_Commerce_Interno.Domain.DTO.AreaDTO;
 using MediatR;
 
 namespace E_Commerce_Inern_Project.Core.Features.Area.Query.GetAreaByIDQuery
