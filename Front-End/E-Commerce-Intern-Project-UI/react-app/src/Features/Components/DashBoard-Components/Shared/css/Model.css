@@ -129,10 +129,38 @@ form {
   margin-right: 8px;
 }
 
+.Custom-form-group .error {
+  display: block;
+  color: #c0392b;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
 .Custom-form-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
+}
+
+.Custom-color-input-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.Custom-color-input-group input[type="color"] {
+  width: 48px;
+  height: 40px;
+  padding: 2px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+  background: transparent;
+}
+
+.Custom-color-input-group select {
+  flex: 1;
 }
 
 .Custom-form-actions {

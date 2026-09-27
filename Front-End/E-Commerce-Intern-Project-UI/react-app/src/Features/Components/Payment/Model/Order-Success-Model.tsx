@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { OrderResponse } from "../../../../Core/DTO/OrderDTO/OrderResponse";
+import { OrderResponse } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
 type props = {
   order: OrderResponse;
 };

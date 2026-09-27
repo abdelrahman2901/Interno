@@ -1,19 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { AddressModel } from "../../../../../Core/DTO/AddressDTO/AddressModel";
 import "../../Shared/CSS/ModelCSS.css";
-import {
-  AddAddress,
-  GetUserAddresess,
-  GetUserAddress,
-  updateAddress,
-} from "../../../../../Core/Services/AddressServices/AddressService";
 import { useAuth } from "../../../../../Core/Services/AuthServices/AuthProvider";
-import { AddressDetails } from "../../../../../Core/DTO/AddressDTO/AddressDetails";
-import { CityModel } from "../../../../../Core/DTO/CityDTO/CityModel";
-import { AreaModel } from "../../../../../Core/DTO/AreaDTO/AreaModel";
-import { getCities } from "../../../../../Core/Services/CityServices/CityService";
-import { getAreas } from "../../../../../Core/Services/AreaServices/AreaService";
-import { AddressRequest } from "../../../../../Core/DTO/AddressDTO/AddressRequest";
+import { AddressDetails, AreaResponse, CityResponse, CreateAddressRequest, InternoMicroserviceClient } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../../Core/Shared/API-URL";
 type props = {
   onClose: () => void;
   AddressID?: string | null;
@@ -25,13 +14,14 @@ export default function AddAddressModel({
   onAddingNewAddress,
 }: props) {
   const { user } = useAuth();
-  const [address, SetAddress] = useState<AddressModel>(new AddressModel());
-  const [cities, setCities] = useState<CityModel[]>([]);
-  const [_areas, setPrivAreas] = useState<AreaModel[]>([]);
-  const [areas, setAreas] = useState<AreaModel[]>([]);
+  const [address, SetAddress] = useState<AddressDetails>(new AddressDetails());
+  const [cities, setCities] = useState<CityResponse[]>([]);
+  const [_areas, setPrivAreas] = useState<AreaResponse[]>([]);
+  const [areas, setAreas] = useState<AreaResponse[]>([]);
+  const Client = new InternoMicroserviceClient(undefined, API);
   const loadCities = async () => {
     try {
-      const response = await getCities();
+      const response = await Client.getAllCities();
       if (response.isSuccess) {
         setCities(response.data!);
       }
@@ -41,7 +31,7 @@ export default function AddAddressModel({
   };
   const loadAreas = async () => {
     try {
-      const response = await getAreas();
+      const response = await Client.getAllAreas();
       if (response.isSuccess) {
         setPrivAreas(response.data!);
         setAreas(_areas);
@@ -55,7 +45,7 @@ export default function AddAddressModel({
   }, [address]);
   const loadAddress = async () => {
     try {
-      const response = await GetUserAddress(AddressID!);
+      const response = await Client.getUserAddressByID(AddressID!);
       if (response.isSuccess) {
         console.log(response.data);
 
@@ -88,9 +78,9 @@ export default function AddAddressModel({
   function OnFormSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const addAddressRequest = async (addrequest: AddressRequest) => {
+    const addAddressRequest = async (addrequest: CreateAddressRequest) => {
       try {
-        const response = await AddAddress(addrequest);
+        const response = await Client.createAddress(addrequest);
         if (response.isSuccess) {
           onAddingNewAddress();
         }
@@ -100,7 +90,7 @@ export default function AddAddressModel({
     };
     const updateAddressRequest = async () => {
       try {
-        const response = await updateAddress(address);
+        const response = await Client.updateAddress(address);
         if (response.isSuccess) {
           onAddingNewAddress();
         }
@@ -110,7 +100,7 @@ export default function AddAddressModel({
     };
     const form = new FormData(e.currentTarget);
     if (address.addressID === "") {
-      const addrequest: AddressRequest = {
+      const addrequest: CreateAddressRequest = new CreateAddressRequest({
         cityID: form.get("cityID") as string,
         addressLabel: form.get("addressLabel") as string,
         areaID: form.get("areaID") as string,
@@ -118,8 +108,7 @@ export default function AddAddressModel({
         backUpAddress: form.get("backUpAddress") as string,
         backUpPhoneNumber: form.get("backUpPhoneNumber") as string,
         isDefault: (form.get("isDefault") as string) === "on" ? true : false,
-        userID: user?.userID!,
-      };
+      });
       console.log("adding new ");
       console.log(addrequest);
 
@@ -162,10 +151,13 @@ export default function AddAddressModel({
                 placeholder="e.g., Home, Office"
                 onChange={(e) => {
                   const addresslabel = e.currentTarget.value;
-                  SetAddress((prev) => ({
-                    ...prev,
-                    addressLabel: addresslabel,
-                  }));
+                  SetAddress(
+                    (prev: AddressDetails) =>
+                      new AddressDetails({
+                        ...prev,
+                        addressLabel: addresslabel,
+                      }),
+                  );
                 }}
                 defaultValue={
                   address?.addressLabel ? address?.addressLabel : ""
@@ -182,10 +174,13 @@ export default function AddAddressModel({
                 placeholder="Street address"
                 onChange={(e) => {
                   const address = e.currentTarget.value;
-                  SetAddress((prev) => ({
-                    ...prev,
-                    mainAddress: address,
-                  }));
+                  SetAddress(
+                    (prev: AddressDetails) =>
+                      new AddressDetails({
+                        ...prev,
+                        mainAddress: address,
+                      }),
+                  );
                 }}
                 defaultValue={address?.mainAddress ? address?.mainAddress : ""}
               />
@@ -199,10 +194,13 @@ export default function AddAddressModel({
                 placeholder="Apartment, suite, etc."
                 onChange={(e) => {
                   const address = e.currentTarget.value;
-                  SetAddress((prev) => ({
-                    ...prev,
-                    backUpAddress: address,
-                  }));
+                  SetAddress(
+                    (prev: AddressDetails) =>
+                      new AddressDetails({
+                        ...prev,
+                        backUpAddress: address,
+                      }),
+                  );
                 }}
                 defaultValue={
                   address?.backUpAddress ? address?.backUpAddress : ""
@@ -222,11 +220,14 @@ export default function AddAddressModel({
                     // console.log(e.currentTarget.value);
 
                     filterAreas(e); //fix send id instead
-                    SetAddress((prev) => ({
-                      ...prev,
-                      cityID: cityID,
-                      // cityID: e.currentTarget.value,
-                    }));
+                    SetAddress(
+                      (prev: AddressDetails) =>
+                        new AddressDetails({
+                          ...prev,
+                          cityID: cityID,
+                          // cityID: e.currentTarget.value,
+                        }),
+                    );
                     console.log(address);
                   }}
                   value={address?.cityID ?? ""}
@@ -247,10 +248,13 @@ export default function AddAddressModel({
                   onChange={(e) => {
                     console.log(address);
                     const areaID = e.currentTarget.value;
-                    SetAddress((prev) => ({
-                      ...prev,
-                      areaID: areaID,
-                    }));
+                    SetAddress(
+                      (prev: AddressDetails) =>
+                        new AddressDetails({
+                          ...prev,
+                          areaID: areaID,
+                        }),
+                    );
                     console.log(address);
                   }}
                   value={address?.areaID ?? ""}
@@ -273,10 +277,13 @@ export default function AddAddressModel({
                 placeholder="+1 (555) 000-0000"
                 onChange={(e) => {
                   const phone = e.currentTarget.value;
-                  SetAddress((prev) => ({
-                    ...prev,
-                    backUpPhoneNumber: phone,
-                  }));
+                  SetAddress(
+                    (prev: AddressDetails) =>
+                      new AddressDetails({
+                        ...prev,
+                        backUpPhoneNumber: phone,
+                      }),
+                  );
                 }}
                 defaultValue={
                   address?.backUpPhoneNumber ? address?.backUpPhoneNumber : ""
@@ -291,10 +298,13 @@ export default function AddAddressModel({
                 name="isDefault"
                 onChange={(e) => {
                   const isChecked = e.currentTarget.checked;
-                  SetAddress((prev) => ({
-                    ...prev,
-                    isDefault: isChecked,
-                  }));
+                  SetAddress(
+                    (prev: AddressDetails) =>
+                      new AddressDetails({
+                        ...prev,
+                        isDefault: isChecked,
+                      }),
+                  );
                 }}
                 checked={address?.isDefault}
               />

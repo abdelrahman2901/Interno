@@ -4,29 +4,27 @@ import CheckoutProgress from "../../Components/Payment/checkout-progress-Compone
 import Shipping from "../../Components/Payment/Shipping-Component/Shipping";
 import "./Payment.css";
 import OrderSideBar from "../../Components/Payment/Order-SideBar/OrderSideBar";
-import { AddressDetails } from "../../../Core/DTO/AddressDTO/AddressDetails";
-import { OrderRequest } from "../../../Core/DTO/OrderDTO/OrderRequest";
+import { AddressDetails, CreateOrderRequest, InternoMicroserviceClient, OrderCouponResponse } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../Core/Shared/API-URL";
 import { useSearchParams } from "react-router-dom";
-import { OrderCouponModel } from "../../../Core/DTO/OrdeCouponDTO/OrderCouponResponse";
-import { GetCouponByCode } from "../../../Core/Services/OrderCouponServices/OrderCouponService";
 import { PaymentCheckOutEnum } from "../../../Core/Enums/PaymentCheckOutEnum";
-
 export default function PaymentPage() {
   const [currentStep, setCurrentStep] = useState<PaymentCheckOutEnum>(
     PaymentCheckOutEnum.Shipping,
   );
+  const Client = new InternoMicroserviceClient(undefined, API);
   const [address, setAddress] = useState<AddressDetails>(new AddressDetails());
-  const [orderRequest, setOrderRequest] = useState<OrderRequest>(
-    new OrderRequest(),
+  const [orderRequest, setOrderRequest] = useState<CreateOrderRequest>(
+    new CreateOrderRequest(),
   );
-  const [coupon, setCoupon] = useState<OrderCouponModel>(
-    new OrderCouponModel(),
+  const [coupon, setCoupon] = useState<OrderCouponResponse>(
+    new OrderCouponResponse(),
   );
   const [params] = useSearchParams();
 
   const loadCoupon = async (appliedCoupon: string) => {
     try {
-      const response = await GetCouponByCode(appliedCoupon);
+      const response = await Client.getCouponByCode(appliedCoupon);
       if (response.data && response.isSuccess) {
         setCoupon(response.data);
       }
@@ -48,7 +46,7 @@ export default function PaymentPage() {
     setAddress(address);
   }
 
-  function onPassingRequestData(request: OrderRequest) {
+  function onPassingRequestData(request: CreateOrderRequest) {
     setOrderRequest(request);
   }
 

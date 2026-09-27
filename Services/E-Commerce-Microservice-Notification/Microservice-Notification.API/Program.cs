@@ -1,16 +1,25 @@
-using Microservice_Notification.API.Endpoints;
 using Microservice_Notification.Infrastructure.ApplicationContext;
 using Microservice_Notification.Infrastructure.DependencyInjection;
 using Microservice_Notifications.Application.DependencyInjection;
 using Microservice_Notifications.Application.Features.Notification.Query.GetAllNotificationsQ;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddApplication();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
+builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 
+builder.Services.AddControllers().AddJsonOptions(cfg =>
+{
+    cfg.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddMediatR(cfg =>
 {
@@ -27,6 +36,7 @@ builder.Services.AddCors(options =>
         .AllowAnyMethod();
     });
 });
+
 builder.Services.AddSwaggerGen();
 
 
@@ -40,11 +50,11 @@ using (var scope = app.Services.CreateScope())
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
 app.UseRouting();
 app.UseCors();
 
-app.UseAuthentication();
+app.UseAuthorization();
 app.UseAuthentication();
 app.MapControllers();
-app.MapNotificationEndPoint();
 app.Run();

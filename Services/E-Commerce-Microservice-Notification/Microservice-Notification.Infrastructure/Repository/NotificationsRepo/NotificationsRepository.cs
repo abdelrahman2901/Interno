@@ -10,7 +10,7 @@ namespace Microservice_Notification.Infrastructure.Repository.NotificationsRepo
     {
         private readonly ApplicationDbContext _Context;
         private readonly ILogger<NotificationsRepository> _logger;
-        public NotificationsRepository(ApplicationDbContext context,ILogger<NotificationsRepository>logger)
+        public NotificationsRepository(ApplicationDbContext context, ILogger<NotificationsRepository> logger)
         {
             _Context = context;
             _logger = logger;
@@ -28,18 +28,18 @@ namespace Microservice_Notification.Infrastructure.Repository.NotificationsRepo
                 _logger.LogError("Error Occured In CreateNotification Exception  : {message}", ex.Message);
                 if (ex.InnerException != null)
                 {
-                _logger.LogError("Error Occured In CreateNotification InnerException  : {message}", ex.InnerException.Message);
+                    _logger.LogError("Error Occured In CreateNotification InnerException  : {message}", ex.InnerException.Message);
                 }
                 return false;
             }
-            
+
         }
 
         public async Task<Notifications?> GetNotification(Guid NotificationID)
         {
             try
             {
-                return await _Context.Notifications.FirstOrDefaultAsync(g=>g.NotificationID==NotificationID);
+                return await _Context.Notifications.FirstOrDefaultAsync(g => g.NotificationID == NotificationID);
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace Microservice_Notification.Infrastructure.Repository.NotificationsRepo
         {
             try
             {
-                return await _Context.Notifications.AsNoTracking().Where(r=>r.UserID==UserID).ToListAsync();
+                return await _Context.Notifications.AsNoTracking().Where(r => r.UserID == UserID).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -89,7 +89,7 @@ namespace Microservice_Notification.Infrastructure.Repository.NotificationsRepo
         {
             try
             {
-                return await _Context.Notifications.Where(r=>r.UserID==UserID &&!r.IsRead).ToListAsync();
+                return await _Context.Notifications.Where(r => r.UserID == UserID && !r.IsRead).ToListAsync();
             }
             catch (Exception ex)
             {

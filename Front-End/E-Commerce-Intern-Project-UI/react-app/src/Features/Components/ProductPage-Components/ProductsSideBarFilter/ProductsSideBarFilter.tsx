@@ -1,30 +1,25 @@
 import { useEffect, useState } from "react";
-import { ColorDetails } from "../../../../Core/DTO/Colors/ColorDetails";
-import { ISize } from "../../../../Core/Interface/Size/ISize";
-import { ISubCategoryDetails } from "../../../../Core/Interface/Category/ISubCateogryDetails";
-import { GetSizes_Serv } from "../../../../Core/Services/SizeServices/SizeService_Query";
-import { GetColors_Serv } from "../../../../Core/Services/ColorsServices/ColorService_Query";
-import { GetSubCategoryDetails } from "../../../../Core/Services/CategoryServices/CategoryServiceQuery";
+import { CategoryResponse, ColorResponse, InternoMicroserviceClient, SizeResponse, SubCategoryResponse } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 import { FilterPageModel } from "../Model/FilterPageModel";
 import { useFilterStore } from "../../../../Core/Global-State-Management/Zusstand/FilterStore/FilterStore";
-import { ICategory } from "../../../../Core/Interface/Category/ICategory";
-
 export default function ProductsSideBarFilter() {
-  const [colors, setColors] = useState<ColorDetails[]>([]);
-  const [sizes, setSizes] = useState<ISize[]>([]);
-  const [_categories, setPrivCategories] = useState<ISubCategoryDetails[]>([]);
-  const [categories, setCategories] = useState<ISubCategoryDetails[]>([]);
+  const [colors, setColors] = useState<ColorResponse[]>([]);
+  const [sizes, setSizes] = useState<SizeResponse[]>([]);
+  const [_categories, setPrivCategories] = useState<SubCategoryResponse[]>([]);
+  const [categories, setCategories] = useState<SubCategoryResponse[]>([]);
   const [updatedFIlter, setUpdatedFIlter] = useState<FilterPageModel>(
     new FilterPageModel(),
   );
   const [selectedSubCategories, setSelectedSubCategories] = useState<
-    ICategory[]
+    CategoryResponse[]
   >([]);
+  const Client = new InternoMicroserviceClient(undefined, API);
   const { setFilter, resetFilter, filter } = useFilterStore();
 
   const loadCategories = async () => {
     try {
-      const response = await GetSubCategoryDetails();
+      const response = await Client.getCategoriesWithSubCat();
       if (response.isSuccess && response.data) {
         setCategories(response.data);
         setPrivCategories(response.data);
@@ -35,7 +30,7 @@ export default function ProductsSideBarFilter() {
   };
   const loadSizes = async () => {
     try {
-      const response = await GetSizes_Serv();
+      const response = await Client.getAllSizes();
       if (response.isSuccess && response.data) {
         setSizes(response.data);
       }
@@ -45,7 +40,7 @@ export default function ProductsSideBarFilter() {
   };
   const loadColors = async () => {
     try {
-      const response = await GetColors_Serv();
+      const response = await Client.getAllColors();
       if (response.isSuccess && response.data) {
         setColors(response.data);
       }
@@ -73,7 +68,7 @@ export default function ProductsSideBarFilter() {
     if (updatedFIlter?.Category !== "All" && categories.length !== 0) {
       setSelectedSubCategories(
         categories.find((r) => r.categoryName === updatedFIlter?.Category)
-          ?.subCategories!,
+          ?.subCategories ?? [],
       );
     }
   }, [updatedFIlter?.SubCategory, categories.length]);
@@ -143,7 +138,7 @@ export default function ProductsSideBarFilter() {
                       Category: categoryName,
                     }));
 
-                    setSelectedSubCategories(category.subCategories);
+                    setSelectedSubCategories(category.subCategories ?? []);
                   }}
                   onClick={(e) => {
                     const isChecked = e.currentTarget.checked;
@@ -333,7 +328,7 @@ export default function ProductsSideBarFilter() {
                 value={size.sizeName}
                 key={size.sizeID}
               >
-                {extractSizeChar(size.sizeName)}
+                {extractSizeChar(size.sizeName ?? "")}
               </button>
             ))}
           </div>

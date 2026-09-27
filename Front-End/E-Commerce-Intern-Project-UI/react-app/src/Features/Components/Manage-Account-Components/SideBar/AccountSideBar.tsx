@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./AccountSideBar.css";
+import { RolesEnum } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
 type props = {
   swtichSection_OutPut: (
@@ -55,7 +56,7 @@ export default function AccountSideBar({
         </div>
 
         <nav className="Account-account-nav">
-          {user?.role === "User" && (
+          {user?.roles?.includes(RolesEnum.Customer) && (
             <>
               <a
                 onClick={() => switchSection("OverView")}

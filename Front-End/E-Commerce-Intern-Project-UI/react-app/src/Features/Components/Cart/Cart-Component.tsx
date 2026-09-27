@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import "./Cart.css";
-import { CartDetails } from "../../../Core/DTO/CartDTO/CartDetails";
 import { Link } from "react-router-dom";
-import { OrderCouponModel } from "../../../Core/DTO/OrdeCouponDTO/OrderCouponResponse.js";
 import { useCartStore } from "../../../Core/Global-State-Management/Zusstand/CartStore/CartUpdateStore.js";
-import { useAuth } from "../../../Core/Services/AuthServices/AuthProvider.js";
 import {
-  DeleteCartItem,
-  UpdateCartItem,
-} from "../../../Core/Services/Cart-Item-Services/CartItemService.js";
-import { GetUserCartItemsDetails } from "../../../Core/Services/CartServices/CartService.js";
-import { GetCouponByCode } from "../../../Core/Services/OrderCouponServices/OrderCouponService.js";
-
+  CartDetailsResponse,
+  InternoMicroserviceClient,
+  OrderCouponResponse,
+  UpdateCartItemRequest,
+} from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../Core/Shared/API-URL";
+import { useAuth } from "../../../Core/Services/AuthServices/AuthProvider";
 type props = {
   isnewProductAdded: boolean;
   isloadingProducts: () => void;
@@ -23,17 +21,20 @@ export default function CartComponent({
   isloadingProducts,
   finishAddingNewProduct,
 }: props) {
-  const Base_Url = "https://localhost:7164";
-  const [Cart, setCart] = useState<CartDetails>(new CartDetails());
-  const [coupon, setCoupon] = useState<OrderCouponModel>(
-    new OrderCouponModel(),
+  const Base_Url = "http://localhost:5000";
+  const [Cart, setCart] = useState<CartDetailsResponse>(
+    new CartDetailsResponse(),
   );
+  const [coupon, setCoupon] = useState<OrderCouponResponse>(
+    new OrderCouponResponse(),
+  );
+  const Client = new InternoMicroserviceClient(undefined, API);
   const { user } = useAuth();
   const { triggerCartUpdate } = useCartStore();
   const [appliedCoupon, setAppliedCoupon] = useState<string>("");
   const loadCartItems = async () => {
     try {
-      const response = await GetUserCartItemsDetails(user?.userID!);
+      const response = await Client.getUserCartItemsDetails();
       if (response.isSuccess) {
         console.log(response.data);
 
@@ -45,7 +46,7 @@ export default function CartComponent({
   };
 
   useEffect(() => {
-    if (user && Cart.cartItems.length === 0) {
+    if (user && Cart.cartItems?.length === 0) {
       loadCartItems();
     }
   }, [user]);
@@ -60,7 +61,7 @@ export default function CartComponent({
 
   async function DeleteItem(itemID: string) {
     try {
-      const response = await DeleteCartItem(itemID);
+      const response = await Client.deleteCartItem(itemID);
       if (response.isSuccess) {
         loadCartItems();
         isloadingProducts();
@@ -72,10 +73,10 @@ export default function CartComponent({
   }
   async function updateItemQuantity(ItemID: string, increase: boolean) {
     try {
-      const response = await UpdateCartItem({
+      const response = await Client.updateCartItem({
         cartItemID: ItemID,
         isIncrease: increase,
-      });
+      } as UpdateCartItemRequest);
       if (response.isSuccess) {
         loadCartItems();
       }
@@ -88,7 +89,7 @@ export default function CartComponent({
     console.log(appliedCoupon);
 
     try {
-      const response = await GetCouponByCode(appliedCoupon);
+      const response = await Client.getCouponByCode(appliedCoupon);
       if (response.data && response.isSuccess) {
         setCoupon(response.data);
       }
@@ -102,10 +103,10 @@ export default function CartComponent({
         <div className="cart-header">
           <h1>Shopping Cart</h1>
           <span className="item-count" id="itemCount">
-            {Cart.cartItems.length} Items
+            {Cart.cartItems?.length} Items
           </span>
         </div>
-        {Cart.cartItems.length === 0 && (
+        {Cart.cartItems?.length === 0 && (
           <div className="empty-cart" id="emptyCart">
             <div className="empty-icon">🛒</div>
             <h2>Your cart is empty</h2>
@@ -118,33 +119,34 @@ export default function CartComponent({
             </Link>
           </div>
         )}
-        {Cart.cartItems.length > 0 && (
+        {Cart.cartItems?.length && Cart.cartItems?.length > 0 && (
           <div className="cart-items">
-            {Cart.cartItems.map((item) => (
+            {Cart.cartItems?.map((item) => (
               <div className="cart-item" key={item.cartItemID}>
                 <div className="item-image">
                   <img
-                    src={`${Base_Url}/ProductsImages/${item.product.parentCategoryName}/${item.product.categoryName}/${item.product.productImageUrl}`}
+                    src={`${Base_Url}/ProductsImages/${item.product?.parentCategoryName}/${item.product?.categoryName}/${item.product?.productImageUrl}`}
                     alt="Linen Wrap Dress"
                   />
                 </div>
                 <div className="item-details">
-                  <h3 className="item-name">{item.product.productName}</h3>
+                  <h3 className="item-name">{item.product?.productName}</h3>
                   <p className="item-category">
-                    {item.product.parentCategoryName}'s{" "}
-                    {item.product.categoryName}
+                    {item.product?.parentCategoryName}'s{" "}
+                    {item.product?.categoryName}
                   </p>
                   <div className="item-specs">
                     <span>
-                      Size: <strong>{item.product.sizeName.slice(0, 1)}</strong>
+                      Size:{" "}
+                      <strong>{item.product?.sizeName?.slice(0, 1)}</strong>
                     </span>
                     <span>
-                      Color: <strong>{item.product.colorName}</strong>
+                      Color: <strong>{item.product?.colorName}</strong>
                     </span>
                   </div>
                   <button
                     className="btn-remove"
-                    onClick={() => DeleteItem(item.cartItemID)}
+                    onClick={() => DeleteItem(item.cartItemID!)}
                   >
                     <span className="icon">🗑️</span> Remove
                   </button>
@@ -154,14 +156,16 @@ export default function CartComponent({
                   <div className="quantity-control">
                     <button
                       className="qty-btn"
-                      onClick={() => updateItemQuantity(item.cartItemID, false)}
+                      onClick={() =>
+                        updateItemQuantity(item.cartItemID!, false)
+                      }
                     >
                       −
                     </button>
                     <span className="qty-input"> {item.quantity}</span>
                     <button
                       className="qty-btn"
-                      onClick={() => updateItemQuantity(item.cartItemID, true)}
+                      onClick={() => updateItemQuantity(item.cartItemID!, true)}
                     >
                       +
                     </button>
@@ -171,18 +175,19 @@ export default function CartComponent({
                   <span className="price-label">Price</span>
                   <span className="price-value">
                     $
-                    {item.product.salePrice !== 0 && item.product.salePrice
+                    {item.product?.salePrice !== 0 && item.product?.salePrice
                       ? item.product.salePrice
-                      : item.product.price}
-                    {item.product.salePrice !== 0 && item.product.salePrice && (
-                      <span className=" sale">${item.product.price}</span>
-                    )}
+                      : item.product?.price}
+                    {item.product?.salePrice !== 0 &&
+                      item.product?.salePrice && (
+                        <span className=" sale">${item.product?.price}</span>
+                      )}
                   </span>
                   <span className="price-total">
                     Total: $
-                    {(item.product.salePrice !== 0 && item.product.salePrice
-                      ? item.product.salePrice
-                      : item.product.price) * item.quantity}
+                    {item.product?.salePrice !== 0 && item.product?.salePrice
+                      ? item.product?.salePrice
+                      : item.product?.price! * item.quantity!}
                   </span>
                 </div>
               </div>
@@ -223,8 +228,8 @@ export default function CartComponent({
           <span>Subtotal</span>
           <span>
             $
-            {Cart.cartItems.reduce(
-              (total, price) => total + price.product.price * price.quantity,
+            {Cart?.cartItems?.reduce(
+              (total, price) => total + price.product?.price! * price.quantity!,
               0,
             )}
           </span>
@@ -235,11 +240,14 @@ export default function CartComponent({
           <span className="discount-amount">
             -$
             {Cart.cartItems
-              .filter((r) => r.product.salePrice !== 0 && r.product.salePrice)
+              ?.filter(
+                (r) => r.product?.salePrice !== 0 && r.product?.salePrice,
+              )
               .reduce(
                 (total, item) =>
                   total +
-                  (item.product.price - item.product.salePrice) * item.quantity,
+                  (item.product?.price! - item.product?.salePrice!) *
+                    item.quantity!,
                 0,
               )}
           </span>
@@ -260,25 +268,25 @@ export default function CartComponent({
           <span>Total</span>
           <span>
             $
-            {Cart.cartItems.reduce(
+            {Cart?.cartItems!.reduce(
               (total, price) =>
                 total +
-                (price.product.salePrice !== 0 && price.product.salePrice
-                  ? price.product.salePrice
-                  : price.product.price) *
-                  price.quantity,
+                (price.product?.salePrice !== 0 && price.product?.salePrice
+                  ? price.product?.salePrice
+                  : price.product?.price!) *
+                  price.quantity!,
               0,
             ) -
               coupon?.discount! <
             0
               ? 0
-              : Cart.cartItems.reduce(
+              : Cart.cartItems!.reduce(
                   (total, price) =>
                     total +
-                    (price.product.salePrice !== 0 && price.product.salePrice
-                      ? price.product.salePrice
-                      : price.product.price) *
-                      price.quantity,
+                    (price.product?.salePrice !== 0 && price.product?.salePrice
+                      ? price.product?.salePrice
+                      : price.product?.price!) *
+                      price.quantity!,
                   0,
                 ) - coupon?.discount!}
           </span>

@@ -1,8 +1,0 @@
-﻿using E_Commerce_Inern_Project.Core.Common;
-using E_Commerce_Inern_Project.Core.DTO.BannerSlideDTO;
-using MediatR;
-
-namespace E_Commerce_Inern_Project.Core.Features.BannerSlide.Query.GetBannerByIDQ
-{
-    public record GetBannerByIDQuery(Guid BannerID) : IRequest<Result<BannerSlideResponse>>;
-}

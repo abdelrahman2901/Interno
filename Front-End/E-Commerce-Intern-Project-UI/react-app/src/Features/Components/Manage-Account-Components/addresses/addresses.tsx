@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
 import "./addresses.css";
 import AddAddressModel from "./Model/AddAddressModel";
-import { AddressDetails } from "../../../../Core/DTO/AddressDTO/AddressDetails";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
-import {
-  DeleteAddress_serv,
-  GetUserAddresess,
-} from "../../../../Core/Services/AddressServices/AddressService";
-
+import { AddressDetails, InternoMicroserviceClient } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 export default function AccountAddress() {
   const [isAddingNewAddress, SetisAddingNewAddress] = useState(false);
   const [userAddress, setUserAddress] = useState<AddressDetails[]>([]);
@@ -15,10 +11,10 @@ export default function AccountAddress() {
     null,
   );
   const { user } = useAuth();
-
+  const Client = new InternoMicroserviceClient(undefined, API);
   const loadAddresses = async () => {
     try {
-      const response = await GetUserAddresess(user?.userID!);
+      const response = await Client.getUserAddress();
       if (response.isSuccess) {
         setUserAddress(response.data!);
       }
@@ -28,7 +24,7 @@ export default function AccountAddress() {
   };
   const DeleteAddress_API = async (addressID: string) => {
     try {
-      const response = await DeleteAddress_serv(addressID);
+      const response = await Client.deleteAddress(addressID);
       if (response.isSuccess) {
         loadAddresses();
       }
@@ -78,7 +74,7 @@ export default function AccountAddress() {
                   className="Account-icon-btn"
                   title="Edit"
                   onClick={() => {
-                    setSelectedAddressID(address.addressID);
+                    setSelectedAddressID(address.addressID!);
                     SetisAddingNewAddress(true);
                   }}
                 >
@@ -87,7 +83,7 @@ export default function AccountAddress() {
                 <button
                   className="Account-icon-btn"
                   title="Delete"
-                  onClick={() => DeleteAddress(address.addressID)}
+                  onClick={() => DeleteAddress(address.addressID!)}
                 >
                   🗑️
                 </button>

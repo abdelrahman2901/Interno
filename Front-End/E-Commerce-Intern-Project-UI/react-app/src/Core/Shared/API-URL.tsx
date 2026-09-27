@@ -1,8 +1,11 @@
 import axios from "axios";
-import { RefreshToken } from "../Services/AuthServices/AuthUserService";
+import {
+  InternoMicroserviceClient,
+  TokenModelDTO,
+} from "../API/Interno-Microservice-Client/Interno-Microservice-Client";
 
 export const API = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "http://localhost:5000",
 });
 
 API.interceptors.request.use(
@@ -18,6 +21,8 @@ API.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
+const refreshClient = new InternoMicroserviceClient(undefined, API);
+
 API.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -28,10 +33,12 @@ API.interceptors.response.use(
         const refreshToken = localStorage.getItem("RefreshToken");
         if (token && refreshToken) {
           try {
-            const response = await RefreshToken({
-              token: token,
-              refreshToken: refreshToken,
-            });
+            const response = await refreshClient.refreshToken(
+              new TokenModelDTO({
+                token: token,
+                refreshToken: refreshToken,
+              }),
+            );
             if (response.isSuccess) {
               localStorage.setItem("Token", response.data?.token!);
               localStorage.setItem(

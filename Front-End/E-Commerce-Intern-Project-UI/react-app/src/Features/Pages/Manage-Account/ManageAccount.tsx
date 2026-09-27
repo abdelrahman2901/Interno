@@ -6,9 +6,9 @@ import AccountOverView from "../../Components/Manage-Account-Components/OverView
 import AccountProfileSettings from "../../Components/Manage-Account-Components/Profile-Settings/ProfileSettings";
 import AccountOrders from "../../Components/Manage-Account-Components/Orders/Orders";
 import AccountAddress from "../../Components/Manage-Account-Components/addresses/addresses";
-import { OrderDetails } from "../../../Core/DTO/OrderDTO/OrderDetails";
+import { InternoMicroserviceClient, OrderDetails, RolesEnum } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../Core/Shared/API-URL";
 import { useAuth } from "../../../Core/Services/AuthServices/AuthProvider";
-import { GetAllUserOrders } from "../../../Core/Services/OrderServices/OrderService";
 export default function ManageAccount() {
   const [CurrentSection, SetCurrentSection] = useState<
     "Orders" | "Profile-Settings" | "Security" | "OverView" | "Addresses"
@@ -27,9 +27,10 @@ export default function ManageAccount() {
 
   const [orders, setOrders] = useState<OrderDetails[]>([]);
   const { user } = useAuth();
+  const Client = new InternoMicroserviceClient(undefined, API);
   const loadOrders = async () => {
     try {
-      const response = await GetAllUserOrders(user?.userID!);
+      const response = await Client.getAllUserOrders(user?.userID!);
       if (response.isSuccess && response.data) {
         setOrders(response.data);
       }
@@ -43,7 +44,7 @@ export default function ManageAccount() {
     }
   }, [user]);
   useEffect(() => {
-    if (user?.role === "Admin") {
+    if (user?.roles?.includes(RolesEnum.Admin)) {
       SetCurrentSection("Profile-Settings");
     }
   }, []);

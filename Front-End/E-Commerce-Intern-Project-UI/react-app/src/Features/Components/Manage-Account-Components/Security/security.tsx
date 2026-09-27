@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
 import "./security.css";
-import { changePasswordDto } from "../../../../Core/DTO/UserDTO/ChangePasswordDto";
-import { ChangePassword } from "../../../../Core/Services/AuthServices/AuthUserService";
+import { ChangeUserPasswordCommand, InternoMicroserviceClient, RolesEnum } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 import DeleteAccountModel from "./Model/DeleteAccountModel";
 export default function AccountSecurity() {
   const { user, refreshUser } = useAuth();
+  const Client = new InternoMicroserviceClient(undefined, API);
   const [message, setMessage] = useState<{
     message: string;
     isSuccess: boolean;
@@ -14,16 +15,15 @@ export default function AccountSecurity() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const request: changePasswordDto = {
-      userID: user?.userID!,
+    const request = new ChangeUserPasswordCommand({
       newPassword: form.get("newPassword") as string,
       confirmPassword: form.get("confirmPassword") as string,
       currentPassword: form.get("currentPassword") as string,
-    };
+    });
     console.log(request);
     const changePassword = async () => {
       try {
-        const response = await ChangePassword(request);
+        const response = await Client.changeUserPassword(request);
         if (response.isSuccess) {
           setMessage({
             message: "Password Updated Successfuly",
@@ -94,7 +94,7 @@ export default function AccountSecurity() {
           </span>
         </form>
       </div>
-      {user?.role === "User" && (
+      {user?.roles?.includes(RolesEnum.Customer) && (
         <div className="Account-security-section Account-danger-zone">
           <h3>Danger Zone</h3>
           <div className="Account-danger-card">

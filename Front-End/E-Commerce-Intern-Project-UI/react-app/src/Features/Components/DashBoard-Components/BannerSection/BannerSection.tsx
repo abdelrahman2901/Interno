@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
-import { BannerSlidesDetails } from "../../../../Core/DTO/BannerSlidesDTO/BannerSlidesDetails";
-import {
-  DeleteBanner,
-  GetAllBanners,
-  ToggleBannerActiviation,
-} from "../../../../Core/Services/BannerServices/BannerService";
+import { BannerSlideResponse, InternoMicroserviceClient } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 import BannerDeleteModel from "./Models/BannerDeleteModel";
 import BannerAdd_UpdateModel from "./Models/BannerAdd_UpdateModel";
 import "./BannerSection.css";
 
-const Base_Url = "https://localhost:7164/BannerImages";
+const Base_Url = "http://localhost:5000/BannerImages";
 type filterTypes = "all" | "active" | "inActive";
 export default function BannerSection() {
-  const [_banners, setPrivBanners] = useState<BannerSlidesDetails[]>([]);
-  const [banners, setBanners] = useState<BannerSlidesDetails[]>([]);
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [_banners, setPrivBanners] = useState<BannerSlideResponse[]>([]);
+  const [banners, setBanners] = useState<BannerSlideResponse[]>([]);
   const [selectedBannerID, setSelectedBannerID] = useState<string | null>(null);
   const [isOpenModel, setIsOpenModel] = useState<boolean>(false);
   const [isDeletingBanner, setIsDeletingBanner] = useState<boolean>(false);
@@ -21,7 +18,7 @@ export default function BannerSection() {
 
   const loadBanners = async () => {
     try {
-      const response = await GetAllBanners();
+      const response = await Client.getAllBanners();
       if (response.isSuccess && response.data) {
         setBanners(response.data);
         setPrivBanners(response.data);
@@ -32,7 +29,7 @@ export default function BannerSection() {
   };
   const deleteBanner = async () => {
     try {
-      const response = await DeleteBanner(selectedBannerID!);
+      const response = await Client.deleteBanner(selectedBannerID!);
       if (response.data && response.isSuccess) {
         loadBanners();
       }
@@ -76,7 +73,7 @@ export default function BannerSection() {
   }
   async function toggleBannerStatus(bannerID: string) {
     try {
-      const response = await ToggleBannerActiviation(bannerID);
+      const response = await Client.toggleBannerActiviation(bannerID);
       if (response.isSuccess) {
         loadBanners();
       }
@@ -151,23 +148,23 @@ export default function BannerSection() {
               <div className="banner-card" key={banner.bannerSlideID}>
                 <div
                   className="banner-preview"
-                  style={{ background: banner?.backgroundColor.colorHexCode }}
+                  style={{ background: banner?.backgroundColor?.colorHexCode }}
                 >
                   <div className="banner-content">
                     <span
                       className="banner-label"
-                      style={{ color: banner?.accentColor.colorHexCode }}
+                      style={{ color: banner?.accentColor?.colorHexCode }}
                     >
                       {banner.label}
                     </span>
                     <h3
                       className="banner-title"
-                      dangerouslySetInnerHTML={{ __html: banner.title }}
+                      dangerouslySetInnerHTML={{ __html: banner.title ?? "" }}
                     ></h3>
                     <p className="banner-subtitle">{banner.subtitle}</p>
                     <button
                       className="banner-cta"
-                      style={{ background: banner?.accentColor.colorHexCode }}
+                      style={{ background: banner?.accentColor?.colorHexCode }}
                     >
                       {banner.cta}
                     </button>
@@ -190,7 +187,7 @@ export default function BannerSection() {
                     <button
                       className="btn-icon btn-toggle"
                       title="Toggle Status"
-                      onClick={() => toggleBannerStatus(banner.bannerSlideID)}
+                      onClick={() => toggleBannerStatus(banner.bannerSlideID!)}
                     >
                       <span
                         className={`toggle-switch ${banner.isActive ? "active" : "inactive"}`}
@@ -199,7 +196,7 @@ export default function BannerSection() {
                     <button
                       className="btn-icon btn-edit"
                       title="Edit"
-                      onClick={() => popUpModal(banner.bannerSlideID)}
+                      onClick={() => popUpModal(banner.bannerSlideID ?? null)}
                     >
                       ✏️
                     </button>
@@ -207,7 +204,7 @@ export default function BannerSection() {
                       className="btn-icon btn-delete"
                       title="Delete"
                       onClick={() => {
-                        setSelectedBannerID(banner.bannerSlideID);
+                        setSelectedBannerID(banner.bannerSlideID ?? null);
                         setIsDeletingBanner(true);
                       }}
                     >

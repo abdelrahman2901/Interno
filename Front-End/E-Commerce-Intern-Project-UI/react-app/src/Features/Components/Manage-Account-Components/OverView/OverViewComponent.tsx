@@ -1,5 +1,4 @@
-import { OrderDetails } from "../../../../Core/DTO/OrderDTO/OrderDetails";
-import { GetAllUserOrders } from "../../../../Core/Services/OrderServices/OrderService";
+import { OrderDetails } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
 import "./OverVIew.css";
 type props = {
   swtichSection_OutPut: (
@@ -49,7 +48,7 @@ export default function AccountOverView({
               {orders
                 .slice()
                 .filter((r) => r.orderStatus !== "Cancelled")
-                .reduce((total, order) => total + order.totalAmount, 0)}
+                .reduce((total, order) => total + (order.totalAmount ?? 0), 0)}
             </p>
           </div>
         </div>

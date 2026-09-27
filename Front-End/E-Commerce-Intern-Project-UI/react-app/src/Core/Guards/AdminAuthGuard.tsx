@@ -1,4 +1,5 @@
 import { Navigate } from "react-router-dom";
+import { RolesEnum } from "../API/Interno-Microservice-Client/Interno-Microservice-Client";
 import { useAuth } from "../Services/AuthServices/AuthProvider";
 
 export default function AdminAuthGuard({
@@ -8,7 +9,7 @@ export default function AdminAuthGuard({
 }) {
   const { user } = useAuth();
 
-  if (user?.role !== "Admin") {
+  if (!user?.roles?.includes(RolesEnum.Admin)) {
     return <Navigate to={"/Home"} />;
   }
   return children;

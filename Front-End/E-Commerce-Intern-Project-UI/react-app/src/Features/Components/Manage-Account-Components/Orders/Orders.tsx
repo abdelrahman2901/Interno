@@ -1,25 +1,24 @@
 import { useEffect, useState } from "react";
 import "./Orders.css";
-import { OrderDetails } from "../../../../Core/DTO/OrderDTO/OrderDetails";
 import { Link } from "react-router-dom";
-import { UpdateOrderRequest } from "../../../../Core/DTO/OrderDTO/UpdateOrderRequest";
-import {
-  GetAllUserOrders,
-  UpdateOrder,
-  UpdateOrderStatus,
-} from "../../../../Core/Services/OrderServices/OrderService";
-import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
-import RatingModal from "./Modal/RatingModal";
-import { ProductRatesDetails } from "../../../../Core/DTO/ProductRatesDTO/ProductRatesDetails";
-import { GetUserRating } from "../../../../Core/Services/ProductRatingServices/ProductRatingService";
-import SuccessRateModal from "./Modal/SuccessRateModal";
-import { GetCouponByCode } from "../../../../Core/Services/OrderCouponServices/OrderCouponService";
 
+import RatingModal from "./Modal/RatingModal";
+import SuccessRateModal from "./Modal/SuccessRateModal";
+import {
+  InternoMicroserviceClient,
+  OrderDetails,
+  OrderStatus,
+  ProductRateResponse,
+  UpdateOrderRequest,
+  UpdateOrderStatusRequest,
+} from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
+import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
 type props = {
   orders_Prop: OrderDetails[];
 };
 export default function AccountOrders({ orders_Prop }: props) {
-  const Base_Url = "https://localhost:7164";
+  const Base_Url = "http://localhost:5000";
   const [CurrentOrder, SetCurrentOrder] = useState<
     "all" | "delivered" | "shipped" | "processing" | "cancelled"
   >("all");
@@ -27,15 +26,16 @@ export default function AccountOrders({ orders_Prop }: props) {
   const [orders, setOrders] = useState<OrderDetails[]>([]);
   const [isRatingProduct, setIsRatingProduct] = useState<boolean>(false);
   const [selectedOrderID, setSelectedOrderID] = useState<string>("");
-  const [userOrderRating, setUserOrderRating] = useState<ProductRatesDetails[]>(
+  const [userOrderRating, setUserOrderRating] = useState<ProductRateResponse[]>(
     [],
   );
   const [isRateDoneSuccessfully, setIsRateDoneSuccessfully] =
     useState<boolean>(false);
   const { user } = useAuth();
+  const Client = new InternoMicroserviceClient(undefined, API);
   const loadUserRating = async () => {
     try {
-      const response = await GetUserRating(user?.userID!);
+      const response = await Client.getUserRating(user?.userID!);
       if (response.data && response.isSuccess) {
         setUserOrderRating(response.data);
       }
@@ -45,7 +45,7 @@ export default function AccountOrders({ orders_Prop }: props) {
   };
   const laodOrders = async () => {
     try {
-      const response = await GetAllUserOrders(user?.userID!);
+      const response = await Client.getAllUserOrders(user?.userID!);
       if (response.isSuccess) {
         console.log(response.data);
 
@@ -104,21 +104,21 @@ export default function AccountOrders({ orders_Prop }: props) {
       return;
     }
     setOrders(
-      _orders.slice().filter((r) => r.orderStatus.toLowerCase() === filter),
+      _orders.slice().filter((r) => r.orderStatus?.toLowerCase() === filter),
     );
   }
 
   async function CancelOrder(order: OrderDetails) {
-    const request: UpdateOrderRequest = {
+    const request: UpdateOrderRequest = new UpdateOrderRequest({
       orderID: order.orderID,
-      orderStatus: "Cancelled",
-      shippingCostID: order.shippingCosts.shippingCostID,
-      addressID: order.address.addressID,
-    };
+      orderStatus: OrderStatus.Cancelled,
+      shippingCostID: order.shippingCosts?.shippingCostID!,
+      addressID: order.address?.addressID!,
+    });
     console.log(request);
 
     try {
-      const response = await UpdateOrder(request);
+      const response = await Client.updateOrder(request);
       if (response.isSuccess) {
         laodOrders();
       }
@@ -143,10 +143,12 @@ export default function AccountOrders({ orders_Prop }: props) {
   }
   async function ChangeOrderToProc(orderID: string) {
     try {
-      const response = await UpdateOrderStatus({
-        OrderID: orderID,
-        NewStatus: "Processing",
-      });
+      const response = await Client.updateOrderStatus(
+        new UpdateOrderStatusRequest({
+          orderID: orderID,
+          newStatus: OrderStatus.Processing,
+        }),
+      );
       if (response.isSuccess) {
         laodOrders();
       }
@@ -231,17 +233,17 @@ export default function AccountOrders({ orders_Prop }: props) {
                         {order.orderNumber}
                       </h4>
                       <p className="Account-order-date">
-                        Placed on {extractDate(order.orderDate)}
+                        Placed on {extractDate(order.orderDate!.toISOString())}
                       </p>
                     </div>
                     <span
-                      className={`Account-order-status Account-${extractStatus(order.orderStatus)}`}
+                      className={`Account-order-status Account-${extractStatus(order.orderStatus!)}`}
                     >
                       {order.orderStatus}
                     </span>
                   </div>
 
-                  {order.orderItems.map((orderItem) => (
+                  {order.orderItems?.map((orderItem) => (
                     <div
                       className="Account-order-items"
                       key={orderItem.orderItemID}
@@ -249,22 +251,22 @@ export default function AccountOrders({ orders_Prop }: props) {
                       <div className="Account-order-product">
                         <img
                           alt="Product"
-                          src={`${Base_Url}/ProductsImages/${orderItem.product.parentCategoryName}/${orderItem.product.categoryName}/${orderItem.product.productImageUrl}`}
+                          src={`${Base_Url}/ProductsImages/${orderItem.product?.parentCategoryName}/${orderItem.product?.categoryName}/${orderItem.product?.productImageUrl}`}
                         />
                         <div className="Account-product-details">
-                          <h5>{orderItem.product.productName}</h5>
+                          <h5>{orderItem.product?.productName}</h5>
                           <p>
-                            Size: {orderItem.product.sizeName} | Color:{" "}
-                            {orderItem.product.colorName}
+                            Size: {orderItem.product?.sizeName} | Color:{" "}
+                            {orderItem.product?.colorName}
                           </p>
                           <p>Qty: {orderItem.quantity}</p>
                         </div>
                         <div className="Account-product-price">
                           $
-                          {orderItem.product.salePrice !== 0 &&
-                            orderItem.product.salePrice}
-                          {!orderItem.product.salePrice &&
-                            orderItem.product.price}
+                          {orderItem.product?.salePrice !== 0 &&
+                            orderItem.product?.salePrice!}
+                          {!orderItem.product?.salePrice &&
+                            orderItem.product?.price!}
                         </div>
                       </div>
                     </div>
@@ -272,7 +274,7 @@ export default function AccountOrders({ orders_Prop }: props) {
                   <div className="Account-order-footer">
                     <div className="Account-order-total ">
                       <span>Shipping Cost:</span>
-                      <strong>${order.shippingCosts.shippingCost}</strong>
+                      <strong>${order.shippingCosts?.shippingCost!}</strong>
                     </div>
                     <div className="Account-order-total ">
                       <span>Discount:</span>
@@ -284,18 +286,20 @@ export default function AccountOrders({ orders_Prop }: props) {
                       <span>Total:</span>
                       <strong>
                         $
-                        {order.orderItems.reduce(
+                        {order.orderItems!.reduce(
                           (total, order) =>
                             total +
-                            (order.product.salePrice !== 0 &&
-                            order.product.salePrice
-                              ? order.product.salePrice
-                              : order.product.price) *
-                              order.quantity,
+                            (order.product?.salePrice !== 0 &&
+                            order.product?.salePrice!
+                              ? order.product?.salePrice!
+                              : order.product?.price!) *
+                              order.quantity!,
                           0,
                         ) +
-                          order.shippingCosts.shippingCost -
-                          (order.orderCoupon ? order.orderCoupon.discount : 0)}
+                          order.shippingCosts?.shippingCost! -
+                          (order.orderCoupon
+                            ? order.orderCoupon?.discount!
+                            : 0)}
                       </strong>
                     </div>
                     <div className="Account-order-actions">
@@ -311,14 +315,14 @@ export default function AccountOrders({ orders_Prop }: props) {
                         !userOrderRating.some(
                           (r) =>
                             r.userID === user?.userID &&
-                            order.orderItems.some(
+                            order.orderItems!.some(
                               (t) =>
-                                t.product.productID === r.product.productID,
+                                t.product?.productID! === r.product?.productID!,
                             ),
                         ) && (
                           <button
                             className="Account-btn-small btn-submit-rating"
-                            onClick={() => RateOrder(order.orderID)}
+                            onClick={() => RateOrder(order.orderID!)}
                           >
                             Rate Product
                           </button>
@@ -326,7 +330,7 @@ export default function AccountOrders({ orders_Prop }: props) {
                       {order.orderStatus === "Cancelled" && (
                         <button
                           className="Account-btn-small btn-submit-rating"
-                          onClick={() => ChangeOrderToProc(order.orderID)}
+                          onClick={() => ChangeOrderToProc(order.orderID!)}
                         >
                           Order Again
                         </button>

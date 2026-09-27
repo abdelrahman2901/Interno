@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { ISubCategoryDetails } from "../../../../Core/Interface/Category/ISubCateogryDetails";
-import { DeleteCategory_serv } from "../../../../Core/Services/CategoryServices/CategoryServiceCmd";
-import { GetSubCategoryDetails } from "../../../../Core/Services/CategoryServices/CategoryServiceQuery";
+import { InternoMicroserviceClient, SubCategoryResponse } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 import { DeleteModel } from "../Shared/Model/DeleteModel";
 import AddCategoryModel from "./Model/CategoryModel";
-
 export default function CategoryDashBoardSection() {
-  const [Categoires, SetCategories] = useState<ISubCategoryDetails[]>([]);
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [Categoires, SetCategories] = useState<SubCategoryResponse[]>([]);
   const [updateCat, SetUpdateCategory] = useState<string | null>(null);
   const [ExpendedCat, SetExpendedCat] = useState("");
   const [isAddUpdateCat, SetisAddUpdateCat] = useState(false);
@@ -15,8 +14,10 @@ export default function CategoryDashBoardSection() {
 
   const loadCats = async () => {
     try {
-      const response = await GetSubCategoryDetails();
-      SetCategories(response.data!);
+      const response = await Client.getCategoriesWithSubCat();
+      if(response.isSuccess && response.data){
+        SetCategories(response.data!);
+      }
     } catch (err) {
       if (err) console.error(err);
     }
@@ -31,7 +32,7 @@ export default function CategoryDashBoardSection() {
 
     const DeleteCat = async () => {
       try {
-        const response = await DeleteCategory_serv(CatID);
+        const response = await Client.deleteCategory(CatID);
         if (response.data) {
           SetCategories(Categoires.filter((c) => c.categoryID != CatID));
         }
@@ -103,13 +104,13 @@ export default function CategoryDashBoardSection() {
                   <div className="category-info">
                     <div className="category-name-dash">{cat.categoryName}</div>
                     <div className="category-count-dash">
-                      {cat.subCategories.length} subcategories
+                      {cat.subCategories?.length ?? 0} subcategories
                     </div>
                   </div>
                   <div className="category-actions">
                     <button
                       className="action-btn edit"
-                      onClick={() => UpdateCategory(cat.categoryID)}
+                      onClick={() => UpdateCategory(cat.categoryID!)}
                     >
                       ✏️ Edit
                     </button>
@@ -117,29 +118,29 @@ export default function CategoryDashBoardSection() {
                       className="action-btn delete"
                       onClick={() => {
                         SetDeletingCat(true);
-                        SetCurrentCatToDelete(cat.categoryID);
+                        SetCurrentCatToDelete(cat.categoryID!);
                       }}
                     >
                       🗑️ Delete
                     </button>
-                    {cat.subCategories.length > 0 && (
+                    {(cat.subCategories?.length ?? 0) > 0 && (
                       <span
                         className="expand-icon"
-                        onClick={() => expendCategory(cat.categoryID)}
+                        onClick={() => expendCategory(cat.categoryID!)}
                       >
                         ▼
                       </span>
                     )}
                   </div>
                 </div>
-                {cat.subCategories.length > 0 && (
+                {(cat.subCategories?.length ?? 0) > 0 && (
                   <div
                     className={
                       "subcategories " +
                       (ExpendedCat === cat.categoryID ? "show" : "")
                     }
                   >
-                    {cat.subCategories.map((sub) => (
+                    {cat.subCategories?.map((sub) => (
                       <div className="subcategory-item" key={sub.categoryID}>
                         <span className="subcategory-name">
                           {sub.categoryName}
@@ -147,7 +148,7 @@ export default function CategoryDashBoardSection() {
                         <div className="category-actions">
                           <button
                             className="action-btn edit"
-                            onClick={() => UpdateCategory(sub.categoryID)}
+                            onClick={() => UpdateCategory(sub.categoryID!)}
                           >
                             ✏️
                           </button>
@@ -155,7 +156,7 @@ export default function CategoryDashBoardSection() {
                             className="action-btn delete"
                             onClick={() => {
                               SetDeletingCat(true);
-                              SetCurrentCatToDelete(sub.categoryID);
+                              SetCurrentCatToDelete(sub.categoryID!);
                             }}
                           >
                             🗑️

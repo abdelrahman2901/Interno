@@ -2,34 +2,30 @@ import { Link, useNavigate } from "react-router-dom";
 import "./NavBar.css";
 import { useEffect, useState } from "react";
 import { Bell, Heart, ShoppingCart, Menu } from "lucide-react";
-import { CartDetails } from "../../../Core/DTO/CartDTO/CartDetails.js";
-import { NotificationModel } from "../../../Core/DTO/NotificationDTO/NotificationModel.js";
 import { useCartStore } from "../../../Core/Global-State-Management/Zusstand/CartStore/CartUpdateStore.js";
-import { ISubCategoryDetails } from "../../../Core/Interface/Category/ISubCateogryDetails.js";
+import { CartDetailsResponse, InternoMicroserviceClient, SubCategoryResponse } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../Core/Shared/API-URL";
 import { useAuth } from "../../../Core/Services/AuthServices/AuthProvider.js";
-import { SignOut } from "../../../Core/Services/AuthServices/AuthUserService.js";
-import { GetUserCartItemsDetails } from "../../../Core/Services/CartServices/CartService.js";
-import { GetSubCategoryDetails } from "../../../Core/Services/CategoryServices/CategoryServiceQuery.js";
-import {
-  GetAllUserNotifications,
-  MarkNotificationAsRead,
-  MarkNotificationAsReadList,
-} from "../../../Core/Services/NotificationServices/NotificationService.js";
+ 
 import { useExclusiveDropdowns } from "../../../Core/Shared/hooks/useDropdown.js";
 import CategoryDropdown from "./CategoryDropdown.js";
 import UserMenu from "./UserMenu.js";
-
+import { NotificationResponse, NotificationsMicroserviceClient } from "../../../Core/API/Notification-Microservice-Cleint/Notifications-Microservice-Client";
 export default function Navbar() {
   const [mobileDropDown, setMobileDropDown] = useState<boolean>(false);
   const { user, signout } = useAuth();
-  const [categories, setCategories] = useState<ISubCategoryDetails[]>([]);
-  const [_notifications, setPrivNotifications] = useState<NotificationModel[]>(
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const NotificationClient = new NotificationsMicroserviceClient();
+  const [categories, setCategories] = useState<SubCategoryResponse[]>([]);
+  const [_notifications, setPrivNotifications] = useState<NotificationResponse[]>(
     [],
   );
-  const [notifications, setNotifications] = useState<NotificationModel[]>([]);
+  const [notifications, setNotifications] = useState<NotificationResponse[]>([]);
   const [unreadCount, setUnreadCount] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [cartItems, setCartItems] = useState<CartDetails>(new CartDetails());
+  const [cartItems, setCartItems] = useState<CartDetailsResponse>(
+    new CartDetailsResponse(),
+  );
   const [searchOpen, setSearchOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const navigator = useNavigate();
@@ -43,7 +39,7 @@ export default function Navbar() {
     if (!user?.userID) return;
 
     try {
-      const response = await GetUserCartItemsDetails(user.userID);
+      const response = await Client.getUserCartItemsDetails();
       if (response.isSuccess && response.data) {
         setCartItems(response.data);
       }
@@ -51,7 +47,7 @@ export default function Navbar() {
   };
   const loadCats = async () => {
     try {
-      const response = await GetSubCategoryDetails();
+      const response = await Client.getCategoriesWithSubCat();
       if (response.isSuccess && response.data) {
         setCategories(response.data);
       }
@@ -60,7 +56,7 @@ export default function Navbar() {
   function onSignOut() {
     const SignOutreq = async () => {
       try {
-        const response = await SignOut(user?.userID!);
+        const response = await Client.signOutUser();
         if (response.isSuccess) {
           signout();
           navigator("/Home");
@@ -69,13 +65,12 @@ export default function Navbar() {
     };
     SignOutreq();
   }
-  function ExtractDate(CreateDate: string) {
-    const date = new Date(CreateDate);
-    return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+  function ExtractDate(CreateDate: Date) {
+    return `${CreateDate.getDate()}-${CreateDate.getMonth()}-${CreateDate.getFullYear()}`;
   }
   const loadNotifciation = async () => {
     try {
-      const response = await GetAllUserNotifications(user?.userID!);
+      const response = await NotificationClient.getUserNotifications();
       if (response.data && response.isSuccess) {
         setUnreadCount(response.data.slice().filter((r) => !r.isRead).length);
         setPrivNotifications(response.data);
@@ -98,7 +93,7 @@ export default function Navbar() {
     if (user) {
       loadCartItems();
     } else {
-      setCartItems(new CartDetails());
+      setCartItems(new CartDetailsResponse());
     }
     if (notifications.length === 0 && user) {
       loadNotifciation();
@@ -141,7 +136,7 @@ export default function Navbar() {
   }
   async function handleNotificationClick(notificationID: string) {
     try {
-      const response = await MarkNotificationAsRead(notificationID);
+      const response = await NotificationClient.markNotificationAsRead(notificationID);
       if (response.data && response.isSuccess) {
         loadNotifciation();
       }
@@ -151,7 +146,7 @@ export default function Navbar() {
   }
   async function onMarkAllAsRead() {
     try {
-      const response = await MarkNotificationAsReadList(user?.userID!);
+      const response = await NotificationClient.markNotificationAsReadList();
       if (response.data && response.isSuccess) {
         loadNotifciation();
       }
@@ -256,7 +251,7 @@ export default function Navbar() {
                         key={notification.notificationID}
                         className={`notification-item ${!notification.isRead ? "unread" : ""}`}
                         onClick={() =>
-                          handleNotificationClick(notification.notificationID)
+                          handleNotificationClick(notification.notificationID!)
                         }
                       >
                         {!notification.isRead && (
@@ -270,7 +265,7 @@ export default function Navbar() {
                             {notification.message}
                           </div>
                           <div className="notification-time">
-                            {ExtractDate(notification.createdAt)}
+                            {ExtractDate(notification.createdAt!)}
                             {/* {getTimeAgo(notification.timestamp)} */}
                           </div>
                         </div>
@@ -306,7 +301,7 @@ export default function Navbar() {
                 <ShoppingCart size={18} />
               </Link>
             </span>
-            <span className="cart-badge ">{cartItems.cartItems.length}</span>
+            <span className="cart-badge ">{cartItems.cartItems?.length ?? 0}</span>
           </div>
           {!user && (
             <>

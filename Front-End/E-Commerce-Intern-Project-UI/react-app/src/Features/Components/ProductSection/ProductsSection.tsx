@@ -1,40 +1,36 @@
 import { useEffect, useState } from "react";
-import { IProductDetails } from "../../../Core/Interface/Products/IProductDetails";
 import { Heart, Eye, Star } from "lucide-react";
 import { ProductCardSkeleton } from "../Shared/SkeletonLoader";
 import {
-  FilterProducts,
-  GetProducts,
-} from "../../../Core/Services/ProductServices/ProductServiceQuery";
-import {
-  CreateWishList,
-  GetAllUserWishList,
-} from "../../../Core/Services/WishList-Services/WishListService";
+  AddCartItemListRequest,
+  CartDetailsResponse,
+  CreateWishListRequest,
+  InternoMicroserviceClient,
+  ProductDetails_vw,
+  WishListDetailsResponse,
+} from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../Core/Shared/API-URL";
 import { useAuth } from "../../../Core/Services/AuthServices/AuthProvider";
-import { WishListDetailsModel } from "../../../Core/DTO/WishList/WishListDetailsModel";
-import { AddCartItem } from "../../../Core/Services/Cart-Item-Services/CartItemService";
-import { CartDetails } from "../../../Core/DTO/CartDTO/CartDetails";
-import { GetUserCartItemsDetails } from "../../../Core/Services/CartServices/CartService";
 import "./ProductSection.css";
 import { CategoryfilterType } from "../../../Core/Types/CategoryFIlterTypes";
 import { useFilterStore } from "../../../Core/Global-State-Management/Zusstand/FilterStore/FilterStore";
 import { useCartStore } from "../../../Core/Global-State-Management/Zusstand/CartStore/CartUpdateStore";
-
 type props = {
   filterProps: CategoryfilterType | null;
 };
 
 export default function ProductsSection({ filterProps }: props) {
-  const Base_Url = "https://localhost:7164";
+  const Base_Url = "http://localhost:5000";
   const { user } = useAuth();
-  const [Products, SetProducts] = useState<IProductDetails[]>([]);
-  const [_Products, SetPrivProducts] = useState<IProductDetails[]>([]);
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [Products, SetProducts] = useState<ProductDetails_vw[]>([]);
+  const [_Products, SetPrivProducts] = useState<ProductDetails_vw[]>([]);
   const [CurrentFilter, SetCurrentFilter] = useState<string>();
   const [userWishListItems, setUserWishListItems] = useState<
-    WishListDetailsModel[]
+    WishListDetailsResponse[]
   >([]);
   const { triggerCartUpdate } = useCartStore();
-  const [CartItems, setCartItems] = useState<CartDetails>();
+  const [CartItems, setCartItems] = useState<CartDetailsResponse>();
   const { filter } = useFilterStore();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -53,7 +49,7 @@ export default function ProductsSection({ filterProps }: props) {
 
   const loadCartItems = async () => {
     try {
-      const response = await GetUserCartItemsDetails(user?.userID!);
+      const response = await Client.getUserCartItemsDetails();
       if (response.isSuccess) {
         setCartItems(response.data!);
       }
@@ -64,7 +60,14 @@ export default function ProductsSection({ filterProps }: props) {
   const loadFilter = async () => {
     setIsLoading(true);
     try {
-      const response = await FilterProducts(filter);
+      const response = await Client.filterProducts(
+        filter.Category,
+        filter.SubCategory,
+        filter.Price,
+        filter.Size,
+        filter.Color,
+        filter.Sort,
+      );
       if (response.isSuccess && response.data) {
         SetProducts(response.data);
         SetPrivProducts(response.data);
@@ -78,7 +81,7 @@ export default function ProductsSection({ filterProps }: props) {
 
   const loadWishListItems = async () => {
     try {
-      const response = await GetAllUserWishList(user?.userID!);
+      const response = await Client.getAllUserWishList(user?.userID!);
       if (response.isSuccess) {
         setUserWishListItems(response.data!);
       } else {
@@ -95,7 +98,7 @@ export default function ProductsSection({ filterProps }: props) {
       loadCartItems();
     } else {
       setUserWishListItems([]);
-      setCartItems(new CartDetails());
+      setCartItems(new CartDetailsResponse());
     }
   }, [user]);
 
@@ -109,10 +112,12 @@ export default function ProductsSection({ filterProps }: props) {
 
   async function AddToWishList(productID: string) {
     try {
-      const response = await CreateWishList({
-        userID: user?.userID!,
-        productID: productID,
-      });
+      const response = await Client.createWishList(
+        new CreateWishListRequest({
+          userID: user?.userID!,
+          productID: productID,
+        }),
+      );
       if (response.isSuccess) {
         loadWishListItems();
       }
@@ -120,16 +125,21 @@ export default function ProductsSection({ filterProps }: props) {
       if (err) console.error(err);
     }
   }
-  function CalculateSalePerc(product: IProductDetails) {
-    return ((product.salePrice / product.price) * 100 - 100 + 100).toFixed(2);
+  function CalculateSalePerc(product: ProductDetails_vw) {
+    return (
+      ((product.salePrice ?? 0) / (product.price ?? 1)) * 100 -
+      100 +
+      100
+    ).toFixed(2);
   }
 
   async function addItem(productID: string) {
     try {
-      const response = await AddCartItem({
-        userID: user?.userID!,
-        productID: productID,
-      });
+      const response = await Client.addCartItemList(
+        new AddCartItemListRequest({
+          productIDs: [productID],
+        }),
+      );
       if (response.isSuccess) {
         loadCartItems();
         triggerCartUpdate();
@@ -163,8 +173,8 @@ export default function ProductsSection({ filterProps }: props) {
                   )}
                 </div>
                 <button
-                  className={`wishlist-btn ${userWishListItems.length > 0 ? (userWishListItems.find((w) => w.product.productID === product.productID) ? "active" : "") : ""}`}
-                  onClick={() => AddToWishList(product.productID)}
+                  className={`wishlist-btn ${userWishListItems.length > 0 ? (userWishListItems.find((w) => w.product?.productID === product.productID) ? "active" : "") : ""}`}
+                  onClick={() => AddToWishList(product.productID!)}
                 >
                   <Heart size={20} />
                 </button>
@@ -177,17 +187,19 @@ export default function ProductsSection({ filterProps }: props) {
               </div>
               <div className="product-info">
                 <div className="product-category">
-                  {product.sizeName.slice(0, 1)} {product.parentCategoryName}{" "}
+                  {product.sizeName?.slice(0, 1)} {product.parentCategoryName}{" "}
                   {product.categoryName}
                 </div>
                 <h3 className="product-name">{product.productName}</h3>
                 <div className="product-rating">
-                  {[...Array(Math.floor(product.rating))].map((_, i) => (
+                  {[...Array(Math.floor(product.rating ?? 0))].map((_, i) => (
                     <Star key={i} size={14} fill="#f39c12" color="#f39c12" />
                   ))}
-                  {[...Array(Math.round(5 - product.rating))].map((_, i) => (
-                    <Star key={i} size={14} color="#f39c12" />
-                  ))}
+                  {[...Array(Math.round(5 - (product.rating ?? 0)))].map(
+                    (_, i) => (
+                      <Star key={i} size={14} color="#f39c12" />
+                    ),
+                  )}
                   <span>({product.totalRating})</span>
                 </div>
                 <div className="product-price">
@@ -201,13 +213,13 @@ export default function ProductsSection({ filterProps }: props) {
                     <span className="original-price">${product.price}</span>
                   )}
                 </div>
-                {CartItems?.cartItems.find(
-                  (r) => r.product.productID === product.productID,
+                {CartItems?.cartItems?.find(
+                  (r) => r.product?.productID === product.productID,
                 ) === undefined && (
                   <button
                     className="add-to-cart-btn"
                     onClick={() => {
-                      addItem(product.productID);
+                      addItem(product.productID!);
                     }}
                   >
                     Add to Cart

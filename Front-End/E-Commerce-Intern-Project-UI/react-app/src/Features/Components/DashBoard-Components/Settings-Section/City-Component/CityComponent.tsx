@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
-import { CityModel } from "../../../../../Core/DTO/CityDTO/CityModel";
-import {
-  deleteCity,
-  getCities,
-} from "../../../../../Core/Services/CityServices/CityService";
-import { AreaModel } from "../../../../../Core/DTO/AreaDTO/AreaModel";
+import { AreaResponse, CityResponse, InternoMicroserviceClient } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../../Core/Shared/API-URL";
 import DeleteCityModel from "./Models/DeleteCityMode";
 import Add_UpdateCityModel from "./Models/Add_UpdateCityModel";
-
 type props = {
-  citiesProps: CityModel[];
-  areaProps: AreaModel[];
+  citiesProps: CityResponse[];
+  areaProps: AreaResponse[];
 };
 
 export default function CityComponent({ citiesProps, areaProps }: props) {
-  const [cities, setCities] = useState<CityModel[]>([]);
-  const [areas, setAreas] = useState<AreaModel[]>([]);
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [cities, setCities] = useState<CityResponse[]>([]);
+  const [areas, setAreas] = useState<AreaResponse[]>([]);
   const [isOpenModel, setIsOpenModel] = useState<boolean>(false);
   const [isDeletingCity, setIsDeletingCity] = useState<boolean>(false);
   const [selectedCityID, setSelectedCityID] = useState<string | null>(null);
@@ -30,7 +26,7 @@ export default function CityComponent({ citiesProps, areaProps }: props) {
 
   const loadCities = async () => {
     try {
-      const response = await getCities();
+      const response = await Client.getAllCities();
       if (response.isSuccess) {
         setCities(response.data!);
       }
@@ -50,7 +46,7 @@ export default function CityComponent({ citiesProps, areaProps }: props) {
   }
   async function DeleteCity() {
     try {
-      const response = await deleteCity(selectedCityID!);
+      const response = await Client.deleteCity(selectedCityID!);
       if (response.isSuccess) {
         setIsDeletingCity(false);
         loadCities();
@@ -108,7 +104,7 @@ export default function CityComponent({ citiesProps, areaProps }: props) {
                   <tr key={city.cityID}>
                     <td>
                       <span className="id-badge">
-                        {extractCityID(city.cityID)}
+                        {extractCityID(city.cityID ?? "")}
                       </span>
                     </td>
                     <td>
@@ -116,14 +112,14 @@ export default function CityComponent({ citiesProps, areaProps }: props) {
                     </td>
                     <td>
                       <span className="count-badge">
-                        {extractCityAreasCount(city.cityID)} areas
+                        {extractCityAreasCount(city.cityID ?? "")} areas
                       </span>
                     </td>
                     <td>
                       <button
                         className="btn-icon btn-edit"
                         onClick={() => {
-                          EditCity(city.cityID);
+                          EditCity(city.cityID!);
                         }}
                         title="Edit"
                         type="button"
@@ -134,7 +130,7 @@ export default function CityComponent({ citiesProps, areaProps }: props) {
                         type="button"
                         className="btn-icon btn-delete"
                         onClick={() => {
-                          setSelectedCityID(city.cityID);
+                          setSelectedCityID(city.cityID!);
                           toggleDeleteModel();
                         }}
                         title="Delete"

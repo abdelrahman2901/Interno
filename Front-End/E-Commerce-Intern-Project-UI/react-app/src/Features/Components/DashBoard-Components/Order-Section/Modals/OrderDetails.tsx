@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
-import { GetOrder } from "../../../../../Core/Services/OrderServices/OrderService";
-import { OrderDetails } from "../../../../../Core/DTO/OrderDTO/OrderDetails";
-
+import { InternoMicroserviceClient, OrderDetails } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../../Core/Shared/API-URL";
 type props = {
   orderIDProps: string | null;
   onClose: () => void;
 };
-const Base_Url = "https://localhost:7164";
+const Base_Url = "http://localhost:5000";
 
 export default function OrderDetailsModal({ orderIDProps, onClose }: props) {
+  const Client = new InternoMicroserviceClient(undefined, API);
   const [orderDetails, setOrderDetails] = useState<OrderDetails>(
     new OrderDetails(),
   );
   const loadOrder = async () => {
     try {
-      const response = await GetOrder(orderIDProps!);
+      const response = await Client.getOrder(orderIDProps!);
       if (response.data && response.isSuccess) {
         setOrderDetails(response.data);
       }
@@ -28,12 +28,12 @@ export default function OrderDetailsModal({ orderIDProps, onClose }: props) {
     }
   }, [orderIDProps]);
 
-  function extractDate(orderdate: string) {
-    const date = new Date(orderdate);
+  function extractDate(orderdate?: Date | string) {
+    const date = new Date(orderdate ?? Date.now());
     return `${date.toLocaleString("Default", { month: "short" })}  ${date.getDate()},${date.getFullYear()}`;
   }
-  function extractDateTime(orderdate: string) {
-    const date = new Date(orderdate);
+  function extractDateTime(orderdate?: Date | string) {
+    const date = new Date(orderdate ?? Date.now());
     return date.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
@@ -81,7 +81,7 @@ export default function OrderDetailsModal({ orderIDProps, onClose }: props) {
                 <p>
                   <strong>Status:</strong>
                   <span
-                    className={`status-badge ${orderDetails.orderStatus.toLowerCase()}`}
+                    className={`status-badge ${orderDetails.orderStatus?.toLowerCase()}`}
                   >
                     {orderDetails.orderStatus}
                   </span>
@@ -90,14 +90,14 @@ export default function OrderDetailsModal({ orderIDProps, onClose }: props) {
               <div className="info-card">
                 <h4>Shipping Address</h4>
                 <p>
-                  {orderDetails.address.addressLabel}
+                  {orderDetails.address?.addressLabel}
                   <br />
-                  {orderDetails.address.mainAddress}
+                  {orderDetails.address?.mainAddress}
                   <br />
-                  {orderDetails.address.cityName}-
-                  {orderDetails.address.areaName}
+                  {orderDetails.address?.cityID}-
+                  {orderDetails.address?.areaID}
                   <br />
-                  {orderDetails.address.backUpPhoneNumber &&
+                  {orderDetails.address?.backUpPhoneNumber &&
                     orderDetails.address.backUpPhoneNumber}
                   <br />
                 </p>
@@ -117,19 +117,19 @@ export default function OrderDetailsModal({ orderIDProps, onClose }: props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {orderDetails.orderItems.map((orderItem) => (
+                  {orderDetails.orderItems?.map((orderItem) => (
                     <tr>
                       <td>
                         <div className="item-info">
                           <img
-                            src={`${Base_Url}/ProductsImages/${orderItem.product.parentCategoryName}/${orderItem.product.categoryName}/${orderItem.product.productImageUrl}`}
+                            src={`${Base_Url}/ProductsImages/${orderItem.product?.parentCategoryName}/${orderItem.product?.categoryName}/${orderItem.product?.productImageUrl}`}
                             alt="Product"
                           />
                           <div>
-                            <strong>{orderItem.product.productName}</strong>
+                            <strong>{orderItem.product?.productName}</strong>
                             <small>
-                              Size: {orderItem.product.sizeName.slice(0, 1)},
-                              Color: {orderItem.product.colorName}
+                              Size: {orderItem.product?.sizeName?.slice(0, 1)},
+                              Color: {orderItem.product?.colorName}
                             </small>
                           </div>
                         </div>
@@ -137,17 +137,18 @@ export default function OrderDetailsModal({ orderIDProps, onClose }: props) {
 
                       <td>
                         $
-                        {orderItem.product.salePrice !== 0
-                          ? orderItem.product.salePrice
-                          : orderItem.product.price}
+                        {orderItem.product?.salePrice !== 0
+                          ? orderItem.product?.salePrice
+                          : orderItem.product?.price}
                       </td>
                       <td>{orderItem.quantity}</td>
                       <td>
                         <strong>
                           $
-                          {(orderItem.product.salePrice !== 0
-                            ? orderItem.product.salePrice
-                            : orderItem.product.price) * orderItem.quantity}
+                          {((orderItem.product?.salePrice !== 0
+                            ? orderItem.product?.salePrice
+                            : orderItem.product?.price) ?? 0) *
+                            (orderItem.quantity ?? 0)}
                         </strong>
                       </td>
                     </tr>
@@ -163,7 +164,7 @@ export default function OrderDetailsModal({ orderIDProps, onClose }: props) {
               </div>
               <div className="summary-row">
                 <span>Shipping:</span>
-                <strong>${orderDetails.shippingCosts.shippingCost}</strong>
+                <strong>${orderDetails.shippingCosts?.shippingCost}</strong>
               </div>
 
               <div className="summary-row total-row">

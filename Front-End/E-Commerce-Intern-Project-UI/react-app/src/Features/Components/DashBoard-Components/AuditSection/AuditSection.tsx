@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { AuditModel } from "../../../../Core/DTO/AuditDTO/AuditModel";
-import { GetAllAudit } from "../../../../Core/Services/AuditServices/AuditService";
 import { actionTypes } from "./Arrays/ActionTypesArr";
 import { entityNames } from "./Arrays/EntityNamesArr";
+import { AuditMicroserviceClient, AuditResponse } from "../../../../Core/API/Audit-Microservice-Client/Audit-Microservice-Client";
 
 export default function AuditSection() {
-  const [_audits, setPrivAudits] = useState<AuditModel[]>([]);
-  const [audits, setAudits] = useState<AuditModel[]>([]);
+  const [_audits, setPrivAudits] = useState<AuditResponse[]>([]);
+  const [audits, setAudits] = useState<AuditResponse[]>([]);
   const [fromDate, setFromDate] = useState<string>("");
   const [toDate, setToDate] = useState<string>("");
   const [currentActionType, setCurrentActionType] = useState<string>("All");
@@ -14,10 +13,10 @@ export default function AuditSection() {
   useEffect(() => {
     loadAudits();
   }, []);
-
+ const Client = new AuditMicroserviceClient();
   const loadAudits = async () => {
     try {
-      const response = await GetAllAudit();
+      const response = await Client.getAllAudit();
       if (response.isSuccess && response.data) {
         setAudits(response.data);
         setPrivAudits(response.data);
@@ -29,13 +28,11 @@ export default function AuditSection() {
     }
   };
 
-  function extractDate(orderdate: string) {
-    const date = new Date(orderdate);
-    return `${date.toLocaleString("Default", { month: "short" })}  ${date.getDate()},${date.getFullYear()}`;
+  function extractDate(orderdate: Date) {
+    return `${orderdate.toLocaleString("Default", { month: "short" })}  ${orderdate.getDate()},${orderdate.getFullYear()}`;
   }
-  function extractDateTime(orderdate: string) {
-    const date = new Date(orderdate);
-    return date.toLocaleTimeString([], {
+  function extractDateTime(orderdate: Date) {
+    return orderdate.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
       hour12: true,
@@ -61,7 +58,7 @@ export default function AuditSection() {
     setAudits(
       _audits
         .slice()
-        .filter((r) => r.entityName.toLowerCase() === value.toLowerCase()),
+        .filter((r) => r.entityName?.toLowerCase() === value.toLowerCase()),
     );
   }
   function filterBasedOnDate(e: React.ChangeEvent<HTMLInputElement>) {
@@ -84,8 +81,8 @@ export default function AuditSection() {
         .slice()
         .filter(
           (r) =>
-            new Date(r.createdAt).getTime() >= fromDateTime &&
-            new Date(r.createdAt).getTime() <= toDateTime,
+            new Date(r.createdAt!).getTime() >= fromDateTime &&
+            new Date(r.createdAt!).getTime() <= toDateTime,
         ),
     );
   }
@@ -224,13 +221,13 @@ export default function AuditSection() {
                   <tr>
                     <td>
                       <div className="timestamp">
-                        <strong>{extractDate(audit.createdAt)}</strong>
-                        <span>{extractDateTime(audit.createdAt)}</span>
+                        <strong>{extractDate(audit.createdAt!)}</strong>
+                        <span>{extractDateTime(audit.createdAt!)}</span>
                       </div>
                     </td>
                     <td>
                       <div className="user-info">
-                        U{audit.createdAt.slice(0, 3)}
+                        {audit.createdByUser}
                       </div>
                     </td>
                     <td>

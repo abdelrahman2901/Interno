@@ -1,27 +1,27 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import "../Shared/Shared.css";
 import React, { useEffect, useState } from "react";
-import { LoginRequest } from "../../../../Core/DTO/AuthDTO/LoginRequest";
+import { InternoMicroserviceClient, LoginUserCommand } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 import { IError } from "../../../../Core/Interface/Error/IError";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
-import { Login } from "../../../../Core/Services/AuthServices/AuthUserService";
-
 export default function LoginPage() {
   const [Errors, SetErrors] = useState<IError>();
   const [remeberMeChecked, setRemeberMeChecked] = useState<boolean>(false);
   const navigator = useNavigate();
   const { refreshUser } = useAuth();
+  const Client = new InternoMicroserviceClient(undefined, API);
   function onLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const request: LoginRequest = {
+    const request = new LoginUserCommand({
       email: form.get("Email") as string,
       password: form.get("Password") as string,
-    };
+    });
 
     const loginRequest = async () => {
       try {
-        const response = await Login(request);
+        const response = await Client.loginUser(request);
         console.log(response);
 
         if (response.isSuccess) {

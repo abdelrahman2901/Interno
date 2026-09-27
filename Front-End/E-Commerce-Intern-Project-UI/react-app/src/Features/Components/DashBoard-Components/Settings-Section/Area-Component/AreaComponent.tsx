@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { AreaModel } from "../../../../../Core/DTO/AreaDTO/AreaModel";
-
-import { CityModel } from "../../../../../Core/DTO/CityDTO/CityModel";
-import { ShippingCostDetails } from "../../../../../Core/DTO/ShippingCostDTO/ShippingCostDetails";
+import { AreaResponse, CityResponse, InternoMicroserviceClient, ShippingCostDetails } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../../Core/Shared/API-URL";
 import Add_UpdateAreaModel from "./Models/Add_UpdateAreaModel";
-import {
-  deleteArea,
-  getAreas,
-} from "../../../../../Core/Services/AreaServices/AreaService";
 import DeleteAreaModel from "./Models/DeleteAreaModel";
-
 type props = {
-  areasProps: AreaModel[];
-  cities: CityModel[];
+  areasProps: AreaResponse[];
+  cities: CityResponse[];
   shippingCosts: ShippingCostDetails[];
 };
 
@@ -21,8 +14,9 @@ export default function AreaComponent({
   areasProps,
   shippingCosts,
 }: props) {
-  const [_areas, setPrivAreas] = useState<AreaModel[]>([]);
-  const [areas, setAreas] = useState<AreaModel[]>([]);
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [_areas, setPrivAreas] = useState<AreaResponse[]>([]);
+  const [areas, setAreas] = useState<AreaResponse[]>([]);
   const [isAddingArea, setIsAddingArea] = useState<boolean>(false);
   const [isDeletingArea, setIsDeletingArea] = useState<boolean>(false);
   const [selectedAreaID, setSelectedAreaID] = useState<string | null>(null);
@@ -32,7 +26,7 @@ export default function AreaComponent({
   
   const loadAreas = async () => {
     try {
-      const response = await getAreas();
+      const response = await Client.getAllAreas();
       if (response.isSuccess) {
         setAreas(response.data!);
       }
@@ -50,7 +44,7 @@ export default function AreaComponent({
   }, [areasProps]);
   const deleteArea_fn = async () => {
     try {
-      const response = await deleteArea(selectedAreaID!);
+      const response = await Client.deleteArea(selectedAreaID!);
       if (response.isSuccess) {
         loadAreas();
       }
@@ -65,7 +59,7 @@ export default function AreaComponent({
     return cities.find((r) => r.cityID === cityID)?.cityName;
   }
   function extractShippingCostForAreaCount(areaID: string) {
-    return shippingCosts.find((r) => r.area.areaID === areaID)?.shippingCost;
+    return shippingCosts.find((r) => r.area?.areaID === areaID)?.shippingCost;
   }
   function extractAreaID(areaID: string) {
     return `Area-${areaID.slice(0, 3)}`;
@@ -75,7 +69,7 @@ export default function AreaComponent({
     toggleModel();
     setSelectedAreaID(areaID);
     setSelectedShingCostID(
-      shippingCosts.find((r) => r.area.areaID === areaID)?.shippingCostID!,
+      shippingCosts.find((r) => r.area?.areaID === areaID)?.shippingCostID!,
     );
   }
 
@@ -155,7 +149,7 @@ export default function AreaComponent({
                     <tr key={area.areaID}>
                       <td>
                         <span className="id-badge">
-                          {extractAreaID(area.areaID)}
+                          {extractAreaID(area.areaID ?? "")}
                         </span>
                       </td>
                       <td>
@@ -163,25 +157,25 @@ export default function AreaComponent({
                       </td>
                       <td>
                         <span className="city-badge">
-                          {extractCityName(area.cityID)}
+                          {extractCityName(area.cityID ?? "")}
                         </span>
                       </td>
                       <td>
                         <span className="count-badge">
-                          {extractShippingCostForAreaCount(area.areaID)}
+                          {extractShippingCostForAreaCount(area.areaID ?? "")}
                         </span>
                       </td>
                       <td>
                         <button
                           className="btn-icon btn-edit"
-                          onClick={() => EditArea(area.areaID)}
+                          onClick={() => EditArea(area.areaID!)}
                           title="Edit"
                         >
                           ✏️
                         </button>
                         <button
                           className="btn-icon btn-delete"
-                          onClick={() => DeleteArea(area.areaID)}
+                          onClick={() => DeleteArea(area.areaID!)}
                           title="Delete"
                         >
                           🗑️

@@ -4,8 +4,8 @@ import DashSideBar from "../../Components/DashBoard-Components/DashBoard-SideBar
 import OrderSection from "../../Components/DashBoard-Components/Order-Section/OrderSection";
 import OverViewSection from "../../Components/DashBoard-Components/OverView-Section/OverViewSection";
 import ProductDashBoardSection from "../../Components/DashBoard-Components/ProductDashBoardSection/ProductDashBoardSection";
-import { GetProducts } from "../../../Core/Services/ProductServices/ProductServiceQuery";
-import { IProductDetails } from "../../../Core/Interface/Products/IProductDetails";
+import { InternoMicroserviceClient, ProductDetails_vw } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../Core/Shared/API-URL";
 import SettingsSection from "../../Components/DashBoard-Components/Settings-Section/Settings-Section";
 import BannerSection from "../../Components/DashBoard-Components/BannerSection/BannerSection";
 import AuditSection from "../../Components/DashBoard-Components/AuditSection/AuditSection";
@@ -16,10 +16,11 @@ import "./AdminDashBoard.css";
 export default function Admin_Dashboard() {
   const [CurrentSection, setCurrentSection] = useState<SectionTypes>();
   const [CurrentSubSection, setCurrentSubSection] = useState<SubSectionTypes>();
-  const [Products, SetProducts] = useState<IProductDetails[]>([]);
+  const [Products, SetProducts] = useState<ProductDetails_vw[]>([]);
+  const Client = new InternoMicroserviceClient(undefined, API);
   const loadProducts = async () => {
     try {
-      const response = await GetProducts();
+      const response = await Client.productDetailsVW();
       console.log(response.data);
       if (response.isSuccess) {
         SetProducts(response.data!);

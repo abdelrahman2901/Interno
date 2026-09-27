@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { getAvatarUrl } from '../../../Core/config';
-import { IUser } from '../../../Core/Interface/User-Interfaces/IUser';
+import { AuthUserDetailsDTO, RolesEnum } from '../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client';
 
 interface UserMenuProps {
-  user: IUser;
+  user: AuthUserDetailsDTO;
   onSignOut: () => void;
   isDropdownOpen: boolean;
   onToggleDropdown: () => void;
@@ -14,7 +14,7 @@ export default function UserMenu({ user, onSignOut, isDropdownOpen, onToggleDrop
     <div className="dropdown">
       <div className="user-profile">
         <img
-          src={getAvatarUrl(user.personName)}
+          src={getAvatarUrl(user.personName ?? "")}
           alt="User Avatar"
         />
         <span
@@ -31,7 +31,7 @@ export default function UserMenu({ user, onSignOut, isDropdownOpen, onToggleDrop
             <span className="icon">✦</span> Manage Account
           </Link>
         </div>
-        {user.role === "Admin" && (
+        {user.roles?.includes(RolesEnum.Admin) && (
           <div className="dropdown-item">
             <Link to={"/Home/Admin-DashBoard"} className="nav-link">
               <span className="icon">✦</span> Admin Dashboard

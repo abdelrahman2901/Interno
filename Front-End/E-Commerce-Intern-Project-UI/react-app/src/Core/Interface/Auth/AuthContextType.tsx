@@ -1,7 +1,7 @@
-import { IUser } from "../User-Interfaces/IUser";
+import { AuthUserDetailsDTO } from "../../API/Interno-Microservice-Client/Interno-Microservice-Client";
 
 export interface AuthContextType {
-  user: IUser | null;
+  user: AuthUserDetailsDTO | null;
   loading: boolean;
   signout: () => void;
   refreshUser: () => void;

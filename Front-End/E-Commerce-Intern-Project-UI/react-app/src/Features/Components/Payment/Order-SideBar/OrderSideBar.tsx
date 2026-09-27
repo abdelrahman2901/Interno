@@ -1,17 +1,11 @@
 import { useEffect, useState } from "react";
-import { CartDetails } from "../../../../Core/DTO/CartDTO/CartDetails";
-import { GetUserCartItemsDetails } from "../../../../Core/Services/CartServices/CartService";
+import { AddressDetails, CartDetailsResponse, CreateOrderRequest, InternoMicroserviceClient, OrderCouponResponse, ShippingCostDetails } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
-import { AddressDetails } from "../../../../Core/DTO/AddressDTO/AddressDetails";
-import { GetShippingCostDetailsByAreaID } from "../../../../Core/Services/ShippingCostServices/ShippingCostServices";
-import { OrderRequest } from "../../../../Core/DTO/OrderDTO/OrderRequest";
-import { ShippingCostDetails } from "../../../../Core/DTO/ShippingCostDTO/ShippingCostDetails";
-import { OrderCouponModel } from "../../../../Core/DTO/OrdeCouponDTO/OrderCouponResponse";
-
 type props = {
   address: AddressDetails;
-  onPassRequest: (request: OrderRequest) => void;
-  couponProps: OrderCouponModel;
+  onPassRequest: (request: CreateOrderRequest) => void;
+  couponProps: OrderCouponResponse;
 };
 export default function OrderSideBar({
   address,
@@ -19,13 +13,14 @@ export default function OrderSideBar({
   couponProps,
 }: props) {
   const { user } = useAuth();
-  const [Cart, setCart] = useState<CartDetails | null>(null);
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [Cart, setCart] = useState<CartDetailsResponse | null>(null);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [shipping, setShipping] = useState<ShippingCostDetails>(
     new ShippingCostDetails(),
   );
-  const [coupon, setCoupon] = useState<OrderCouponModel>(
-    new OrderCouponModel(),
+  const [coupon, setCoupon] = useState<OrderCouponResponse>(
+    new OrderCouponResponse(),
   );
 
   const [discount, setDiscount] = useState<number>(0);
@@ -33,21 +28,23 @@ export default function OrderSideBar({
   const [selectedAddress, setSelectedAddresss] = useState<AddressDetails>(
     new AddressDetails(),
   );
-  const [orderRequest, setOrderRequest] = useState<OrderRequest>(
-    new OrderRequest(),
+  const [orderRequest, setOrderRequest] = useState<CreateOrderRequest>(
+    new CreateOrderRequest(),
   );
   useEffect(() => {
     if (couponProps) {
-      setOrderRequest((prev) => ({
-        ...prev,
-        orderCouponID: couponProps.orderCouponID,
-      }));
+      setOrderRequest((prev) =>
+        new CreateOrderRequest({
+          ...prev,
+          orderCouponID: couponProps.orderCouponID,
+        }),
+      );
       setCoupon(couponProps);
     }
   }, [couponProps]);
   const loadCartItems = async () => {
     try {
-      const response = await GetUserCartItemsDetails(user?.userID!);
+      const response = await Client.getUserCartItemsDetails();
       if (response.isSuccess) {
         setCart(response.data!);
         calculateOrderSummary();
@@ -58,22 +55,26 @@ export default function OrderSideBar({
   };
   const loadAddressShippingCost = async () => {
     try {
-      const response = await GetShippingCostDetailsByAreaID(address.areaID);
+      const response = await Client.getShippingCostDetailsByAreaID(
+        address.areaID!,
+      );
       if (response.isSuccess && response.data) {
-        setOrderRequest((prev) => ({
-          ...prev,
-          shippingCostID: response.data?.shippingCostID!,
-          totalAmount:
-            Cart?.cartItems.reduce(
-              (total, price) =>
-                total +
-                (price.product.salePrice !== 0
-                  ? price.product.salePrice
-                  : price.product.price) *
-                  price.quantity,
-              0,
-            )! + response.data?.shippingCost!,
-        }));
+        setOrderRequest((prev) =>
+          new CreateOrderRequest({
+            ...prev,
+            shippingCostID: response.data?.shippingCostID!,
+            totalAmount:
+              (Cart?.cartItems?.reduce(
+                (total, price) =>
+                  total +
+                  ((price.product?.salePrice !== 0
+                    ? price.product?.salePrice
+                    : price.product?.price) ?? 0) *
+                    (price.quantity ?? 0),
+                0,
+              ) ?? 0) + (response.data?.shippingCost ?? 0),
+          }),
+        );
         setShipping(response.data);
       }
     } catch (err) {
@@ -96,48 +97,39 @@ export default function OrderSideBar({
 
   function calculateOrderSummary() {
     setSubtotal(
-      Cart?.cartItems.reduce(
-        (total, price) => total + price.product.price * price.quantity,
+      Cart?.cartItems?.reduce(
+        (total, price) =>
+          total + (price.product?.price ?? 0) * (price.quantity ?? 0),
         0,
-      )!,
+      ) ?? 0,
     );
 
     setDiscount(
       Cart?.cartItems
-        .filter((r) => r.product.salePrice !== 0 && r.product.salePrice)
+        ?.filter((r) => r.product?.salePrice !== 0 && r.product?.salePrice)
         .reduce(
           (total, item) =>
             total +
-            (item.product.price - item.product.salePrice) * item.quantity,
+            ((item.product?.price ?? 0) - (item.product?.salePrice ?? 0)) *
+              (item.quantity ?? 0),
           0,
-        )!,
+        ) ?? 0,
     );
 
-    const total =
-      Cart?.cartItems.reduce(
+    const cartTotal =
+      Cart?.cartItems?.reduce(
         (total, price) =>
           total +
-          (price.product.salePrice !== 0 && price.product.salePrice
+          ((price.product?.salePrice !== 0 && price.product?.salePrice
             ? price.product.salePrice
-            : price.product.price) *
-            price.quantity,
+            : price.product?.price) ?? 0) *
+            (price.quantity ?? 0),
         0,
-      )! +
-        shipping.shippingCost -
-        coupon.discount <
-      0
+      ) ?? 0;
+    const total =
+      cartTotal + (shipping.shippingCost ?? 0) - (coupon.discount ?? 0) < 0
         ? 0
-        : Cart?.cartItems.reduce(
-            (total, price) =>
-              total +
-              (price.product.salePrice !== 0 && price.product.salePrice
-                ? price.product.salePrice
-                : price.product.price) *
-                price.quantity,
-            0,
-          )! +
-          shipping.shippingCost -
-          coupon.discount;
+        : cartTotal + (shipping.shippingCost ?? 0) - (coupon.discount ?? 0);
 
     setTotal(total);
   }
@@ -150,25 +142,36 @@ export default function OrderSideBar({
 
   useEffect(() => {
     if (!orderRequest.userID) {
-      setOrderRequest((prev) => ({ ...prev, userID: user?.userID! }));
+      setOrderRequest((prev) =>
+        new CreateOrderRequest({ ...prev, userID: user?.userID! }),
+      );
     }
     if (!orderRequest.discountAmount) {
-      setOrderRequest((prev) => ({ ...prev, discountAmount: discount }));
+      setOrderRequest((prev) =>
+        new CreateOrderRequest({ ...prev, discountAmount: discount }),
+      );
     }
     if (!orderRequest.addressID) {
-      setOrderRequest((prev) => ({ ...prev, addressID: address.addressID }));
+      setOrderRequest((prev) =>
+        new CreateOrderRequest({ ...prev, addressID: address.addressID }),
+      );
     }
     if (!orderRequest.shippingCostID) {
-      setOrderRequest((prev) => ({
-        ...prev,
-        shippingCostID: shipping.shippingCostID,
-      }));
+      setOrderRequest((prev) =>
+        new CreateOrderRequest({
+          ...prev,
+          shippingCostID: shipping.shippingCostID,
+        }),
+      );
     }
     if (!orderRequest.subtotal) {
-      setOrderRequest((prev) => ({ ...prev, subtotal: subtotal }));
+      setOrderRequest((prev) =>
+        new CreateOrderRequest({ ...prev, subtotal: subtotal }),
+      );
     }
-    // if (!orderRequest.totalAmount) {
-    setOrderRequest((prev) => ({ ...prev, totalAmount: total }));
+    setOrderRequest((prev) =>
+      new CreateOrderRequest({ ...prev, totalAmount: total }),
+    );
     // }
   }, [Cart, discount, shipping, subtotal, total, address]);
   useEffect(() => {

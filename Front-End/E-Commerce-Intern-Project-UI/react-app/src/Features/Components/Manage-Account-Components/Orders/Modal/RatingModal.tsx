@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { OrderDetails } from "../../../../../Core/DTO/OrderDTO/OrderDetails";
-import { GetAllUserOrders } from "../../../../../Core/Services/OrderServices/OrderService";
 import { useAuth } from "../../../../../Core/Services/AuthServices/AuthProvider";
-import { ProductRatesRequets } from "../../../../../Core/DTO/ProductRatesDTO/ProductRatesRequest";
-import { CreateProductRateList } from "../../../../../Core/Services/ProductRatingServices/ProductRatingService";
-import SuccessRateModal from "./SuccessRateModal";
-
+import { InternoMicroserviceClient, OrderDetails, ProductRateRequest } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../../Core/Shared/API-URL";
 type props = {
   orderIDProps: string | null;
   onClose: () => void;
   onActionResult: () => void;
 };
-const Base_Url = "https://localhost:7164";
+const Base_Url = "http://localhost:5000";
 
 export default function RatingModal({
   orderIDProps,
   onClose,
   onActionResult,
 }: props) {
+  const Client = new InternoMicroserviceClient(undefined, API);
   const [_orders, setPrivOrders] = useState<OrderDetails[]>([]);
   const [order, setOrders] = useState<OrderDetails>(new OrderDetails());
   const { user } = useAuth();
@@ -25,7 +22,7 @@ export default function RatingModal({
 
   const laodOrders = async () => {
     try {
-      const response = await GetAllUserOrders(user?.userID!);
+      const response = await Client.getAllUserOrders(user?.userID!);
       if (response.isSuccess) {
         setPrivOrders(response.data!);
       }
@@ -49,17 +46,19 @@ export default function RatingModal({
   }, [orderIDProps, _orders.length]);
 
   async function CreateRate() {
-    const request: ProductRatesRequets[] = [];
+    const request: ProductRateRequest[] = [];
     for (let productID in ratings) {
-      request.push({
-        rating: ratings[productID] as 1 | 2 | 3 | 4 | 5,
-        productID: productID,
-        userID: user?.userID!,
-      });
+      request.push(
+        new ProductRateRequest({
+          rating: ratings[productID] as 1 | 2 | 3 | 4 | 5,
+          productID: productID,
+          userID: user?.userID!,
+        }),
+      );
     }
 
     try {
-      const response = await CreateProductRateList(request);
+      const response = await Client.productRatesPOST(request);
       if (response.isSuccess) {
         onActionResult();
       }
@@ -100,15 +99,15 @@ export default function RatingModal({
             </button>
           </div>
           <div className="rating-modal-body">
-            {order.orderItems.map((orderItem) => (
+            {order.orderItems?.map((orderItem) => (
               <>
                 <div className="rating-product-info" key={orderItem.orderID}>
                   <img
-                    src={`${Base_Url}/ProductsImages/${orderItem.product.parentCategoryName}/${orderItem.product.categoryName}/${orderItem.product.productImageUrl}`}
+                    src={`${Base_Url}/ProductsImages/${orderItem.product?.parentCategoryName}/${orderItem.product?.categoryName}/${orderItem.product?.productImageUrl}`}
                     alt="Product"
                   />
                   <div className="rating-product-details">
-                    <h4>{orderItem.product.productName}</h4>
+                    <h4>{orderItem.product?.productName}</h4>
                     <p>{order.orderNumber}</p>
                   </div>
                 </div>
@@ -119,11 +118,11 @@ export default function RatingModal({
                     {[5, 4, 3, 2, 1].map((value) => (
                       <>
                         <label
-                          className={`star ${ratings[orderItem.product.productID] >= value ? "checked" : ""}`}
+                          className={`star ${ratings[orderItem.product?.productID!] >= value ? "checked" : ""}`}
                         >
                           <input
                             type="radio"
-                            name={`rating-${orderItem.product.productID}`}
+                            name={`rating-${orderItem.product?.productID!}`}
                             value={value}
                             onChange={(e) => {
                               console.log("wefwwes");
@@ -131,11 +130,11 @@ export default function RatingModal({
                               const rateValue = Number(e.currentTarget.value);
                               placeRating(
                                 rateValue,
-                                orderItem.product.productID,
+                                orderItem.product?.productID!,
                               );
                             }}
                             checked={
-                              ratings[orderItem.product.productID] === value
+                              ratings[orderItem.product?.productID!] === value
                             }
                           />
                           ★
@@ -144,7 +143,7 @@ export default function RatingModal({
                     ))}
                   </div>
                   <span className="rateText">
-                    {updateRatingText(orderItem.product.productID)}
+                    {updateRatingText(orderItem.product?.productID! ?? "")}
                   </span>
                   <p className="rating-text">Select a rating</p>
                 </div>

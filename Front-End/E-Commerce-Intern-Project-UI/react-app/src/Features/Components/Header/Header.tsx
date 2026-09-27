@@ -1,5 +1,3 @@
-import { BannerSlidesDetails } from "../../../Core/DTO/BannerSlidesDTO/BannerSlidesDetails";
-import { GetAllBanners } from "../../../Core/Services/BannerServices/BannerService";
 import "./Header.css";
 import { useEffect, useState } from "react";
 import {
@@ -10,16 +8,20 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-
-const Base_Url = "https://localhost:7164/BannerImages";
+import {
+  BannerSlideResponse,
+  InternoMicroserviceClient,
+} from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../Core/Shared/API-URL";
+const Base_Url = "http://localhost:5000/BannerImages";
 export default function Header() {
-  const [slide, setSlide] = useState<BannerSlidesDetails>();
-  const [slides, setSlides] = useState<BannerSlidesDetails[]>([]);
+  const [slide, setSlide] = useState<BannerSlideResponse>();
+  const [slides, setSlides] = useState<BannerSlideResponse[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-
+  const Client = new InternoMicroserviceClient(undefined, API);
   const loadSlides = async () => {
     try {
-      const response = await GetAllBanners();
+      const response = await Client.getAllBanners();
       if (response.data && response.isSuccess) {
         setCurrentIndex(
           response.data.findIndex(
@@ -46,8 +48,6 @@ export default function Header() {
     const index = slides.findIndex(
       (r) => r.bannerSlideID === slide?.bannerSlideID,
     );
-    console.log(index);
-    console.log(currentIndex);
 
     switch (Direction) {
       case "Right": {
@@ -72,13 +72,13 @@ export default function Header() {
 
       <section
         className="hero"
-        style={{ background: slide?.backgroundColor.colorHexCode }}
+        style={{ background: slide?.backgroundColor?.colorHexCode }}
       >
         <div className="hero-container">
           <div className="hero-content">
             <div
               className="hero-label"
-              style={{ color: slide?.accentColor.colorHexCode }}
+              style={{ color: slide?.accentColor?.colorHexCode }}
             >
               ── {slide?.label}
             </div>
@@ -90,7 +90,7 @@ export default function Header() {
             <div className="hero-buttons">
               <button
                 className="btn-primary "
-                style={{ background: slide?.accentColor.colorHexCode }}
+                style={{ background: slide?.accentColor?.colorHexCode }}
               >
                 {slide?.cta}
               </button>

@@ -2,24 +2,20 @@ import { useEffect, useState } from "react";
 import AreaComponent from "./Area-Component/AreaComponent";
 import CouponsComponent from "./Coupons-Component/CouponsComponent";
 import CityComponent from "./City-Component/CityComponent";
-import { AreaModel } from "../../../../Core/DTO/AreaDTO/AreaModel";
-import { CityModel } from "../../../../Core/DTO/CityDTO/CityModel";
-import { ShippingCostDetails } from "../../../../Core/DTO/ShippingCostDTO/ShippingCostDetails";
-import { getAreas } from "../../../../Core/Services/AreaServices/AreaService";
-import { getCities } from "../../../../Core/Services/CityServices/CityService";
-import { GetAllShippingCostDetails } from "../../../../Core/Services/ShippingCostServices/ShippingCostServices";
+import { AreaResponse, CityResponse, InternoMicroserviceClient, ShippingCostDetails } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 import { SubSectionTypes } from "../../../../Core/Types/SubSectionTypes";
-
 type props = {
   section: SubSectionTypes;
 };
 export default function SettingsSection({ section }: props) {
-  const [areas, setAreas] = useState<AreaModel[]>([]);
-  const [cities, setCities] = useState<CityModel[]>([]);
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [areas, setAreas] = useState<AreaResponse[]>([]);
+  const [cities, setCities] = useState<CityResponse[]>([]);
   const [shippingCosts, setShippingCosts] = useState<ShippingCostDetails[]>([]);
   const loadshippingCosts = async () => {
     try {
-      const response = await GetAllShippingCostDetails();
+      const response = await Client.getShippingCostsDetails();
       if (response.isSuccess) {
         setShippingCosts(response.data!);
       }
@@ -31,7 +27,7 @@ export default function SettingsSection({ section }: props) {
   };
   const loadcities = async () => {
     try {
-      const response = await getCities();
+      const response = await Client.getAllCities();
       if (response.isSuccess) {
         setCities(response.data!);
       }
@@ -41,7 +37,7 @@ export default function SettingsSection({ section }: props) {
   };
   const loadAreas = async () => {
     try {
-      const response = await getAreas();
+      const response = await Client.getAllAreas();
       if (response.isSuccess) {
         setAreas(response.data!);
       }

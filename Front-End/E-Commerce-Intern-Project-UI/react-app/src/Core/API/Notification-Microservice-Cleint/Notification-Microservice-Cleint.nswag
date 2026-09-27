@@ -1,0 +1,25 @@
+{
+    "runtime": "Net80",
+    "documentGenerator": {
+      "fromDocument": {
+       "url": "http://localhost:5002/swagger/v1/swagger.json",
+       "output": null
+    }
+  },
+  "codeGenerators": {
+    "openApiToTypeScriptClient": {
+      "className": "NotificationsMicroserviceClient",
+      "template": "Axios",
+      "promiseType": "Promise",
+      "typeStyle": "Class",
+      "enumStyle": "Enum",
+      "generateDtoTypes": true,
+      "generateConstructorInterface": true,
+      "markOptionalProperties": true,
+      "typeScriptVersion": 4.9,
+      "serviceHost":"localhost:5002",
+      "serviceSchemes": ["http"],
+      "output": "Notifications-Microservice-Client.ts",
+    }
+  }
+}

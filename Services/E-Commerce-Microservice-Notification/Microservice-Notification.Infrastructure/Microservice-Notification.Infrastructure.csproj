@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Microservice-Notification.Core\Microservice-Notification.Core.csproj" />
+    <ProjectReference Include="..\Microservice-Notifications.Domain\Microservice-Notifications.Domain.csproj" />
   </ItemGroup>
 
 </Project>

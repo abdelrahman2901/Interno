@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
 import "./CategorySection.css";
-import { ISubCategoryDetails } from "../../../Core/Interface/Category/ISubCateogryDetails";
-import { GetSubCategoryDetails } from "../../../Core/Services/CategoryServices/CategoryServiceQuery";
 import { Link } from "react-router-dom";
-
+import {
+  CategoryResponse,
+  InternoMicroserviceClient,
+  SubCategoryResponse,
+} from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../Core/Shared/API-URL";
 export default function CategorySection() {
-  const Base_Url = "https://localhost:7164";
-  const [Categories, SetCategories] = useState<ISubCategoryDetails[]>([]);
-
+  const Base_Url = "http://localhost:5000";
+  const [Categories, SetCategories] = useState<SubCategoryResponse[]>([]);
+  const Client = new InternoMicroserviceClient(undefined, API);
   useEffect(() => {
     const loadCats = async () => {
       try {
-        const response = await GetSubCategoryDetails();
+        const response = await Client.getCategoriesWithSubCat();
 
         if (response.statusCode! > 200) {
           console.log(response.errorMessage);
@@ -48,8 +51,8 @@ export default function CategorySection() {
               <div className="category-overlay">
                 <div className="category-name">{cat.categoryName}</div>
                 <div className="category-count">
-                  {cat.subCategories.length > 0
-                    ? `${cat.subCategories.length}+ styles`
+                  {cat.subCategories?.length! > 0
+                    ? `${cat.subCategories?.length!}+ styles`
                     : "No Styles Was Added Recently"}
                 </div>
               </div>

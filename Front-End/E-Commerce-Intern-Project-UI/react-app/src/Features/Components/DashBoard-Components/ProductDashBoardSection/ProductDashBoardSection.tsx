@@ -1,11 +1,11 @@
 import { useState } from "react";
 // import "./ProductDashBoardSection.css";
 import { DeleteModel } from "../Shared/Model/DeleteModel";
-import { IProductDetails } from "../../../../Core/Interface/Products/IProductDetails";
-import { DeleteProduct_Serv } from "../../../../Core/Services/ProductServices/ProductServiceCmd";
+import { InternoMicroserviceClient, ProductDetails_vw } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 import ProductModel from "./Model/ProductModel";
 type props = {
-  Products: IProductDetails[];
+  Products: ProductDetails_vw[];
   reLoadProduct: () => void;
 };
 export default function ProductDashBoardSection({
@@ -26,7 +26,9 @@ export default function ProductDashBoardSection({
 
   function deleteProduct(ProductID: string) {
     const deleteProduct_Req = async () => {
-      const response = await DeleteProduct_Serv(ProductID);
+      const response = await new InternoMicroserviceClient(undefined, API).productDELETE(
+        ProductID,
+      );
       console.log(response);
       if (response.isSuccess) {
         reLoadProduct();
@@ -74,7 +76,7 @@ export default function ProductDashBoardSection({
               <tr key={product.productID}>
                 <td>
                   <img
-                    src={`https://localhost:7164/ProductsImages/${product.parentCategoryName}/${product.categoryName}/${product.productImageUrl}`}
+                    src={`http://localhost:5000/ProductsImages/${product.parentCategoryName}/${product.categoryName}/${product.productImageUrl}`}
                     alt={product.productName}
                     className="product-image"
                   />
@@ -88,12 +90,12 @@ export default function ProductDashBoardSection({
                     $
                     {product.salePrice
                       ? product.salePrice.toFixed(2)
-                      : product.price.toFixed(2)}
+                      : product.price?.toFixed(2)}
                   </strong>
 
                   {product.salePrice !== null && product.salePrice !== 0 && (
                     <span className="sale">
-                      <br /> {product.price.toFixed(2)}
+                      <br /> {product.price?.toFixed(2)}
                     </span>
                   )}
                 </td>
@@ -116,7 +118,7 @@ export default function ProductDashBoardSection({
                       className="action-btn edit"
                       onClick={() => {
                         SetIsAddingProduct(true);
-                        SetUpdateProduct(product.productID);
+                        SetUpdateProduct(product.productID!);
                       }}
                       title="Edit"
                     >
@@ -125,7 +127,7 @@ export default function ProductDashBoardSection({
                     <button
                       className="action-btn delete"
                       onClick={() => {
-                        SetCurrentProductToDelete(product.productID);
+                        SetCurrentProductToDelete(product.productID!);
                         SetIsDeletingingProduct(true);
                       }}
                       title="Delete"

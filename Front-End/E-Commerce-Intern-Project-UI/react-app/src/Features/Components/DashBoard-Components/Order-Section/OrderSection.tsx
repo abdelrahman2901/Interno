@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-import { OrderDetails } from "../../../../Core/DTO/OrderDTO/OrderDetails";
+import { InternoMicroserviceClient, OrderDetails, OrderStatus, UpdateOrderStatusRequest } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 import "./OrderSection.css";
-import {
-  GetAllOrders,
-  UpdateOrderStatus,
-} from "../../../../Core/Services/OrderServices/OrderService";
 import OrderDetailsModal from "./Modals/OrderDetails";
 import { filterType } from "../../../../Core/Types/filterType";
-
 export default function OrderSection() {
+  const Client = new InternoMicroserviceClient(undefined, API);
   const [_orders, setPrivOrders] = useState<OrderDetails[]>([]);
   const [orders, setOrders] = useState<OrderDetails[]>([]);
   const [selectedOrderID, setSelectedOrderID] = useState<string | null>(null);
@@ -19,7 +16,7 @@ export default function OrderSection() {
 
   const laodOrders = async () => {
     try {
-      const response = await GetAllOrders();
+      const response = await Client.getAllOrders();
       if (response.isSuccess) {
         setPrivOrders(response.data!);
         setOrders(response.data!);
@@ -36,12 +33,12 @@ export default function OrderSection() {
       laodOrders();
     }
   }, []);
-  function extractDate(orderdate: string) {
-    const date = new Date(orderdate);
+  function extractDate(orderdate?: Date | string) {
+    const date = new Date(orderdate ?? Date.now());
     return `${date.toLocaleString("Default", { month: "short" })}  ${date.getDate()},${date.getFullYear()}`;
   }
-  function extractDateTime(orderdate: string) {
-    const date = new Date(orderdate);
+  function extractDateTime(orderdate?: Date | string) {
+    const date = new Date(orderdate ?? Date.now());
     return date.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
@@ -68,10 +65,12 @@ export default function OrderSection() {
 
   async function markAction(MarkAs: filterType) {
     try {
-      const response = await UpdateOrderStatus({
-        OrderID: selectedOrderID!,
-        NewStatus: MarkAs,
-      });
+      const response = await Client.updateOrderStatus(
+        new UpdateOrderStatusRequest({
+          orderID: selectedOrderID!,
+          newStatus: MarkAs as OrderStatus,
+        }),
+      );
       if (response.isSuccess) {
         laodOrders();
       }
@@ -124,7 +123,7 @@ export default function OrderSection() {
                   $
                   {_orders
                     .filter((r) => r.orderStatus !== "Cancelled")
-                    .reduce((total, order) => total + order.totalAmount, 0)}
+                    .reduce((total, order) => total + (order.totalAmount ?? 0), 0)}
                 </p>
                 <span className="stat-change positive">+N from yesterday</span>
               </div>
@@ -138,7 +137,7 @@ export default function OrderSection() {
                   {_orders
                     .slice()
                     .filter((r) => r.orderStatus === "Delivered")
-                    .reduce((total, order) => total + order.totalAmount, 0)}
+                    .reduce((total, order) => total + (order.totalAmount ?? 0), 0)}
                 </p>
                 <span className="stat-change positive">+N% from yesterday</span>
               </div>
@@ -217,7 +216,7 @@ export default function OrderSection() {
                         const IDs: string[] = [];
                         for (let order of orders) {
                           console.log(order.orderID);
-                          IDs.push(order.orderID);
+                          IDs.push(order.orderID!);
                         }
                         if (checked) {
                           setSelectedOrderIDs(IDs);
@@ -284,12 +283,12 @@ export default function OrderSection() {
                     </td>
                     <td>
                       <span className="items-count">
-                        {order.orderItems.length} items
+                        {order.orderItems?.length ?? 0} items
                       </span>
                     </td>
                     <td>
                       <strong className="order-total">
-                        ${order.totalAmount.toFixed(2)}
+                        ${order.totalAmount?.toFixed(2)}
                       </strong>
                     </td>
                     <td>
@@ -302,7 +301,7 @@ export default function OrderSection() {
                     </td>
                     <td>
                       <span
-                        className={`status-select ${order.orderStatus.toLowerCase()}`}
+                        className={`status-select ${order.orderStatus?.toLowerCase()}`}
                       >
                         {order.orderStatus}
                       </span>
@@ -313,7 +312,7 @@ export default function OrderSection() {
                           className="btn-icon btn-view"
                           title="View Details"
                           onClick={() => {
-                            ShowOrderDetails(order.orderID);
+                            ShowOrderDetails(order.orderID!);
                           }}
                         >
                           👁️

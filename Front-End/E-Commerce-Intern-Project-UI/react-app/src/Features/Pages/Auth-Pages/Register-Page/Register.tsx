@@ -2,15 +2,15 @@ import { Link, useNavigate } from "react-router-dom";
 import "../Shared/Shared.css";
 import { useState } from "react";
 import { IError } from "../../../../Core/Interface/Error/IError";
-import { Register } from "../../../../Core/Services/AuthServices/AuthUserService";
-import { RegisterRequest } from "../../../../Core/DTO/AuthDTO/RegisterRequest";
+import { InternoMicroserviceClient, RegisterUserCommand } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
-
 export default function RegisterPage() {
   const [Errors, SetErrors] = useState<IError>();
   const { refreshUser } = useAuth();
-  const [request, setRegisterRequest] = useState<RegisterRequest>(
-    new RegisterRequest(),
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [request, setRegisterRequest] = useState<RegisterUserCommand>(
+    new RegisterUserCommand(),
   );
   const navigator = useNavigate();
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
@@ -43,7 +43,7 @@ export default function RegisterPage() {
     }
 
     try {
-      const registerResponse = await Register(request);
+      const registerResponse = await Client.registerUser(request);
       console.log(registerResponse);
       if (registerResponse.isSuccess) {
         localStorage.setItem("Token", registerResponse.data?.token!);
@@ -102,10 +102,13 @@ export default function RegisterPage() {
                     name="UserName"
                     onChange={(e) => {
                       const username = e.currentTarget.value;
-                      setRegisterRequest((prev) => ({
-                        ...prev,
-                        userName: username,
-                      }));
+                      setRegisterRequest(
+                        (prev) =>
+                          new RegisterUserCommand({
+                            ...prev,
+                            userName: username,
+                          }),
+                      );
                     }}
                     placeholder="John Alex"
                   />
@@ -124,16 +127,19 @@ export default function RegisterPage() {
                     name="Email"
                     onChange={(e) => {
                       const email = e.currentTarget.value;
-                      setRegisterRequest((prev) => ({
-                        ...prev,
-                        email: email,
-                      }));
+                      setRegisterRequest(
+                        (prev) =>
+                          new RegisterUserCommand({
+                            ...prev,
+                            email: email,
+                          }),
+                      );
                     }}
                     placeholder="you@example.com"
                   />
                   <span className="error">
-                    {!request.email.includes("@") ||
-                    (!request.email.includes(".com") && isFormSubmitted)
+                    {!(request.email ?? "").includes("@") ||
+                    (!(request.email ?? "").includes(".com") && isFormSubmitted)
                       ? "Use Valid Email Format"
                       : ""}
                   </span>
@@ -155,10 +161,13 @@ export default function RegisterPage() {
                     name="PhoneNumber"
                     onChange={(e) => {
                       const phoneNumber = e.currentTarget.value;
-                      setRegisterRequest((prev) => ({
-                        ...prev,
-                        phoneNumber: phoneNumber,
-                      }));
+                      setRegisterRequest(
+                        (prev) =>
+                          new RegisterUserCommand({
+                            ...prev,
+                            phoneNumber: phoneNumber,
+                          }),
+                      );
                     }}
                     placeholder="Minimum 11 characters"
                   />
@@ -168,7 +177,7 @@ export default function RegisterPage() {
                       : ""}
                   </span>
                   <span className="error">
-                    {request.phoneNumber.length < 11 && isFormSubmitted
+                    {(request.phoneNumber?.length ?? 0) < 11 && isFormSubmitted
                       ? "PhoneNumber Must Has More Than 11 digits"
                       : ""}
                   </span>
@@ -181,10 +190,13 @@ export default function RegisterPage() {
                     name="Password"
                     onChange={(e) => {
                       const password = e.currentTarget.value;
-                      setRegisterRequest((prev) => ({
-                        ...prev,
-                        password: password,
-                      }));
+                      setRegisterRequest(
+                        (prev) =>
+                          new RegisterUserCommand({
+                            ...prev,
+                            password: password,
+                          }),
+                      );
                     }}
                     placeholder="Minimum 5 characters"
                   />
@@ -197,7 +209,7 @@ export default function RegisterPage() {
                       : ""}
                   </span>
                   <span className="error">
-                    {request.password.length < 5 && isFormSubmitted
+                    {(request.password?.length ?? 0) < 5 && isFormSubmitted
                       ? "password Must Has More Than 5 digits"
                       : ""}
                   </span>
@@ -210,10 +222,13 @@ export default function RegisterPage() {
                     name="ConfirmPassword"
                     onChange={(e) => {
                       const confirmPassword = e.currentTarget.value;
-                      setRegisterRequest((prev) => ({
-                        ...prev,
-                        confirmPassword: confirmPassword,
-                      }));
+                      setRegisterRequest(
+                        (prev) =>
+                          new RegisterUserCommand({
+                            ...prev,
+                            confirmPassword: confirmPassword,
+                          }),
+                      );
                     }}
                     placeholder="Re-enter password"
                   />
@@ -223,7 +238,7 @@ export default function RegisterPage() {
                       : ""}
                   </span>
                   <span className="error">
-                    {request.confirmPassword.length < 5 && isFormSubmitted
+                    {(request.confirmPassword?.length ?? 0) < 5 && isFormSubmitted
                       ? "password Must Has More Than 8 digits"
                       : ""}
                   </span>

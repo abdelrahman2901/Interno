@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>E_Commerce_Intern_Project.Test</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\E-Commerce-Inerno.API\E-Commerce-Inerno.API.csproj" />
+    <ProjectReference Include="..\E-Commerce-Inerno.Core\E-Commerce-Inerno.Core.csproj" />
+    <ProjectReference Include="..\E-Commerce-Inerno.Infrastructure\E-Commerce-Inerno.Infrastructure.csproj" />
+    <ProjectReference Include="..\E-Commerce-Interno.Domain\E-Commerce-Interno.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

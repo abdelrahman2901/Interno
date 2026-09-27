@@ -51,7 +51,7 @@ services:
     image: interno-microservice.api
     build:
       context: .
-      dockerfile: E-Commerce-Inern-Project.API/Dockerfile
+      dockerfile: E-Commerce-Inerno.API/Dockerfile
     ports:
       - "5000:8080"
     depends_on:
@@ -108,6 +108,8 @@ services:
       sqlserver:
         condition: service_healthy
       rabbitmq:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     environment:
       ASPNETCORE_ENVIRONMENT: Development

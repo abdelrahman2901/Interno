@@ -20,17 +20,11 @@ export const CategorySkeleton = () => (
 );
 
 export const TextSkeleton = ({ width = "100%", height = "20px" }) => (
-  <div 
-    className="skeleton skeleton-text" 
-    style={{ width, height }}
-  ></div>
+  <div className="skeleton skeleton-text" style={{ width, height }}></div>
 );
 
 export const ButtonSkeleton = ({ width = "120px", height = "40px" }) => (
-  <div 
-    className="skeleton skeleton-button" 
-    style={{ width, height }}
-  ></div>
+  <div className="skeleton skeleton-button" style={{ width, height }}></div>
 );
 
 export const CartItemSkeleton = () => (

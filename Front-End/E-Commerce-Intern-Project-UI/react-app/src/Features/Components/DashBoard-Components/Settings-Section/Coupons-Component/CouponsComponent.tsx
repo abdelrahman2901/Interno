@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
-import { OrderCouponModel } from "../../../../../Core/DTO/OrdeCouponDTO/OrderCouponResponse";
-import {
-  DeleteCoupon_serv,
-  GetAllCoupons,
-  UpdateCouponActivation,
-} from "../../../../../Core/Services/OrderCouponServices/OrderCouponService";
+import { InternoMicroserviceClient, OrderCouponResponse } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../../Core/Shared/API-URL";
 import Add_UpdateCouponModel from "./Models/Add_UpdateCouponModel";
 import DeleteCouponModel from "./Models/DeleteCouponModel";
-
 export default function CouponsComponent() {
-  const [_coupons, setPrivCoupons] = useState<OrderCouponModel[]>([]);
-  const [coupons, setCoupons] = useState<OrderCouponModel[]>([]);
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [_coupons, setPrivCoupons] = useState<OrderCouponResponse[]>([]);
+  const [coupons, setCoupons] = useState<OrderCouponResponse[]>([]);
   const [currentTab, setCurrentTab] = useState<"all" | "active" | "inactive">(
     "all",
   );
@@ -19,7 +15,7 @@ export default function CouponsComponent() {
   const [isDeletingCoupon, setIsDeletingCoupon] = useState<boolean>(false);
   const loadCoupons = async () => {
     try {
-      const response = await GetAllCoupons();
+      const response = await Client.orderCouponGET();
       if (response.isSuccess) {
         setCoupons(response.data!);
         setPrivCoupons(response.data!);
@@ -32,7 +28,7 @@ export default function CouponsComponent() {
   };
   const DeleteCoupon = async () => {
     try {
-      const response = await DeleteCoupon_serv(selectedCouponID!);
+      const response = await Client.deleteCoupon(selectedCouponID!);
       if (response.isSuccess) {
         loadCoupons();
       }
@@ -68,7 +64,7 @@ export default function CouponsComponent() {
     console.log(CouponID);
 
     try {
-      const response = await UpdateCouponActivation(CouponID);
+      const response = await Client.updateCouponActivation(CouponID);
       if (response.isSuccess) {
         loadCoupons();
       }
@@ -163,7 +159,7 @@ export default function CouponsComponent() {
                   <tr key={coupon.orderCouponID}>
                     <td>
                       <span className="id-badge">
-                        {extractCouponID(coupon.orderCouponID)}
+                        {extractCouponID(coupon.orderCouponID!)}
                       </span>
                     </td>
                     <td>
@@ -190,7 +186,7 @@ export default function CouponsComponent() {
                         className="btn-icon btn-toggle"
                         title="Toggle Status"
                         onClick={() =>
-                          ToggleCouponActivation(coupon.orderCouponID)
+                          ToggleCouponActivation(coupon.orderCouponID!)
                         }
                       >
                         🔄
@@ -198,7 +194,7 @@ export default function CouponsComponent() {
                       <button
                         className="btn-icon btn-edit"
                         title="Edit"
-                        onClick={() => EditCoupon(coupon.orderCouponID)}
+                        onClick={() => EditCoupon(coupon.orderCouponID!)}
                       >
                         ✏️
                       </button>
@@ -206,7 +202,7 @@ export default function CouponsComponent() {
                         className="btn-icon btn-delete"
                         title="Delete"
                         onClick={() => {
-                          setSelectedCouponID(coupon.orderCouponID);
+                          setSelectedCouponID(coupon.orderCouponID!);
                           setIsDeletingCoupon(true);
                         }}
                       >

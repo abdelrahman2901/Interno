@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { ISubCategoryDetails } from '../../../Core/Interface/Category/ISubCateogryDetails';
+import { SubCategoryResponse } from '../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client';
 
 interface CategoryDropdownProps {
-  categories: ISubCategoryDetails[];
+  categories: SubCategoryResponse[];
   isDropdownOpen: boolean;
   onToggleDropdown: () => void;
 }
@@ -19,12 +19,12 @@ export default function CategoryDropdown({ categories, isDropdownOpen, onToggleD
       <div className={`dropdown-menu categories-menu ${isDropdownOpen ? "show" : ""}`}>
         <div className="mega-menu">
           {categories.length > 0 &&
-            categories.map((category: ISubCategoryDetails) => (
+            categories.map((category: SubCategoryResponse) => (
               <div className="menu-column" key={category.categoryID}>
                 <div className="column-title">
                   {category.categoryName}
                 </div>
-                {category.subCategories.map((subCat: any) => (
+                {category.subCategories?.map((subCat) => (
                   <Link
                     className="nav-link"
                     to={`/Home/Products?Category=${category.categoryName}&SubCategory=${subCat.categoryName}&Price=0&Size=All&Color=All`}
@@ -40,7 +40,7 @@ export default function CategoryDropdown({ categories, isDropdownOpen, onToggleD
         </div>
 
         <div className="menu-footer">
-          {categories.map((cat: ISubCategoryDetails) => (
+          {categories.map((cat: SubCategoryResponse) => (
             <Link
               className="nav-link"
               to={`/Home/Products?Category=${cat.categoryName}&SubCategory=All&Price=0&Size=All&Color=All`}

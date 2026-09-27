@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { UpdateUserRequest } from "../../../../Core/DTO/UserDTO/UpdateUserRequest";
+import { InternoMicroserviceClient, UpdateUserCommand } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
-import { UpdateUser } from "../../../../Core/Services/AuthServices/AuthUserService";
 import "./ProfileSettings.css";
 export default function AccountProfileSettings() {
   const { user, refreshUser } = useAuth();
+  const Client = new InternoMicroserviceClient(undefined, API);
   const [message, setMessage] = useState<{
     message: string;
     isSuccess: boolean;
@@ -17,16 +18,15 @@ export default function AccountProfileSettings() {
     console.log(form.get("userName"));
     console.log(form.get("email"));
     console.log(form.get("phoneNumber"));
-    const updateRequest: UpdateUserRequest = {
-      userID: user?.userID!,
+    const updateRequest = new UpdateUserCommand({
       personName: form.get("userName") as string,
       email: form.get("email") as string,
       phoneNumber: form.get("phoneNumber") as string,
-    };
+    });
 
     const update = async () => {
       try {
-        const response = await UpdateUser(updateRequest);
+        const response = await Client.updateUser(updateRequest);
         if (response.isSuccess) {
           refreshUser();
           setMessage({ message: "Update Done Successfuly", isSuccess: true });

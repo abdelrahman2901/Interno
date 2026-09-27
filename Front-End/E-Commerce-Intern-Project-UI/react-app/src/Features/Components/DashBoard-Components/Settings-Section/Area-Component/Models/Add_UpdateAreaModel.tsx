@@ -1,22 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { AreaModel } from "../../../../../../Core/DTO/AreaDTO/AreaModel";
-import { CityModel } from "../../../../../../Core/DTO/CityDTO/CityModel";
-import {
-  addArea,
-  getAreaByID,
-  updateArea,
-} from "../../../../../../Core/Services/AreaServices/AreaService";
-import { AreaRequest } from "../../../../../../Core/DTO/AreaDTO/AreaRequest";
-import { ShippingCostRequest } from "../../../../../../Core/DTO/ShippingCostDTO/ShippingCostRequest";
-import {
-  CreateNewShippingCost,
-  GetShippingCostDetailsByAreaID,
-  UpdateShippingCost,
-} from "../../../../../../Core/Services/ShippingCostServices/ShippingCostServices";
-import { ShippingCostModel } from "../../../../../../Core/DTO/ShippingCostDTO/ShippingCostModel";
-
+import { AreaRequest, AreaResponse, AreaUpdateRequest, CityResponse, CreateShippingCostRequest, InternoMicroserviceClient, UpdateShippingCostRequest } from "../../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../../../Core/Shared/API-URL";
 type props = {
-  cities: CityModel[];
+  cities: CityResponse[];
   onClose: () => void;
   areaID: string | null;
   shippingCostID: string | null;
@@ -32,10 +18,11 @@ export default function Add_UpdateAreaModel({
 }: props) {
   const [shippingCost, setShippignCost] = useState<number>(0);
 
-  const [area, setArea] = useState<AreaModel>(new AreaModel());
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [area, setArea] = useState<AreaResponse>(new AreaResponse());
   const loadArea = async () => {
     try {
-      const response = await getAreaByID(areaID!);
+      const response = await Client.areas(areaID!);
       if (response.isSuccess) {
         setArea(response.data!);
         console.log(area);
@@ -48,7 +35,7 @@ export default function Add_UpdateAreaModel({
   };
   const loadShippingCost = async () => {
     try {
-      const response = await GetShippingCostDetailsByAreaID(areaID!);
+      const response = await Client.getShippingCostDetailsByAreaID(areaID!);
       if (response.isSuccess) {
         setShippignCost(response.data?.shippingCost!);
       }
@@ -62,9 +49,9 @@ export default function Add_UpdateAreaModel({
       loadShippingCost();
     }
   }, [areaID]);
-  const updateArea_fn = async (updateAreaRequest: AreaModel) => {
+  const updateArea_fn = async (updateAreaRequest: AreaUpdateRequest) => {
     try {
-      const response = await updateArea(updateAreaRequest);
+      const response = await Client.putArea(updateAreaRequest);
       return response.isSuccess;
     } catch (err) {
       if (err) {
@@ -75,13 +62,12 @@ export default function Add_UpdateAreaModel({
 
   const addArea_fn = async (areaRequest: AreaRequest) => {
     try {
-      const response = await addArea(areaRequest);
+      const response = await Client.postArea(areaRequest);
       if (response.isSuccess) {
-        const shippingCostRequest: ShippingCostRequest = {
+        return new CreateShippingCostRequest({
           araeID: response.data?.areaID!,
           shippingCost: shippingCost,
-        };
-        return shippingCostRequest;
+        });
       }
     } catch (err) {
       if (err) {
@@ -97,25 +83,25 @@ export default function Add_UpdateAreaModel({
 
     if (areaID) //update
     {
-      const updateAreaRequest: AreaModel = {
+      const updateAreaRequest = new AreaUpdateRequest({
         areaID: areaID!,
         areaName: form.get("areaName") as string,
         cityID: form.get("cityID") as string,
-      };
+      });
 
       const isAreaUpdated = await updateArea_fn(updateAreaRequest);
 
       if (shippingCost !== 0 && isAreaUpdated) {
-        const updateShippingRequest: ShippingCostModel = {
+        const updateShippingRequest = new UpdateShippingCostRequest({
           areaID: areaID,
           shippingCost: shippingCost,
           isDeleted: false,
           shippingCostID: shippingCostID!,
-        };
+        });
 
         try {
           console.log(updateShippingRequest);
-          const response = await UpdateShippingCost(updateShippingRequest);
+          const response = await Client.updateShippingCost(updateShippingRequest);
           if (response.isSuccess) {
             onFormSuccess();
           }
@@ -128,13 +114,13 @@ export default function Add_UpdateAreaModel({
     } else //add new
     {
       try {
-        const areaRequest: AreaRequest = {
+        const areaRequest = new AreaRequest({
           areaName: form.get("areaName") as string,
           cityID: form.get("cityID") as string,
-        };
+        });
         const shippingREquest = await addArea_fn(areaRequest);
         try {
-          const response = await CreateNewShippingCost(shippingREquest!);
+          const response = await Client.shippingCostsPOST(shippingREquest!);
           if (response.isSuccess) {
             onFormSuccess();
           }
@@ -169,7 +155,9 @@ export default function Add_UpdateAreaModel({
                   onChange={(e) => {
                     e.preventDefault();
                     const cityID = e.currentTarget.value;
-                    setArea((prev) => ({ ...prev, cityID: cityID }));
+                    setArea(
+                      (prev) => new AreaResponse({ ...prev, cityID: cityID }),
+                    );
                   }}
                   value={area.cityID}
                 >
@@ -192,7 +180,10 @@ export default function Add_UpdateAreaModel({
                   onChange={(e) => {
                     e.preventDefault();
                     const areaName = e.currentTarget.value;
-                    setArea((prev) => ({ ...prev, areaName: areaName }));
+                    setArea(
+                      (prev) =>
+                        new AreaResponse({ ...prev, areaName: areaName }),
+                    );
                   }}
                   value={area.areaName}
                 />

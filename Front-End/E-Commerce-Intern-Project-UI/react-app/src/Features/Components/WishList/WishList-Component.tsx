@@ -1,33 +1,29 @@
 import { useEffect, useState } from "react";
 import "./WishList.css";
-import { WishListDetailsModel } from "../../../Core/DTO/WishList/WishListDetailsModel";
 import {
-  ClearUserWishList,
-  DeleteWishList,
-  GetAllUserWishList,
-} from "../../../Core/Services/WishList-Services/WishListService";
+  AddCartItemListRequest,
+  CartDetailsResponse,
+  InternoMicroserviceClient,
+  WishListDetailsResponse,
+} from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../Core/Shared/API-URL";
 import { useAuth } from "../../../Core/Services/AuthServices/AuthProvider";
-import {
-  AddCartItem,
-  AddCartItemList,
-} from "../../../Core/Services/Cart-Item-Services/CartItemService";
-import { CartItemRequest } from "../../../Core/DTO/CartItemDTO/CartItemRequest";
-import { CartDetails } from "../../../Core/DTO/CartDTO/CartDetails";
-import { GetUserCartItemsDetails } from "../../../Core/Services/CartServices/CartService";
 import { Link } from "react-router-dom";
 import { useCartStore } from "../../../Core/Global-State-Management/Zusstand/CartStore/CartUpdateStore";
-
 export default function WishListComponent() {
-  const Base_Url = "https://localhost:7164";
+  const Base_Url = "http://localhost:5000";
   const { user } = useAuth();
-  const [WishListItems, SetWishListItems] = useState<WishListDetailsModel[]>(
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [WishListItems, SetWishListItems] = useState<WishListDetailsResponse[]>(
     [],
   );
-  const [Cart, setCart] = useState<CartDetails>(new CartDetails());
+  const [Cart, setCart] = useState<CartDetailsResponse>(
+    new CartDetailsResponse(),
+  );
   const { triggerCartUpdate } = useCartStore();
   const loadCartItems = async () => {
     try {
-      const response = await GetUserCartItemsDetails(user?.userID!);
+      const response = await Client.getUserCartItemsDetails();
       if (response.isSuccess) {
         console.log(response.data);
 
@@ -40,7 +36,7 @@ export default function WishListComponent() {
 
   const loadWishListItems = async () => {
     try {
-      const response = await GetAllUserWishList(user?.userID!);
+      const response = await Client.getAllUserWishList(user?.userID!);
       if (response.isSuccess) {
         console.log(response);
 
@@ -57,7 +53,7 @@ export default function WishListComponent() {
   async function ClearWishList() {
     if (WishListItems.length > 0) {
       try {
-        const response = await ClearUserWishList(user?.userID!);
+        const response = await Client.clearUserWishList(user?.userID!);
         if (response.isSuccess) {
           loadWishListItems();
         }
@@ -68,17 +64,18 @@ export default function WishListComponent() {
   }
   async function addItem(productID: string) {
     try {
-      const response = await AddCartItem({
-        userID: user?.userID!,
-        productID: productID,
-      });
+      const response = await Client.addCartItemList(
+        new AddCartItemListRequest({
+          productIDs: [productID],
+        }),
+      );
       if (response.isSuccess) {
         SetWishListItems(
-          WishListItems.filter((r) => r.product.productID !== productID),
+          WishListItems.filter((r) => r.product?.productID !== productID),
         );
         triggerCartUpdate();
         RemoveFromWishList(
-          WishListItems.find((r) => r.product.productID === productID)
+          WishListItems.find((r) => r.product?.productID === productID)
             ?.wishlistID!,
         );
       }
@@ -90,8 +87,8 @@ export default function WishListComponent() {
     SetWishListItems(
       WishListItems.filter(
         (r) =>
-          !Cart.cartItems.find(
-            (ct) => ct.product.productID === r.product.productID,
+          !Cart.cartItems?.find(
+            (ct) => ct.product?.productID === r.product?.productID,
           ),
       ),
     );
@@ -101,20 +98,20 @@ export default function WishListComponent() {
     if (user) {
       loadWishListItems();
     }
-    if (Cart.cartItems.length === 0) {
+    if ((Cart.cartItems?.length ?? 0) === 0) {
       loadCartItems();
     }
   }, []);
 
   useEffect(() => {
-    if (Cart.cartItems.length > 0) {
+    if ((Cart.cartItems?.length ?? 0) > 0) {
       loadWishListItemsWithFilter();
     }
   }, [Cart.cartItems]);
 
   async function RemoveFromWishList(WishListID: string) {
     try {
-      const respones = await DeleteWishList(WishListID);
+      const respones = await Client.deleteWishList(WishListID);
       if (respones.isSuccess) {
         console.log(respones);
 
@@ -126,14 +123,14 @@ export default function WishListComponent() {
   }
   async function addAllToCart() {
     if (WishListItems.length > 0) {
-      const request: CartItemRequest[] = [];
-      const userID = user?.userID;
-      for (let item of WishListItems) {
-        request.push({ userID: userID!, productID: item.product.productID });
-      }
-
       try {
-        const response = await AddCartItemList(request);
+        const response = await Client.addCartItemList(
+          new AddCartItemListRequest({
+            productIDs: WishListItems.map(
+              (item) => item.product?.productID!,
+            ).filter(Boolean),
+          }),
+        );
         if (response.isSuccess) {
           SetWishListItems([]);
           triggerCartUpdate();
@@ -175,47 +172,47 @@ export default function WishListComponent() {
             <div className="wishlist-item" key={item.wishlistID}>
               <button
                 className="btn-remove-wishlist"
-                onClick={() => RemoveFromWishList(item.wishlistID)}
+                onClick={() => RemoveFromWishList(item.wishlistID!)}
                 title="Remove from wishlist"
               >
                 <span className="icon">❌</span>
               </button>
               <div className="wishlist-badge">
                 <span
-                  className={`stock-status ${item.product.stock > 0 ? "in" : "out-of"}-stock`}
+                  className={`stock-status ${(item.product?.stock ?? 0) > 0 ? "in" : "out-of"}-stock`}
                 >
-                  {item.product.stock > 0 ? "In" : "Out"} Stock
+                  {(item.product?.stock ?? 0) > 0 ? "In" : "Out"} Stock
                 </span>
               </div>
               <div className="wishlist-image">
                 <img
-                  src={`${Base_Url}/ProductsImages/${item.product.parentCategoryName}/${item.product.categoryName}/${item.product.productImageUrl}`}
+                  src={`${Base_Url}/ProductsImages/${item.product?.parentCategoryName}/${item.product?.categoryName}/${item.product?.productImageUrl}`}
                   alt="Linen Wrap Dress"
                 />
               </div>
               <div className="wishlist-details">
-                <h3 className="wishlist-name">{item.product.productName}</h3>
+                <h3 className="wishlist-name">{item.product?.productName}</h3>
                 <p className="wishlist-category">
-                  {item.product.parentCategoryName}'s{" "}
-                  {item.product.categoryName}
+                  {item.product?.parentCategoryName}'s{" "}
+                  {item.product?.categoryName}
                 </p>
                 <div className="wishlist-price">
                   <span className="current-price">
                     $
-                    {item.product.salePrice !== 0
-                      ? item.product.salePrice
-                      : item.product.price}
+                    {item.product?.salePrice !== 0
+                      ? item.product?.salePrice
+                      : item.product?.price}
                   </span>
-                  {item.product.salePrice !== 0 && (
+                  {item.product?.salePrice !== 0 && (
                     <span className="original-price">
-                      ${item.product.price}
+                      ${item.product?.price}
                     </span>
                   )}
                 </div>
                 <div className="wishlist-actions">
                   <button
                     className="btn-add-to-cart"
-                    onClick={() => addItem(item.product.productID)}
+                    onClick={() => addItem(item.product?.productID!)}
                   >
                     Add to Cart
                   </button>

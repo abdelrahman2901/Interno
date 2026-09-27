@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { OrderCouponModel } from "../../../../../../Core/DTO/OrdeCouponDTO/OrderCouponResponse";
-import {
-  CreateNewCoupon,
-  GetCoupon,
-  UpdateCoupon,
-} from "../../../../../../Core/Services/OrderCouponServices/OrderCouponService";
-
+import { CreateCouponRequest, DiscountTypeEnum, InternoMicroserviceClient, OrderCouponResponse, UpdateCouponRequest } from "../../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../../../Core/Shared/API-URL";
 type props = {
   onClose: () => void;
   CouponIDProps: string | null;
@@ -17,12 +12,17 @@ export default function Add_UpdateCouponModel({
   CouponIDProps,
   onReloadCoupons,
 }: props) {
-  const [coupon, setCoupon] = useState<OrderCouponModel>(
-    new OrderCouponModel(),
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [coupon, setCoupon] = useState<OrderCouponResponse>(
+    new OrderCouponResponse(),
   );
   const loadCouponDetails = async () => {
     try {
-      const response = await GetCoupon(CouponIDProps!);
+      const list = await Client.orderCouponGET();
+      const response = {
+        isSuccess: list.isSuccess,
+        data: list.data?.find((c) => c.orderCouponID === CouponIDProps),
+      };
       if (response.isSuccess) {
         setCoupon(response.data!);
       }
@@ -44,7 +44,16 @@ export default function Add_UpdateCouponModel({
     if (CouponIDProps) {
       //update
       try {
-        const response = await UpdateCoupon(coupon);
+        const response = await Client.updateCoupon(
+          new UpdateCouponRequest({
+            orderCouponID: coupon.orderCouponID,
+            couponCode: coupon.couponCode,
+            discount: coupon.discount,
+            discountType: coupon.discountType,
+            isActive: coupon.isActive,
+            isDeleted: coupon.isDeleted,
+          }),
+        );
         if (response.isSuccess) {
           onClose();
           onReloadCoupons();
@@ -54,12 +63,14 @@ export default function Add_UpdateCouponModel({
       }
     } else {
       try {
-        const response = await CreateNewCoupon({
-          discount: coupon.discount,
-          discountType: coupon.discountType,
-          isActive: coupon.isActive,
-          couponCode: coupon.couponCode,
-        });
+        const response = await Client.orderCouponPOST(
+          new CreateCouponRequest({
+            discount: coupon.discount,
+            discountType: coupon.discountType,
+            isActive: coupon.isActive,
+            couponCode: coupon.couponCode,
+          }),
+        );
         if (response.isSuccess) {
           onClose();
           onReloadCoupons();
@@ -89,7 +100,13 @@ export default function Add_UpdateCouponModel({
                   name="couponCode"
                   onChange={(e) => {
                     const couponCode = e.currentTarget.value;
-                    setCoupon((prev) => ({ ...prev, couponCode: couponCode }));
+                    setCoupon(
+                      (prev) =>
+                        new OrderCouponResponse({
+                          ...prev,
+                          couponCode: couponCode,
+                        }),
+                    );
                   }}
                   value={coupon.couponCode}
                   placeholder="e.g., WELCOME10, SAVE20"
@@ -106,10 +123,13 @@ export default function Add_UpdateCouponModel({
                     name="discoundType"
                     onChange={(e) => {
                       const discountType = e.currentTarget.value;
-                      setCoupon((prev) => ({
-                        ...prev,
-                        discountType: discountType,
-                      }));
+                      setCoupon(
+                        (prev) =>
+                          new OrderCouponResponse({
+                            ...prev,
+                            discountType: discountType as DiscountTypeEnum,
+                          }),
+                      );
                     }}
                     value={coupon.discountType}
                   >
@@ -126,10 +146,13 @@ export default function Add_UpdateCouponModel({
                     placeholder="10"
                     onChange={(e) => {
                       const discount = Number(e.currentTarget.value);
-                      setCoupon((prev) => ({
-                        ...prev,
-                        discount: discount,
-                      }));
+                      setCoupon(
+                        (prev) =>
+                          new OrderCouponResponse({
+                            ...prev,
+                            discount: discount,
+                          }),
+                      );
                     }}
                     value={coupon.discount}
                   />
@@ -146,10 +169,13 @@ export default function Add_UpdateCouponModel({
                       const isChecked = e.currentTarget.checked;
                       console.log(isChecked);
 
-                      setCoupon((prev) => ({
-                        ...prev,
-                        isActive: isChecked,
-                      }));
+                      setCoupon(
+                        (prev) =>
+                          new OrderCouponResponse({
+                            ...prev,
+                            isActive: isChecked,
+                          }),
+                      );
                       console.log(coupon);
                     }}
                   />

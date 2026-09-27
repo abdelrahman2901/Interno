@@ -1,3 +1,7 @@
 <Solution>
   <Project Path="Audit-Microservice.API/Audit-Microservice.API.csproj" />
+  <Project Path="Microservice-Audit.Application/Microservice-Audit.Application.csproj" />
+  <Project Path="Microservice-Audit.Domain/Microservice-Audit.Domain.csproj" />
+  <Project Path="Microservice-Notification.Core/Microservice-Audit.Core.csproj" />
+  <Project Path="Microservice-Notification.Infrastructure/Microservice-Audit.Infrastructure.csproj" />
 </Solution>

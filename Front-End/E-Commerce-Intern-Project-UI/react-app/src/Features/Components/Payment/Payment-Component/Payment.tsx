@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { PaymentRequestModel } from "../../../../Core/DTO/Payment/Payment-Request-Model";
 import Order_Failed_Model from "../Model/Order-Failed-Model";
 import Order_Success_Model from "../Model/Order-Success-Model";
-import { OrderRequest } from "../../../../Core/DTO/OrderDTO/OrderRequest";
+import { CreateOrderRequest, InternoMicroserviceClient, OrderResponse, PaymentMethods, PaymentRequest } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
-import {
-  addPayment,
-  DeleteLastPayment,
-} from "../../../../Core/Services/PaymentsServices/Payments.service";
-import { CreateOrder } from "../../../../Core/Services/OrderServices/OrderService";
-import { OrderResponse } from "../../../../Core/DTO/OrderDTO/OrderResponse";
 import { useCartStore } from "../../../../Core/Global-State-Management/Zusstand/CartStore/CartUpdateStore";
-import { PaymentTypeEnum } from "../../../../Core/Enums/PaymentTypeEnum";
 import { PaymentCheckOutEnum } from "../../../../Core/Enums/PaymentCheckOutEnum";
-
 type props = {
   onRedirect: (value: PaymentCheckOutEnum) => void;
-  orderRequest: OrderRequest;
+  orderRequest: CreateOrderRequest;
 };
 export default function Payment({ onRedirect, orderRequest }: props) {
-  const [currentPaymentType, setCurrentPaymentType] = useState<PaymentTypeEnum>(
-    PaymentTypeEnum.CreditCard,
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [currentPaymentType, setCurrentPaymentType] = useState<PaymentMethods>(
+    PaymentMethods.CreditCard,
   );
   const [order, setOrder] = useState<OrderResponse>(new OrderResponse());
   const [isLoading, setLoading] = useState<boolean>(false);
@@ -32,7 +25,7 @@ export default function Payment({ onRedirect, orderRequest }: props) {
   const addNewOrder = async () => {
     console.log(orderRequest);
     try {
-      const response = await CreateOrder(orderRequest);
+      const response = await Client.orders(orderRequest);
       setLoading(false);
       setisPaymentDone(true);
       if (response.isSuccess && response.data) {
@@ -53,12 +46,13 @@ export default function Payment({ onRedirect, orderRequest }: props) {
   };
   async function submitFormOrder() {
     setLoading(true);
-    const paymentRequest: PaymentRequestModel = new PaymentRequestModel();
-    paymentRequest.amount = orderRequest.totalAmount;
-    paymentRequest.paymentMethod = currentPaymentType;
-    paymentRequest.userID = user?.userID!;
+    const paymentRequest = new PaymentRequest({
+      amount: orderRequest.totalAmount,
+      paymentMethod: currentPaymentType,
+      userID: user?.userID!,
+    });
     try {
-      const response = await addPayment(paymentRequest);
+      const response = await Client.addNewPayment(paymentRequest);
       console.log(response.data);
 
       if (response.isSuccess && response.data) {
@@ -87,7 +81,7 @@ export default function Payment({ onRedirect, orderRequest }: props) {
     if (isPaymentSuccess) {
       orderRequest.orderCouponID = orderRequest.orderCouponID
         ? orderRequest.orderCouponID
-        : null;
+        : undefined;
       console.log("order request sent ");
       console.log(orderRequest);
 
@@ -101,16 +95,16 @@ export default function Payment({ onRedirect, orderRequest }: props) {
 
         <div className="payment-methods-tabs">
           <button
-            className={`payment-tab ${currentPaymentType === PaymentTypeEnum.CreditCard ? "active" : ""}`}
-            onClick={() => setCurrentPaymentType(PaymentTypeEnum.CreditCard)}
+            className={`payment-tab ${currentPaymentType === PaymentMethods.CreditCard ? "active" : ""}`}
+            onClick={() => setCurrentPaymentType(PaymentMethods.CreditCard)}
           >
             <span className="tab-icon">💳</span>
             <span>Credit/Debit Card</span>
           </button>
 
           <button
-            className={`payment-tab ${currentPaymentType === PaymentTypeEnum.Cash ? "active" : ""}`}
-            onClick={() => setCurrentPaymentType(PaymentTypeEnum.Cash)}
+            className={`payment-tab ${currentPaymentType === PaymentMethods.Cash ? "active" : ""}`}
+            onClick={() => setCurrentPaymentType(PaymentMethods.Cash)}
           >
             <span className="tab-icon">💵</span>
             <span>Cash on Delivery</span>

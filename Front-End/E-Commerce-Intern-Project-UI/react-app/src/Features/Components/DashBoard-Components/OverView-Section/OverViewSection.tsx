@@ -1,30 +1,32 @@
 import { useEffect, useState } from "react";
+import { InternoMicroserviceClient } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 // import "./OverViewSection.css";
-import { GetAllOrders } from "../../../../Core/Services/OrderServices/OrderService";
-import { GetProducts } from "../../../../Core/Services/ProductServices/ProductServiceQuery";
+
 
 export default function OverViewSection() {
   const [totalProducts, setTotalProducts] = useState<number>(0);
   const [totalOrders, setTotalOrders] = useState<number>(0);
   const [totalRevenue, setTotalRevenue] = useState<number>(0);
   const [totalProfit, setTotalProfit] = useState<number>(0);
+  const Client = new InternoMicroserviceClient(undefined, API);
 
   const loadOrdersCount = async () => {
     try {
-      const response = await GetAllOrders();
+      const response = await Client.getAllOrders();
       if (response.data && response.isSuccess) {
         setTotalOrders(response.data.length);
         setTotalProfit(
           response.data
             .slice()
             .filter((r) => r.orderStatus === "Delivered")
-            .reduce((total, order) => total + order.totalAmount, 0),
+            .reduce((total, order) => total + (order.totalAmount ?? 0), 0),
         );
         setTotalRevenue(
           response.data
             .slice()
             .filter((r) => r.orderStatus !== "Cancelled")
-            .reduce((total, order) => total + order.totalAmount, 0),
+            .reduce((total, order) => total + (order.totalAmount ?? 0), 0),
         );
       }
     } catch (err) {
@@ -33,7 +35,7 @@ export default function OverViewSection() {
   };
   const loadProductsCount = async () => {
     try {
-      const response = await GetProducts();
+      const response = await Client.productDetailsVW();
       if (response.data && response.isSuccess) {
         setTotalProducts(response.data.length);
       }

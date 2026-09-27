@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "../../Shared/css/Model.css";
-import { CategoryRequest } from "../../../../../Core/DTO/CategoryDTO/CategoryRequestDto";
-import { CategoryUpdateRequest } from "../../../../../Core/DTO/CategoryDTO/CategoryUpdateRequest";
-import { ICategory } from "../../../../../Core/Interface/Category/ICategory";
-import { ISubCategoryDetails } from "../../../../../Core/Interface/Category/ISubCateogryDetails";
-import {
-  AddCategory_serv,
-  UpdateCategory_serv,
-} from "../../../../../Core/Services/CategoryServices/CategoryServiceCmd";
-import { GetCategoryByID } from "../../../../../Core/Services/CategoryServices/CategoryServiceQuery";
-
+import { CategoryResponse, FileParameter, InternoMicroserviceClient, SubCategoryResponse } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../../Core/Shared/API-URL";
 type props = {
   onClose: () => void;
-  categoires: ISubCategoryDetails[];
+  categoires: SubCategoryResponse[];
   categoryProps?: string;
   onAddnewCategory: () => void;
 };
@@ -23,13 +15,14 @@ export default function AddCategoryModel({
   onAddnewCategory,
   categoryProps,
 }: props) {
-  const [category, setCategory] = useState<
-    ISubCategoryDetails | ICategory | undefined
-  >(undefined);
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [category, setCategory] = useState<CategoryResponse | undefined>(
+    undefined,
+  );
 
   const loadCategory = async () => {
     try {
-      const response = await GetCategoryByID(categoryProps!);
+      const response = await Client.categoryDetails(categoryProps!);
       if (response.isSuccess) {
         setCategory(response.data);
       }
@@ -41,70 +34,63 @@ export default function AddCategoryModel({
     if (categoryProps) {
       loadCategory();
     } else {
-      setCategory({
-        categoryID: "",
-        categoryImageUrl: "",
-        categoryName: "",
-        parentCategoryID: "",
-      });
+      setCategory(
+        new CategoryResponse({
+          categoryID: "",
+          categoryImageUrl: "",
+          categoryName: "",
+          parentCategoryID: "",
+        }),
+      );
     }
   }, [categoryProps]);
 
   function SetParentCat(e: React.ChangeEvent<HTMLSelectElement>) {
     const value = e.currentTarget.value;
 
-    setCategory((prev) => ({
-      ...prev!,
-      parentCategoryID: value,
-    }));
+    setCategory((prev) =>
+      new CategoryResponse({
+        ...prev,
+        parentCategoryID: value,
+      }),
+    );
   }
 
   function OnSubmitCat(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
 
-    const AddNewCategory = async (request: CategoryRequest) => {
+    const imageFile = form.get("categoryImage") as File;
+    const categoryImage: FileParameter | undefined =
+      imageFile && imageFile.size > 0
+        ? { data: imageFile, fileName: imageFile.name }
+        : undefined;
+    const categoryName = form.get("categoryName") as string;
+    const parentCategoryID =
+      form.get("ParentID") !== "" ? (form.get("ParentID") as string) : undefined;
+
+    const saveCategory = async () => {
       try {
-        const response = await AddCategory_serv(request);
+        const response =
+          category?.categoryID !== ""
+            ? await Client.updateCategory(
+                category?.categoryID,
+                categoryName,
+                parentCategoryID,
+                categoryImage,
+              )
+            : await Client.createNewCategory(
+                categoryName,
+                parentCategoryID,
+                categoryImage,
+              );
         console.log(response);
         onAddnewCategory();
       } catch (err) {
         if (err) console.error(err);
       }
     };
-    const UpdateCatRequest = async (request: CategoryUpdateRequest) => {
-      try {
-        const response = await UpdateCategory_serv(request);
-        console.log(response);
-        onAddnewCategory();
-      } catch (err) {
-        if (err) console.error(err);
-      }
-    };
-    console.log(category);
-
-    if (category?.categoryID !== "") {
-      const Updaterequest: CategoryUpdateRequest = {
-        categoryID: category?.categoryID!,
-        categoryName: form.get("categoryName") as string,
-        categoryImage: form.get("categoryImage") as File,
-        parentCategoryID:
-          form.get("ParentID") !== "" ? (form.get("ParentID") as string) : null,
-      };
-      console.log("Update REuqetst : ", Updaterequest);
-
-      UpdateCatRequest(Updaterequest);
-    } else {
-      const Newrequest: CategoryRequest = {
-        categoryName: form.get("categoryName") as string,
-        categoryImage: form.get("categoryImage") as File,
-        parentCategoryID:
-          form.get("ParentID") !== "" ? (form.get("ParentID") as string) : null,
-      };
-      console.log("add Reuqest : ", Newrequest);
-
-      AddNewCategory(Newrequest);
-    }
+    saveCategory();
   }
 
   return (
@@ -151,7 +137,7 @@ export default function AddCategoryModel({
                 placeholder="e.g., Women, Men, Kids"
                 // value={
                 //   category
-                //     ? new File([], "https://localhost:7164/CategoryImages/" +
+                //     ? new File([], "http://localhost:5000/CategoryImages/" +
                 //       category?.categoryImageUrl)
                 //     : new File([],'')
                 // }

@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
-import {
-  addCity,
-  getCities,
-  getCityByID,
-  updateCity_serv,
-} from "../../../../../../Core/Services/CityServices/CityService";
-import { CityModel } from "../../../../../../Core/DTO/CityDTO/CityModel";
-import { CityRequest } from "../../../../../../Core/DTO/CityDTO/CityRequest";
-
+import { CityRequest, CityResponse, CityUpdateRequest, InternoMicroserviceClient } from "../../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../../../Core/Shared/API-URL";
 type props = {
   cityIDProps: string | null;
   onCloseModel: () => void;
@@ -19,11 +12,12 @@ export default function Add_UpdateCityModel({
   onCloseModel,
   onReloadCities,
 }: props) {
-  const [city, setCity] = useState<CityModel>(new CityModel());
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [city, setCity] = useState<CityResponse>(new CityResponse());
   const [error, setError] = useState<string>("");
   const loadCityDetails = async () => {
     try {
-      const response = await getCityByID(cityIDProps!);
+      const response = await Client.cities(cityIDProps!);
       if (response.isSuccess) {
         setCity(response.data!);
       }
@@ -39,7 +33,9 @@ export default function Add_UpdateCityModel({
 
   async function addNewCity() {
     try {
-      const response = await addCity({ cityName: city.cityName });
+      const response = await Client.postCity(
+        new CityRequest({ cityName: city.cityName }),
+      );
       if (!response.isSuccess && response.errorMessage) {
         setError(response.errorMessage!);
         return;
@@ -51,7 +47,12 @@ export default function Add_UpdateCityModel({
   }
   async function updateCity() {
     try {
-      const response = await updateCity_serv(city);
+      const response = await Client.putCity(
+        new CityUpdateRequest({
+          cityID: city.cityID,
+          cityName: city.cityName,
+        }),
+      );
       if (!response.isSuccess && response.errorMessage) {
         setError(response.errorMessage!);
         return;
@@ -88,7 +89,10 @@ export default function Add_UpdateCityModel({
                   value={city.cityName}
                   onChange={(e) => {
                     const cityName = e.currentTarget.value;
-                    setCity((prev) => ({ ...prev, cityName: cityName }));
+                    setCity(
+                      (prev) =>
+                        new CityResponse({ ...prev, cityName: cityName }),
+                    );
                   }}
                 />
                 <span className="error">{error}</span>

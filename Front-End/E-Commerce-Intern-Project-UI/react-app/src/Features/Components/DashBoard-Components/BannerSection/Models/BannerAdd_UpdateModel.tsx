@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-import { BannerSlidesDetails } from "../../../../../Core/DTO/BannerSlidesDTO/BannerSlidesDetails";
 import {
-  CreateBanner,
-  GetBannnerByID,
-  UpdateBanner,
-} from "../../../../../Core/Services/BannerServices/BannerService";
-import { ColorDetails } from "../../../../../Core/DTO/Colors/ColorDetails";
-import { GetColors_Serv } from "../../../../../Core/Services/ColorsServices/ColorService_Query";
-import { BannerSlidesRequest } from "../../../../../Core/DTO/BannerSlidesDTO/BannerSlidesRequest";
-
+  BannerSlideResponse,
+  ColorResponse,
+  FileParameter,
+  InternoMicroserviceClient,
+} from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../../Core/Shared/API-URL";
 type props = {
   onClose: () => void;
   bannerIDProps: string | null;
@@ -20,21 +17,18 @@ export default function BannerAdd_UpdateModel({
   onClose,
   onActionResult,
 }: props) {
-  const [banner, setBanner] = useState<BannerSlidesDetails>(
-    new BannerSlidesDetails(),
+  const Client = new InternoMicroserviceClient(undefined, API);
+  const [banner, setBanner] = useState<BannerSlideResponse>(
+    new BannerSlideResponse(),
   );
-  const [colors, setColors] = useState<ColorDetails[]>([]);
-  const [selectedBg, setSelectedBg] = useState<string>("");
-  const [selectedaccent, setSelectedAccent] = useState<string>("");
+  const [colors, setColors] = useState<ColorResponse[]>([]);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const loadBanner = async () => {
     try {
-      const response = await GetBannnerByID(bannerIDProps!);
+      const response = await Client.getBannnerByID(bannerIDProps!);
       if (response.data && response.isSuccess) {
         setBanner(response.data);
-        setSelectedAccent(response.data.accentColor.colorHexCode);
-        setSelectedBg(response.data.backgroundColor.colorHexCode);
       }
     } catch (err) {
       if (err) console.error(err);
@@ -42,11 +36,9 @@ export default function BannerAdd_UpdateModel({
   };
   const loadColors = async () => {
     try {
-      const response = await GetColors_Serv();
+      const response = await Client.getAllColors();
       if (response.data && response.isSuccess) {
         setColors(response.data);
-        setSelectedBg(response.data[0].colorHexCode);
-        setSelectedAccent(response.data[0].colorHexCode);
       }
     } catch (err) {
       if (err) console.error(err);
@@ -63,47 +55,49 @@ export default function BannerAdd_UpdateModel({
     }
   }, [bannerIDProps]);
 
-  const add_bannerReq = async (request: BannerSlidesRequest) => {
-    console.log("wgwrgwr");
-
-    try {
-      const response = await CreateBanner(request);
-      if (response.isSuccess) {
-        onActionResult();
-      }
-    } catch (err) {
-      if (err) console.error(err);
-    }
-  };
-  const update_bannerReq = async (request: BannerSlidesRequest) => {
-    console.log("wgwrgwr");
-
-    try {
-      const response = await UpdateBanner(request);
-      if (response.isSuccess) {
-        onActionResult();
-      }
-    } catch (err) {
-      if (err) console.error(err);
-    }
-  };
+  const toFileParameter = (file: File): FileParameter => ({
+    data: file,
+    fileName: file.name,
+  });
 
   function SaveChanges() {
-    const request: BannerSlidesRequest = {
-      BannerSlideID: banner.bannerSlideID ? banner.bannerSlideID : null,
-      title: banner.title,
-      subtitle: banner.subtitle,
-      CTA: banner.cta,
-      backgroundColorID: banner.backgroundColor.colorID,
-      accentColorID: banner.accentColor.colorID,
-      label: banner.label,
-      bannerImage: selectedImage!,
+    const bannerImage = selectedImage
+      ? toFileParameter(selectedImage)
+      : undefined;
+    const save = async () => {
+      try {
+        const response = banner.bannerSlideID
+          ? await Client.updateBanner(
+              banner.bannerSlideID,
+              banner.title,
+              banner.subtitle,
+              banner.cta,
+              banner.backgroundColor?.colorID ?? null,
+              banner.backgroundColor?.colorHexCode ?? null,
+              banner.accentColor?.colorID ?? null,
+              banner.accentColor?.colorHexCode ?? null,
+              banner.label,
+              bannerImage,
+            )
+          : await Client.createBanner(
+              banner.title,
+              banner.subtitle,
+              banner.cta,
+              banner.backgroundColor?.colorID ?? null,
+              banner.backgroundColor?.colorHexCode ?? null,
+              banner.accentColor?.colorID ?? null,
+              banner.accentColor?.colorHexCode ?? null,
+              banner.label,
+              bannerImage,
+            );
+        if (response.isSuccess) {
+          onActionResult();
+        }
+      } catch (err) {
+        if (err) console.error(err);
+      }
     };
-    if (banner.bannerSlideID) {
-      update_bannerReq(request);
-    } else {
-      add_bannerReq(request);
-    }
+    save();
   }
   return (
     <>
@@ -128,7 +122,10 @@ export default function BannerAdd_UpdateModel({
                     placeholder="e.g., Summer Collection 2026"
                     onChange={(e) => {
                       const title = e.currentTarget.value;
-                      setBanner((prev) => ({ ...prev, title: title }));
+                      setBanner(
+                        (prev) =>
+                          new BannerSlideResponse({ ...prev, title: title }),
+                      );
                     }}
                     value={banner.title}
                   />
@@ -143,7 +140,13 @@ export default function BannerAdd_UpdateModel({
                     type="text"
                     onChange={(e) => {
                       const subtitle = e.currentTarget.value;
-                      setBanner((prev) => ({ ...prev, subtitle: subtitle }));
+                      setBanner(
+                        (prev) =>
+                          new BannerSlideResponse({
+                            ...prev,
+                            subtitle: subtitle,
+                          }),
+                      );
                     }}
                     value={banner.subtitle}
                     placeholder="e.g., Light fabrics, timeless style"
@@ -158,7 +161,10 @@ export default function BannerAdd_UpdateModel({
                       placeholder="e.g., SEASON 2026"
                       onChange={(e) => {
                         const label = e.currentTarget.value;
-                        setBanner((prev) => ({ ...prev, label: label }));
+                        setBanner(
+                          (prev) =>
+                            new BannerSlideResponse({ ...prev, label: label }),
+                        );
                       }}
                       value={banner.label}
                     />
@@ -170,7 +176,10 @@ export default function BannerAdd_UpdateModel({
                       placeholder="e.g., Shop Women"
                       onChange={(e) => {
                         const cta = e.currentTarget.value;
-                        setBanner((prev) => ({ ...prev, cta: cta }));
+                        setBanner(
+                          (prev) =>
+                            new BannerSlideResponse({ ...prev, cta: cta }),
+                        );
                       }}
                       value={banner.cta}
                     />
@@ -194,21 +203,45 @@ export default function BannerAdd_UpdateModel({
                     <div className="Custom-color-input-group">
                       <input
                         type="color"
-                        disabled
-                        onChange={() => {}}
-                        value={selectedBg}
+                        onChange={(e) => {
+                          debugger;
+                          const SelectedColor = e.currentTarget.value;
+                          const color =
+                            colors.find(
+                              (r) =>
+                                r.colorID === SelectedColor ||
+                                r.colorHexCode === SelectedColor,
+                            ) ?? new ColorResponse();
+                          color!.colorHexCode = SelectedColor;
+                          setBanner((prev) =>
+                            new BannerSlideResponse({
+                              ...prev,
+                              backgroundColor: color!,
+                            }),
+                          );
+                          console.log(banner.backgroundColor);
+                        }}
+                        // value={selectedBg}
                       />
                       <select
                         onChange={(e) => {
-                          const bgID = e.currentTarget.value;
-                          const color = colors.find((r) => r.colorID === bgID);
-                          setSelectedBg(color?.colorHexCode!);
-                          setBanner((prev) => ({
-                            ...prev,
-                            backgroundColor: color!,
-                          }));
+                          const SelectedColor = e.currentTarget.value;
+                          const color =
+                            colors.find(
+                              (r) =>
+                                r.colorID === SelectedColor ||
+                                r.colorHexCode === SelectedColor,
+                            ) ?? new ColorResponse();
+                          color!.colorHexCode = SelectedColor;
+                          setBanner(
+                            (prev) =>
+                              new BannerSlideResponse({
+                                ...prev,
+                                backgroundColor: color!,
+                              }),
+                          );
                         }}
-                        value={banner.backgroundColor.colorID}
+                        value={banner.backgroundColor?.colorID}
                       >
                         {colors.map((color) => (
                           <option key={color.colorID} value={color.colorID}>
@@ -223,21 +256,46 @@ export default function BannerAdd_UpdateModel({
                     <div className="Custom-color-input-group">
                       <input
                         type="color"
-                        disabled
-                        onChange={() => {}}
-                        value={selectedaccent}
+                        onChange={(e) => {
+                          debugger;
+                          const SelectedColor = e.currentTarget.value;
+                          const color =
+                            colors.find(
+                              (r) =>
+                                r.colorID === SelectedColor ||
+                                r.colorHexCode === SelectedColor,
+                            ) ?? new ColorResponse();
+                          color!.colorHexCode = SelectedColor;
+
+                          setBanner((prev) =>
+                            new BannerSlideResponse({
+                              ...prev,
+                              accentColor: color!,
+                            }),
+                          );
+                          console.log(banner.accentColor);
+                        }}
+
+                        // value={banner.backgroundColor?.colorID}
                       />
                       <select
                         onChange={(e) => {
-                          const bgID = e.currentTarget.value;
-                          const color = colors.find((r) => r.colorID === bgID);
-                          setSelectedAccent(color?.colorHexCode!);
-                          setBanner((prev) => ({
-                            ...prev,
-                            accentColor: color!,
-                          }));
+                          const SelectedColor = e.currentTarget.value;
+                          const color = colors.find(
+                            (r) =>
+                              r.colorID === SelectedColor ||
+                              r.colorHexCode === SelectedColor,
+                          );
+                          banner.accentColor!.colorHexCode = SelectedColor;
+                          setBanner(
+                            (prev) =>
+                              new BannerSlideResponse({
+                                ...prev,
+                                accentColor: color!,
+                              }),
+                          );
                         }}
-                        value={banner.accentColor.colorID}
+                        value={banner.accentColor?.colorID}
                       >
                         {colors.map((color) => (
                           <option key={color.colorID} value={color.colorID}>
@@ -279,7 +337,7 @@ export default function BannerAdd_UpdateModel({
                 <h4 className="section-title">Live Preview</h4>
                 <div
                   className="banner-preview-container"
-                  style={{ background: banner?.backgroundColor.colorHexCode }}
+                  style={{ background: banner?.backgroundColor?.colorHexCode }}
                 >
                   <div className="banner-content">
                     {banner.label && (
@@ -287,14 +345,16 @@ export default function BannerAdd_UpdateModel({
                     )}
                     <h3
                       className="banner-title"
-                      style={{ color: banner?.accentColor.colorHexCode }}
-                      dangerouslySetInnerHTML={{ __html: banner.title }}
+                      style={{ color: banner?.accentColor?.colorHexCode }}
+                      dangerouslySetInnerHTML={{ __html: banner.title ?? "" }}
                     ></h3>
                     <p className="banner-subtitle">{banner.subtitle}</p>
                     {banner.cta && (
                       <button
                         className="banner-cta"
-                        style={{ background: banner?.accentColor.colorHexCode }}
+                        style={{
+                          background: banner?.accentColor?.colorHexCode,
+                        }}
                       >
                         {banner.cta}
                       </button>

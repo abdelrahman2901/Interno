@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { AddressDetails } from "../../../../Core/DTO/AddressDTO/AddressDetails";
-import { GetUserAddresess } from "../../../../Core/Services/AddressServices/AddressService";
+import {
+  AddressDetails,
+  InternoMicroserviceClient,
+} from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../Core/Shared/API-URL";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
 import { Link } from "react-router-dom";
 import { PaymentCheckOutEnum } from "../../../../Core/Enums/PaymentCheckOutEnum";
-
 type props = {
   onSelectingAddress: (value: AddressDetails) => void;
   onRedirectToPayment: (value: PaymentCheckOutEnum) => void;
@@ -13,12 +15,13 @@ export default function Shipping({
   onSelectingAddress,
   onRedirectToPayment,
 }: props) {
+  const Client = new InternoMicroserviceClient(undefined, API);
   const [addresses, setAddressses] = useState<AddressDetails[]>([]);
   const [selectedAddresses, setSelectedAddresses] = useState<string>("");
   const { user } = useAuth();
   const loadAddress = async () => {
     try {
-      const response = await GetUserAddresess(user?.userID!);
+      const response = await Client.getUserAddress();
       if (response.isSuccess) {
         setAddressses(response.data!);
         setActiveAddress(response.data?.find((r) => r.isDefault)!);
@@ -36,7 +39,7 @@ export default function Shipping({
 
   function setActiveAddress(address: AddressDetails) {
     onSelectingAddress(address);
-    setSelectedAddresses(address.addressID);
+    setSelectedAddresses(address.addressID ?? "");
   }
   return (
     <>

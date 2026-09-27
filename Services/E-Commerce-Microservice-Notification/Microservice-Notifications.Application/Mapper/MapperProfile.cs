@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microservice_Notifications.Entity;
-using Microservice_Notification.Core.DTO.NotificationDTO;
 using Microservice_Notifications.Application.Features.Notification.Command.CreateNotifcationCmd;
+using Microservice_Notifications.Domain.DTO.NotificationDTO;
 
 namespace Microservice_Notifications.Application.Mapper
 {

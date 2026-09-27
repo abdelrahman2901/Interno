@@ -1,5 +1,7 @@
-﻿using Microservice_Notifications.Application.Features.Notification.Command.CreateNotifcationCmd;
-using Microservice_Notifications.Application.ServicesContracts.INotificationsServices;
+﻿using AutoMapper;
+using Microservice_Notifications.Application.Features.Notification.Command.CreateNotifcationCmd;
+using Microservice_Notifications.Domain.RepositoryContracts.INotificationsRepo;
+using Microservice_Notifications.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
@@ -64,9 +66,10 @@ namespace Microservice_Notifications.Application.RabbitMQ
                 CreateNotificationRequest? Request = JsonSerializer.Deserialize<CreateNotificationRequest>(message);
 
                     var scope=_ServiceFactory.CreateScope();
-                    var NotificationService = scope.ServiceProvider.GetRequiredService<INotificationsService>();
-                    var NotifeResult = await NotificationService.CreateNotification(Request);
-
+                    var notificationsRepo = scope.ServiceProvider.GetRequiredService<INotificationsRepository>();
+                    var Mapper= scope.ServiceProvider.GetRequiredService<IMapper>();
+                    await notificationsRepo.CreateNotification(Mapper.Map<Notifications>(Request));
+                    await notificationsRepo.SaveChanges();
                 }
             };
 

@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { useAuth } from "../../../../../Core/Services/AuthServices/AuthProvider";
 import "../../Shared/CSS/ModelCSS.css";
-import { checkPasswordDto } from "../../../../../Core/DTO/UserDTO/checkPasswordDto";
-import {
-  CheckPassword,
-  DeleteAccount_serv,
-} from "../../../../../Core/Services/AuthServices/AuthUserService";
+import { InternoMicroserviceClient, LoginUserCommand } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API } from "../../../../../Core/Shared/API-URL";
 import { useNavigate } from "react-router-dom";
 type props = {
   onClose: () => void;
 };
 export default function DeleteAccountModel({ onClose }: props) {
   const { user, signout } = useAuth();
+  const Client = new InternoMicroserviceClient(undefined, API);
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigator = useNavigate();
@@ -23,13 +21,9 @@ export default function DeleteAccountModel({ onClose }: props) {
     setPassword(value);
   }
   function DeleteAccount() {
-    const checkPassRequest: checkPasswordDto = {
-      userID: user?.userID!,
-      password: password,
-    };
     const deleteAcc = async () => {
       try {
-        const response = await DeleteAccount_serv(user?.userID!);
+        const response = await Client.deleteUser();
         if (response.isSuccess) {
           signout();
           navigator("/Home");
@@ -40,7 +34,12 @@ export default function DeleteAccountModel({ onClose }: props) {
     };
     const checkPassAPI = async () => {
       try {
-        const response = await CheckPassword(checkPassRequest);
+        const response = await Client.loginUser(
+          new LoginUserCommand({
+            email: user?.email,
+            password: password,
+          }),
+        );
         if (response.isSuccess) {
           deleteAcc();
         } else {
