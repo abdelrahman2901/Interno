@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace E_Commerce_Inern_Project.Core.Features.Areas.Commands.UpdateAreaCmd
+namespace E_Commerce_Inerno.Core.Features.Areas.Commands.UpdateAreaCmd
 {
     public class AreaUpdateRequestValidation : AbstractValidator<AreaUpdateRequest>
     {

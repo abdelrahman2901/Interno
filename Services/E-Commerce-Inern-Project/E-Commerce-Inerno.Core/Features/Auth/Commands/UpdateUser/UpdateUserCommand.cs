@@ -5,7 +5,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using System.Text.Json.Serialization;
 
 
-namespace E_Commerce_Inern_Project.Core.Features.Auth.Commands.UpdateUser
+namespace E_Commerce_Inerno.Core.Features.Auth.Commands.UpdateUser
 {
     public class UpdateUserCommand : IRequest<Result<AuthUserDetailsDTO>>
     {

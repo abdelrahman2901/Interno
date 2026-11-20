@@ -1,28 +1,28 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IAreaRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Core.Communication;
+using E_Commerce_Inerno.Core.RepositoryContracts.IAreaRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.AreaDTO;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Areas.Commands.CreateAreaCmd
+namespace E_Commerce_Inerno.Core.Features.Areas.Commands.CreateAreaCmd
 {
     public class CreateAreaHandler : IRequestHandler<AreaRequest, Result<AreaResponse>>
     {
         private readonly IAreaRepository _areaRepository;
         private readonly IMapper _mapper;
         private readonly IUserRepository _UserRepo;
-        private readonly IRabbitMQPublisher _Publisher;
+        private readonly IInternoEventPublisher _Publisher;
         private readonly IDistributedCache _cache;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        
 
-        public CreateAreaHandler(IAreaRepository areaRepository, IDistributedCache cache, IMapper mapper, IUserRepository UserRepo, IRabbitMQPublisher Publisher)
+        public CreateAreaHandler(IAreaRepository areaRepository, IDistributedCache cache, IMapper mapper, IUserRepository UserRepo, IInternoEventPublisher Publisher)
         {
             _areaRepository = areaRepository;
             _mapper = mapper;
@@ -52,7 +52,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Areas.Commands.CreateAreaCmd
 
             string jsonNewValues = JsonSerializer.Serialize<Area>(newArea);
             AuditRequest AuditRequest = new(await _UserRepo.GetAdminID(), ActionTypeEnum.Create, nameof(Area), null, jsonNewValues);
-            await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+            await _Publisher.PublishAuditAsync(AuditRequest);
 
             //Inserting value to Caching
             string AreaKey = $"Area:{newArea.AreaID}";

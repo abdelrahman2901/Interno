@@ -1,5 +1,5 @@
-using E_Commerce_Inern_Project.Core.Features.Addresses.Commands.DeleteAddressCmd;
-using E_Commerce_Inern_Project.Core.Features.Addresses.Commands.CreateAddressCmd;
+using E_Commerce_Inerno.Core.Features.Addresses.Commands.DeleteAddressCmd;
+using E_Commerce_Inerno.Core.Features.Addresses.Commands.CreateAddressCmd;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.AddressDTO;
 using MediatR;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using E_Commerce_Inerno.Core.Features.Addresses.Commands.UpdateAddressCmd;
 
-namespace E_Commerce_Inern_Project.API.Controllers.AddressControl.Commands
+namespace E_Commerce_Inerno.API.Controllers.AddressControl.Commands
 {
     [Authorize]
     [Route("api/Address")]

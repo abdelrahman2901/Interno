@@ -1,21 +1,22 @@
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IWishListRepo;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.IWishListRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.WishLists.Commands.DeleteWishListCmd
+namespace E_Commerce_Inerno.Core.Features.WishLists.Commands.DeleteWishListCmd
 {
     public class DeleteWishListHandler : IRequestHandler<DeleteWishListRequest, Result<bool>>
     {
         private readonly IWishListRepository _WishListRepo;
-        private readonly IRabbitMQPublisher _Publisher;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        private readonly IInternoEventPublisher _Publisher;
+        
 
-        public DeleteWishListHandler(IWishListRepository WishListRepo, IRabbitMQPublisher Publisher)
+        public DeleteWishListHandler(IWishListRepository WishListRepo, IInternoEventPublisher Publisher)
         {
             _WishListRepo = WishListRepo;
             _Publisher = Publisher;
@@ -39,7 +40,7 @@ namespace E_Commerce_Inern_Project.Core.Features.WishLists.Commands.DeleteWishLi
 
             string JsonNewValues = JsonSerializer.Serialize<WishList>(result);
             AuditRequest AuditRequest = new(result.UserID, ActionTypeEnum.Delete, nameof(WishList), JsonOldValues, JsonNewValues);
-            await _Publisher.Publish<AuditRequest>(_AuditRoutingKey, AuditRequest);
+            await _Publisher.PublishAuditAsync(AuditRequest);
 
             return Result<bool>.Success(true);
         }

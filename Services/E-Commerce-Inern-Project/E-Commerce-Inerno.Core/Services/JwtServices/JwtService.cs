@@ -1,5 +1,5 @@
-﻿using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IUserRolesRepo;
-using E_Commerce_Inern_Project.Core.ServicesContracts.IJWTServices;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IUserRolesRepo;
+using E_Commerce_Inerno.Core.ServicesContracts.IJWTServices;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.AuthDTO;
 using E_Commerce_Interno.Domain.Entity;
@@ -11,7 +11,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace E_Commerce_Inern_Project.Core.Services.JwtServices
+namespace E_Commerce_Inerno.Core.Services.JwtServices
 {
     public class JwtService : IJwtService
     {

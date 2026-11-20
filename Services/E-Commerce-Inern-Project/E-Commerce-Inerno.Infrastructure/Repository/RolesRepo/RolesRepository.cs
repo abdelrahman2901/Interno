@@ -1,4 +1,4 @@
-﻿namespace E_Commerce_Inern_Project.Infrastructure.Repository.RolesRepo
+namespace E_Commerce_Inerno.Infrastructure.Repository.RolesRepo
 {
     public class RolesRepository
     {

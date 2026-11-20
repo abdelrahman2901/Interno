@@ -45,10 +45,9 @@ namespace Microservice_Notifications.Application.RabbitMQ
         public async Task Consume()
         {
             string RoutingKey = "Interno.Notification";
-
             string QueueName = "Interno.Notification.Microservice";
-
             string ExchangeName = "Interno.Microservice";
+
             await _Channel.ExchangeDeclareAsync(ExchangeName, ExchangeType.Direct, durable: true);
             await _Channel.QueueDeclareAsync(queue: QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
             await _Channel.QueueBindAsync(queue: QueueName, routingKey: RoutingKey, exchange: ExchangeName);
@@ -57,23 +56,23 @@ namespace Microservice_Notifications.Application.RabbitMQ
 
             Consumer.ReceivedAsync += async (sender, Args) =>
             {
-                byte[] body=Args.Body.ToArray();
+                byte[] body = Args.Body.ToArray();
                 string? message = Encoding.UTF8.GetString(body);
 
                 if (message != null)
                 {
 
-                CreateNotificationRequest? Request = JsonSerializer.Deserialize<CreateNotificationRequest>(message);
+                    CreateNotificationRequest? Request = JsonSerializer.Deserialize<CreateNotificationRequest>(message);
 
-                    var scope=_ServiceFactory.CreateScope();
+                    var scope = _ServiceFactory.CreateScope();
                     var notificationsRepo = scope.ServiceProvider.GetRequiredService<INotificationsRepository>();
-                    var Mapper= scope.ServiceProvider.GetRequiredService<IMapper>();
+                    var Mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
                     await notificationsRepo.CreateNotification(Mapper.Map<Notifications>(Request));
                     await notificationsRepo.SaveChanges();
                 }
             };
 
-           await _Channel.BasicConsumeAsync(queue: QueueName, autoAck: true,consumer: Consumer);
+            await _Channel.BasicConsumeAsync(queue: QueueName, autoAck: true, consumer: Consumer);
         }
 
         public void Dispose()

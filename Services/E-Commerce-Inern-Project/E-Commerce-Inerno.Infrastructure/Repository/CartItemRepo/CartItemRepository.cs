@@ -1,10 +1,10 @@
-﻿using E_Commerce_Inern_Project.Core.RepositoryContracts.ICartItemRepo;
-using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
+using E_Commerce_Inerno.Core.RepositoryContracts.ICartItemRepo;
+using E_Commerce_Inerno.Infrastructure.ApplicationDbContext;
 using E_Commerce_Interno.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace E_Commerce_Inern_Project.Infrastructure.Repository.CartItemRepo
+namespace E_Commerce_Inerno.Infrastructure.Repository.CartItemRepo
 {
     public class CartItemRepository : ICartItemRepository
     {

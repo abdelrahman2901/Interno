@@ -19,7 +19,7 @@ export class InternoMicroserviceClient {
 
         this.instance = instance || axios.create();
 
-        this.baseUrl = baseUrl ?? "http://localhost:5000";
+        this.baseUrl = baseUrl ?? "http://localhost:5003/gateway";
 
     }
 
@@ -28,7 +28,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     createAddress(body: CreateAddressRequest | undefined, cancelToken?: CancelToken): Promise<AddressResponseResult> {
-        let url_ = this.baseUrl + "/api/Address/CreateAddress";
+        let url_ = this.baseUrl + "/Address/CreateAddress";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -83,7 +83,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     deleteAddress(addressID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Address/DeleteAddress/{AddressID}";
+        let url_ = this.baseUrl + "/Address/DeleteAddress/{AddressID}";
         if (addressID === undefined || addressID === null)
             throw new globalThis.Error("The parameter 'addressID' must be defined.");
         url_ = url_.replace("{AddressID}", encodeURIComponent("" + addressID));
@@ -138,7 +138,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     updateAddress(body: UpdateAddressRequest | undefined, cancelToken?: CancelToken): Promise<AddressResponseResult> {
-        let url_ = this.baseUrl + "/api/Address/UpdateAddress";
+        let url_ = this.baseUrl + "/Address/UpdateAddress";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -193,7 +193,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getUserAddress( cancelToken?: CancelToken): Promise<AddressDetailsIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/Address/GetUserAddress";
+        let url_ = this.baseUrl + "/Address/GetUserAddress";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -244,7 +244,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getUserAddressByID(addressID: string, cancelToken?: CancelToken): Promise<AddressResponseResult> {
-        let url_ = this.baseUrl + "/api/Address/GetUserAddressByID/{AddressID}";
+        let url_ = this.baseUrl + "/Address/GetUserAddressByID/{AddressID}";
         if (addressID === undefined || addressID === null)
             throw new globalThis.Error("The parameter 'addressID' must be defined.");
         url_ = url_.replace("{AddressID}", encodeURIComponent("" + addressID));
@@ -299,7 +299,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     putArea(body: AreaUpdateRequest | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Areas/PutArea";
+        let url_ = this.baseUrl + "/Areas/PutArea";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -355,7 +355,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     postArea(body: AreaRequest | undefined, cancelToken?: CancelToken): Promise<AreaResponseResult> {
-        let url_ = this.baseUrl + "/api/Areas/PostArea";
+        let url_ = this.baseUrl + "/Areas/PostArea";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -410,7 +410,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     deleteArea(id: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Areas/DeleteArea/{id}";
+        let url_ = this.baseUrl + "/Areas/DeleteArea/{id}";
         if (id === undefined || id === null)
             throw new globalThis.Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
@@ -463,8 +463,8 @@ export class InternoMicroserviceClient {
     /**
      * @return OK
      */
-    getAllAreas( cancelToken?: CancelToken): Promise<AreaResponseIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/Areas/GetAllAreas";
+    areas( cancelToken?: CancelToken): Promise<AreaResponseIEnumerableResult> {
+        let url_ = this.baseUrl + "/Areas";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -483,11 +483,11 @@ export class InternoMicroserviceClient {
                 throw _error;
             }
         }).then((_response: AxiosResponse) => {
-            return this.processGetAllAreas(_response);
+            return this.processAreas(_response);
         });
     }
 
-    protected processGetAllAreas(response: AxiosResponse): Promise<AreaResponseIEnumerableResult> {
+    protected processAreas(response: AxiosResponse): Promise<AreaResponseIEnumerableResult> {
         const status = response.status;
         let _headers: any = {};
         if (response.headers && typeof response.headers === "object") {
@@ -514,8 +514,8 @@ export class InternoMicroserviceClient {
     /**
      * @return OK
      */
-    areas(areaID: string, cancelToken?: CancelToken): Promise<AreaResponseResult> {
-        let url_ = this.baseUrl + "/api/Areas/{AreaID}";
+    getAreaByID(areaID: string, cancelToken?: CancelToken): Promise<AreaResponseResult> {
+        let url_ = this.baseUrl + "/Areas/GetAreaByID/{AreaID}";
         if (areaID === undefined || areaID === null)
             throw new globalThis.Error("The parameter 'areaID' must be defined.");
         url_ = url_.replace("{AreaID}", encodeURIComponent("" + areaID));
@@ -537,11 +537,11 @@ export class InternoMicroserviceClient {
                 throw _error;
             }
         }).then((_response: AxiosResponse) => {
-            return this.processAreas(_response);
+            return this.processGetAreaByID(_response);
         });
     }
 
-    protected processAreas(response: AxiosResponse): Promise<AreaResponseResult> {
+    protected processGetAreaByID(response: AxiosResponse): Promise<AreaResponseResult> {
         const status = response.status;
         let _headers: any = {};
         if (response.headers && typeof response.headers === "object") {
@@ -570,7 +570,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     registerUser(body: RegisterUserCommand | undefined, cancelToken?: CancelToken): Promise<AuthTokenResponseResult> {
-        let url_ = this.baseUrl + "/api/Auth/RegisterUser";
+        let url_ = this.baseUrl + "/Auth/RegisterUser";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -626,7 +626,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     loginUser(body: LoginUserCommand | undefined, cancelToken?: CancelToken): Promise<AuthTokenResponseResult> {
-        let url_ = this.baseUrl + "/api/Auth/LoginUser";
+        let url_ = this.baseUrl + "/Auth/LoginUser";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -681,7 +681,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     signOutUser( cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Auth/SignOutUser";
+        let url_ = this.baseUrl + "/Auth/SignOutUser";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -733,7 +733,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     refreshToken(body: TokenModelDTO | undefined, cancelToken?: CancelToken): Promise<AuthTokenResponseResult> {
-        let url_ = this.baseUrl + "/api/Auth/RefreshToken";
+        let url_ = this.baseUrl + "/Auth/RefreshToken";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -789,7 +789,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     updateUser(body: UpdateUserCommand | undefined, cancelToken?: CancelToken): Promise<AuthUserDetailsDTOResult> {
-        let url_ = this.baseUrl + "/api/Auth/UpdateUser";
+        let url_ = this.baseUrl + "/Auth/UpdateUser";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -845,7 +845,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     changeUserPassword(body: ChangeUserPasswordCommand | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Auth/ChangeUserPassword";
+        let url_ = this.baseUrl + "/Auth/ChangeUserPassword";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -901,7 +901,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     userResetPassword(newPassword: string | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Auth/UserResetPassword?";
+        let url_ = this.baseUrl + "/Auth/UserResetPassword?";
         if (newPassword === null)
             throw new globalThis.Error("The parameter 'newPassword' cannot be null.");
         else if (newPassword !== undefined)
@@ -956,7 +956,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     deleteUser( cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Auth/DeleteUser";
+        let url_ = this.baseUrl + "/Auth/DeleteUser";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -1007,7 +1007,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     blockUser(userID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Auth/BlockUser/{UserID}";
+        let url_ = this.baseUrl + "/Auth/BlockUser/{UserID}";
         if (userID === undefined || userID === null)
             throw new globalThis.Error("The parameter 'userID' must be defined.");
         url_ = url_.replace("{UserID}", encodeURIComponent("" + userID));
@@ -1070,7 +1070,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     createBanner(title: string | undefined, subtitle: string | undefined, cTA: string | undefined, backgroundColorID: string | null | undefined, backgroundColorHex: string | null | undefined, accentColorID: string | null | undefined, accentColorHex: string | null | undefined, label: string | undefined, bannerImage: FileParameter | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Banner/CreateBanner";
+        let url_ = this.baseUrl + "/Banner/CreateBanner";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
@@ -1162,7 +1162,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     updateBanner(bannerSlideID: string | undefined, title: string | undefined, subtitle: string | undefined, cTA: string | undefined, backgroundColorID: string | null | undefined, backgroundColorHex: string | null | undefined, accentColorID: string | null | undefined, accentColorHex: string | null | undefined, label: string | undefined, bannerImage: FileParameter | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Banner/UpdateBanner";
+        let url_ = this.baseUrl + "/Banner/UpdateBanner";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
@@ -1248,7 +1248,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     deleteBanner(bannerID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Banner/DeleteBanner/{BannerID}";
+        let url_ = this.baseUrl + "/Banner/DeleteBanner/{BannerID}";
         if (bannerID === undefined || bannerID === null)
             throw new globalThis.Error("The parameter 'bannerID' must be defined.");
         url_ = url_.replace("{BannerID}", encodeURIComponent("" + bannerID));
@@ -1302,7 +1302,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     toggleBannerActiviation(bannerID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Banner/ToggleBannerActiviation/{BannerID}";
+        let url_ = this.baseUrl + "/Banner/ToggleBannerActiviation/{BannerID}";
         if (bannerID === undefined || bannerID === null)
             throw new globalThis.Error("The parameter 'bannerID' must be defined.");
         url_ = url_.replace("{BannerID}", encodeURIComponent("" + bannerID));
@@ -1356,7 +1356,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getAllBanners( cancelToken?: CancelToken): Promise<BannerSlideResponseIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/Banner/GetAllBanners";
+        let url_ = this.baseUrl + "/Banner/GetAllBanners";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -1407,7 +1407,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getBannnerByID(bannerID: string, cancelToken?: CancelToken): Promise<BannerSlideResponseResult> {
-        let url_ = this.baseUrl + "/api/Banner/GetBannnerByID/{BannerID}";
+        let url_ = this.baseUrl + "/Banner/GetBannnerByID/{BannerID}";
         if (bannerID === undefined || bannerID === null)
             throw new globalThis.Error("The parameter 'bannerID' must be defined.");
         url_ = url_.replace("{BannerID}", encodeURIComponent("" + bannerID));
@@ -1462,7 +1462,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     addCartItemList(body: AddCartItemListRequest | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/CartItem/AddCartItemList";
+        let url_ = this.baseUrl + "/CartItem/AddCartItemList";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -1518,7 +1518,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     updateCartItem(body: UpdateCartItemRequest | undefined, cancelToken?: CancelToken): Promise<CartItemResponseResult> {
-        let url_ = this.baseUrl + "/api/CartItem/UpdateCartItem";
+        let url_ = this.baseUrl + "/CartItem/UpdateCartItem";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -1573,7 +1573,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     deleteCartItem(cartItemID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/CartItem/DeleteCartItem/{CartItemID}";
+        let url_ = this.baseUrl + "/CartItem/DeleteCartItem/{CartItemID}";
         if (cartItemID === undefined || cartItemID === null)
             throw new globalThis.Error("The parameter 'cartItemID' must be defined.");
         url_ = url_.replace("{CartItemID}", encodeURIComponent("" + cartItemID));
@@ -1627,7 +1627,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getUserCartItemsDetails( cancelToken?: CancelToken): Promise<CartDetailsResponseResult> {
-        let url_ = this.baseUrl + "/api/Cart/GetUserCartItemsDetails";
+        let url_ = this.baseUrl + "/Cart/GetUserCartItemsDetails";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -1681,7 +1681,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     createNewCategory(categoryName: string | undefined, parentCategoryID: string | null | undefined, categoryImage: FileParameter | undefined, cancelToken?: CancelToken): Promise<CategoryResponseResult> {
-        let url_ = this.baseUrl + "/api/Category/CreateNewCategory";
+        let url_ = this.baseUrl + "/Category/CreateNewCategory";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
@@ -1745,7 +1745,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     deleteCategory(categoryID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Category/DeleteCategory/{CategoryID}";
+        let url_ = this.baseUrl + "/Category/DeleteCategory/{CategoryID}";
         if (categoryID === undefined || categoryID === null)
             throw new globalThis.Error("The parameter 'categoryID' must be defined.");
         url_ = url_.replace("{CategoryID}", encodeURIComponent("" + categoryID));
@@ -1803,7 +1803,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     updateCategory(categoryID: string | undefined, categoryName: string | undefined, parentCategoryID: string | null | undefined, categoryImage: FileParameter | null | undefined, cancelToken?: CancelToken): Promise<CategoryResponseResult> {
-        let url_ = this.baseUrl + "/api/Category/UpdateCategory";
+        let url_ = this.baseUrl + "/Category/UpdateCategory";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
@@ -1869,7 +1869,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getCategoriesWithSubCat( cancelToken?: CancelToken): Promise<SubCategoryResponseIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/CategoryDetails/GetCategoriesWithSubCat";
+        let url_ = this.baseUrl + "/CategoryDetails/GetCategoriesWithSubCat";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -1920,7 +1920,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     categoryDetails(categoryID: string, cancelToken?: CancelToken): Promise<CategoryResponseResult> {
-        let url_ = this.baseUrl + "/api/CategoryDetails/{CategoryID}";
+        let url_ = this.baseUrl + "/CategoryDetails/{CategoryID}";
         if (categoryID === undefined || categoryID === null)
             throw new globalThis.Error("The parameter 'categoryID' must be defined.");
         url_ = url_.replace("{CategoryID}", encodeURIComponent("" + categoryID));
@@ -1975,7 +1975,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     putCity(body: CityUpdateRequest | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Cities/PutCity";
+        let url_ = this.baseUrl + "/Cities/PutCity";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -2031,7 +2031,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     postCity(body: CityRequest | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Cities/PostCity";
+        let url_ = this.baseUrl + "/Cities/PostCity";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -2086,7 +2086,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     deleteCity(id: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Cities/DeleteCity/{id}";
+        let url_ = this.baseUrl + "/Cities/DeleteCity/{id}";
         if (id === undefined || id === null)
             throw new globalThis.Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
@@ -2140,7 +2140,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getAllCities( cancelToken?: CancelToken): Promise<CityResponseIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/Cities/GetAllCities";
+        let url_ = this.baseUrl + "/Cities/GetAllCities";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -2191,7 +2191,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     cities(cityID: string, cancelToken?: CancelToken): Promise<CityResponseResult> {
-        let url_ = this.baseUrl + "/api/Cities/{CityID}";
+        let url_ = this.baseUrl + "/Cities/{CityID}";
         if (cityID === undefined || cityID === null)
             throw new globalThis.Error("The parameter 'cityID' must be defined.");
         url_ = url_.replace("{CityID}", encodeURIComponent("" + cityID));
@@ -2246,7 +2246,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     craeteColor(body: ColorRequest | undefined, cancelToken?: CancelToken): Promise<ColorResponseResult> {
-        let url_ = this.baseUrl + "/api/Color/CraeteColor";
+        let url_ = this.baseUrl + "/Color/CraeteColor";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -2301,7 +2301,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     deleteColor(colorID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Color/DeleteColor/{ColorID}";
+        let url_ = this.baseUrl + "/Color/DeleteColor/{ColorID}";
         if (colorID === undefined || colorID === null)
             throw new globalThis.Error("The parameter 'colorID' must be defined.");
         url_ = url_.replace("{ColorID}", encodeURIComponent("" + colorID));
@@ -2355,7 +2355,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getAllColors( cancelToken?: CancelToken): Promise<ColorResponseIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/Color/GetAllColors";
+        let url_ = this.baseUrl + "/Color/GetAllColors";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -2407,7 +2407,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     orderCouponPOST(body: CreateCouponRequest | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/OrderCoupon";
+        let url_ = this.baseUrl + "/OrderCoupon";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -2462,7 +2462,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     orderCouponGET( cancelToken?: CancelToken): Promise<OrderCouponResponseIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/OrderCoupon";
+        let url_ = this.baseUrl + "/OrderCoupon";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -2514,7 +2514,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     updateCoupon(body: UpdateCouponRequest | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/OrderCoupon/UpdateCoupon";
+        let url_ = this.baseUrl + "/OrderCoupon/UpdateCoupon";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -2569,7 +2569,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     deleteCoupon(couponID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/OrderCoupon/DeleteCoupon/{CouponID}";
+        let url_ = this.baseUrl + "/OrderCoupon/DeleteCoupon/{CouponID}";
         if (couponID === undefined || couponID === null)
             throw new globalThis.Error("The parameter 'couponID' must be defined.");
         url_ = url_.replace("{CouponID}", encodeURIComponent("" + couponID));
@@ -2623,7 +2623,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     updateCouponActivation(couponID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/OrderCoupon/UpdateCouponActivation/{CouponID}";
+        let url_ = this.baseUrl + "/OrderCoupon/UpdateCouponActivation/{CouponID}";
         if (couponID === undefined || couponID === null)
             throw new globalThis.Error("The parameter 'couponID' must be defined.");
         url_ = url_.replace("{CouponID}", encodeURIComponent("" + couponID));
@@ -2677,7 +2677,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     orderCouponGET2(couponID: string, cancelToken?: CancelToken): Promise<OrderCouponResponseResult> {
-        let url_ = this.baseUrl + "/api/OrderCoupon/{CouponID}";
+        let url_ = this.baseUrl + "/OrderCoupon/{CouponID}";
         if (couponID === undefined || couponID === null)
             throw new globalThis.Error("The parameter 'couponID' must be defined.");
         url_ = url_.replace("{CouponID}", encodeURIComponent("" + couponID));
@@ -2732,7 +2732,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getCouponByCode(couponCode: string | undefined, cancelToken?: CancelToken): Promise<OrderCouponResponseResult> {
-        let url_ = this.baseUrl + "/api/OrderCoupon/GetCouponByCode?";
+        let url_ = this.baseUrl + "/OrderCoupon/GetCouponByCode?";
         if (couponCode === null)
             throw new globalThis.Error("The parameter 'couponCode' cannot be null.");
         else if (couponCode !== undefined)
@@ -2788,7 +2788,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     orders(body: CreateOrderRequest | undefined, cancelToken?: CancelToken): Promise<OrderResponseResult> {
-        let url_ = this.baseUrl + "/api/Orders";
+        let url_ = this.baseUrl + "/Orders";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -2844,7 +2844,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     updateOrderStatus(body: UpdateOrderStatusRequest | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Orders/UpdateOrderStatus";
+        let url_ = this.baseUrl + "/Orders/UpdateOrderStatus";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -2900,7 +2900,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     updateOrder(body: UpdateOrderRequest | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Orders/UpdateOrder";
+        let url_ = this.baseUrl + "/Orders/UpdateOrder";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -2955,7 +2955,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getAllOrders( cancelToken?: CancelToken): Promise<OrderDetailsIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/Orders/GetAllOrders";
+        let url_ = this.baseUrl + "/Orders/GetAllOrders";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -3006,7 +3006,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getOrder(orderID: string, cancelToken?: CancelToken): Promise<OrderDetailsResult> {
-        let url_ = this.baseUrl + "/api/Orders/GetOrder/{OrderID}";
+        let url_ = this.baseUrl + "/Orders/GetOrder/{OrderID}";
         if (orderID === undefined || orderID === null)
             throw new globalThis.Error("The parameter 'orderID' must be defined.");
         url_ = url_.replace("{OrderID}", encodeURIComponent("" + orderID));
@@ -3060,7 +3060,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getAllUserOrders(userID: string, cancelToken?: CancelToken): Promise<OrderDetailsIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/Orders/GetAllUserOrders/{UserID}";
+        let url_ = this.baseUrl + "/Orders/GetAllUserOrders/{UserID}";
         if (userID === undefined || userID === null)
             throw new globalThis.Error("The parameter 'userID' must be defined.");
         url_ = url_.replace("{UserID}", encodeURIComponent("" + userID));
@@ -3115,7 +3115,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     addNewPayment(body: PaymentRequest | undefined, cancelToken?: CancelToken): Promise<PaymentResponseResult> {
-        let url_ = this.baseUrl + "/api/Payments/AddNewPayment";
+        let url_ = this.baseUrl + "/Payments/AddNewPayment";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -3180,7 +3180,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     productPOST(productName: string | undefined, categoryID: string | undefined, price: number | undefined, salePrice: number | undefined, sizeID: string | undefined, colorID: string | null | undefined, colorHexCode: string | null | undefined, stock: number | undefined, active: boolean | undefined, productImage: FileParameter | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Product";
+        let url_ = this.baseUrl + "/Product";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
@@ -3281,7 +3281,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     productPUT(productID: string | undefined, productName: string | undefined, categoryID: string | undefined, price: number | undefined, sizeID: string | undefined, colorID: string | null | undefined, colorHexCode: string | null | undefined, salePrice: number | undefined, stock: number | undefined, active: boolean | undefined, productImage: FileParameter | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Product?";
+        let url_ = this.baseUrl + "/Product?";
         if (productID === null)
             throw new globalThis.Error("The parameter 'productID' cannot be null.");
         else if (productID !== undefined)
@@ -3377,7 +3377,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     updateProductRating(productID: string | undefined, rating: number | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Product/UpdateProductRating?";
+        let url_ = this.baseUrl + "/Product/UpdateProductRating?";
         if (productID === null)
             throw new globalThis.Error("The parameter 'productID' cannot be null.");
         else if (productID !== undefined)
@@ -3436,7 +3436,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     productDELETE(productID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Product/{ProductID}";
+        let url_ = this.baseUrl + "/Product/{ProductID}";
         if (productID === undefined || productID === null)
             throw new globalThis.Error("The parameter 'productID' must be defined.");
         url_ = url_.replace("{ProductID}", encodeURIComponent("" + productID));
@@ -3490,7 +3490,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     productDetailsVW( cancelToken?: CancelToken): Promise<ProductDetails_vwIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/ProductDetailsVW";
+        let url_ = this.baseUrl + "/ProductDetailsVW";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -3541,7 +3541,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     productDetailsVW2(productID: string, cancelToken?: CancelToken): Promise<ProductDetails_vwResult> {
-        let url_ = this.baseUrl + "/api/ProductDetailsVW/{ProductID}";
+        let url_ = this.baseUrl + "/ProductDetailsVW/{ProductID}";
         if (productID === undefined || productID === null)
             throw new globalThis.Error("The parameter 'productID' must be defined.");
         url_ = url_.replace("{ProductID}", encodeURIComponent("" + productID));
@@ -3601,7 +3601,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     filterProducts(category: string | undefined, subCategory: string | undefined, price: number | undefined, size: string | undefined, color: string | undefined, sort: string | undefined, cancelToken?: CancelToken): Promise<ProductDetails_vwIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/ProductDetailsVW/FilterProducts?";
+        let url_ = this.baseUrl + "/ProductDetailsVW/FilterProducts?";
         if (category === null)
             throw new globalThis.Error("The parameter 'category' cannot be null.");
         else if (category !== undefined)
@@ -3677,7 +3677,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     productRatesPOST(body: ProductRateRequest[] | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/ProductRates";
+        let url_ = this.baseUrl + "/ProductRates";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -3732,7 +3732,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     productRatesGET( cancelToken?: CancelToken): Promise<ProductRateResponseIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/ProductRates";
+        let url_ = this.baseUrl + "/ProductRates";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -3783,7 +3783,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     productRatesPUT(rateID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/ProductRates/{RateID}";
+        let url_ = this.baseUrl + "/ProductRates/{RateID}";
         if (rateID === undefined || rateID === null)
             throw new globalThis.Error("The parameter 'rateID' must be defined.");
         url_ = url_.replace("{RateID}", encodeURIComponent("" + rateID));
@@ -3837,7 +3837,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     productRatesGET2(productID: string, cancelToken?: CancelToken): Promise<ProductRateResponseIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/ProductRates/{ProductID}";
+        let url_ = this.baseUrl + "/ProductRates/{ProductID}";
         if (productID === undefined || productID === null)
             throw new globalThis.Error("The parameter 'productID' must be defined.");
         url_ = url_.replace("{ProductID}", encodeURIComponent("" + productID));
@@ -3891,7 +3891,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getUserRating(userID: string, cancelToken?: CancelToken): Promise<ProductRateResponseIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/ProductRates/GetUserRating/{UserID}";
+        let url_ = this.baseUrl + "/ProductRates/GetUserRating/{UserID}";
         if (userID === undefined || userID === null)
             throw new globalThis.Error("The parameter 'userID' must be defined.");
         url_ = url_.replace("{UserID}", encodeURIComponent("" + userID));
@@ -3946,7 +3946,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     shippingCostsPOST(body: CreateShippingCostRequest | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/ShippingCosts";
+        let url_ = this.baseUrl + "/ShippingCosts";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -4002,7 +4002,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     updateShippingCost(body: UpdateShippingCostRequest | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/ShippingCosts/UpdateShippingCost";
+        let url_ = this.baseUrl + "/ShippingCosts/UpdateShippingCost";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -4057,7 +4057,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     shippingCostsPUT(shippingCostID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/ShippingCosts/{ShippingCostID}";
+        let url_ = this.baseUrl + "/ShippingCosts/{ShippingCostID}";
         if (shippingCostID === undefined || shippingCostID === null)
             throw new globalThis.Error("The parameter 'shippingCostID' must be defined.");
         url_ = url_.replace("{ShippingCostID}", encodeURIComponent("" + shippingCostID));
@@ -4111,7 +4111,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getShippingCostsDetails( cancelToken?: CancelToken): Promise<ShippingCostDetailsIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/ShippingCosts/GetShippingCostsDetails";
+        let url_ = this.baseUrl + "/ShippingCosts/GetShippingCostsDetails";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -4162,7 +4162,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getShippingCostDetailsByAreaID(areaID: string, cancelToken?: CancelToken): Promise<ShippingCostDetailsResult> {
-        let url_ = this.baseUrl + "/api/ShippingCosts/GetShippingCostDetailsByAreaID/{AreaID}";
+        let url_ = this.baseUrl + "/ShippingCosts/GetShippingCostDetailsByAreaID/{AreaID}";
         if (areaID === undefined || areaID === null)
             throw new globalThis.Error("The parameter 'areaID' must be defined.");
         url_ = url_.replace("{AreaID}", encodeURIComponent("" + areaID));
@@ -4217,7 +4217,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     craeteSize(body: SizeRequest | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Size/CraeteSize";
+        let url_ = this.baseUrl + "/Size/CraeteSize";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -4272,7 +4272,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     deleteSize(sizeID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Size/DeleteSize/{SizeID}";
+        let url_ = this.baseUrl + "/Size/DeleteSize/{SizeID}";
         if (sizeID === undefined || sizeID === null)
             throw new globalThis.Error("The parameter 'sizeID' must be defined.");
         url_ = url_.replace("{SizeID}", encodeURIComponent("" + sizeID));
@@ -4326,7 +4326,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getAllSizes( cancelToken?: CancelToken): Promise<SizeResponseIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/Size/GetAllSizes";
+        let url_ = this.baseUrl + "/Size/GetAllSizes";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -4377,7 +4377,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     user( cancelToken?: CancelToken): Promise<AuthUserDetailsDTOIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/User";
+        let url_ = this.baseUrl + "/User";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -4429,7 +4429,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getUserDetailsByEmail(email: string | undefined, cancelToken?: CancelToken): Promise<AuthUserDetailsDTOResult> {
-        let url_ = this.baseUrl + "/api/User/GetUserDetailsByEmail?";
+        let url_ = this.baseUrl + "/User/GetUserDetailsByEmail?";
         if (email === null)
             throw new globalThis.Error("The parameter 'email' cannot be null.");
         else if (email !== undefined)
@@ -4484,7 +4484,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getUserDetailsByID(userID: string, cancelToken?: CancelToken): Promise<AuthUserDetailsDTOResult> {
-        let url_ = this.baseUrl + "/api/User/GetUserDetailsByID/{UserID}";
+        let url_ = this.baseUrl + "/User/GetUserDetailsByID/{UserID}";
         if (userID === undefined || userID === null)
             throw new globalThis.Error("The parameter 'userID' must be defined.");
         url_ = url_.replace("{UserID}", encodeURIComponent("" + userID));
@@ -4539,7 +4539,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     createWishList(body: CreateWishListRequest | undefined, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/WishList/CreateWishList";
+        let url_ = this.baseUrl + "/WishList/CreateWishList";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -4595,7 +4595,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     updateWishList(body: UpdateWishListRequest | undefined, cancelToken?: CancelToken): Promise<WishListResponseResult> {
-        let url_ = this.baseUrl + "/api/WishList/UpdateWishList";
+        let url_ = this.baseUrl + "/WishList/UpdateWishList";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -4650,7 +4650,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     deleteWishList(wishListID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/WishList/DeleteWishList/{WishListID}";
+        let url_ = this.baseUrl + "/WishList/DeleteWishList/{WishListID}";
         if (wishListID === undefined || wishListID === null)
             throw new globalThis.Error("The parameter 'wishListID' must be defined.");
         url_ = url_.replace("{WishListID}", encodeURIComponent("" + wishListID));
@@ -4704,7 +4704,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     clearUserWishList(userID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/WishList/ClearUserWishList/{UserID}";
+        let url_ = this.baseUrl + "/WishList/ClearUserWishList/{UserID}";
         if (userID === undefined || userID === null)
             throw new globalThis.Error("The parameter 'userID' must be defined.");
         url_ = url_.replace("{UserID}", encodeURIComponent("" + userID));
@@ -4758,7 +4758,7 @@ export class InternoMicroserviceClient {
      * @return OK
      */
     getAllUserWishList(userID: string, cancelToken?: CancelToken): Promise<WishListDetailsResponseIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/WishList/GetAllUserWishList/{UserID}";
+        let url_ = this.baseUrl + "/WishList/GetAllUserWishList/{UserID}";
         if (userID === undefined || userID === null)
             throw new globalThis.Error("The parameter 'userID' must be defined.");
         url_ = url_.replace("{UserID}", encodeURIComponent("" + userID));

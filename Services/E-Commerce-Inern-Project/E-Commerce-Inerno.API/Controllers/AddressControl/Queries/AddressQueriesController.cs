@@ -1,5 +1,5 @@
-using E_Commerce_Inern_Project.Core.Features.Addresses.Query.GetUserAddressByIDQuery;
-using E_Commerce_Inern_Project.Core.Features.Addresses.Query.GetUserAddressQuery;
+using E_Commerce_Inerno.Core.Features.Addresses.Query.GetUserAddressByIDQuery;
+using E_Commerce_Inerno.Core.Features.Addresses.Query.GetUserAddressQuery;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.AddressDTO;
 using MediatR;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace E_Commerce_Inern_Project.API.Controllers.AddressControl.Queries
+namespace E_Commerce_Inerno.API.Controllers.AddressControl.Queries
 {
     [Authorize]
     [Route("api/Address")]

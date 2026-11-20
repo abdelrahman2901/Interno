@@ -1,11 +1,11 @@
-using E_Commerce_Inern_Project.Core.Features.WishLists.Query.GetAllWishListsQ;
+using E_Commerce_Inerno.Core.Features.WishLists.Query.GetAllWishListsQ;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.WishListDTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.WIshListControl.Queries
+namespace E_Commerce_Inerno.API.Controllers.WIshListControl.Queries
 {
     [Route("api/WishList")]
     [ApiController]

@@ -1,15 +1,14 @@
-using E_Commerce_Inern_Project.Core.Features.User.Query.GetAllUsers;
-using E_Commerce_Inern_Project.Core.Features.User.Query.GetUserDetailsByEmail;
-using E_Commerce_Inern_Project.Core.Features.User.Query.GetUserDetailsByID;
+using E_Commerce_Inerno.Core.Features.User.Query.GetAllUsers;
+using E_Commerce_Inerno.Core.Features.User.Query.GetUserDetailsByEmail;
+using E_Commerce_Inerno.Core.Features.User.Query.GetUserDetailsByID;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.UserDTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.UserControl.Queries
+namespace E_Commerce_Inerno.API.Controllers.UserControl.Queries
 {
-    [AllowAnonymous]
     [Route("api/User")]
     [ApiController]
     public class UserQueriesController : ControllerBase
@@ -21,10 +20,11 @@ namespace E_Commerce_Inern_Project.API.Controllers.UserControl.Queries
             _mediator = mediator;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
-        public async Task<Result<IEnumerable<AuthUserDetailsDTO>>> GetAllUsers()
+        public async Task<Result<PagedResult<AuthUserDetailsDTO>>> GetAllUsers([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20)
         {
-            return await _mediator.Send(new GetAllUsersQuery());
+            return await _mediator.Send(new GetAllUsersQuery(pageNumber, pageSize));
         }
 
         [HttpGet("GetUserDetailsByEmail")]

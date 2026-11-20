@@ -1,7 +1,7 @@
-﻿
+
 using E_Commerce_Interno.Domain.Entity;
 
-namespace E_Commerce_Inern_Project.Core.RepositoryContracts.ISizeRepo
+namespace E_Commerce_Inerno.Core.RepositoryContracts.ISizeRepo
 {
     public interface ISizeRepository
     {

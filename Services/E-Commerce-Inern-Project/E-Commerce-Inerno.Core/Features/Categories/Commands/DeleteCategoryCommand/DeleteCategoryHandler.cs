@@ -1,26 +1,25 @@
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICategoryRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Core.Communication;
+using E_Commerce_Inerno.Core.RepositoryContracts.ICategoryRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Categories.Commands.DeleteCategoryCommand
+namespace E_Commerce_Inerno.Core.Features.Categories.Commands.DeleteCategoryCommand
 {
     public class DeleteCategoryHandler : IRequestHandler<DeleteCategoryCmd, Result<bool>>
     {
         private readonly ICategoryRepository _CatRepo;
         private readonly CategoryImageStorage _imageStorage;
-        private readonly IRabbitMQPublisher _Publisher;
+        private readonly IInternoEventPublisher _Publisher;
         private readonly IUserRepository _UserRepo;
         private readonly IDistributedCache _cache;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
 
-        public DeleteCategoryHandler(ICategoryRepository catRepo, IDistributedCache cache, IUserRepository UserRepo, IRabbitMQPublisher Publisher, CategoryImageStorage imageStorage)
+        public DeleteCategoryHandler(ICategoryRepository catRepo, IDistributedCache cache, IUserRepository UserRepo, IInternoEventPublisher Publisher, CategoryImageStorage imageStorage)
         {
             _CatRepo = catRepo;
             _imageStorage = imageStorage;
@@ -62,7 +61,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Categories.Commands.DeleteCateg
 
             string JsonNewValues = JsonSerializer.Serialize<Category>(Cat);
             AuditRequest AuditRequest = new(await _UserRepo.GetAdminID(), ActionTypeEnum.Delete, nameof(Category), JsonOldValues, JsonNewValues);
-            await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+            await _Publisher.PublishAuditAsync(AuditRequest);
 
             string CatKey = $"Category:{Cat.CategoryID}";
             await _cache.RemoveAsync(CatKey);

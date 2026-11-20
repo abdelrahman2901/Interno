@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace E_Commerce_Inern_Project.Core.Features.ShippingCost.Command.CreateShippingCostCmd
+namespace E_Commerce_Inerno.Core.Features.ShippingCost.Command.CreateShippingCostCmd
 {
     public class CreateShippingCostRequestValidation : AbstractValidator<CreateShippingCostRequest>
     {

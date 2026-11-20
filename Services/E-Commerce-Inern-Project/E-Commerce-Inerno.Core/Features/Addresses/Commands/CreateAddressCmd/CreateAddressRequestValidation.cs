@@ -1,6 +1,6 @@
-﻿using FluentValidation;
+using FluentValidation;
 
-namespace E_Commerce_Inern_Project.Core.Features.Addresses.Commands.CreateAddressCmd
+namespace E_Commerce_Inerno.Core.Features.Addresses.Commands.CreateAddressCmd
 {
     public class CreateAddressRequestValidation:AbstractValidator<CreateAddressRequest>
     {

@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IOrdersRepo;
+using AutoMapper;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IOrdersRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.OrderDTO;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 
-namespace E_Commerce_Inern_Project.Core.Features.Orders.Query.GetAllUserOrdersQ
+namespace E_Commerce_Inerno.Core.Features.Orders.Query.GetAllUserOrdersQ
 {
     public class GetAllUserOrdersHandler : IRequestHandler<GetAllUserOrdersQuery, Result<IEnumerable<OrderDetails>>>
     {

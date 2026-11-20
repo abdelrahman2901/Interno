@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace E_Commerce_Inern_Project.Infrastructure.Migrations
+namespace E_Commerce_Inerno.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class NullableColorname : Migration

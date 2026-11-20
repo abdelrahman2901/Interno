@@ -1,10 +1,10 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IProductRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IProductRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.ViewEntites;
 using MediatR;
 
-namespace E_Commerce_Inern_Project.Core.Features.Products.Query.GetProductDetailsByIDQ
+namespace E_Commerce_Inerno.Core.Features.Products.Query.GetProductDetailsByIDQ
 {
     public class GetProductDetailsByIDHandler : IRequestHandler<GetProductDetailsByIDQuery, Result<ProductDetails_vw>>
     {

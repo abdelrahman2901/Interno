@@ -1,5 +1,5 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICityRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.ICityRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.CityDTO;
 using E_Commerce_Interno.Domain.Entity;
@@ -7,7 +7,7 @@ using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 
-namespace E_Commerce_Inern_Project.Core.Features.Cities.Query.GetAllCitiesQ
+namespace E_Commerce_Inerno.Core.Features.Cities.Query.GetAllCitiesQ
 {
     public class GetCitiesHandler : IRequestHandler<GetCitiesQuery, Result<IEnumerable<CityResponse>>>
     {

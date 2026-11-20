@@ -2,7 +2,7 @@
 using MediatR;
 using E_Commerce_Interno.Domain.Common;
 
-namespace E_Commerce_Inern_Project.Core.Features.Auth.Commands.RegisterUser
+namespace E_Commerce_Inerno.Core.Features.Auth.Commands.RegisterUser
 {
     public class RegisterUserCommand : IRequest<Result<AuthTokenResponse>>
     {

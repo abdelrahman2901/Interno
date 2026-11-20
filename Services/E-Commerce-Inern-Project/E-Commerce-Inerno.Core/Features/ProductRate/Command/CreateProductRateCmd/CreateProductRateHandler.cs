@@ -1,16 +1,17 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ITransectionRepo;
-using E_Commerce_Inern_Project.Core.Features.Products.Commands.UpdateProductRatingCommand;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IProductRatesRepo;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.ITransectionRepo;
+using E_Commerce_Inerno.Core.Features.Products.Commands.UpdateProductRatingCommand;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.IProductRatesRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.ProductRate.Command.CreateProductRateCmd
+namespace E_Commerce_Inerno.Core.Features.ProductRate.Command.CreateProductRateCmd
 {
     public class CreateProductRateHandler : IRequestHandler<CreateProductRateRequest, Result<bool>>
     {
@@ -18,10 +19,10 @@ namespace E_Commerce_Inern_Project.Core.Features.ProductRate.Command.CreateProdu
         private readonly ITransectionRepository _transection;
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        private readonly IRabbitMQPublisher _Publisher;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        private readonly IInternoEventPublisher _Publisher;
+        
 
-        public CreateProductRateHandler(IProductRatesRepository productRatesRepo, IRabbitMQPublisher Publisher, ITransectionRepository transection, IMediator mediator, IMapper mapper)
+        public CreateProductRateHandler(IProductRatesRepository productRatesRepo, IInternoEventPublisher Publisher, ITransectionRepository transection, IMediator mediator, IMapper mapper)
         {
             _ProductRatesRepo = productRatesRepo;
             _mapper = mapper;
@@ -71,7 +72,7 @@ namespace E_Commerce_Inern_Project.Core.Features.ProductRate.Command.CreateProdu
                 }
                 string JsonNewValues = JsonSerializer.Serialize<IEnumerable<ProductRates>>(NewRatesEntities);
                 AuditRequest AuditRequest = new(NewRates.FirstOrDefault().UserID, ActionTypeEnum.Create, nameof(ProductRates), null, JsonNewValues);
-                await _Publisher.Publish<AuditRequest>(_AuditRoutingKey, AuditRequest);
+                await _Publisher.PublishAuditAsync(AuditRequest);
 
                 await transection.CommitAsync();
                 return Result<bool>.Success(result);

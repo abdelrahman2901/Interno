@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ISizeRepo;
+using AutoMapper;
+using E_Commerce_Inerno.Core.RepositoryContracts.ISizeRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.SizeDTO;
 using E_Commerce_Interno.Domain.Entity;
@@ -7,7 +7,7 @@ using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 
-namespace E_Commerce_Inern_Project.Core.Features.SIze.Commands.CreateSizeCommand
+namespace E_Commerce_Inerno.Core.Features.SIze.Commands.CreateSizeCommand
 {
     public class CreateSizeHandler : IRequestHandler<SizeRequest, Result<bool>>
     {

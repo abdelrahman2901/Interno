@@ -1,25 +1,26 @@
-﻿using AutoMapper;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICartItemRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICartRepo;
+using AutoMapper;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.ICartItemRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.ICartRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.CartItem.Commands.AddCartItemListCmd
+namespace E_Commerce_Inerno.Core.Features.CartItem.Commands.AddCartItemListCmd
 {
     public class AddCartItemListHandler : IRequestHandler<AddCartItemListRequest, Result<bool>>
     {
         private readonly ICartItemRepository _cartItemRepository;
         private readonly ICartRepository _cartRepository;
         private readonly IMapper _mapper;
-        private readonly IRabbitMQPublisher _Publisher;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        private readonly IInternoEventPublisher _Publisher;
+        
 
-        public AddCartItemListHandler(ICartItemRepository cartItemRepository, IRabbitMQPublisher Publisher, ICartRepository cartRepository, IMapper mapper)
+        public AddCartItemListHandler(ICartItemRepository cartItemRepository, IInternoEventPublisher Publisher, ICartRepository cartRepository, IMapper mapper)
         {
             _cartItemRepository = cartItemRepository;
             _cartRepository = cartRepository;
@@ -54,7 +55,7 @@ namespace E_Commerce_Inern_Project.Core.Features.CartItem.Commands.AddCartItemLi
             string JsonNewValues = JsonSerializer.Serialize<List<CartItems>>(items);
 
             AuditRequest AuditRequest = new(request.UserID, ActionTypeEnum.Create, nameof(CartItems), null, JsonNewValues);
-            await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+            await _Publisher.PublishAuditAsync(AuditRequest);
 
             return Result<bool>.Success(_mapper.Map<bool>(result));
         }

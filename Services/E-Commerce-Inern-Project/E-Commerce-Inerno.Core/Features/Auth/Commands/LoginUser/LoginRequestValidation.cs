@@ -1,6 +1,7 @@
+using E_Commerce_Inerno.Core.Features.Auth.Commands.LoginUser;
 using FluentValidation;
 
-namespace E_Commerce_Inern_Project.Core.Features.Auth.Commands.LoginUser
+namespace E_Commerce_Inerno.Core.Features.Auth.Commands.LoginUser
 {
     public class LoginRequestValidation : AbstractValidator<LoginUserCommand>
     {

@@ -1,11 +1,11 @@
-﻿using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IUserRolesRepo;
-using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IUserRolesRepo;
+using E_Commerce_Inerno.Infrastructure.ApplicationDbContext;
 using E_Commerce_Interno.Domain.Entity;
 using E_Commerce_Interno.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace E_Commerce_Inern_Project.Infrastructure.Repository.UserRolesRepo
+namespace E_Commerce_Inerno.Infrastructure.Repository.UserRolesRepo
 {
     public class UserRolesRepository : IUserRolesRepository
     {

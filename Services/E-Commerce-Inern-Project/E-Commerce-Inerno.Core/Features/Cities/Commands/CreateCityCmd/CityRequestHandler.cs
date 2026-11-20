@@ -1,17 +1,17 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICityRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Core.Communication;
+using E_Commerce_Inerno.Core.RepositoryContracts.ICityRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.CityDTO;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Cities.Commands.CreateCityCmd
+namespace E_Commerce_Inerno.Core.Features.Cities.Commands.CreateCityCmd
 {
     public class CityRequestHandler : IRequestHandler<CityRequest, Result<bool>>
     {
@@ -19,10 +19,9 @@ namespace E_Commerce_Inern_Project.Core.Features.Cities.Commands.CreateCityCmd
         private readonly IMapper _mapper;
         private readonly IUserRepository _UserRepo;
         private readonly IDistributedCache _cache;
-        private readonly IRabbitMQPublisher _Publisher;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        private readonly IInternoEventPublisher _Publisher;
 
-        public CityRequestHandler(ICityRepository cityRepository, IDistributedCache cache, IUserRepository UserRepo, IRabbitMQPublisher Publisher, IMapper mapper)
+        public CityRequestHandler(ICityRepository cityRepository, IDistributedCache cache, IUserRepository UserRepo, IInternoEventPublisher Publisher, IMapper mapper)
         {
             _cityRepository = cityRepository;
             _UserRepo = UserRepo;
@@ -50,7 +49,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Cities.Commands.CreateCityCmd
 
             string JsonNewValues = JsonSerializer.Serialize<City>(city);
             AuditRequest AuditRequest = new(await GetAdminID(), ActionTypeEnum.Create, nameof(City), null, JsonNewValues);
-            await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+            await _Publisher.PublishAuditAsync(AuditRequest);
 
             string CityKey = $"City:{city.CityID}";
             string CityJson = JsonSerializer.Serialize<CityResponse>(_mapper.Map<CityResponse>(city));

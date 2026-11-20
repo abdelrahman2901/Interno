@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microservice_Notifications.Application.Features.Notification.Command.CreateNotifcationCmd;
 using Microservice_Notifications.Application.Features.Notification.Command.MarkNotificationAsReadCmd;
 using Microservice_Notifications.Application.Features.Notification.Command.MarkNotificationAsReadListCmd;
 using Microservice_Notifications.Application.Features.Notification.Query.GetAllNotificationsQ;
@@ -25,6 +26,12 @@ namespace Microservice_Notification.API.NotificationController
         public async Task<Result<IEnumerable<NotificationResponse>>> GetAllNotifications()
         {
             return await _Mediator.Send(new GetAllNotificationsQuery());
+        }
+
+        [HttpPost("[action]")]
+        public async Task<Result<bool>> CreateNotification(CreateNotificationRequest request)
+        {
+            return await _Mediator.Send(request);
         }
         
         [HttpGet("[action]")]

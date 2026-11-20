@@ -2,7 +2,7 @@ using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.CityDTO;
 using MediatR;
 
-namespace E_Commerce_Inern_Project.Core.Features.Cities.Query.GetAllCitiesQ
+namespace E_Commerce_Inerno.Core.Features.Cities.Query.GetAllCitiesQ
 {
     public record GetCitiesQuery() : IRequest<Result<IEnumerable<CityResponse>>>;
 }

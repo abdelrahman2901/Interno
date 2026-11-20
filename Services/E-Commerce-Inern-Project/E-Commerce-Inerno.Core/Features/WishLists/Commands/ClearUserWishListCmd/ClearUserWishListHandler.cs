@@ -1,9 +1,9 @@
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IWishListRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IWishListRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 
-namespace E_Commerce_Inern_Project.Core.Features.WishLists.Commands.ClearUserWishListCmd
+namespace E_Commerce_Inerno.Core.Features.WishLists.Commands.ClearUserWishListCmd
 {
     public class ClearUserWishListHandler : IRequestHandler<ClearUserWIshListRequest, Result<bool>>
     {

@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IAddressRepo;
+using AutoMapper;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IAddressRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.AddressDTO;
 using MediatR;
 
 
-namespace E_Commerce_Inern_Project.Core.Features.Addresses.Query.GetUserAddressByIDQuery
+namespace E_Commerce_Inerno.Core.Features.Addresses.Query.GetUserAddressByIDQuery
 {
     public class GetUserAddressByIDHandler : IRequestHandler<GetUserAddressByIDQ, Result<AddressResponse>>
     {

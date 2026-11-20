@@ -1,25 +1,26 @@
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICityRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.ICityRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Cities.Commands.DeleteCityCmd
+namespace E_Commerce_Inerno.Core.Features.Cities.Commands.DeleteCityCmd
 {
     public class DeleteCityHandler : IRequestHandler<DeleteCityRequest, Result<bool>>
     {
         private readonly ICityRepository _cityRepository;
         private readonly IUserRepository _UserRepo;
         private readonly IDistributedCache _cache;
-        private readonly IRabbitMQPublisher _Publisher;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        private readonly IInternoEventPublisher _Publisher;
+        
 
-        public DeleteCityHandler(ICityRepository cityRepository, IDistributedCache cache, IUserRepository UserRepo, IRabbitMQPublisher Publisher)
+        public DeleteCityHandler(ICityRepository cityRepository, IDistributedCache cache, IUserRepository UserRepo, IInternoEventPublisher Publisher)
         {
             _cityRepository = cityRepository;
             _UserRepo = UserRepo;
@@ -43,7 +44,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Cities.Commands.DeleteCityCmd
 
             string JsonNewValues = JsonSerializer.Serialize<City>(city);
             AuditRequest AuditRequest = new(await GetAdminID(), ActionTypeEnum.Delete, nameof(City), JsonOldValues, JsonNewValues);
-            await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+            await _Publisher.PublishAuditAsync(AuditRequest);
 
             string CityKey = $"City:{city.CityID}";
             await _cache.RemoveAsync(CityKey);

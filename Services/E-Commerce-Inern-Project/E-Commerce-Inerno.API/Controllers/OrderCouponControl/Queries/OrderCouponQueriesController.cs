@@ -1,12 +1,12 @@
-using E_Commerce_Inern_Project.Core.Features.OrderCoupon.Query.GetAllCouponsQ;
-using E_Commerce_Inern_Project.Core.Features.OrderCoupon.Query.GetCouponByCodeQ;
-using E_Commerce_Inern_Project.Core.Features.OrderCoupon.Query.GetCouponByIDQ;
+using E_Commerce_Inerno.Core.Features.OrderCoupon.Query.GetAllCouponsQ;
+using E_Commerce_Inerno.Core.Features.OrderCoupon.Query.GetCouponByCodeQ;
+using E_Commerce_Inerno.Core.Features.OrderCoupon.Query.GetCouponByIDQ;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.OrderCouponDTO;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.OrderCouponControl.Queries
+namespace E_Commerce_Inerno.API.Controllers.OrderCouponControl.Queries
 {
     [Route("api/OrderCoupon")]
     [ApiController]

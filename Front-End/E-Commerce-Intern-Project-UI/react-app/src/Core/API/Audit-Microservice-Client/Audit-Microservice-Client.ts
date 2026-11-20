@@ -19,7 +19,7 @@ export class AuditMicroserviceClient {
 
         this.instance = instance || axios.create();
 
-        this.baseUrl = baseUrl ?? "http://localhost:5001";
+        this.baseUrl = baseUrl ?? "http://localhost:5003/gateway";
 
     }
 
@@ -27,7 +27,7 @@ export class AuditMicroserviceClient {
      * @return OK
      */
     getAllAudit( cancelToken?: CancelToken): Promise<AuditResponseIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/Audit/GetAllAudit";
+        let url_ = this.baseUrl + "/Audit/GetAllAudit";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {

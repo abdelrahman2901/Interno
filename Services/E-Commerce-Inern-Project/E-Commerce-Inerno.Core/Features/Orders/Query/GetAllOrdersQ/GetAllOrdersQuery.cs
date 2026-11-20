@@ -2,9 +2,7 @@
 using E_Commerce_Interno.Domain.DTO.OrderDTO;
 using MediatR;
 
-
-namespace E_Commerce_Inern_Project.Core.Features.Orders.Query.GetAllOrdersQ
+namespace E_Commerce_Inerno.Core.Features.Orders.Query.GetAllOrdersQ
 {
-    public record GetAllOrdersQuery() : IRequest<Result<IEnumerable<OrderDetails>>>;
-
+    public record GetAllOrdersQuery(int PageNumber = 1, int PageSize = 20) : IRequest<Result<PagedResult<OrderDetails>>>;
 }

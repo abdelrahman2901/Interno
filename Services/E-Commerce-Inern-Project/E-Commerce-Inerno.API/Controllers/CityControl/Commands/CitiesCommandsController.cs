@@ -1,12 +1,12 @@
-using E_Commerce_Inern_Project.Core.Features.Cities.Commands.CreateCityCmd;
-using E_Commerce_Inern_Project.Core.Features.Cities.Commands.DeleteCityCmd;
-using E_Commerce_Inern_Project.Core.Features.Cities.Commands.UpdateCityCmd;
+using E_Commerce_Inerno.Core.Features.Cities.Commands.CreateCityCmd;
+using E_Commerce_Inerno.Core.Features.Cities.Commands.DeleteCityCmd;
+using E_Commerce_Inerno.Core.Features.Cities.Commands.UpdateCityCmd;
 using E_Commerce_Interno.Domain.Common;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.CityControl.Commands
+namespace E_Commerce_Inerno.API.Controllers.CityControl.Commands
 {
     [AllowAnonymous]
     [Route("api/Cities")]

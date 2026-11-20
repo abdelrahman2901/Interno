@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.Security.Cryptography;
 
-namespace E_Commerce_Inern_Project.Core.Features.BannerSlides
+namespace E_Commerce_Inerno.Core.Features.BannerSlides
 {
     /// <summary>
     /// Shared by the create, update and delete banner handlers, so it stays in one place

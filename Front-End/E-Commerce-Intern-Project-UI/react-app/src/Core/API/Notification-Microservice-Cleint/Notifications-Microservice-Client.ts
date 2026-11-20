@@ -19,7 +19,7 @@ export class NotificationsMicroserviceClient {
 
         this.instance = instance || axios.create();
 
-        this.baseUrl = baseUrl ?? "http://localhost:5002";
+        this.baseUrl = baseUrl ?? "http://localhost:5003/gateway";
 
     }
 
@@ -27,7 +27,7 @@ export class NotificationsMicroserviceClient {
      * @return OK
      */
     getAllNotifications( cancelToken?: CancelToken): Promise<NotificationResponseIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/Notifications/GetAllNotifications";
+        let url_ = this.baseUrl + "/Notifications/GetAllNotifications";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -78,7 +78,7 @@ export class NotificationsMicroserviceClient {
      * @return OK
      */
     getUserNotifications( cancelToken?: CancelToken): Promise<NotificationResponseIEnumerableResult> {
-        let url_ = this.baseUrl + "/api/Notifications/GetUserNotifications";
+        let url_ = this.baseUrl + "/Notifications/GetUserNotifications";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {
@@ -129,7 +129,7 @@ export class NotificationsMicroserviceClient {
      * @return OK
      */
     markNotificationAsRead(notificationID: string, cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Notifications/MarkNotificationAsRead/{NotificationID}";
+        let url_ = this.baseUrl + "/Notifications/MarkNotificationAsRead/{NotificationID}";
         if (notificationID === undefined || notificationID === null)
             throw new globalThis.Error("The parameter 'notificationID' must be defined.");
         url_ = url_.replace("{NotificationID}", encodeURIComponent("" + notificationID));
@@ -183,7 +183,7 @@ export class NotificationsMicroserviceClient {
      * @return OK
      */
     markNotificationAsReadList( cancelToken?: CancelToken): Promise<BooleanResult> {
-        let url_ = this.baseUrl + "/api/Notifications/MarkNotificationAsReadList";
+        let url_ = this.baseUrl + "/Notifications/MarkNotificationAsReadList";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_: AxiosRequestConfig = {

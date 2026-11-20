@@ -1,0 +1,1414 @@
+{
+    "Routes":  [
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Address/CreateAddress",
+                       "DownstreamPathTemplate":  "/api/Address/CreateAddress",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Address/DeleteAddress/{AddressID}",
+                       "DownstreamPathTemplate":  "/api/Address/DeleteAddress/{AddressID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Address/UpdateAddress",
+                       "DownstreamPathTemplate":  "/api/Address/UpdateAddress",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Address/GetUserAddress",
+                       "DownstreamPathTemplate":  "/api/Address/GetUserAddress",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Address/GetUserAddressByID/{AddressID}",
+                       "DownstreamPathTemplate":  "/api/Address/GetUserAddressByID/{AddressID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Areas",
+                       "DownstreamPathTemplate":  "/api/Areas",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Areas/GetAreaByID/{AreaID}",
+                       "DownstreamPathTemplate":  "/api/Areas/GetAreaByID/{AreaID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Areas/PutArea",
+                       "DownstreamPathTemplate":  "/api/Areas/PutArea",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Areas/PostArea",
+                       "DownstreamPathTemplate":  "/api/Areas/PostArea",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Areas/DeleteArea/{id}",
+                       "DownstreamPathTemplate":  "/api/Areas/DeleteArea/{id}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Auth/RegisterUser",
+                       "DownstreamPathTemplate":  "/api/Auth/RegisterUser",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Auth/LoginUser",
+                       "DownstreamPathTemplate":  "/api/Auth/LoginUser",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Auth/SignOutUser",
+                       "DownstreamPathTemplate":  "/api/Auth/SignOutUser",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Auth/RefreshToken",
+                       "DownstreamPathTemplate":  "/api/Auth/RefreshToken",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Auth/UpdateUser",
+                       "DownstreamPathTemplate":  "/api/Auth/UpdateUser",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Auth/ChangeUserPassword",
+                       "DownstreamPathTemplate":  "/api/Auth/ChangeUserPassword",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Auth/UserResetPassword",
+                       "DownstreamPathTemplate":  "/api/Auth/UserResetPassword",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Auth/DeleteUser",
+                       "DownstreamPathTemplate":  "/api/Auth/DeleteUser",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Auth/BlockUser/{UserID}",
+                       "DownstreamPathTemplate":  "/api/Auth/BlockUser/{UserID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Banner/GetAllBanners",
+                       "DownstreamPathTemplate":  "/api/Banner/GetAllBanners",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Banner/GetBannnerByID/{BannerID}",
+                       "DownstreamPathTemplate":  "/api/Banner/GetBannnerByID/{BannerID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Banner/CreateBanner",
+                       "DownstreamPathTemplate":  "/api/Banner/CreateBanner",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Banner/UpdateBanner",
+                       "DownstreamPathTemplate":  "/api/Banner/UpdateBanner",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Banner/DeleteBanner/{BannerID}",
+                       "DownstreamPathTemplate":  "/api/Banner/DeleteBanner/{BannerID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Banner/ToggleBannerActiviation/{BannerID}",
+                       "DownstreamPathTemplate":  "/api/Banner/ToggleBannerActiviation/{BannerID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Cart/GetUserCartItemsDetails",
+                       "DownstreamPathTemplate":  "/api/Cart/GetUserCartItemsDetails",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/CartItem/AddCartItemList",
+                       "DownstreamPathTemplate":  "/api/CartItem/AddCartItemList",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/CartItem/UpdateCartItem",
+                       "DownstreamPathTemplate":  "/api/CartItem/UpdateCartItem",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/CartItem/DeleteCartItem/{CartItemID}",
+                       "DownstreamPathTemplate":  "/api/CartItem/DeleteCartItem/{CartItemID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Category/CreateNewCategory",
+                       "DownstreamPathTemplate":  "/api/Category/CreateNewCategory",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Category/DeleteCategory/{CategoryID}",
+                       "DownstreamPathTemplate":  "/api/Category/DeleteCategory/{CategoryID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Category/UpdateCategory",
+                       "DownstreamPathTemplate":  "/api/Category/UpdateCategory",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/CategoryDetails/GetCategoriesWithSubCat",
+                       "DownstreamPathTemplate":  "/api/CategoryDetails/GetCategoriesWithSubCat",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "Priority":  2,
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/CategoryDetails/{CategoryID}",
+                       "DownstreamPathTemplate":  "/api/CategoryDetails/{CategoryID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "Priority":  1,
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Cities/GetAllCities",
+                       "DownstreamPathTemplate":  "/api/Cities/GetAllCities",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Cities/PutCity",
+                       "DownstreamPathTemplate":  "/api/Cities/PutCity",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Cities/PostCity",
+                       "DownstreamPathTemplate":  "/api/Cities/PostCity",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Cities/DeleteCity/{id}",
+                       "DownstreamPathTemplate":  "/api/Cities/DeleteCity/{id}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Cities/{CityID}",
+                       "DownstreamPathTemplate":  "/api/Cities/{CityID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "Priority":  1,
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Color/GetAllColors",
+                       "DownstreamPathTemplate":  "/api/Color/GetAllColors",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Color/CraeteColor",
+                       "DownstreamPathTemplate":  "/api/Color/CraeteColor",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Color/DeleteColor/{ColorID}",
+                       "DownstreamPathTemplate":  "/api/Color/DeleteColor/{ColorID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Orders",
+                       "DownstreamPathTemplate":  "/api/Orders",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Orders/UpdateOrderStatus",
+                       "DownstreamPathTemplate":  "/api/Orders/UpdateOrderStatus",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Orders/UpdateOrder",
+                       "DownstreamPathTemplate":  "/api/Orders/UpdateOrder",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Orders/GetAllOrders",
+                       "DownstreamPathTemplate":  "/api/Orders/GetAllOrders",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Orders/GetOrder/{OrderID}",
+                       "DownstreamPathTemplate":  "/api/Orders/GetOrder/{OrderID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Orders/GetAllUserOrders/{UserID}",
+                       "DownstreamPathTemplate":  "/api/Orders/GetAllUserOrders/{UserID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/OrderCoupon",
+                       "DownstreamPathTemplate":  "/api/OrderCoupon",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/OrderCoupon/UpdateCoupon",
+                       "DownstreamPathTemplate":  "/api/OrderCoupon/UpdateCoupon",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "Priority":  2,
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/OrderCoupon/DeleteCoupon/{CouponID}",
+                       "DownstreamPathTemplate":  "/api/OrderCoupon/DeleteCoupon/{CouponID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/OrderCoupon/UpdateCouponActivation/{CouponID}",
+                       "DownstreamPathTemplate":  "/api/OrderCoupon/UpdateCouponActivation/{CouponID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/OrderCoupon/GetCouponByCode",
+                       "DownstreamPathTemplate":  "/api/OrderCoupon/GetCouponByCode",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "Priority":  2,
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/OrderCoupon/{CouponID}",
+                       "DownstreamPathTemplate":  "/api/OrderCoupon/{CouponID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "Priority":  1,
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Payments/AddNewPayment",
+                       "DownstreamPathTemplate":  "/api/Payments/AddNewPayment",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Product",
+                       "DownstreamPathTemplate":  "/api/Product",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Product/UpdateProductRating",
+                       "DownstreamPathTemplate":  "/api/Product/UpdateProductRating",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Product/{ProductID}",
+                       "DownstreamPathTemplate":  "/api/Product/{ProductID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Delete",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/ProductDetailsVW",
+                       "DownstreamPathTemplate":  "/api/ProductDetailsVW",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/ProductDetailsVW/FilterProducts",
+                       "DownstreamPathTemplate":  "/api/ProductDetailsVW/FilterProducts",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "Priority":  2,
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/ProductDetailsVW/{ProductID}",
+                       "DownstreamPathTemplate":  "/api/ProductDetailsVW/{ProductID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "Priority":  1,
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/ProductRates",
+                       "DownstreamPathTemplate":  "/api/ProductRates",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/ProductRates/GetUserRating/{UserID}",
+                       "DownstreamPathTemplate":  "/api/ProductRates/GetUserRating/{UserID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "Priority":  2,
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/ProductRates/{ProductID}",
+                       "DownstreamPathTemplate":  "/api/ProductRates/{ProductID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "Priority":  1,
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/ProductRates/{RateID}",
+                       "DownstreamPathTemplate":  "/api/ProductRates/{RateID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/ShippingCosts",
+                       "DownstreamPathTemplate":  "/api/ShippingCosts",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/ShippingCosts/GetShippingCostsDetails",
+                       "DownstreamPathTemplate":  "/api/ShippingCosts/GetShippingCostsDetails",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/ShippingCosts/GetShippingCostDetailsByAreaID/{AreaID}",
+                       "DownstreamPathTemplate":  "/api/ShippingCosts/GetShippingCostDetailsByAreaID/{AreaID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/ShippingCosts/UpdateShippingCost",
+                       "DownstreamPathTemplate":  "/api/ShippingCosts/UpdateShippingCost",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "Priority":  2,
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/ShippingCosts/{ShippingCostID}",
+                       "DownstreamPathTemplate":  "/api/ShippingCosts/{ShippingCostID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "Priority":  1,
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Size/GetAllSizes",
+                       "DownstreamPathTemplate":  "/api/Size/GetAllSizes",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Size/CraeteSize",
+                       "DownstreamPathTemplate":  "/api/Size/CraeteSize",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Size/DeleteSize/{SizeID}",
+                       "DownstreamPathTemplate":  "/api/Size/DeleteSize/{SizeID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/User",
+                       "DownstreamPathTemplate":  "/api/User",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/User/GetUserDetailsByEmail",
+                       "DownstreamPathTemplate":  "/api/User/GetUserDetailsByEmail",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/User/GetUserDetailsByID/{UserID}",
+                       "DownstreamPathTemplate":  "/api/User/GetUserDetailsByID/{UserID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/WishList/GetAllUserWishList/{UserID}",
+                       "DownstreamPathTemplate":  "/api/WishList/GetAllUserWishList/{UserID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/WishList/CreateWishList",
+                       "DownstreamPathTemplate":  "/api/WishList/CreateWishList",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Post",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/WishList/UpdateWishList",
+                       "DownstreamPathTemplate":  "/api/WishList/UpdateWishList",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/WishList/DeleteWishList/{WishListID}",
+                       "DownstreamPathTemplate":  "/api/WishList/DeleteWishList/{WishListID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/WishList/ClearUserWishList/{UserID}",
+                       "DownstreamPathTemplate":  "/api/WishList/ClearUserWishList/{UserID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Put",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Audit/GetAllAudit",
+                       "DownstreamPathTemplate":  "/api/Audit/GetAllAudit",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7114
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Notifications/GetAllNotifications",
+                       "DownstreamPathTemplate":  "/api/Notifications/GetAllNotifications",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7054
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Notifications/GetUserNotifications",
+                       "DownstreamPathTemplate":  "/api/Notifications/GetUserNotifications",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7054
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Notifications/MarkNotificationAsRead/{NotificationID}",
+                       "DownstreamPathTemplate":  "/api/Notifications/MarkNotificationAsRead/{NotificationID}",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7054
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/Notifications/MarkNotificationAsReadList",
+                       "DownstreamPathTemplate":  "/api/Notifications/MarkNotificationAsReadList",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7054
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   },
+                   {
+                       "UpstreamPathTemplate":  "/gateway/OrderItems/GetAllOrderItems",
+                       "DownstreamPathTemplate":  "/api/OrderItems/GetAllOrderItems",
+                       "DownstreamHostAndPorts":  [
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
+                                                      }
+                                                  ],
+                       "UpstreamHttpMethod":  [
+                                                  "Get",
+                                                  "Options"
+                                              ],
+                       "DownstreamScheme":  "https",
+                       "DangerousAcceptAnyServerCertificateValidator":  true
+                   }
+               ],
+    "GlobalConfiguration":  {
+                                "BaseUrl":  "https://localhost:7110"
+                            }
+}

@@ -1,6 +1,6 @@
-﻿using E_Commerce_Interno.Domain.Entity;
+using E_Commerce_Interno.Domain.Entity;
 
-namespace E_Commerce_Inern_Project.Core.RepositoryContracts.IProductRepo
+namespace E_Commerce_Inerno.Core.RepositoryContracts.IProductRepo
 {
     public interface IProductRepository
     {

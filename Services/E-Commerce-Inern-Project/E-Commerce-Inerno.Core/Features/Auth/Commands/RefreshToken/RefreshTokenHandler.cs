@@ -1,13 +1,13 @@
-﻿using E_Commerce_Inern_Project.Core.RepositoryContracts.IAuthRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
-using E_Commerce_Inern_Project.Core.ServicesContracts.IJWTServices;
+using E_Commerce_Inerno.Core.RepositoryContracts.IAuthRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Core.ServicesContracts.IJWTServices;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.AuthDTO;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using System.Security.Claims;
 
-namespace E_Commerce_Inern_Project.Core.Features.Auth.Commands.RefreshToken
+namespace E_Commerce_Inerno.Core.Features.Auth.Commands.RefreshToken
 {
     public class RefreshTokenHandler : IRequestHandler<RefreshTokenCommand, Result<AuthTokenResponse>>
     {

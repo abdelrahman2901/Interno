@@ -1,11 +1,11 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IShippingCostsRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IShippingCostsRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace E_Commerce_Inern_Project.Core.Features.ShippingCost.Command.UpdateShippingCostCmd
+namespace E_Commerce_Inerno.Core.Features.ShippingCost.Command.UpdateShippingCostCmd
 {
     public class UpdateShippingCostHandler : IRequestHandler<UpdateShippingCostRequest, Result<bool>>
     {

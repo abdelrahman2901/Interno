@@ -1,17 +1,18 @@
-using E_Commerce_Inern_Project.Core.Policies;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICategoryRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IProductRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Core.Policies;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.ICategoryRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IProductRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using Polly;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Products.Commands.DeleteProductCommand
+namespace E_Commerce_Inerno.Core.Features.Products.Commands.DeleteProductCommand
 {
     public class DeleteProducrHandler : IRequestHandler<DeleteProductCmd, Result<bool>>
     {
@@ -19,11 +20,11 @@ namespace E_Commerce_Inern_Project.Core.Features.Products.Commands.DeleteProduct
         private readonly ICategoryRepository _CategoryRepo;
         private readonly IUserRepository _UserRepo;
         private readonly ProductImageStorage _imageStorage;
-        private readonly IRabbitMQPublisher _Publisher;
+        private readonly IInternoEventPublisher _Publisher;
         private readonly IAsyncPolicy _policy;
         private readonly string AuditKey = "Interno.Audit";
 
-        public DeleteProducrHandler(IProductRepository productRepo, IPollyPolicy AsyncPolicy, IUserRepository UserRepo, ICategoryRepository CategoryRepo, IRabbitMQPublisher Publisher, ProductImageStorage imageStorage)
+        public DeleteProducrHandler(IProductRepository productRepo, IPollyPolicy AsyncPolicy, IUserRepository UserRepo, ICategoryRepository CategoryRepo, IInternoEventPublisher Publisher, ProductImageStorage imageStorage)
         {
             _productRepo = productRepo;
             _CategoryRepo = CategoryRepo;
@@ -61,7 +62,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Products.Commands.DeleteProduct
 
             await _policy.ExecuteAsync(async () =>
             {
-                await _Publisher.Publish(AuditKey, AuditRequest);
+                await _Publisher.PublishAuditAsync(AuditRequest);
             });
 
             return Result<bool>.Success(result);

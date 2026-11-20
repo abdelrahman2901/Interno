@@ -1,11 +1,12 @@
-﻿using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
-using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Infrastructure.ApplicationDbContext;
+using E_Commerce_Interno.Domain.DTO.UserDTO;
 using E_Commerce_Interno.Domain.Entity;
 using E_Commerce_Interno.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace E_Commerce_Inern_Project.Infrastructure.Repository.UserRepo
+namespace E_Commerce_Inerno.Infrastructure.Repository.UserRepo
 {
     public class UserRepository : IUserRepository
     {
@@ -32,6 +33,23 @@ namespace E_Commerce_Inern_Project.Infrastructure.Repository.UserRepo
                 }
                 return [];
             }
+        }
+
+        public IQueryable<AuthUserDetailsDTO> GetAllUsersQuery()
+        {
+            return _context.ApplicationUser
+                .AsNoTracking()
+                .Where(u => !u.IsDeleted)
+                .OrderBy(u => u.PersonName)
+                .Select(u => new AuthUserDetailsDTO
+                {
+                    userID = u.UserID,
+                    Email = u.Email,
+                    PersonName = u.PersonName,
+                    PhoneNumber = u.PhoneNumber,
+                    IsBlocked = u.IsBlocked,
+                    Roles = u.Roles.Select(r => r.Role.RoleEnumID).ToList()
+                });
         }
 
         public async Task<ApplicationUser?> GetApplicationUserByEmail(string email, bool AsTracking)

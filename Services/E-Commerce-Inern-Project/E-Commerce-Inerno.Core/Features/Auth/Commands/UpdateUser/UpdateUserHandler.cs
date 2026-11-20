@@ -1,29 +1,30 @@
-﻿using AutoMapper;
-using E_Commerce_Inern_Project.Core.Policies;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IAuthRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
+using AutoMapper;
+using E_Commerce_Inerno.Core.Policies;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.IAuthRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.UserDTO;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using Polly;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Auth.Commands.UpdateUser
+namespace E_Commerce_Inerno.Core.Features.Auth.Commands.UpdateUser
 {
     public class UpdateUserHandler : IRequestHandler<UpdateUserCommand, Result<AuthUserDetailsDTO>>
     {
         private readonly IAuthRepository _AuthRepo;
         private readonly IUserRepository _UserRepo;
-        private readonly IRabbitMQPublisher _Publish;
+        private readonly IInternoEventPublisher _Publish;
         private readonly IMapper _Mapper;
         private readonly IAsyncPolicy _policy;
         private readonly string AuditRoutingKey = "Interno.Audit";
 
-        public UpdateUserHandler(IAuthRepository AuthRepo, IPollyPolicy asyncPolicy, IRabbitMQPublisher Publish, IUserRepository UserRepo, IMapper Mapper)
+        public UpdateUserHandler(IAuthRepository AuthRepo, IPollyPolicy asyncPolicy, IInternoEventPublisher Publish, IUserRepository UserRepo, IMapper Mapper)
         {
             _AuthRepo = AuthRepo;
             _UserRepo = UserRepo;
@@ -55,7 +56,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Auth.Commands.UpdateUser
 
             await _policy.ExecuteAsync(async () =>
             {
-                await _Publish.Publish(AuditRoutingKey, Request);
+                await _Publish.PublishAuditAsync(Request);
             });
 
             return Result<AuthUserDetailsDTO>.Success(UserDetails);

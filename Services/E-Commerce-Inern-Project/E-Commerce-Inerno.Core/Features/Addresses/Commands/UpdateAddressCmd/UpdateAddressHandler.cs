@@ -1,24 +1,22 @@
-﻿using AutoMapper;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IAddressRepo;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inerno.Core.Features.Addresses.Commands.UpdateAddressCmd;
+using AutoMapper;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IAddressRepo;
+using E_Commerce_Inerno.Core.Communication;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.AddressDTO;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Addresses.Commands.UpdateAddressCmd
+namespace E_Commerce_Inerno.Core.Features.Addresses.Commands.UpdateAddressCmd
 {
     public class UpdateAddressHandler : IRequestHandler<UpdateAddressRequest, Result<AddressResponse>>
     {
         private readonly IAddressRepository _addressRepository;
         private readonly IMapper _mapper;
-        private readonly IRabbitMQPublisher _Publisher;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
-        public UpdateAddressHandler(IAddressRepository addressRepository, IRabbitMQPublisher Publisher, IMapper mapper)
+        private readonly IInternoEventPublisher _Publisher;
+        public UpdateAddressHandler(IAddressRepository addressRepository, IInternoEventPublisher Publisher, IMapper mapper)
         {
             _addressRepository = addressRepository;
             _mapper = mapper;
@@ -53,7 +51,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Addresses.Commands.UpdateAddres
 
             string jsonNewValue = JsonSerializer.Serialize<Address>(result);
             AuditRequest auditRequest = new(result.UserID, ActionTypeEnum.Update, nameof(Address), jsonOldValue, jsonNewValue);
-            await _Publisher.Publish(_AuditRoutingKey, auditRequest);
+            await _Publisher.PublishAuditAsync(auditRequest);
 
 
             return Result<AddressResponse>.Success(_mapper.Map<AddressResponse>(result));

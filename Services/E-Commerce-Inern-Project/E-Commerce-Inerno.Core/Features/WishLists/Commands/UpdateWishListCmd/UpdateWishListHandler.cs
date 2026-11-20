@@ -1,24 +1,25 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IWishListRepo;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.IWishListRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.WishListDTO;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.WishLists.Commands.UpdateWishListCmd
+namespace E_Commerce_Inerno.Core.Features.WishLists.Commands.UpdateWishListCmd
 {
     public class UpdateWishListHandler : IRequestHandler<UpdateWishListRequest, Result<WishListResponse>>
     {
         private readonly IWishListRepository _WishListRepo;
         private readonly IMapper _mapper;
-        private readonly IRabbitMQPublisher _Publisher;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        private readonly IInternoEventPublisher _Publisher;
+        
 
-        public UpdateWishListHandler(IWishListRepository WishListRepo, IRabbitMQPublisher Publisher, IMapper mapper)
+        public UpdateWishListHandler(IWishListRepository WishListRepo, IInternoEventPublisher Publisher, IMapper mapper)
         {
             _WishListRepo = WishListRepo;
             _mapper = mapper;
@@ -41,7 +42,7 @@ namespace E_Commerce_Inern_Project.Core.Features.WishLists.Commands.UpdateWishLi
             }
             string JsonNewValues = JsonSerializer.Serialize<WishList>(result);
             AuditRequest AuditRequest = new(result.UserID, ActionTypeEnum.Update, nameof(WishList), JsonOldValues, JsonNewValues);
-            await _Publisher.Publish<AuditRequest>(_AuditRoutingKey, AuditRequest);
+            await _Publisher.PublishAuditAsync(AuditRequest);
             return Result<WishListResponse>.Success(_mapper.Map<WishListResponse>(result));
         }
     }

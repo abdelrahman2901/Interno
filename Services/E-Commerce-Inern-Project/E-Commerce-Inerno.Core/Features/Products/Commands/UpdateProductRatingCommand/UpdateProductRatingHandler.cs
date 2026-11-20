@@ -1,31 +1,27 @@
-using E_Commerce_Inern_Project.Core.Policies;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IProductRatesRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IProductRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Core.Policies;
+using E_Commerce_Inerno.Core.Communication;
+using E_Commerce_Inerno.Core.RepositoryContracts.IProductRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using Polly;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Products.Commands.UpdateProductRatingCommand
+namespace E_Commerce_Inerno.Core.Features.Products.Commands.UpdateProductRatingCommand
 {
     public class UpdateProductRatingHandler : IRequestHandler<UpdateProductRatingRequest, Result<bool>>
     {
         private readonly IProductRepository _productRepo;
-        private readonly IProductRatesRepository _ProductRatesRepo;
         private readonly IUserRepository _UserRepo;
-        private readonly IRabbitMQPublisher _Publisher;
+        private readonly IInternoEventPublisher _Publisher;
         private readonly IAsyncPolicy _policy;
-        private readonly string AuditKey = "Interno.Audit";
 
-        public UpdateProductRatingHandler(IProductRepository productRepo, IPollyPolicy AsyncPolicy, IUserRepository UserRepo, IRabbitMQPublisher Publisher, IProductRatesRepository ProductRatesRepo)
+        public UpdateProductRatingHandler(IProductRepository productRepo, IPollyPolicy AsyncPolicy, IUserRepository UserRepo, IInternoEventPublisher Publisher)
         {
             _productRepo = productRepo;
-            _ProductRatesRepo = ProductRatesRepo;
             _UserRepo = UserRepo;
             _Publisher = Publisher;
             _policy = AsyncPolicy.GetPolicy();
@@ -40,10 +36,6 @@ namespace E_Commerce_Inern_Project.Core.Features.Products.Commands.UpdateProduct
             }
             string JsonOldValues = JsonSerializer.Serialize<Product>(existing);
 
-            var ProductRates = await _ProductRatesRepo.GetAllProductRatesForProduct(existing.ProductID);
-            double avgRating = ProductRates.Any() ? ProductRates.Average(r => r.Rating) : 0;
-
-            existing.Rating = existing.TotalRating == 0 ? request.Rating : CalculateRatingCls.CalcuateTheRating(existing.TotalRating, avgRating);
             existing.TotalRating += 1;
 
             if (!await _productRepo.SaveChanges())
@@ -56,7 +48,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Products.Commands.UpdateProduct
 
             await _policy.ExecuteAsync(async () =>
             {
-                await _Publisher.Publish(AuditKey, AuditRequest);
+                await _Publisher.PublishAuditAsync(AuditRequest);
             });
 
             return Result<bool>.Success(existing.IsDeleted);

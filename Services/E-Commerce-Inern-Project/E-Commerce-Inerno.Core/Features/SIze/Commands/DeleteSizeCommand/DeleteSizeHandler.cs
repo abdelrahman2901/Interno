@@ -1,9 +1,9 @@
-﻿using E_Commerce_Inern_Project.Core.RepositoryContracts.ISizeRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.ISizeRepo;
 using E_Commerce_Interno.Domain.Common;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace E_Commerce_Inern_Project.Core.Features.SIze.Commands.DeleteSizeCommand
+namespace E_Commerce_Inerno.Core.Features.SIze.Commands.DeleteSizeCommand
 {
     public class DeleteSizeHandler : IRequestHandler<DeleteSizeCmd, Result<bool>>
     {

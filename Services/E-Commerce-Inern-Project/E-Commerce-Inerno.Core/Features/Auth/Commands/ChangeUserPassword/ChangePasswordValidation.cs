@@ -1,6 +1,7 @@
+using E_Commerce_Inerno.Core.Features.Auth.Commands.ChangeUserPassword;
 using FluentValidation;
 
-namespace E_Commerce_Inern_Project.Core.Features.Auth.Commands.ChangeUserPassword
+namespace E_Commerce_Inerno.Core.Features.Auth.Commands.ChangeUserPassword
 {
     public class ChangePasswordValidation : AbstractValidator<ChangeUserPasswordCommand>
     {

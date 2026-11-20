@@ -1,21 +1,22 @@
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICartRepo;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.ICartRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Carts.Commands.CreateCartCmd
+namespace E_Commerce_Inerno.Core.Features.Carts.Commands.CreateCartCmd
 {
     public class CreateCartHandler : IRequestHandler<CreateCartRequest, Result<bool>>
     {
         private readonly ICartRepository _cartRepo;
-        private readonly IRabbitMQPublisher _Publisher;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        private readonly IInternoEventPublisher _Publisher;
+        
 
-        public CreateCartHandler(ICartRepository cartRepo, IRabbitMQPublisher Publisher)
+        public CreateCartHandler(ICartRepository cartRepo, IInternoEventPublisher Publisher)
         {
             _cartRepo = cartRepo;
             _Publisher = Publisher;
@@ -36,7 +37,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Carts.Commands.CreateCartCmd
             }
             string JsonNewValues = JsonSerializer.Serialize<Cart>(cart);
             AuditRequest AuditRequest = new(request.UserID, ActionTypeEnum.Create, nameof(Cart), null, JsonNewValues);
-            await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+            await _Publisher.PublishAuditAsync(AuditRequest);
 
             return Result<bool>.Success(true);
         }

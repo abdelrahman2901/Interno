@@ -1,9 +1,9 @@
-﻿using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ITransectionRepo;
-using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.ITransectionRepo;
+using E_Commerce_Inerno.Infrastructure.ApplicationDbContext;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 
-namespace E_Commerce_Inern_Project.Infrastructure.Repository.TransectionRepo
+namespace E_Commerce_Inerno.Infrastructure.Repository.TransectionRepo
 {
     public class TransectionRepository : ITransectionRepository
     {

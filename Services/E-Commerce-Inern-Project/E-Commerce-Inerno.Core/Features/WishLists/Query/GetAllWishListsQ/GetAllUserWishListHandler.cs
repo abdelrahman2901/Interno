@@ -1,10 +1,10 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IWishListRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IWishListRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.WishListDTO;
 using MediatR;
 
-namespace E_Commerce_Inern_Project.Core.Features.WishLists.Query.GetAllWishListsQ
+namespace E_Commerce_Inerno.Core.Features.WishLists.Query.GetAllWishListsQ
 {
     public class GetAllUserWishListHandler : IRequestHandler<GetAllUserWishListQuery, Result<IEnumerable<WishListDetailsResponse>>>
     {

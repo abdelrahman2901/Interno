@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Security.Cryptography;
 
-namespace E_Commerce_Inern_Project.Core.Features.Products
+namespace E_Commerce_Inerno.Core.Features.Products
 {
     /// <summary>
     /// Shared by the create, update and delete product handlers, so it stays in one place

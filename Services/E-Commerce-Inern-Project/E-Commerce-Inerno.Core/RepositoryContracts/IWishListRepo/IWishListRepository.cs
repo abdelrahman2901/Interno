@@ -1,7 +1,7 @@
-﻿
+
 using E_Commerce_Interno.Domain.Entity;
 
-namespace E_Commerce_Inern_Project.Core.RepositoryContracts.IWishListRepo
+namespace E_Commerce_Inerno.Core.RepositoryContracts.IWishListRepo
 {
     public interface IWishListRepository
     {

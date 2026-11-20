@@ -1,7 +1,7 @@
-﻿using E_Commerce_Inerno.Core.Features.Addresses.Commands.UpdateAddressCmd;
+using E_Commerce_Inerno.Core.Features.Addresses.Commands.UpdateAddressCmd;
 using FluentValidation;
 
-namespace E_Commerce_Inern_Project.Core.Features.Addresses.Commands.UpdateAddressCmd
+namespace E_Commerce_Inerno.Core.Features.Addresses.Commands.UpdateAddressCmd
 {
     public class UpdateAddressRequestValidation : AbstractValidator<UpdateAddressRequest>
     {

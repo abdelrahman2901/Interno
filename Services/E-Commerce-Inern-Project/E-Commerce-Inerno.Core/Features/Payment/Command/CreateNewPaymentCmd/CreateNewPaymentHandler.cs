@@ -1,25 +1,26 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IPaymentRepo;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.IPaymentRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.PaymentDTO;
 using E_Commerce_Interno.Domain.Entity;
 using E_Commerce_Interno.Domain.Enums;
 using MediatR;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Payment.Command.CreateNewPaymentCmd
+namespace E_Commerce_Inerno.Core.Features.Payment.Command.CreateNewPaymentCmd
 {
     public class CreateNewPaymentHandler : IRequestHandler<PaymentRequest, Result<PaymentResponse>>
     {
         private readonly IPaymentRepository _PaymentRepo;
         private readonly IMapper _Mapper;
-        private readonly IRabbitMQPublisher _Publisher;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        private readonly IInternoEventPublisher _Publisher;
+        
 
-        public CreateNewPaymentHandler(IPaymentRepository PaymentRepo, IRabbitMQPublisher Publisher, IMapper Mapper)
+        public CreateNewPaymentHandler(IPaymentRepository PaymentRepo, IInternoEventPublisher Publisher, IMapper Mapper)
         {
             _PaymentRepo = PaymentRepo;
             _Publisher = Publisher;
@@ -45,7 +46,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Payment.Command.CreateNewPaymen
             }
             string JsonNewValues = JsonSerializer.Serialize(newPayment);
             AuditRequest AuditRequest = new(request.UserID, ActionTypeEnum.Create, nameof(Payments), null, JsonNewValues);
-            await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+            await _Publisher.PublishAuditAsync(AuditRequest);
 
             return Result<PaymentResponse>.Success(_Mapper.Map<PaymentResponse>(newPayment));
         }

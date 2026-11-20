@@ -1,8 +1,8 @@
-﻿using E_Commerce_Interno.Domain.Common;
+using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Enums;
 using MediatR;
 
-namespace E_Commerce_Inern_Project.Core.Features.OrderCoupon.Command.UpdateCouponCmd
+namespace E_Commerce_Inerno.Core.Features.OrderCoupon.Command.UpdateCouponCmd
 {
     public record UpdateCouponRequest( Guid OrderCouponID ,string CouponCode ,decimal Discount, DiscountTypeEnum DiscountType, bool IsActive, bool IsDeleted) : IRequest<Result<bool>>;
 }

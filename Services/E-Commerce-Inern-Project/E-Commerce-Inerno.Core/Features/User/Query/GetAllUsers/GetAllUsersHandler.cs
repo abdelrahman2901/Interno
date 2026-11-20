@@ -1,30 +1,39 @@
-﻿using AutoMapper;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
+﻿using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.UserDTO;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace E_Commerce_Inern_Project.Core.Features.User.Query.GetAllUsers
+namespace E_Commerce_Inerno.Core.Features.User.Query.GetAllUsers
 {
-    public class GetAllUsersHandler : IRequestHandler<GetAllUsersQuery, Result<IEnumerable<AuthUserDetailsDTO>>>
+    public class GetAllUsersHandler : IRequestHandler<GetAllUsersQuery, Result<PagedResult<AuthUserDetailsDTO>>>
     {
         private readonly IUserRepository _UserRepo;
-        private readonly IMapper _mapper;
 
-        public GetAllUsersHandler(IUserRepository UserRepo, IMapper mapper)
+        public GetAllUsersHandler(IUserRepository UserRepo)
         {
             _UserRepo = UserRepo;
-            _mapper = mapper;
         }
 
-        public async Task<Result<IEnumerable<AuthUserDetailsDTO>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
+        public async Task<Result<PagedResult<AuthUserDetailsDTO>>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            var users = await _UserRepo.GetAllUsers();
-            if (!users.Any())
+            var pageNumber = request.PageNumber < 1 ? 1 : request.PageNumber;
+            var pageSize = request.PageSize < 1 ? 20 : request.PageSize;
+
+            var query = _UserRepo.GetAllUsersQuery();
+            var totalCount = await query.CountAsync(cancellationToken);
+            if (totalCount == 0)
             {
-                return Result<IEnumerable<AuthUserDetailsDTO>>.NotFound("No users found.");
+                return Result<PagedResult<AuthUserDetailsDTO>>.NotFound("No users found.");
             }
-            return Result<IEnumerable<AuthUserDetailsDTO>>.Success(users.Select(u => _mapper.Map<AuthUserDetailsDTO>(u)));
+
+            var items = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(cancellationToken);
+
+            return Result<PagedResult<AuthUserDetailsDTO>>.Success(
+                PagedResult<AuthUserDetailsDTO>.Create(items, totalCount, pageNumber, pageSize));
         }
     }
 }

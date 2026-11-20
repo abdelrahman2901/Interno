@@ -2,7 +2,7 @@ using E_Commerce_Interno.Domain.Common;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Annotations;
-namespace E_Commerce_Inern_Project.Core.Features.Products.Commands.CreateProductCommand
+namespace E_Commerce_Inerno.Core.Features.Products.Commands.CreateProductCommand
 {
         public class ProductRequest : IRequest<Result<bool>>
     {

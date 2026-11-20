@@ -1,10 +1,17 @@
-﻿using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IOrdersRepo;
-using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IOrdersRepo;
+using E_Commerce_Inerno.Infrastructure.ApplicationDbContext;
+using E_Commerce_Interno.Domain.DTO.AddressDTO;
+using E_Commerce_Interno.Domain.DTO.AreaDTO;
+using E_Commerce_Interno.Domain.DTO.OrderCouponDTO;
+using E_Commerce_Interno.Domain.DTO.OrderDTO;
+using E_Commerce_Interno.Domain.DTO.OrderItemsDTO;
+using E_Commerce_Interno.Domain.DTO.ShippingCostsDTO;
 using E_Commerce_Interno.Domain.Entity;
+using E_Commerce_Interno.Domain.ViewEntites;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace E_Commerce_Inern_Project.Infrastructure.Repository.OrderRepo
+namespace E_Commerce_Inerno.Infrastructure.Repository.OrderRepo
 {
     public class OrderRepoistory : IOrdersRepository
     {
@@ -56,6 +63,92 @@ namespace E_Commerce_Inern_Project.Infrastructure.Repository.OrderRepo
                 }
                 return [];
             }
+        }
+
+        public IQueryable<OrderDetails> GetAllOrdersQuery()
+        {
+            return _context.Orders
+                .AsNoTracking()
+                .OrderByDescending(o => o.OrderDate)
+                .Select(o => new OrderDetails
+                {
+                    OrderID = o.OrderID,
+                    OrderNumber = o.OrderNumber,
+                    OrderDate = o.OrderDate,
+                    Subtotal = o.Subtotal,
+                    DiscountAmount = o.DiscountAmount,
+                    TotalAmount = o.TotalAmount,
+                    OrderStatus = o.OrderStatus,
+                    UserName = o.User.PersonName,
+                    UserEmail = o.User.Email,
+                    PaymentMethod = o.Payment.PaymentMethod.ToString(),
+                    Address = new AddressResponse
+                    {
+                        AddressID = o.Address.AddressID,
+                        UserID = o.Address.UserID,
+                        CityID = o.Address.CityID,
+                        AreaID = o.Address.AreaID,
+                        AddressLabel = o.Address.AddressLabel,
+                        MainAddress = o.Address.MainAddress,
+                        BackUpAddress = o.Address.BackUpAddress,
+                        BackUpPhoneNumber = o.Address.BackUpPhoneNumber,
+                        IsDeleted = o.Address.IsDeleted,
+                        IsDefault = o.Address.IsDefault
+                    },
+                    ShippingCosts = o.ShippingCosts == null ? null! : new ShippingCostDetails
+                    {
+                        ShippingCostID = o.ShippingCosts.ShippingCostID,
+                        ShippingCost = o.ShippingCosts.ShippingCost,
+                        IsDeleted = o.ShippingCosts.IsDeleted,
+                        Area = new AreaResponse
+                        {
+                            AreaID = o.ShippingCosts.Area.AreaID,
+                            CityID = o.ShippingCosts.Area.CityID,
+                            AreaName = o.ShippingCosts.Area.AreaName
+                        }
+                    },
+                    OrderCoupon = o.OrderCoupon == null ? null : new OrderCouponResponse
+                    {
+                        OrderCouponID = o.OrderCoupon.OrderCouponID,
+                        CouponCode = o.OrderCoupon.CouponCode,
+                        Discount = o.OrderCoupon.Discount,
+                        DiscountType = o.OrderCoupon.DiscountType,
+                        IsActive = o.OrderCoupon.IsActive,
+                        IsDeleted = o.OrderCoupon.IsDeleted
+                    },
+                    OrderItems = o.OrderItems
+                        .Where(i => !i.IsDeleted)
+                        .Select(i => new OrderItemDetails
+                        {
+                            OrderItemID = i.OrderItemID,
+                            OrderID = i.OrderID,
+                            AddedDate = i.AddedDate,
+                            Quantity = i.Quantity,
+                            IsDeleted = i.IsDeleted,
+                            Product = new ProductDetails_vw
+                            {
+                                ProductID = i.Product.ProductID,
+                                CategoryID = i.Product.CategoryID,
+                                ParentcategoryID = i.Product.Category.ParentCategory.CategoryID,
+                                SizeID = i.Product.SizeID,
+                                ColorID = i.Product.ColorID,
+                                CategoryName = i.Product.Category.CategoryName,
+                                ParentCategoryName = i.Product.Category.ParentCategory.CategoryName,
+                                ProductName = i.Product.ProductName,
+                                Price = i.Product.Price,
+                                SalePrice = i.Product.SalePrice,
+                                Stock = i.Product.Stock,
+                                Rating = i.Product.ProductRates.Where(r => !r.IsDeleted).Select(r => (double?)r.Rating).Average() ?? 0,
+                                TotalRating = i.Product.ProductRates.Count(r => !r.IsDeleted),
+                                SizeName = i.Product.Size.SizeName,
+                                ColorName = i.Product.Color.ColorName ?? i.Product.Color.ColorHexCode,
+                                CreatedAt = i.Product.CreatedAt,
+                                ProductImageUrl = i.Product.ProductImageUrl,
+                                Active = i.Product.Active,
+                                IsDeleted = i.Product.IsDeleted
+                            }
+                        })
+                });
         }
 
         public async Task<IEnumerable<Order>> GetAllUserOrders(Guid UserID)

@@ -1,14 +1,14 @@
-using E_Commerce_Inern_Project.Core.Features.WishLists.Commands.ClearUserWishListCmd;
-using E_Commerce_Inern_Project.Core.Features.WishLists.Commands.CreateWishListCmd;
-using E_Commerce_Inern_Project.Core.Features.WishLists.Commands.DeleteWishListCmd;
-using E_Commerce_Inern_Project.Core.Features.WishLists.Commands.UpdateWishListCmd;
+using E_Commerce_Inerno.Core.Features.WishLists.Commands.ClearUserWishListCmd;
+using E_Commerce_Inerno.Core.Features.WishLists.Commands.CreateWishListCmd;
+using E_Commerce_Inerno.Core.Features.WishLists.Commands.DeleteWishListCmd;
+using E_Commerce_Inerno.Core.Features.WishLists.Commands.UpdateWishListCmd;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.WishListDTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.WIshListControl.Commands
+namespace E_Commerce_Inerno.API.Controllers.WIshListControl.Commands
 {
     [Route("api/WishList")]
     [ApiController]

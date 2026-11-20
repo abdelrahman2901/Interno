@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace E_Commerce_Inern_Project.Core.Features.OrderCoupon.Command.CreateCouponCmd
+namespace E_Commerce_Inerno.Core.Features.OrderCoupon.Command.CreateCouponCmd
 {
     public class CreateOrderCouponRequestValidation : AbstractValidator<CreateCouponRequest>
     {

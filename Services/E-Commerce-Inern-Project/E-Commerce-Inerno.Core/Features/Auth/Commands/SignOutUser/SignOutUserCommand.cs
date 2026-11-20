@@ -2,7 +2,7 @@
 using MediatR;
 
 
-namespace E_Commerce_Inern_Project.Core.Features.Auth.Commands.SignOutUser
+namespace E_Commerce_Inerno.Core.Features.Auth.Commands.SignOutUser
 {
     public record SignOutUserCommand(Guid UserID) : IRequest<Result<bool>>;
     

@@ -1,12 +1,12 @@
-﻿using AutoMapper;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IColorRepo;
+using AutoMapper;
+using E_Commerce_Inerno.Core.RepositoryContracts.IColorRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.ColorDTO;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 
-namespace E_Commerce_Inern_Project.Core.Features.Color.Query.GetColorsQ
+namespace E_Commerce_Inerno.Core.Features.Color.Query.GetColorsQ
 {
     public class GetColorsHandler : IRequestHandler<GetColorsQuery, Result<IEnumerable<ColorResponse>>>
     {

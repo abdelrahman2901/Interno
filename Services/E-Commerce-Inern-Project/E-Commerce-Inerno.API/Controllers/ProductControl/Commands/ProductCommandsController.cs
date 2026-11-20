@@ -1,13 +1,12 @@
-using E_Commerce_Inern_Project.Core.Features.Products.Commands.CreateProductCommand;
-using E_Commerce_Inern_Project.Core.Features.Products.Commands.DeleteProductCommand;
-using E_Commerce_Inern_Project.Core.Features.Products.Commands.UpdateProductRatingCommand;
+using E_Commerce_Inerno.Core.Features.Products.Commands.CreateProductCommand;
+using E_Commerce_Inerno.Core.Features.Products.Commands.DeleteProductCommand;
 using E_Commerce_Inerno.Core.Features.Products.Commands.UpdateProductCommand;
 using E_Commerce_Interno.Domain.Common;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.ProductControl.Commands
+namespace E_Commerce_Inerno.API.Controllers.ProductControl.Commands
 {
     [Authorize(Roles = "Admin")]
     [AllowAnonymous]
@@ -29,12 +28,6 @@ namespace E_Commerce_Inern_Project.API.Controllers.ProductControl.Commands
 
         [HttpPut]
         public async Task<Result<bool>> UpdateProduct(ProductUpdateRequest Request)
-        {
-            return await _mediator.Send(Request);
-        }
-
-        [HttpPut("UpdateProductRating")]
-        public async Task<Result<bool>> UpdateProductRating(UpdateProductRatingRequest Request)
         {
             return await _mediator.Send(Request);
         }

@@ -1,12 +1,12 @@
-using E_Commerce_Inern_Project.Core.Features.BannerSlides.Query.GetAllBannersQ;
-using E_Commerce_Inern_Project.Core.Features.BannerSlides.Query.GetBannerByIDQ;
+using E_Commerce_Inerno.Core.Features.BannerSlides.Query.GetAllBannersQ;
+using E_Commerce_Inerno.Core.Features.BannerSlides.Query.GetBannerByIDQ;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.BannerSlideDTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.BannerControl.Queries
+namespace E_Commerce_Inerno.API.Controllers.BannerControl.Queries
 {
     [Route("api/Banner")]
     [ApiController]

@@ -1,6 +1,6 @@
-﻿using E_Commerce_Interno.Domain.Entity;
+using E_Commerce_Interno.Domain.Entity;
 
-namespace E_Commerce_Inern_Project.Core.RepositoryContracts.IBannerRepo
+namespace E_Commerce_Inerno.Core.RepositoryContracts.IBannerRepo
 {
     public interface IBannerRepository
     {

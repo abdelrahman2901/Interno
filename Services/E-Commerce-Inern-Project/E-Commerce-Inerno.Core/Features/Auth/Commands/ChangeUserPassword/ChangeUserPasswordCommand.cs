@@ -4,7 +4,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using System.Text.Json.Serialization;
 
 
-namespace E_Commerce_Inern_Project.Core.Features.Auth.Commands.ChangeUserPassword
+namespace E_Commerce_Inerno.Core.Features.Auth.Commands.ChangeUserPassword
 {
     public class ChangeUserPasswordCommand : IRequest<Result<bool>>
     {

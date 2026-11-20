@@ -1,11 +1,11 @@
-﻿using E_Commerce_Interno.Domain.Common;
+using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.AddressDTO;
 using MediatR;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Text.Json.Serialization;
 
 
-namespace E_Commerce_Inern_Project.Core.Features.Addresses.Commands.CreateAddressCmd
+namespace E_Commerce_Inerno.Core.Features.Addresses.Commands.CreateAddressCmd
 {
     public class CreateAddressRequest : IRequest<Result<AddressResponse>>
     {

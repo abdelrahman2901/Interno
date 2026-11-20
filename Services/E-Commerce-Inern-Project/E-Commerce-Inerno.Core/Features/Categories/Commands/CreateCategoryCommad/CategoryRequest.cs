@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace E_Commerce_Inern_Project.Core.Features.Categories.Commands.CreateCategoryCommad
+namespace E_Commerce_Inerno.Core.Features.Categories.Commands.CreateCategoryCommad
 {
     public class CategoryRequest : IRequest<Result<CategoryResponse>>
     {

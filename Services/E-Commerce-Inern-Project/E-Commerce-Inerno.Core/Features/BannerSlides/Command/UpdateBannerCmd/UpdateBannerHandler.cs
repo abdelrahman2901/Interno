@@ -1,17 +1,18 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ITransectionRepo;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IBannerRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IColorRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.ITransectionRepo;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.IBannerRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IColorRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.BannerSlides.Command.UpdateBannerCmd
+namespace E_Commerce_Inerno.Core.Features.BannerSlides.Command.UpdateBannerCmd
 {
     public class UpdateBannerHandler : IRequestHandler<UpdateBannerRequest, Result<bool>>
     {
@@ -19,12 +20,12 @@ namespace E_Commerce_Inern_Project.Core.Features.BannerSlides.Command.UpdateBann
         private readonly IMapper _mapper;
         private readonly IColorRepository _ColorRepo;
         private readonly ITransectionRepository _transection;
-        private readonly IRabbitMQPublisher _Publisher;
+        private readonly IInternoEventPublisher _Publisher;
         private readonly IUserRepository _UserRepo;
         private readonly BannerImageStorage _imageStorage;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        
 
-        public UpdateBannerHandler(IBannerRepository bannerRepository, IUserRepository UserRepo, IRabbitMQPublisher Publisher, ITransectionRepository transection, IColorRepository ColorRepo, BannerImageStorage imageStorage, IMapper mapper)
+        public UpdateBannerHandler(IBannerRepository bannerRepository, IUserRepository UserRepo, IInternoEventPublisher Publisher, ITransectionRepository transection, IColorRepository ColorRepo, BannerImageStorage imageStorage, IMapper mapper)
         {
             _bannerRepository = bannerRepository;
             _transection = transection;
@@ -103,7 +104,7 @@ namespace E_Commerce_Inern_Project.Core.Features.BannerSlides.Command.UpdateBann
                 string JsonNewValues = JsonSerializer.Serialize<BannerSlide>(existing);
 
                 AuditRequest AuditRequest = new(await _UserRepo.GetAdminID(), ActionTypeEnum.Update, nameof(BannerSlide), JsonOldValues, JsonNewValues);
-                await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+                await _Publisher.PublishAuditAsync(AuditRequest);
 
                 await transection.CommitAsync();
                 return Result<bool>.Success(true);

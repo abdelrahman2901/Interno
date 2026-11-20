@@ -1,5 +1,5 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IAreaRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IAreaRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.AreaDTO;
 using E_Commerce_Interno.Domain.Entity;
@@ -7,7 +7,7 @@ using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 
-namespace E_Commerce_Inern_Project.Core.Features.Areas.Query.GetAreaByIDQuery
+namespace E_Commerce_Inerno.Core.Features.Areas.Query.GetAreaByIDQuery
 {
     public class GetAreaByIDHandler : IRequestHandler<GetAreaByIDRequest, Result<AreaResponse>>
     {

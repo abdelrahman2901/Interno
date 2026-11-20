@@ -1,10 +1,10 @@
-﻿using E_Commerce_Inern_Project.Core.RepositoryContracts.IColorRepo;
-using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
+using E_Commerce_Inerno.Core.RepositoryContracts.IColorRepo;
+using E_Commerce_Inerno.Infrastructure.ApplicationDbContext;
 using E_Commerce_Interno.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace E_Commerce_Inern_Project.Infrastructure.Repository.ColorsRepo
+namespace E_Commerce_Inerno.Infrastructure.Repository.ColorsRepo
 {
     public class ColorsRepository : IColorRepository
     {

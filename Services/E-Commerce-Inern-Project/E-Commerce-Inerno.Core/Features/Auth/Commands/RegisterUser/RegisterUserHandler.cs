@@ -1,14 +1,12 @@
-﻿using AutoMapper;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ITransectionRepo;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IUserRolesRepo;
-using E_Commerce_Inern_Project.Core.Policies;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IAuthRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICartRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
-using E_Commerce_Inern_Project.Core.ServicesContracts.IJWTServices;
+using AutoMapper;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.ITransectionRepo;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IUserRolesRepo;
+using E_Commerce_Inerno.Core.Policies;
+using E_Commerce_Inerno.Core.Communication;
+using E_Commerce_Inerno.Core.RepositoryContracts.IAuthRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.ICartRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Core.ServicesContracts.IJWTServices;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.AuthDTO;
 using E_Commerce_Interno.Domain.Entity;
@@ -16,8 +14,10 @@ using E_Commerce_Interno.Domain.Enums;
 using MediatR;
 using Polly;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Auth.Commands.RegisterUser
+namespace E_Commerce_Inerno.Core.Features.Auth.Commands.RegisterUser
 {
     public class RegisterUserHandler : IRequestHandler<RegisterUserCommand, Result<AuthTokenResponse>>
     {
@@ -26,13 +26,12 @@ namespace E_Commerce_Inern_Project.Core.Features.Auth.Commands.RegisterUser
         private readonly IJwtService _JwtService;
         private readonly ITransectionRepository _Transection;
         private readonly ICartRepository _CartRepo;
-        private readonly IRabbitMQPublisher _Publish;
+        private readonly IInternoEventPublisher _Publish;
         private readonly IMapper _Mapper;
         private readonly IAsyncPolicy _policy;
         private readonly IUserRolesRepository _UserRolesRepo;
-        private readonly string AuditRoutingKey = "Interno.Audit";
 
-        public RegisterUserHandler(IAuthRepository AuthRepo, IPollyPolicy asyncPolicy, IRabbitMQPublisher Publish, IUserRepository UserRepo, IUserRolesRepository UserRolesRepo, ICartRepository CartRepo, ITransectionRepository Transection, IJwtService JwtService, IMapper Mapper)
+        public RegisterUserHandler(IAuthRepository AuthRepo, IPollyPolicy asyncPolicy, IInternoEventPublisher Publish, IUserRepository UserRepo, IUserRolesRepository UserRolesRepo, ICartRepository CartRepo, ITransectionRepository Transection, IJwtService JwtService, IMapper Mapper)
         {
             _AuthRepo = AuthRepo;
             _UserRepo = UserRepo;
@@ -94,7 +93,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Auth.Commands.RegisterUser
 
                 await _policy.ExecuteAsync(async () =>
                 {
-                    await _Publish.Publish(AuditRoutingKey, Request);
+                    await _Publish.PublishAuditAsync(Request);
                 });
 
                 await transection.CommitAsync();

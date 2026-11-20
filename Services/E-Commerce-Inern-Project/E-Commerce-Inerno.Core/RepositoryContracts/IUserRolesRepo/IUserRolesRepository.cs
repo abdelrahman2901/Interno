@@ -1,7 +1,7 @@
-﻿using E_Commerce_Interno.Domain.Entity;
+using E_Commerce_Interno.Domain.Entity;
 using E_Commerce_Interno.Domain.Enums;
 
-namespace E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IUserRolesRepo
+namespace E_Commerce_Inerno.Core.Domain.RepositoryContracts.IUserRolesRepo
 {
     public interface IUserRolesRepository
     {

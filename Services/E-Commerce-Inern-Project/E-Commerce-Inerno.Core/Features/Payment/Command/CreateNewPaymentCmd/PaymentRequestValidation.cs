@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace E_Commerce_Inern_Project.Core.Features.Payment.Command.CreateNewPaymentCmd
+namespace E_Commerce_Inerno.Core.Features.Payment.Command.CreateNewPaymentCmd
 {
     public class PaymentRequestValidation : AbstractValidator<PaymentRequest>
     {

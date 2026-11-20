@@ -1,12 +1,12 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICategoryRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.ICategoryRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.CategoryDTO;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 
-namespace E_Commerce_Inern_Project.Core.Features.Categories.Query.GetAllSubCategoriesQ
+namespace E_Commerce_Inerno.Core.Features.Categories.Query.GetAllSubCategoriesQ
 {
     public class GetAllSubCategoriesHandler : IRequestHandler<GetAllSubCategoriesQuery, Result<IEnumerable<SubCategoryResponse>>>
     {

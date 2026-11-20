@@ -1,7 +1,4 @@
 <Solution>
-  <Project Path="docker-compose.dcproj">
-    <Build />
-  </Project>
   <Project Path="E-Commerce-Inerno.API/E-Commerce-Inerno.API.csproj" />
   <Project Path="E-Commerce-Inerno.Core/E-Commerce-Inerno.Core.csproj" />
   <Project Path="E-Commerce-Inerno.Infrastructure/E-Commerce-Inerno.Infrastructure.csproj" />

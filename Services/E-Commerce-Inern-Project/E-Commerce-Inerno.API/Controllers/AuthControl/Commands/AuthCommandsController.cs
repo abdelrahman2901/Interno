@@ -1,13 +1,12 @@
-
-using E_Commerce_Inern_Project.Core.Features.Auth.Commands.BlockUser;
-using E_Commerce_Inern_Project.Core.Features.Auth.Commands.ChangeUserPassword;
-using E_Commerce_Inern_Project.Core.Features.Auth.Commands.DeleteUser;
-using E_Commerce_Inern_Project.Core.Features.Auth.Commands.LoginUser;
-using E_Commerce_Inern_Project.Core.Features.Auth.Commands.RefreshToken;
-using E_Commerce_Inern_Project.Core.Features.Auth.Commands.RegisterUser;
-using E_Commerce_Inern_Project.Core.Features.Auth.Commands.SignOutUser;
-using E_Commerce_Inern_Project.Core.Features.Auth.Commands.UpdateUser;
-using E_Commerce_Inern_Project.Core.Features.Auth.Commands.UserResetPassword;
+using E_Commerce_Inerno.Core.Features.Auth.Commands.BlockUser;
+using E_Commerce_Inerno.Core.Features.Auth.Commands.ChangeUserPassword;
+using E_Commerce_Inerno.Core.Features.Auth.Commands.DeleteUser;
+using E_Commerce_Inerno.Core.Features.Auth.Commands.LoginUser;
+using E_Commerce_Inerno.Core.Features.Auth.Commands.RefreshToken;
+using E_Commerce_Inerno.Core.Features.Auth.Commands.RegisterUser;
+using E_Commerce_Inerno.Core.Features.Auth.Commands.SignOutUser;
+using E_Commerce_Inerno.Core.Features.Auth.Commands.UpdateUser;
+using E_Commerce_Inerno.Core.Features.Auth.Commands.UserResetPassword;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.AuthDTO;
 using E_Commerce_Interno.Domain.DTO.TokenDTO;
@@ -18,7 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using System.Security.Claims;
 
-namespace E_Commerce_Inern_Project.API.Controllers.AuthControl.Commands
+namespace E_Commerce_Inerno.API.Controllers.AuthControl.Commands
 {
     [Route("api/Auth")]
     [ApiController]

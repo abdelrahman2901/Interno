@@ -1,7 +1,7 @@
-﻿using E_Commerce_Interno.Domain.DTO.ProductRatesDTO;
+using E_Commerce_Interno.Domain.DTO.ProductRatesDTO;
 using E_Commerce_Interno.Domain.Entity;
 
-namespace E_Commerce_Inern_Project.Core.RepositoryContracts.IProductRatesRepo;
+namespace E_Commerce_Inerno.Core.RepositoryContracts.IProductRatesRepo;
 
 public interface IProductRatesRepository
 {

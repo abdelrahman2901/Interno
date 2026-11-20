@@ -1,13 +1,13 @@
-using E_Commerce_Inern_Project.Core.Features.Areas.Commands.CreateAreaCmd;
-using E_Commerce_Inern_Project.Core.Features.Areas.Commands.DeleteAreaCmd;
-using E_Commerce_Inern_Project.Core.Features.Areas.Commands.UpdateAreaCmd;
+using E_Commerce_Inerno.Core.Features.Areas.Commands.CreateAreaCmd;
+using E_Commerce_Inerno.Core.Features.Areas.Commands.DeleteAreaCmd;
+using E_Commerce_Inerno.Core.Features.Areas.Commands.UpdateAreaCmd;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.AreaDTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.AreaControl.Commands
+namespace E_Commerce_Inerno.API.Controllers.AreaControl.Commands
 {
     [Route("api/Areas")]
     [ApiController]

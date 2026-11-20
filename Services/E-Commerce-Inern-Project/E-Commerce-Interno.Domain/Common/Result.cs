@@ -15,5 +15,4 @@
         public static Result<T> BadRequest(string message) => new() { IsSuccess = false, ErrorMessage = message, StatusCode = 400 };
         public static Result<T> InternalError(string message) => new() { IsSuccess = false, ErrorMessage = message, StatusCode = 500 };
     }
-
 }

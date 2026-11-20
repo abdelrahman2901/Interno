@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace E_Commerce_Inern_Project.Core.Features.Cities.Commands.CreateCityCmd
+namespace E_Commerce_Inerno.Core.Features.Cities.Commands.CreateCityCmd
 {
     public class CityRequestValidation : AbstractValidator<CityRequest>
     {

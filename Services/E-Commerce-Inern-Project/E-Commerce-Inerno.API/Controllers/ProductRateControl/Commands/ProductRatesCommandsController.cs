@@ -1,11 +1,11 @@
-using E_Commerce_Inern_Project.Core.Features.ProductRate.Command.CreateProductRateCmd;
-using E_Commerce_Inern_Project.Core.Features.ProductRate.Command.DeleteProductRateCmd;
+using E_Commerce_Inerno.Core.Features.ProductRate.Command.CreateProductRateCmd;
+using E_Commerce_Inerno.Core.Features.ProductRate.Command.DeleteProductRateCmd;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.ProductRatesDTO;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.ProductRateControl.Commands
+namespace E_Commerce_Inerno.API.Controllers.ProductRateControl.Commands
 {
     [Route("api/ProductRates")]
     [ApiController]

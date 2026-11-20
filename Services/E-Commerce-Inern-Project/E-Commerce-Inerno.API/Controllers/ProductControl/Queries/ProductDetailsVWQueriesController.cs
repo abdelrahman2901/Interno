@@ -1,13 +1,14 @@
-using E_Commerce_Inern_Project.Core.Features.Products.Query.FilterProductsDetailsQ;
-using E_Commerce_Inern_Project.Core.Features.Products.Query.GetAllProductsDetailsQ;
-using E_Commerce_Inern_Project.Core.Features.Products.Query.GetProductDetailsByIDQ;
+using E_Commerce_Inerno.Core.Features.Products.Query.FilterProductsDetailsQ;
+using E_Commerce_Inerno.Core.Features.Products.Query.GetAllProductsDetailsQ;
+using E_Commerce_Inerno.Core.Features.Products.Query.GetProductDetailsByIDQ;
 using E_Commerce_Interno.Domain.Common;
+using E_Commerce_Interno.Domain.DTO.ProductsDTO;
 using E_Commerce_Interno.Domain.ViewEntites;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.ProductControl.Queries
+namespace E_Commerce_Inerno.API.Controllers.ProductControl.Queries
 {
     [AllowAnonymous]
     [Route("api/ProductDetailsVW")]
@@ -34,7 +35,7 @@ namespace E_Commerce_Inern_Project.API.Controllers.ProductControl.Queries
         }
 
         [HttpGet("FilterProducts")]
-        public async Task<Result<IEnumerable<ProductDetails_vw>>> FilterProducts([FromQuery] FilterProductsDetailsQuery filters)
+        public async Task<Result<GetProductsDto>> FilterProducts([FromQuery] FilterProductsDetailsQuery filters)
         {
             return await _mediator.Send(filters);
         }

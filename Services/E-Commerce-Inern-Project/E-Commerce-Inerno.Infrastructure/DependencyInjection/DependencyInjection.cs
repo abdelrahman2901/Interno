@@ -1,52 +1,53 @@
-﻿using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IAddressRepo;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IOrdersRepo;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ITransectionRepo;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IUserRolesRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IAreaRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IAuthRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IBannerRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICartItemRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICartRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICategoryRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICityRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IColorRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IOrderCouponRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IOrderItemsRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IPaymentRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IProductRatesRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IProductRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IShippingCostsRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ISizeRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IWishListRepo;
-using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
-using E_Commerce_Inern_Project.Infrastructure.Repository.AddressRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.AreaRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.AuthRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.BannerRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.CartItemRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.CartRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.CategoryRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.CityRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.ColorsRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.OrderCouponRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.OrderItemsRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.OrderRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.PaymentRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.ProductRatesRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.ProductRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.ShippingCostRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.SizeRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.TransectionRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.UserRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.UserRolesRepo;
-using E_Commerce_Inern_Project.Infrastructure.Repository.WishListRepo;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IAddressRepo;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IOrdersRepo;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.ITransectionRepo;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IUserRolesRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IAreaRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IAuthRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IBannerRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.ICartItemRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.ICartRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.ICategoryRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.ICityRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IColorRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IOrderCouponRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IOrderItemsRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IPaymentRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IProductRatesRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IProductRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IShippingCostsRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.ISizeRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IWishListRepo;
+using E_Commerce_Inerno.Infrastructure.ApplicationDbContext;
+using E_Commerce_Inerno.Infrastructure.Repository.AddressRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.AreaRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.AuthRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.BannerRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.CartItemRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.CartRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.CategoryRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.CityRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.ColorsRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.OrderCouponRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.OrderItemsRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.OrderRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.PaymentRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.ProductRatesRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.ProductRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.ShippingCostRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.SizeRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.TransectionRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.UserRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.UserRolesRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.WishListRepo;
+using E_Commerce_Inerno.Infrastructure.Repository.ProductRepo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 
-namespace E_Commerce_Inern_Project.Infrastructure.DependencyInjection
+namespace E_Commerce_Inerno.Infrastructure.DependencyInjection
 {
     public static class DependencyInjection
     {
@@ -116,7 +117,11 @@ namespace E_Commerce_Inern_Project.Infrastructure.DependencyInjection
             //DbContext
             services.AddDbContext<ApplicationDBContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("Default"));
+                var runningInDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
+                var ConnectionString = runningInDocker ? configuration.GetConnectionString("DockerConnection") : configuration.GetConnectionString("Default");
+                Console.WriteLine(runningInDocker);
+                Console.WriteLine(ConnectionString);
+                options.UseSqlServer(ConnectionString);
             });
 
             return services;

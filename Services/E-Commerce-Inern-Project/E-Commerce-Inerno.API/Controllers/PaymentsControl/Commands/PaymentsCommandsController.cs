@@ -1,11 +1,11 @@
-using E_Commerce_Inern_Project.Core.Features.Payment.Command.CreateNewPaymentCmd;
+using E_Commerce_Inerno.Core.Features.Payment.Command.CreateNewPaymentCmd;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.PaymentDTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.PaymentsControl.Commands
+namespace E_Commerce_Inerno.API.Controllers.PaymentsControl.Commands
 {
     [Authorize]
     [Route("api/Payments")]

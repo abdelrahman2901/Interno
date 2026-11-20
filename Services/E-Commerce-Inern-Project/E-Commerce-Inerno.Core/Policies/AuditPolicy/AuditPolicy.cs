@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace E_Commerce_Inern_Project.Core.Policies.AuditPolicy
+namespace E_Commerce_Inerno.Core.Policies.AuditPolicy
 {
     public class AuditPolicy
     {

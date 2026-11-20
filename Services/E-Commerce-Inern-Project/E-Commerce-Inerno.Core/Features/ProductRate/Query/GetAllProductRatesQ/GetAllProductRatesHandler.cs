@@ -1,10 +1,10 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IProductRatesRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IProductRatesRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.ProductRatesDTO;
 using MediatR;
 
-namespace E_Commerce_Inern_Project.Core.Features.ProductRate.Query.GetAllProductRatesQ
+namespace E_Commerce_Inerno.Core.Features.ProductRate.Query.GetAllProductRatesQ
 {
     public class GetAllProductRatesHandler : IRequestHandler<GetAllProductRatesQuery, Result<IEnumerable<ProductRateResponse>>>
     {

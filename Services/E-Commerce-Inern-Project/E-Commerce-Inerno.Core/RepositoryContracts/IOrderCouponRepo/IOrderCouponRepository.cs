@@ -1,6 +1,6 @@
-﻿using E_Commerce_Interno.Domain.Entity;
+using E_Commerce_Interno.Domain.Entity;
 
-namespace E_Commerce_Inern_Project.Core.RepositoryContracts.IOrderCouponRepo
+namespace E_Commerce_Inerno.Core.RepositoryContracts.IOrderCouponRepo
 {
     public interface IOrderCouponRepository
     {

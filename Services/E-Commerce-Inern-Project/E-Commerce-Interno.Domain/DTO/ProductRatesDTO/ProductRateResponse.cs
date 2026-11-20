@@ -1,4 +1,4 @@
-﻿using E_Commerce_Interno.Domain.ViewEntites;
+using E_Commerce_Interno.Domain.ViewEntites;
 
 namespace E_Commerce_Interno.Domain.DTO.ProductRatesDTO
 {

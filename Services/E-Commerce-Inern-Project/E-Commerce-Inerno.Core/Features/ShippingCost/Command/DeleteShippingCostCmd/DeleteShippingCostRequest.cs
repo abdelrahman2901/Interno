@@ -1,7 +1,7 @@
 using E_Commerce_Interno.Domain.Common;
 using MediatR;
 
-namespace E_Commerce_Inern_Project.Core.Features.ShippingCost.Command.DeleteShippingCostCmd
+namespace E_Commerce_Inerno.Core.Features.ShippingCost.Command.DeleteShippingCostCmd
 {
     public record DeleteShippingCostRequest(Guid ShippingCostID) : IRequest<Result<bool>>;
 }

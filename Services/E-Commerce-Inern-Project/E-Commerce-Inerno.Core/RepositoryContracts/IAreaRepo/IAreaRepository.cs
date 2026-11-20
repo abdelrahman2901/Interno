@@ -1,6 +1,6 @@
-﻿using E_Commerce_Interno.Domain.Entity;
+using E_Commerce_Interno.Domain.Entity;
 
-namespace E_Commerce_Inern_Project.Core.RepositoryContracts.IAreaRepo
+namespace E_Commerce_Inerno.Core.RepositoryContracts.IAreaRepo
 {
     public interface IAreaRepository
     {

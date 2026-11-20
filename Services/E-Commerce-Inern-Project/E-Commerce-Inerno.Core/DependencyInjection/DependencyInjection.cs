@@ -1,27 +1,31 @@
-using E_Commerce_Inern_Project.Core.BackGroundServices.RabbitMQServices;
-using E_Commerce_Inern_Project.Core.Features.Areas.Query.GetAllAreasQ;
-using E_Commerce_Inern_Project.Core.Features.BannerSlides;
-using E_Commerce_Inern_Project.Core.Features.Categories;
-using E_Commerce_Inern_Project.Core.Features.Products;
-using E_Commerce_Inern_Project.Core.Mapper;
-using E_Commerce_Inern_Project.Core.Policies;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.Services.JwtServices;
-using E_Commerce_Inern_Project.Core.ServicesContracts.IJWTServices;
-using E_Commerce_Inern_Project.Core.Validation.MediatorValidation;
-using E_Commerce_Inern_Project.Core.Features.Products.Commands.CreateProductCommand;
+using E_Commerce_Inerno.Core.Features.Areas.Query.GetAllAreasQ;
+using E_Commerce_Inerno.Core.Features.BannerSlides;
+using E_Commerce_Inerno.Core.Features.Categories;
+using E_Commerce_Inerno.Core.Mapper;
+using E_Commerce_Inerno.Core.Policies;
+using E_Commerce_Inerno.Core.Services.JwtServices;
+using E_Commerce_Inerno.Core.ServicesContracts.IJWTServices;
+using E_Commerce_Inerno.Core.Validation.MediatorValidation;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using E_Commerce_Inerno.Core.Features.Products.Commands.CreateProductCommand;
+using E_Commerce_Inerno.Core.BackGroundServices.RabbitMQServices;
+using E_Commerce_Inerno.Core.Features.Products;
+using E_Commerce_Inerno.Core.Communication;
+using E_Commerce_Inerno.Core.Communication.RabbitMQ;
 
 
-namespace E_Commerce_Inern_Project.Core.DependencyInjection
+namespace E_Commerce_Inerno.Core.DependencyInjection
 {
     public static class DependencyInjection
     {
         public static IServiceCollection AddCore(this IServiceCollection services, IConfiguration configuration)
         {
+            var runningInDocker =
+                Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
+
             //Jwt Token
             services.AddScoped<IJwtService, JwtService>();
 
@@ -46,18 +50,28 @@ namespace E_Commerce_Inern_Project.Core.DependencyInjection
             //Mapper
             services.AddAutoMapper(sfg => { }, typeof(MapperProfile));
 
-            //RabbitMQ
+            //RabbitMQ (used only in Docker; local HTTPS uses HttpClient via IInternoEventPublisher)
             services.AddSingleton<IRabbitMQPublisher, RabbitMQPublisher>();
 
-            // polly policies for RabbitMQ in case of connection failures, it will retry 3 times with a delay of 2 power the retry seconds between each retry
+            // polly policies for RabbitMQ / HttpClient failures
             services.AddSingleton<IPollyPolicy, PollyPolicy>();
+
+            // Dual-mode publisher: RabbitMQ in Docker, HttpClient locally
+            services.AddScoped<IInternoEventPublisher, InternoEventPublisher>();
 
             //background service for initializing RabbitMQ connection and channel
             services.AddHostedService<RabbitMQInitializationService>();
 
-            string RedisConfig = $"{configuration["Redis:Host"]}:{configuration["Redis:Port"]}";
-
-            services.AddStackExchangeRedisCache(options => options.Configuration = RedisConfig);
+            // Redis in Docker; in-memory cache locally (avoids needing Redis when RAM is tight)
+            if (runningInDocker)
+            {
+                string RedisConfig = $"{configuration["Redis:Host"]}:{configuration["Redis:Port"]}";
+                services.AddStackExchangeRedisCache(options => options.Configuration = RedisConfig);
+            }
+            else
+            {
+                services.AddDistributedMemoryCache();
+            }
 
             return services;
         }

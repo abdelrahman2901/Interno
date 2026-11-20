@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace E_Commerce_Inern_Project.Infrastructure.Migrations
+namespace E_Commerce_Inerno.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class init : Migration

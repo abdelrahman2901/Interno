@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Security.Cryptography;
 
-namespace E_Commerce_Inern_Project.Core.Features.Categories
+namespace E_Commerce_Inerno.Core.Features.Categories
 {
     /// <summary>
     /// Shared by the create, update and delete category handlers, so it stays in one place

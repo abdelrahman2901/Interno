@@ -7,9 +7,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "generate:interno-microservice-client": "nswag run src/Core/API/Interno-Microservice-Client/Interno-Microservice-Client.nswag && node scripts/patch-interno-client.mjs",
-    "generate:audit-microservice-client": "nswag run src/Core/API/Audit-Microservice-Client/Audit-Microservice-Client.nswag",
-    "generate:notification-microservice-client": "nswag run src/Core/API/Notification-Microservice-Cleint/Notification-Microservice-Cleint.nswag",
+    "generate:interno-microservice-client": "nswag run src/Core/API/Interno-Microservice-Client/Interno-Microservice-Client.json && node scripts/patch-interno-client.mjs && node scripts/strip-api-prefix.mjs src/Core/API/Interno-Microservice-Client/Interno-Microservice-Client.ts",
+    "generate:audit-microservice-client": "nswag run src/Core/API/Audit-Microservice-Client/Audit-Microservice-Client.json && node scripts/strip-api-prefix.mjs src/Core/API/Audit-Microservice-Client/Audit-Microservice-Client.ts",
+    "generate:notification-microservice-client": "nswag run src/Core/API/Notification-Microservice-Cleint/Notification-Microservice-Cleint.json && node scripts/strip-api-prefix.mjs src/Core/API/Notification-Microservice-Cleint/Notifications-Microservice-Client.ts",
     "generate:api": "npm run generate:interno-microservice-client && npm run generate:audit-microservice-client && npm run generate:notification-microservice-client"
   },
   "dependencies": {

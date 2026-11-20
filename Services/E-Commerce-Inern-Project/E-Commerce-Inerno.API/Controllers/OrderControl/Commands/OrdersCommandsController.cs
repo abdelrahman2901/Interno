@@ -1,12 +1,12 @@
-using E_Commerce_Inern_Project.Core.Features.Orders.Command.CreateOrderCmd;
-using E_Commerce_Inern_Project.Core.Features.Orders.Command.UpdateOrderCmd;
-using E_Commerce_Inern_Project.Core.Features.Orders.Command.UpdateOrderStatusCmd;
+using E_Commerce_Inerno.Core.Features.Orders.Command.CreateOrderCmd;
+using E_Commerce_Inerno.Core.Features.Orders.Command.UpdateOrderCmd;
+using E_Commerce_Inerno.Core.Features.Orders.Command.UpdateOrderStatusCmd;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.OrderDTO;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.OrderControl.Commands
+namespace E_Commerce_Inerno.API.Controllers.OrderControl.Commands
 {
     [Route("api/Orders")]
     [ApiController]

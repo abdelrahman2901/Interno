@@ -1,26 +1,27 @@
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ITransectionRepo;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IBannerRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.ITransectionRepo;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.IBannerRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.BannerSlides.Command.DeleteBannerCmd
+namespace E_Commerce_Inerno.Core.Features.BannerSlides.Command.DeleteBannerCmd
 {
     public class DeleteBannerHandler : IRequestHandler<DeleteBannerRequest, Result<bool>>
     {
         private readonly IBannerRepository _bannerRepository;
         private readonly ITransectionRepository _transection;
-        private readonly IRabbitMQPublisher _Publisher;
+        private readonly IInternoEventPublisher _Publisher;
         private readonly IUserRepository _UserRepo;
         private readonly BannerImageStorage _imageStorage;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        
 
-        public DeleteBannerHandler(IBannerRepository bannerRepository, IUserRepository UserRepo, IRabbitMQPublisher Publisher, ITransectionRepository transection, BannerImageStorage imageStorage)
+        public DeleteBannerHandler(IBannerRepository bannerRepository, IUserRepository UserRepo, IInternoEventPublisher Publisher, ITransectionRepository transection, BannerImageStorage imageStorage)
         {
             _bannerRepository = bannerRepository;
             _transection = transection;
@@ -58,7 +59,7 @@ namespace E_Commerce_Inern_Project.Core.Features.BannerSlides.Command.DeleteBann
 
                 string JsonOldValues = JsonSerializer.Serialize<BannerSlide>(existing);
                 AuditRequest AuditRequest = new(await _UserRepo.GetAdminID(), ActionTypeEnum.Delete, nameof(BannerSlide), JsonOldValues, JsonNewValues);
-                await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+                await _Publisher.PublishAuditAsync(AuditRequest);
 
                 await transection.CommitAsync();
                 return Result<bool>.Success(existing.IsDeleted);

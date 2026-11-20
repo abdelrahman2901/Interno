@@ -1,12 +1,12 @@
-using E_Commerce_Inern_Project.Core.Features.OrderCoupon.Command.CreateCouponCmd;
-using E_Commerce_Inern_Project.Core.Features.OrderCoupon.Command.DeleteCouponCmd;
-using E_Commerce_Inern_Project.Core.Features.OrderCoupon.Command.UpdateCouponActivationCmd;
-using E_Commerce_Inern_Project.Core.Features.OrderCoupon.Command.UpdateCouponCmd;
+using E_Commerce_Inerno.Core.Features.OrderCoupon.Command.CreateCouponCmd;
+using E_Commerce_Inerno.Core.Features.OrderCoupon.Command.DeleteCouponCmd;
+using E_Commerce_Inerno.Core.Features.OrderCoupon.Command.UpdateCouponActivationCmd;
+using E_Commerce_Inerno.Core.Features.OrderCoupon.Command.UpdateCouponCmd;
 using E_Commerce_Interno.Domain.Common;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.OrderCouponControl.Commands
+namespace E_Commerce_Inerno.API.Controllers.OrderCouponControl.Commands
 {
     [Route("api/OrderCoupon")]
     [ApiController]

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace E_Commerce_Inern_Project.Core.Features.OrderCoupon.Command.UpdateCouponCmd
+namespace E_Commerce_Inerno.Core.Features.OrderCoupon.Command.UpdateCouponCmd
 {
     public class UpdateOrderCouponRequestValidation : AbstractValidator<UpdateCouponRequest>
     {

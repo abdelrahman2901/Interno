@@ -1,13 +1,13 @@
-using E_Commerce_Inern_Project.Core.Features.BannerSlides.Command.CreateBannerCmd;
-using E_Commerce_Inern_Project.Core.Features.BannerSlides.Command.DeleteBannerCmd;
-using E_Commerce_Inern_Project.Core.Features.BannerSlides.Command.ToggleBannerActiviationCmd;
-using E_Commerce_Inern_Project.Core.Features.BannerSlides.Command.UpdateBannerCmd;
+using E_Commerce_Inerno.Core.Features.BannerSlides.Command.CreateBannerCmd;
+using E_Commerce_Inerno.Core.Features.BannerSlides.Command.DeleteBannerCmd;
+using E_Commerce_Inerno.Core.Features.BannerSlides.Command.ToggleBannerActiviationCmd;
+using E_Commerce_Inerno.Core.Features.BannerSlides.Command.UpdateBannerCmd;
 using E_Commerce_Interno.Domain.Common;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.BannerControl.Commands
+namespace E_Commerce_Inerno.API.Controllers.BannerControl.Commands
 {
     [Route("api/Banner")]
     [ApiController]

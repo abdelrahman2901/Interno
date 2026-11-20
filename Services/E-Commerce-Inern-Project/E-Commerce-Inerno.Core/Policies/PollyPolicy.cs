@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Bulkhead;
 
-namespace E_Commerce_Inern_Project.Core.Policies
+namespace E_Commerce_Inerno.Core.Policies
 {
     public class PollyPolicy : IPollyPolicy
     {

@@ -1,9 +1,9 @@
-﻿using E_Commerce_Interno.Domain.Common;
+using E_Commerce_Interno.Domain.Common;
 using MediatR;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Text.Json.Serialization;
 
-namespace E_Commerce_Inern_Project.Core.Features.CartItem.Commands.AddCartItemListCmd
+namespace E_Commerce_Inerno.Core.Features.CartItem.Commands.AddCartItemListCmd
 {
     public class AddCartItemListRequest : IRequest<Result<bool>>
     {

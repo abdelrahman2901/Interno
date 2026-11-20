@@ -1,23 +1,24 @@
-﻿using AutoMapper;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IOrdersRepo;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ITransectionRepo;
-using E_Commerce_Inern_Project.Core.Policies;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.NotificationsDTO;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICartItemRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICartRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IOrderItemsRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IProductRepo;
+using AutoMapper;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IOrdersRepo;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.ITransectionRepo;
+using E_Commerce_Inerno.Core.Policies;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.ICartItemRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.ICartRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IOrderItemsRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IProductRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.OrderDTO;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using Polly;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
+using E_Commerce_Inerno.Core.Communication.DTOs.NotificationsDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Orders.Command.CreateOrderCmd
+namespace E_Commerce_Inerno.Core.Features.Orders.Command.CreateOrderCmd
 {
     public class CreateOrderHandler : IRequestHandler<CreateOrderRequest, Result<OrderResponse>>
     {
@@ -28,12 +29,12 @@ namespace E_Commerce_Inern_Project.Core.Features.Orders.Command.CreateOrderCmd
         private readonly IProductRepository _ProductRepo;
         private readonly ITransectionRepository _TransectionRepo;
         private readonly IMapper _mapper;
-        private readonly IRabbitMQPublisher _Publisher;
+        private readonly IInternoEventPublisher _Publisher;
         private readonly IAsyncPolicy _policy;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        
         private readonly string _NotificationRoutingKey = "Interno.Notification";
 
-        public CreateOrderHandler(IOrdersRepository ordersRepository, IPollyPolicy asyncPolicy, IRabbitMQPublisher Publisher, IProductRepository ProductRepo, ICartRepository CartRepo,
+        public CreateOrderHandler(IOrdersRepository ordersRepository, IPollyPolicy asyncPolicy, IInternoEventPublisher Publisher, IProductRepository ProductRepo, ICartRepository CartRepo,
             IOrderItemsRepoistory OrderItemRepo, ITransectionRepository TransectionRepo,
             ICartItemRepository CartItemRepo, IMapper mapper)
         {
@@ -93,12 +94,12 @@ namespace E_Commerce_Inern_Project.Core.Features.Orders.Command.CreateOrderCmd
                 CreateNotificationRequest NotifeRequeset = new(order.UserID, "Order Created Successfully ");
                 await _policy.ExecuteAsync(async () =>
                 {
-                    await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+                    await _Publisher.PublishAuditAsync(AuditRequest);
                 });
 
                 await _policy.ExecuteAsync(async () =>
                 {
-                    await _Publisher.Publish(_NotificationRoutingKey, AuditRequest);
+                    await _Publisher.PublishNotificationAsync(NotifeRequeset);
                 });
 
                 await transection.CommitAsync();
@@ -139,7 +140,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Orders.Command.CreateOrderCmd
 
             await _policy.ExecuteAsync(async () =>
             {
-                await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+                await _Publisher.PublishAuditAsync(AuditRequest);
             });
 
             bool CartItemsDeletionResult = await DeleteCartItems(cartItems, UserID);
@@ -163,7 +164,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Orders.Command.CreateOrderCmd
 
             await _policy.ExecuteAsync(async () =>
             {
-                await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+                await _Publisher.PublishAuditAsync(AuditRequest);
             });
             return true;
         }

@@ -1,29 +1,28 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICategoryRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Core.Communication;
+using E_Commerce_Inerno.Core.RepositoryContracts.ICategoryRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.CategoryDTO;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Categories.Commands.CreateCategoryCommad
+namespace E_Commerce_Inerno.Core.Features.Categories.Commands.CreateCategoryCommad
 {
     public class CreateCategoryCmdHandler : IRequestHandler<CategoryRequest, Result<CategoryResponse>>
     {
         private readonly ICategoryRepository _CatRepo;
         private readonly IMapper _Mapper;
         private readonly CategoryImageStorage _imageStorage;
-        private readonly IRabbitMQPublisher _Publisher;
+        private readonly IInternoEventPublisher _Publisher;
         private readonly IUserRepository _UserRepo;
         private readonly IDistributedCache _cache;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
 
-        public CreateCategoryCmdHandler(ICategoryRepository catRepo, IDistributedCache cache, IUserRepository UserRepo, IRabbitMQPublisher Publisher, CategoryImageStorage imageStorage, IMapper mapper)
+        public CreateCategoryCmdHandler(ICategoryRepository catRepo, IDistributedCache cache, IUserRepository UserRepo, IInternoEventPublisher Publisher, CategoryImageStorage imageStorage, IMapper mapper)
         {
             _CatRepo = catRepo;
             _Mapper = mapper;
@@ -63,7 +62,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Categories.Commands.CreateCateg
             }
             string JsonNewValues = JsonSerializer.Serialize<Category>(NewCat);
             AuditRequest AuditRequest = new(await _UserRepo.GetAdminID(), ActionTypeEnum.Create, nameof(Category), null, JsonNewValues);
-            await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+            await _Publisher.PublishAuditAsync(AuditRequest);
 
             // Cache the newly created category
             string CatKey = "Categories";

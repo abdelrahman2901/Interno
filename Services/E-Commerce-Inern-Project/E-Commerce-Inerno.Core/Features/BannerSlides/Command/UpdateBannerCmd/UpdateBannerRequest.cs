@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace E_Commerce_Inern_Project.Core.Features.BannerSlides.Command.UpdateBannerCmd
+namespace E_Commerce_Inerno.Core.Features.BannerSlides.Command.UpdateBannerCmd
 {
     public class UpdateBannerRequest : IRequest<Result<bool>>
     {

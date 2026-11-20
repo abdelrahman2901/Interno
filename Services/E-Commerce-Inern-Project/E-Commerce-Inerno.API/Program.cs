@@ -1,22 +1,27 @@
-using E_Commerce_Inern_Project.Core.DependencyInjection;
-using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
-using E_Commerce_Inern_Project.Infrastructure.DependencyInjection;
+using E_Commerce_Inerno.Core.DependencyInjection;
+using E_Commerce_Inerno.Core.Policies;
+using E_Commerce_Inerno.Infrastructure.ApplicationDbContext;
+using E_Commerce_Inerno.Infrastructure.DependencyInjection;
+using E_Commerce_Inerno.Core.Communication.HttpClients;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
+using Polly;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var runningInDocker =
+    Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
 builder.Services.AddControllers().AddJsonOptions(cfg =>
 {
     cfg.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
-Console.WriteLine(builder.Environment.EnvironmentName);
+Console.WriteLine($"Environment: {builder.Environment.EnvironmentName}");
+Console.WriteLine($"RunningInDocker: {runningInDocker}");
 
 builder.Services.AddCore(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -37,6 +42,28 @@ builder.Services.AddCors(options =>
           .WithMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
           .AllowCredentials();
     });
+});
+
+// HttpClients for local HTTPS dual-boot (Audit / Notification microservices)
+builder.Services.AddHttpClient<CreateAuditClient>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["AuditService:BaseUrl"]!);
+}).AddPolicyHandler((serviceProvider, request) =>
+{
+    var policy = serviceProvider
+        .GetRequiredService<IPollyPolicy>().GetPolicy();
+
+    return policy.AsAsyncPolicy<HttpResponseMessage>();
+});
+builder.Services.AddHttpClient<CreateNotificationClient>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["NotificationsService:BaseUrl"]!);
+}).AddPolicyHandler((serviceProvider, request) =>
+{
+    var policy = serviceProvider
+        .GetRequiredService<IPollyPolicy>().GetPolicy();
+
+    return policy.AsAsyncPolicy<HttpResponseMessage>();
 });
 
 builder.Services.AddSwaggerGen(c =>
@@ -124,7 +151,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseCors();
-if (!string.Equals(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"), "true", StringComparison.OrdinalIgnoreCase))
+
+if (!runningInDocker)
 {
     app.UseHttpsRedirection();
     app.UseHsts();

@@ -1,21 +1,22 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.ITransectionRepo;
-using E_Commerce_Inern_Project.Core.Policies;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICategoryRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IColorRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IProductRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.ITransectionRepo;
+using E_Commerce_Inerno.Core.Policies;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.ICategoryRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IColorRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IProductRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
 using E_Commerce_Inerno.Core.Features.Products.Commands.UpdateProductCommand;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using Polly;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Products.Commands.UpdateProductCommand
+namespace E_Commerce_Inerno.Core.Features.Products.Commands.UpdateProductCommand
 {
     public class UpdateProductHandler : IRequestHandler<ProductUpdateRequest, Result<bool>>
     {
@@ -25,12 +26,12 @@ namespace E_Commerce_Inern_Project.Core.Features.Products.Commands.UpdateProduct
         private readonly IColorRepository _ColorRepo;
         private readonly IMapper _Mapper;
         private readonly ProductImageStorage _imageStorage;
-        private readonly IRabbitMQPublisher _Publisher;
+        private readonly IInternoEventPublisher _Publisher;
         private readonly IAsyncPolicy _policy;
         private readonly ITransectionRepository _Transection;
         private readonly string AuditKey = "Interno.Audit";
 
-        public UpdateProductHandler(IProductRepository productRepo, IColorRepository ColorRepo, ITransectionRepository Transection, IPollyPolicy AsyncPolicy, IUserRepository UserRepo, ICategoryRepository CategoryRepo, IRabbitMQPublisher Publisher, ProductImageStorage imageStorage, IMapper mapper)
+        public UpdateProductHandler(IProductRepository productRepo, IColorRepository ColorRepo, ITransectionRepository Transection, IPollyPolicy AsyncPolicy, IUserRepository UserRepo, ICategoryRepository CategoryRepo, IInternoEventPublisher Publisher, ProductImageStorage imageStorage, IMapper mapper)
         {
             _productRepo = productRepo;
             _CategoryRepo = CategoryRepo;
@@ -113,7 +114,7 @@ namespace E_Commerce_Inern_Project.Core.Features.Products.Commands.UpdateProduct
 
                 await _policy.ExecuteAsync(async () =>
                 {
-                    await _Publisher.Publish(AuditKey, AuditRequest);
+                    await _Publisher.PublishAuditAsync(AuditRequest);
                 });
 
                 await transection.CommitAsync();

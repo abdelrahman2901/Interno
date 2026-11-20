@@ -1,12 +1,11 @@
-using E_Commerce_Inern_Project.Core.Features.SIze.Commands.CreateSizeCommand;
-using E_Commerce_Inern_Project.Core.Features.SIze.Commands.DeleteSizeCommand;
+using E_Commerce_Inerno.Core.Features.SIze.Commands.CreateSizeCommand;
+using E_Commerce_Inerno.Core.Features.SIze.Commands.DeleteSizeCommand;
 using E_Commerce_Interno.Domain.Common;
-using E_Commerce_Interno.Domain.DTO.SizeDTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.SizeControl.Commands
+namespace E_Commerce_Inerno.API.Controllers.SizeControl.Commands
 {
     [Route("api/Size")]
     [ApiController]

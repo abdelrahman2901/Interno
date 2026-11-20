@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace E_Commerce_Inern_Project.Core.Features.Auth.Commands.RegisterUser
+namespace E_Commerce_Inerno.Core.Features.Auth.Commands.RegisterUser
 {
     public class RegisterRequestValidation : AbstractValidator<RegisterUserCommand>
     {

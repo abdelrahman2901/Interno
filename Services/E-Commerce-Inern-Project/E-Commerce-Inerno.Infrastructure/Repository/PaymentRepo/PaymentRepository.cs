@@ -1,10 +1,10 @@
-﻿using E_Commerce_Inern_Project.Core.RepositoryContracts.IPaymentRepo;
-using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
+using E_Commerce_Inerno.Core.RepositoryContracts.IPaymentRepo;
+using E_Commerce_Inerno.Infrastructure.ApplicationDbContext;
 using E_Commerce_Interno.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace E_Commerce_Inern_Project.Infrastructure.Repository.PaymentRepo
+namespace E_Commerce_Inerno.Infrastructure.Repository.PaymentRepo
 {
     public class PaymentRepository : IPaymentRepository
     {

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace E_Commerce_Inern_Project.Core.Features.Products.Commands.CreateProductCommand
+namespace E_Commerce_Inerno.Core.Features.Products.Commands.CreateProductCommand
 {
     public class ProductRequestValidation : AbstractValidator<ProductRequest>
     {

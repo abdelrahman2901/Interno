@@ -1,8 +1,8 @@
-﻿using E_Commerce_Interno.Domain.Entity;
+using E_Commerce_Interno.Domain.Entity;
 using E_Commerce_Interno.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
-namespace E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext
+namespace E_Commerce_Inerno.Infrastructure.ApplicationDbContext
 {
     public class ApplicationDBContext : DbContext
     {
@@ -32,6 +32,12 @@ namespace E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<ProductRates>().ToTable(table =>
+            {
+                table.HasCheckConstraint("CK_ProductRates_Rating", "[Rating] BETWEEN 1 AND 5");
+            });
+
+            #region OLD
             builder.Entity<ApplicationUser>().HasData(new ApplicationUser()
             {
                 UserID = Guid.Parse("D1A9B5C3-4F2E-4A6B-8C1D-9F3E2A1B5C3D"),
@@ -54,25 +60,16 @@ namespace E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext
             });
             builder.Entity<ApplicationUser>().HasIndex(r => r.Email).IsUnique();
             builder.Entity<ApplicationUser>().HasIndex(r => r.PhoneNumber).IsUnique();
-            builder.Entity<ApplicationUser>()
-           .ToTable(t =>
-           {
-               t.HasCheckConstraint(
-                   "CK_ApplicationUser_PhoneNumber",
-                   """
-            LEN(PhoneNumber) = 13
-            AND LEFT(PhoneNumber, 3) = '+20'
-            AND SUBSTRING(PhoneNumber, 4, 1) = '1'
-            AND SUBSTRING(PhoneNumber, 5, 1) IN ('0', '1', '2', '5')
-            AND PhoneNumber NOT LIKE '%[^0-9+]%'
-            """
-               );
-           });
-            #region OLD
+
 
             builder.Entity<ApplicationUserRoles>().HasKey(r => new { r.UserID, r.RoleID });
             builder.Entity<ApplicationUser>().Property(r => r.Gender).HasConversion<string>();
-
+            builder.Entity<ApplicationUser>()
+    .ToTable(table =>
+        table.HasCheckConstraint(
+            "CK_ApplicationUser_Gender",
+            $"[Gender] IN ('{GenderEnum.Male.ToString()}', '{GenderEnum.Female.ToString()}')"
+        ));
 
             builder.Entity<ApplicationUserRoles>()
                 .HasOne(r => r.User)
@@ -97,9 +94,27 @@ namespace E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext
 
             builder.Entity<Payments>().Property(p => p.PaymentMethod).HasConversion<string>();
             builder.Entity<Payments>().Property(p => p.Status).HasConversion<string>();
+            builder.Entity<Payments>()
+    .ToTable(table =>
+        table.HasCheckConstraint(
+            "CK_Payments_PaymentMethod",
+            $"[PaymentMethod] IN ('{PaymentMethods.Cash.ToString()}', '{PaymentMethods.CreditCard.ToString()}')"
+        ));
+            builder.Entity<Payments>()
+    .ToTable(table =>
+        table.HasCheckConstraint(
+            "CK_Payments_Status",
+            $"[Status] IN ('{StatusEnum.Approved.ToString()}', '{StatusEnum.Rejected.ToString()}', '{StatusEnum.Pending.ToString()}')"
+        ));
             builder.Entity<Payments>().HasOne(u => u.User).WithMany(p => p.Payments).HasForeignKey(u => u.UserID).OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Order>().Property(p => p.OrderStatus).HasConversion<string>();
+            builder.Entity<Order>()
+   .ToTable(table =>
+       table.HasCheckConstraint(
+           "CK_Order_OrderStatus",
+           $"[OrderStatus] IN ('{OrderStatus.Cancelled.ToString()}', '{OrderStatus.Delivered.ToString()}', '{OrderStatus.Shipped.ToString()}' , '{OrderStatus.Processing.ToString()}')"
+       ));
             builder.Entity<Order>().HasOne(c => c.User).WithMany(r => r.Orders).HasForeignKey(o => o.UserID).OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Order>().HasOne(c => c.ShippingCosts).WithMany(r => r.orders).HasForeignKey(o => o.ShippingCostID).OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Order>().HasOne(c => c.OrderCoupon).WithMany(r => r.orders).HasForeignKey(o => o.OrderCouponID).OnDelete(DeleteBehavior.NoAction);
@@ -109,6 +124,13 @@ namespace E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext
 
 
             builder.Entity<OrderCoupons>().Property(p => p.DiscountType).HasConversion<string>();
+            builder.Entity<OrderCoupons>()
+    .ToTable(table =>
+        table.HasCheckConstraint(
+            "CK_OrderCoupon_DiscountType",
+            $"[DiscountType] IN ('{DiscountTypeEnum.Percentage.ToString()}', '{DiscountTypeEnum.Fixed.ToString()}')"
+        ));
+
 
             builder.Entity<OrderItems>().HasOne(ot => ot.Product).WithMany(o => o.OrderItems).HasForeignKey(ot => ot.ProductID).OnDelete(DeleteBehavior.NoAction);
             builder.Entity<OrderItems>().HasOne(ot => ot.Order).WithMany(o => o.OrderItems).HasForeignKey(ot => ot.OrderID).OnDelete(DeleteBehavior.NoAction);

@@ -1,9 +1,8 @@
-﻿using MediatR;
-using E_Commerce_Interno.Domain.Common;
+﻿using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.UserDTO;
+using MediatR;
 
-
-namespace E_Commerce_Inern_Project.Core.Features.User.Query.GetAllUsers
+namespace E_Commerce_Inerno.Core.Features.User.Query.GetAllUsers
 {
-   public record GetAllUsersQuery():IRequest<Result<IEnumerable<AuthUserDetailsDTO>>>;
+    public record GetAllUsersQuery(int PageNumber = 1, int PageSize = 20) : IRequest<Result<PagedResult<AuthUserDetailsDTO>>>;
 }

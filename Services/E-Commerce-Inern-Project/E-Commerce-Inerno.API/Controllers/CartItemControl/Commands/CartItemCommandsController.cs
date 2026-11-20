@@ -1,6 +1,6 @@
-using E_Commerce_Inern_Project.Core.Features.CartItem.Commands.AddCartItemListCmd;
-using E_Commerce_Inern_Project.Core.Features.CartItem.Commands.DeleteCartItemCmd;
-using E_Commerce_Inern_Project.Core.Features.CartItem.Commands.UpdateCartItemCmd;
+using E_Commerce_Inerno.Core.Features.CartItem.Commands.AddCartItemListCmd;
+using E_Commerce_Inerno.Core.Features.CartItem.Commands.DeleteCartItemCmd;
+using E_Commerce_Inerno.Core.Features.CartItem.Commands.UpdateCartItemCmd;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.CartItemDTO;
 using MediatR;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace E_Commerce_Inern_Project.API.Controllers.CartItemControl.Commands
+namespace E_Commerce_Inerno.API.Controllers.CartItemControl.Commands
 {
     [Route("api/CartItem")]
     [ApiController]

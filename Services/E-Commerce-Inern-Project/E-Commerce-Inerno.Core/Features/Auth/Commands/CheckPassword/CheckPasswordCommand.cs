@@ -2,7 +2,7 @@
 using MediatR;
 
 
-namespace E_Commerce_Inern_Project.Core.Features.Auth.Commands.CheckPassword
+namespace E_Commerce_Inerno.Core.Features.Auth.Commands.CheckPassword
 {
    public class CheckPasswordCommand :IRequest<Result<bool>>
     {

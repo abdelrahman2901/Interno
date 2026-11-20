@@ -1,10 +1,10 @@
-﻿using E_Commerce_Inern_Project.Core.RepositoryContracts.ICategoryRepo;
-using E_Commerce_Inern_Project.Infrastructure.ApplicationDbContext;
+using E_Commerce_Inerno.Core.RepositoryContracts.ICategoryRepo;
+using E_Commerce_Inerno.Infrastructure.ApplicationDbContext;
 using E_Commerce_Interno.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace E_Commerce_Inern_Project.Infrastructure.Repository.CategoryRepo
+namespace E_Commerce_Inerno.Infrastructure.Repository.CategoryRepo
 {
     public class CategoryRepository : ICategoryRepository
     {

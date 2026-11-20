@@ -21,8 +21,6 @@ namespace E_Commerce_Interno.Domain.Entity
         [MaxLength(10)]
         public int Stock { get; set; }
         [MaxLength(10)]
-        public double Rating { get; set; } = 0;
-        [MaxLength(10)]
         public int TotalRating { get; set; } = 0;
 
         [MaxLength(100)]

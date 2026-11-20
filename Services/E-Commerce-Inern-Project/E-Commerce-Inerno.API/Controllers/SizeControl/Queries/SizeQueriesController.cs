@@ -1,11 +1,11 @@
-using E_Commerce_Inern_Project.Core.Features.SIze.Query.GetSizesQ;
+using E_Commerce_Inerno.Core.Features.SIze.Query.GetSizesQ;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.SizeDTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.SizeControl.Queries
+namespace E_Commerce_Inerno.API.Controllers.SizeControl.Queries
 {
     [Route("api/Size")]
     [ApiController]

@@ -1,24 +1,25 @@
-﻿using AutoMapper;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICartItemRepo;
+using AutoMapper;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.ICartItemRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.CartItemDTO;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.CartItem.Commands.DeleteCartItemCmd
+namespace E_Commerce_Inerno.Core.Features.CartItem.Commands.DeleteCartItemCmd
 {
     public class DeleteCartItemHandler : IRequestHandler<DeleteCartItemRequest, Result<bool>>
     {
         private readonly ICartItemRepository _cartItemRepository;
         private readonly IMapper _mapper;
-        private readonly IRabbitMQPublisher _Publisher;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        private readonly IInternoEventPublisher _Publisher;
+        
 
-        public DeleteCartItemHandler(ICartItemRepository cartItemRepository, IRabbitMQPublisher Publisher, IMapper mapper)
+        public DeleteCartItemHandler(ICartItemRepository cartItemRepository, IInternoEventPublisher Publisher, IMapper mapper)
         {
             _cartItemRepository = cartItemRepository;
             _mapper = mapper;
@@ -41,7 +42,7 @@ namespace E_Commerce_Inern_Project.Core.Features.CartItem.Commands.DeleteCartIte
             string JsonNewValues = JsonSerializer.Serialize<CartItemResponse>(_mapper.Map<CartItemResponse>(item));
 
             AuditRequest AuditRequest = new(item.Cart.UserID, ActionTypeEnum.Delete, nameof(CartItemResponse), JsonOldValues, JsonNewValues);
-            await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+            await _Publisher.PublishAuditAsync(AuditRequest);
 
             return Result<bool>.Success(true);
         }

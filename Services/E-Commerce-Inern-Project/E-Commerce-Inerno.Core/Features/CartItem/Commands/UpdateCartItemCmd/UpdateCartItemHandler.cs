@@ -1,26 +1,27 @@
-﻿using AutoMapper;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.ICartItemRepo;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IProductRepo;
+using AutoMapper;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.ICartItemRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IProductRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.CartItemDTO;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.CartItem.Commands.UpdateCartItemCmd
+namespace E_Commerce_Inerno.Core.Features.CartItem.Commands.UpdateCartItemCmd
 {
     public class UpdateCartItemHandler : IRequestHandler<UpdateCartItemRequest, Result<CartItemResponse>>
     {
         private readonly ICartItemRepository _cartItemRepository;
         private readonly IProductRepository _ProductRepo;
         private readonly IMapper _mapper;
-        private readonly IRabbitMQPublisher _Publisher;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        private readonly IInternoEventPublisher _Publisher;
+        
 
-        public UpdateCartItemHandler(ICartItemRepository cartItemRepository, IRabbitMQPublisher Publisher, IProductRepository ProductRepo, IMapper mapper)
+        public UpdateCartItemHandler(ICartItemRepository cartItemRepository, IInternoEventPublisher Publisher, IProductRepository ProductRepo, IMapper mapper)
         {
             _cartItemRepository = cartItemRepository;
             _ProductRepo = ProductRepo;
@@ -62,7 +63,7 @@ namespace E_Commerce_Inern_Project.Core.Features.CartItem.Commands.UpdateCartIte
             string JsonNewValues = JsonSerializer.Serialize<CartItemResponse>(_mapper.Map<CartItemResponse>(item));
 
             AuditRequest AuditRequest = new(item.Cart.UserID, ActionTypeEnum.Update, nameof(CartItemResponse), JsonOldValues, JsonNewValues);
-            await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+            await _Publisher.PublishAuditAsync(AuditRequest);
 
             return Result<CartItemResponse>.Success(_mapper.Map<CartItemResponse>(item));
         }

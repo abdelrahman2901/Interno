@@ -1,12 +1,12 @@
-using E_Commerce_Inern_Project.Core.Features.Cities.Query.GetAllCitiesQ;
-using E_Commerce_Inern_Project.Core.Features.Cities.Query.GetCityByIDQ;
+using E_Commerce_Inerno.Core.Features.Cities.Query.GetAllCitiesQ;
+using E_Commerce_Inerno.Core.Features.Cities.Query.GetCityByIDQ;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.CityDTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.CityControl.Queries
+namespace E_Commerce_Inerno.API.Controllers.CityControl.Queries
 {
     [AllowAnonymous]
     [Route("api/Cities")]

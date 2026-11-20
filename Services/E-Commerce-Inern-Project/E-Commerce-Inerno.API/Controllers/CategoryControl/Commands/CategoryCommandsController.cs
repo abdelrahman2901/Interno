@@ -1,5 +1,5 @@
-using E_Commerce_Inern_Project.Core.Features.Categories.Commands.CreateCategoryCommad;
-using E_Commerce_Inern_Project.Core.Features.Categories.Commands.DeleteCategoryCommand;
+using E_Commerce_Inerno.Core.Features.Categories.Commands.CreateCategoryCommad;
+using E_Commerce_Inerno.Core.Features.Categories.Commands.DeleteCategoryCommand;
 using E_Commerce_Inerno.Core.Features.Categories.Commands.UpdateCategoryCommand;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.CategoryDTO;
@@ -7,7 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.CategoryControl.Commands
+namespace E_Commerce_Inerno.API.Controllers.CategoryControl.Commands
 {
     [Authorize(Roles = "Admin")]
     [Route("api/Category")]

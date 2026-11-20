@@ -1,5 +1,5 @@
 using AutoMapper;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IShippingCostsRepo;
+using E_Commerce_Inerno.Core.RepositoryContracts.IShippingCostsRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.ShippingCostsDTO;
 using E_Commerce_Interno.Domain.Entity;
@@ -7,7 +7,7 @@ using MediatR;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 
-namespace E_Commerce_Inern_Project.Core.Features.ShippingCost.Command.CreateShippingCostCmd
+namespace E_Commerce_Inerno.Core.Features.ShippingCost.Command.CreateShippingCostCmd
 {
     public class CreateShippingCostHandler : IRequestHandler<CreateShippingCostRequest, Result<bool>>
     {

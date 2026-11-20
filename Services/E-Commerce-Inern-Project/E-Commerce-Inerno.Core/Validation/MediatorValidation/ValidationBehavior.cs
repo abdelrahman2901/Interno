@@ -1,7 +1,7 @@
-﻿using FluentValidation;
+using FluentValidation;
 using MediatR;
 using System.Reflection;
-namespace E_Commerce_Inern_Project.Core.Validation.MediatorValidation
+namespace E_Commerce_Inerno.Core.Validation.MediatorValidation
 {
     public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {

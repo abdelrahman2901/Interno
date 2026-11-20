@@ -1,28 +1,29 @@
-﻿using E_Commerce_Inern_Project.Core.Domain.RepositoryContracts.IOrdersRepo;
-using E_Commerce_Inern_Project.Core.Policies;
-using E_Commerce_Inern_Project.Core.RabbitMQ;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.AuditDTO.Enum;
-using E_Commerce_Inern_Project.Core.RabbitMQ.DTOs.NotificationsDTO;
-using E_Commerce_Inern_Project.Core.RepositoryContracts.IUserRepo;
+using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IOrdersRepo;
+using E_Commerce_Inerno.Core.Policies;
+using E_Commerce_Inerno.Core.Communication;
+
+using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.Entity;
 using MediatR;
 using Polly;
 using System.Text.Json;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO.Enum;
+using E_Commerce_Inerno.Core.Communication.DTOs.AuditDTO;
+using E_Commerce_Inerno.Core.Communication.DTOs.NotificationsDTO;
 
-namespace E_Commerce_Inern_Project.Core.Features.Orders.Command.UpdateOrderStatusCmd
+namespace E_Commerce_Inerno.Core.Features.Orders.Command.UpdateOrderStatusCmd
 {
     public class UpdateOrderStatusHandler : IRequestHandler<UpdateOrderStatusRequest, Result<bool>>
     {
         private readonly IOrdersRepository _ordersRepository;
         private readonly IUserRepository _UserRepo;
-        private readonly IRabbitMQPublisher _Publisher;
+        private readonly IInternoEventPublisher _Publisher;
         private readonly IAsyncPolicy _policy;
-        private readonly string _AuditRoutingKey = "Interno.Audit";
+        
         private readonly string _NotificationRoutingKey = "Interno.Notification";
 
-        public UpdateOrderStatusHandler(IOrdersRepository ordersRepository, IPollyPolicy asyncPolicy, IRabbitMQPublisher Publisher, IUserRepository UserRepo)
+        public UpdateOrderStatusHandler(IOrdersRepository ordersRepository, IPollyPolicy asyncPolicy, IInternoEventPublisher Publisher, IUserRepository UserRepo)
         {
             _ordersRepository = ordersRepository;
             _UserRepo = UserRepo;
@@ -50,12 +51,12 @@ namespace E_Commerce_Inern_Project.Core.Features.Orders.Command.UpdateOrderStatu
             CreateNotificationRequest NotifeRequest = new(order.UserID, $"Order {request.NewStatus} Successfully");
             await _policy.ExecuteAsync(async () =>
             {
-                await _Publisher.Publish(_AuditRoutingKey, AuditRequest);
+                await _Publisher.PublishAuditAsync(AuditRequest);
             });
 
             await _policy.ExecuteAsync(async () =>
             {
-                await _Publisher.Publish(_NotificationRoutingKey, NotifeRequest);
+                await _Publisher.PublishNotificationAsync(NotifeRequest);
             });
 
             return Result<bool>.Success(order != null);

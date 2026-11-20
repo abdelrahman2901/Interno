@@ -1,12 +1,12 @@
-using E_Commerce_Inern_Project.Core.Features.Categories.Query.GetAllSubCategoriesQ;
-using E_Commerce_Inern_Project.Core.Features.Categories.Query.GetCategoryByIDQ;
+using E_Commerce_Inerno.Core.Features.Categories.Query.GetAllSubCategoriesQ;
+using E_Commerce_Inerno.Core.Features.Categories.Query.GetCategoryByIDQ;
 using E_Commerce_Interno.Domain.Common;
 using E_Commerce_Interno.Domain.DTO.CategoryDTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace E_Commerce_Inern_Project.API.Controllers.CategoryControl.Queries
+namespace E_Commerce_Inerno.API.Controllers.CategoryControl.Queries
 {
     [AllowAnonymous]
     [Route("api/CategoryDetails")]

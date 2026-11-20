@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace E_Commerce_Inern_Project.Core.Features.WishLists.Commands.CreateWishListCmd
+namespace E_Commerce_Inerno.Core.Features.WishLists.Commands.CreateWishListCmd
 {
     public class CreateWishListREquestValidation : AbstractValidator<CreateWishListRequest>
     {
