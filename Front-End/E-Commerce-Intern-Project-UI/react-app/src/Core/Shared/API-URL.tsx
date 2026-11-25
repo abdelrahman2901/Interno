@@ -3,25 +3,34 @@ import {
   InternoMicroserviceClient,
   TokenModelDTO,
 } from "../API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { config } from "../config";
+import { getApiErrorMessage } from "./getApiErrorMessage";
+
+export {
+  config,
+  getBannerImageUrl,
+  getCategoryImageUrl,
+  getProductImageUrl,
+} from "../config";
 
 export const API = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: config.gatewayUrl,
 });
 
 API.interceptors.request.use(
-  (config) => {
+  (requestConfig) => {
     const token = localStorage.getItem("Token");
 
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      requestConfig.headers.Authorization = `Bearer ${token}`;
     }
 
-    return config;
+    return requestConfig;
   },
   (error) => Promise.reject(error),
 );
 
-const refreshClient = new InternoMicroserviceClient(undefined, API);
+const refreshClient = new InternoMicroserviceClient(config.gatewayUrl, API);
 
 API.interceptors.response.use(
   (response) => response,
@@ -49,9 +58,7 @@ API.interceptors.response.use(
               window.location.href = "/Home";
             }
           } catch (err) {
-            if (err) {
-              console.error(err);
-            }
+            console.error(getApiErrorMessage(err));
           }
         } else {
           localStorage.clear();

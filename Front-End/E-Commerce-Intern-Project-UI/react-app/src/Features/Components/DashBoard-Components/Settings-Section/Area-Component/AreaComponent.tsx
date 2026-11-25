@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { AreaResponse, CityResponse, InternoMicroserviceClient, ShippingCostDetails } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../../Core/Shared/API-URL";
 import Add_UpdateAreaModel from "./Models/Add_UpdateAreaModel";
 import DeleteAreaModel from "./Models/DeleteAreaModel";
+import { getApiErrorMessage } from "../../../../../Core/Shared/getApiErrorMessage";
 type props = {
   areasProps: AreaResponse[];
   cities: CityResponse[];
@@ -14,7 +15,7 @@ export default function AreaComponent({
   areasProps,
   shippingCosts,
 }: props) {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [_areas, setPrivAreas] = useState<AreaResponse[]>([]);
   const [areas, setAreas] = useState<AreaResponse[]>([]);
   const [isAddingArea, setIsAddingArea] = useState<boolean>(false);
@@ -31,7 +32,7 @@ export default function AreaComponent({
         setAreas(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {
@@ -49,9 +50,7 @@ export default function AreaComponent({
         loadAreas();
       }
     } catch (err) {
-      if (err) {
-        console.error(err);
-      }
+      console.error(getApiErrorMessage(err));
     }
   };
 

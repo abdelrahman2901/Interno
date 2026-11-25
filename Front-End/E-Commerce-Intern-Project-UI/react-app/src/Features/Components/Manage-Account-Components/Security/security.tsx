@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
 import "./security.css";
 import { ChangeUserPasswordCommand, InternoMicroserviceClient, RolesEnum } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../Core/Shared/API-URL";
 import DeleteAccountModel from "./Model/DeleteAccountModel";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 export default function AccountSecurity() {
   const { user, refreshUser } = useAuth();
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [message, setMessage] = useState<{
     message: string;
     isSuccess: boolean;
@@ -34,7 +35,7 @@ export default function AccountSecurity() {
           setMessage({ message: response.errorMessage!, isSuccess: false });
         }
       } catch (err) {
-        if (err) console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     };
     changePassword();

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { InternoMicroserviceClient, UpdateUserCommand } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../Core/Shared/API-URL";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 import "./ProfileSettings.css";
 export default function AccountProfileSettings() {
   const { user, refreshUser } = useAuth();
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [message, setMessage] = useState<{
     message: string;
     isSuccess: boolean;
@@ -35,7 +36,7 @@ export default function AccountProfileSettings() {
           setMessage({ message: "SomeThing Went Wrong", isSuccess: false });
         }
       } catch (err) {
-        if (err) console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     };
 

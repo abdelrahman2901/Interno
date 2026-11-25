@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { AddressDetails, CartDetailsResponse, CreateOrderRequest, InternoMicroserviceClient, OrderCouponResponse, ShippingCostDetails } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../Core/Shared/API-URL";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 type props = {
   address: AddressDetails;
   onPassRequest: (request: CreateOrderRequest) => void;
@@ -13,7 +14,7 @@ export default function OrderSideBar({
   couponProps,
 }: props) {
   const { user } = useAuth();
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [Cart, setCart] = useState<CartDetailsResponse | null>(null);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [shipping, setShipping] = useState<ShippingCostDetails>(
@@ -50,7 +51,7 @@ export default function OrderSideBar({
         calculateOrderSummary();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   const loadAddressShippingCost = async () => {
@@ -78,7 +79,7 @@ export default function OrderSideBar({
         setShipping(response.data);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 

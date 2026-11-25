@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import Order_Failed_Model from "../Model/Order-Failed-Model";
 import Order_Success_Model from "../Model/Order-Success-Model";
 import { CreateOrderRequest, InternoMicroserviceClient, OrderResponse, PaymentMethods, PaymentRequest } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../Core/Shared/API-URL";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
 import { useCartStore } from "../../../../Core/Global-State-Management/Zusstand/CartStore/CartUpdateStore";
 import { PaymentCheckOutEnum } from "../../../../Core/Enums/PaymentCheckOutEnum";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 type props = {
   onRedirect: (value: PaymentCheckOutEnum) => void;
   orderRequest: CreateOrderRequest;
 };
 export default function Payment({ onRedirect, orderRequest }: props) {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [currentPaymentType, setCurrentPaymentType] = useState<PaymentMethods>(
     PaymentMethods.CreditCard,
   );
@@ -39,7 +40,7 @@ export default function Payment({ onRedirect, orderRequest }: props) {
       }
     } catch (err) {
       if (err) {
-        console.error(err);
+        console.error(getApiErrorMessage(err));
         setIsPaymentSuccess(false);
       }
     }
@@ -72,7 +73,7 @@ export default function Payment({ onRedirect, orderRequest }: props) {
         setLoading(false);
         setisPaymentDone(true);
         setIsPaymentSuccess(false);
-        console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     }
   }

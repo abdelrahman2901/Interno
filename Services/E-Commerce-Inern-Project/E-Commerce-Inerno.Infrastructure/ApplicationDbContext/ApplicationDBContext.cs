@@ -32,12 +32,24 @@ namespace E_Commerce_Inerno.Infrastructure.ApplicationDbContext
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<ProductRates>().ToTable(table =>
-            {
-                table.HasCheckConstraint("CK_ProductRates_Rating", "[Rating] BETWEEN 1 AND 5");
-            });
 
-            #region OLD
+
+            builder.Entity<ApplicationRole>().HasData(
+              new ApplicationRole
+              {
+                  RoleID = Guid.Parse("BFFBE3E7-4ADF-4BB5-83DB-6880F743D5DA"),
+                  RoleName = "Admin",
+                  RoleDescription = "Admin role with full permissions",
+                  RoleEnumID = RolesEnum.Admin,
+
+              }, new ApplicationRole
+              {
+                  RoleID = Guid.Parse("BCF2E140-CF5C-4352-A238-E04C7F220E64"),
+                  RoleName = "Customer",
+                  RoleDescription = "User role with limited permissions",
+                  RoleEnumID = RolesEnum.Customer,
+              });
+
             builder.Entity<ApplicationUser>().HasData(new ApplicationUser()
             {
                 UserID = Guid.Parse("D1A9B5C3-4F2E-4A6B-8C1D-9F3E2A1B5C3D"),
@@ -53,14 +65,22 @@ namespace E_Commerce_Inerno.Infrastructure.ApplicationDbContext
                 RefreshToken = null,
                 RefreshTokenExpirtation = null,
             });
+
             builder.Entity<ApplicationUserRoles>().HasData(new ApplicationUserRoles()
             {
                 UserID = Guid.Parse("D1A9B5C3-4F2E-4A6B-8C1D-9F3E2A1B5C3D"),
                 RoleID = Guid.Parse("BFFBE3E7-4ADF-4BB5-83DB-6880F743D5DA")
             });
+            builder.Entity<ApplicationRole>().HasIndex(r => r.RoleEnumID).IsUnique();
+            #region OLD
+
+
+            builder.Entity<ProductRates>().ToTable(table =>
+            {
+                table.HasCheckConstraint("CK_ProductRates_Rating", "[Rating] BETWEEN 1 AND 5");
+            });
             builder.Entity<ApplicationUser>().HasIndex(r => r.Email).IsUnique();
             builder.Entity<ApplicationUser>().HasIndex(r => r.PhoneNumber).IsUnique();
-
 
             builder.Entity<ApplicationUserRoles>().HasKey(r => new { r.UserID, r.RoleID });
             builder.Entity<ApplicationUser>().Property(r => r.Gender).HasConversion<string>();
@@ -167,119 +187,13 @@ namespace E_Commerce_Inerno.Infrastructure.ApplicationDbContext
                 .HasForeignKey(c => c.CityID)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.Entity<Size>().HasData(
-new Size
-{
-    SizeID = Guid.Parse("4F0406B9-FE94-487F-9049-0B28DA2C9274"),
-    SizeName = "Small"
-},
-new Size
 
-{
-    SizeID = Guid.Parse("730323EA-7E2E-4EC1-98F2-78FA1AA7C5E9"),
-    SizeName = "Medium"
-},
-new Size
-{
-    SizeID = Guid.Parse("67AF942F-AEEB-4A4D-964B-0EFFC559368E"),
-    SizeName = "Large"
-},
-new Size
-{
-    SizeID = Guid.Parse("D43285B3-B034-42CC-8795-E5FFFB245654"),
-    SizeName = "X Large"
-},
-new Size
-{
-    SizeID = Guid.Parse("66A0C1C9-9DB3-421A-87D0-F8C965687703"),
-    SizeName = "XX Large"
-}
-);
             builder.Entity<Product>().HasOne(p => p.Size).WithMany(p => p.Products).HasForeignKey(p => p.SizeID).OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<Product>().HasOne(p => p.Color).WithMany(p => p.Products).HasForeignKey(p => p.ColorID).OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Colors>().HasIndex(p => p.ColorName).IsUnique();
-            builder.Entity<Colors>().HasData(
-        new Colors
-        {
-            ColorID = Guid.Parse("179D4D45-54A7-48DA-82F4-AD4673854BD2"),
-            ColorName = "Black",
-            ColorHexCode = "#000000"
-        },
-        new Colors
-
-        {
-            ColorID = Guid.Parse("97CA3FD7-7860-4961-8DDE-D90CEC05E3CF"),
-            ColorName = "White",
-            ColorHexCode = "#FFFFFF"
-        },
-        new Colors
-        {
-            ColorID = Guid.Parse("91099764-4FF3-4A91-8F84-3BF913CA3B6C"),
-            ColorName = "Red",
-            ColorHexCode = "#FF0000"
-        },
-        new Colors
-        {
-            ColorID = Guid.Parse("438B0E6E-AF1F-4BF1-9E18-EF5A2DDD94F3"),
-            ColorName = "Blue",
-            ColorHexCode = "#0000FF"
-        },
-        new Colors
-        {
-            ColorID = Guid.Parse("220096A6-C67A-4640-83F2-AE526A2A542D"),
-            ColorName = "Green",
-            ColorHexCode = "#008000"
-        },
-        new Colors
-        {
-            ColorID = Guid.Parse("0FB24ADB-A140-4C50-9EB6-4D948408F30D"),
-            ColorName = "Yellow",
-            ColorHexCode = "#FFFF00"
-        },
-        new Colors
-        {
-            ColorID = Guid.Parse("A3A07D13-C759-4920-A68A-47EF88E7594D"),
-            ColorName = "Orange",
-            ColorHexCode = "#FFA500"
-        },
-        new Colors
-        {
-            ColorID = Guid.Parse("0A65996C-B895-42BC-AF60-FAC2F914376C"),
-            ColorName = "Purple",
-            ColorHexCode = "#800080"
-        },
-        new Colors
-        {
-            ColorID = Guid.Parse("72A9CBB7-360C-4C75-97F7-680BAF249A22"),
-            ColorName = "Pink",
-            ColorHexCode = "#FFC0CB"
-        },
-        new Colors
-        {
-            ColorID = Guid.Parse("1B0856EC-68C8-49D5-9872-2A3F12C373AC"),
-            ColorName = "Gray",
-            ColorHexCode = "#808080"
-        }
-    );
 
 
-
-            builder.Entity<ApplicationRole>().HasData(
-              new ApplicationRole
-              {
-                  RoleID = Guid.Parse("BFFBE3E7-4ADF-4BB5-83DB-6880F743D5DA"),
-                  RoleName = "Admin",
-                  RoleDescription = "Admin role with full permissions",
-                  RoleEnumID = RolesEnum.Admin,
-
-              }, new ApplicationRole
-              {
-                  RoleID = Guid.Parse("BCF2E140-CF5C-4352-A238-E04C7F220E64"),
-                  RoleName = "Customer",
-                  RoleDescription = "User role with limited permissions",
-                  RoleEnumID = RolesEnum.Customer,
-              });
 
             builder.Entity<Category>().HasOne(p => p.ParentCategory)
                 .WithMany(p => p.SubCategories)

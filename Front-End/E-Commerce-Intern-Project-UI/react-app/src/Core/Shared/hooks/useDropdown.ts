@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export const useDropdown = (initialState = false) => {
   const [isOpen, setIsOpen] = useState(initialState);
@@ -31,9 +31,11 @@ export const useExclusiveDropdowns = (dropdownNames: string[]) => {
     });
   };
 
-  const closeAllDropdowns = () => {
-    setOpenDropdowns(dropdownNames.reduce((acc, name) => ({ ...acc, [name]: false }), {}));
-  };
+  const closeAllDropdowns = useCallback(() => {
+    setOpenDropdowns((prev) =>
+      Object.keys(prev).reduce((acc, name) => ({ ...acc, [name]: false }), {}),
+    );
+  }, []);
 
   const isDropdownOpen = (name: string) => openDropdowns[name] || false;
 

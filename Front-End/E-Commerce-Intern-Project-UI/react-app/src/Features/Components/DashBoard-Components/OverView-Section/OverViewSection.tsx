@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { InternoMicroserviceClient } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 // import "./OverViewSection.css";
 
 
@@ -9,7 +10,7 @@ export default function OverViewSection() {
   const [totalOrders, setTotalOrders] = useState<number>(0);
   const [totalRevenue, setTotalRevenue] = useState<number>(0);
   const [totalProfit, setTotalProfit] = useState<number>(0);
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
 
   const loadOrdersCount = async () => {
     try {
@@ -30,7 +31,7 @@ export default function OverViewSection() {
         );
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   const loadProductsCount = async () => {
@@ -40,7 +41,7 @@ export default function OverViewSection() {
         setTotalProducts(response.data.length);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 

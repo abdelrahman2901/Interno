@@ -7,6 +7,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -21,6 +25,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -35,6 +43,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -49,6 +61,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -63,6 +79,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -77,6 +97,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -91,6 +115,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -105,6 +133,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -119,6 +151,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -133,6 +169,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -147,6 +187,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -161,6 +205,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -175,6 +223,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -189,6 +241,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -203,6 +259,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -217,6 +277,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -231,6 +295,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -245,6 +313,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -259,6 +331,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -273,6 +349,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -287,6 +367,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -301,6 +385,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -315,6 +403,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -329,6 +421,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -343,6 +439,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -357,6 +457,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -371,6 +475,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -385,6 +493,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -399,6 +511,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -413,6 +529,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -427,6 +547,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -441,6 +565,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -455,6 +583,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -470,6 +602,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -485,6 +621,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -499,6 +639,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -513,6 +657,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -527,6 +675,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -541,6 +693,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -556,6 +712,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -570,6 +730,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -584,6 +748,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -598,6 +766,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -612,6 +784,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -626,6 +802,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -640,6 +820,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -654,6 +838,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -668,6 +856,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -682,6 +874,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -697,6 +893,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -712,6 +912,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -726,6 +930,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -740,6 +948,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -755,6 +967,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -770,6 +986,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -784,6 +1004,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -799,6 +1023,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -813,6 +1041,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -827,6 +1059,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -841,6 +1077,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -856,6 +1096,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -871,6 +1115,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -886,6 +1134,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -901,6 +1153,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -916,6 +1172,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -930,6 +1190,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -944,6 +1208,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -958,6 +1226,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -972,6 +1244,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -987,6 +1263,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1002,6 +1282,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1016,6 +1300,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1030,6 +1318,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1044,6 +1336,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1058,6 +1354,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1072,6 +1372,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1086,6 +1390,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1100,6 +1408,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1114,6 +1426,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1128,6 +1444,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1142,6 +1462,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1156,6 +1480,10 @@
                                                       {
                                                           "Host":  "AuditMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7114
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1170,6 +1498,10 @@
                                                       {
                                                           "Host":  "NotificationMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7054
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1184,6 +1516,10 @@
                                                       {
                                                           "Host":  "NotificationMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7054
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1198,6 +1534,10 @@
                                                       {
                                                           "Host":  "NotificationMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7054
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1212,6 +1552,10 @@
                                                       {
                                                           "Host":  "NotificationMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7054
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [
@@ -1226,6 +1570,10 @@
                                                       {
                                                           "Host":  "InternoMicroservice.api",
                                                           "Port":  8080
+                                                      },
+                                                      {
+                                                          "Host":  "localhost",
+                                                          "Port":  7164
                                                       }
                                                   ],
                        "UpstreamHttpMethod":  [

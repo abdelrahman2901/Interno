@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { InternoMicroserviceClient, SubCategoryResponse } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../Core/Shared/API-URL";
 import { DeleteModel } from "../Shared/Model/DeleteModel";
 import AddCategoryModel from "./Model/CategoryModel";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 export default function CategoryDashBoardSection() {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [Categoires, SetCategories] = useState<SubCategoryResponse[]>([]);
   const [updateCat, SetUpdateCategory] = useState<string | null>(null);
   const [ExpendedCat, SetExpendedCat] = useState("");
@@ -19,7 +20,7 @@ export default function CategoryDashBoardSection() {
         SetCategories(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 
@@ -37,7 +38,7 @@ export default function CategoryDashBoardSection() {
           SetCategories(Categoires.filter((c) => c.categoryID != CatID));
         }
       } catch (err) {
-        if (err) console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     };
     DeleteCat();

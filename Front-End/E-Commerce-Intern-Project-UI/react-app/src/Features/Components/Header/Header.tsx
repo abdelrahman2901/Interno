@@ -1,5 +1,6 @@
 import "./Header.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import {
   Truck,
   RotateCcw,
@@ -12,13 +13,13 @@ import {
   BannerSlideResponse,
   InternoMicroserviceClient,
 } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../Core/Shared/API-URL";
-const Base_Url = "http://localhost:5000/BannerImages";
+import { API, config, getBannerImageUrl } from "../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../Core/Shared/getApiErrorMessage";
 export default function Header() {
   const [slide, setSlide] = useState<BannerSlideResponse>();
   const [slides, setSlides] = useState<BannerSlideResponse[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const loadSlides = async () => {
     try {
       const response = await Client.getAllBanners();
@@ -32,14 +33,25 @@ export default function Header() {
         setSlide(response.data[0]);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
+  const heroRef = useRef<HTMLDivElement | null>(null);
+  const hasAnimated = useRef(false);
   useEffect(() => {
     if (slides.length === 0) {
       loadSlides();
     }
   }, []);
+  useEffect(() => {
+    if (!heroRef.current || !slide || hasAnimated.current) return;
+    hasAnimated.current = true;
+    gsap.fromTo(
+      heroRef.current,
+      { opacity: 0, y: 16 },
+      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+    );
+  }, [slide]);
 
   function imageSlide(Direction: string) {
     console.log(slide);
@@ -75,7 +87,7 @@ export default function Header() {
         style={{ background: slide?.backgroundColor?.colorHexCode }}
       >
         <div className="hero-container">
-          <div className="hero-content">
+          <div className="hero-content" ref={heroRef}>
             <div
               className="hero-label"
               style={{ color: slide?.accentColor?.colorHexCode }}
@@ -106,7 +118,7 @@ export default function Header() {
             </div>
           </div>
           <div className="hero-image">
-            <img src={`${Base_Url}/${slide?.imageUrl}`} />
+            <img src={getBannerImageUrl(slide?.bannerSlideID ?? slide?.imageUrl)} />
             <button
               className="slide-btn prev"
               onClick={() => imageSlide("Left")}

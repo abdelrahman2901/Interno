@@ -1,28 +1,41 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./NavBar.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Bell, Heart, ShoppingCart, Menu } from "lucide-react";
 import { useCartStore } from "../../../Core/Global-State-Management/Zusstand/CartStore/CartUpdateStore.js";
-import { CartDetailsResponse, InternoMicroserviceClient, SubCategoryResponse } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../Core/Shared/API-URL";
+import {
+  CartDetailsResponse,
+  InternoMicroserviceClient,
+  SubCategoryResponse,
+} from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { API, config } from "../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../Core/Shared/getApiErrorMessage";
 import { useAuth } from "../../../Core/Services/AuthServices/AuthProvider.js";
- 
+
 import { useExclusiveDropdowns } from "../../../Core/Shared/hooks/useDropdown.js";
 import CategoryDropdown from "./CategoryDropdown.js";
 import UserMenu from "./UserMenu.js";
-import { NotificationResponse, NotificationsMicroserviceClient } from "../../../Core/API/Notification-Microservice-Cleint/Notifications-Microservice-Client";
+import {
+  NotificationResponse,
+  NotificationsMicroserviceClient,
+} from "../../../Core/API/Notification-Microservice-Cleint/Notifications-Microservice-Client";
 export default function Navbar() {
   const [mobileDropDown, setMobileDropDown] = useState<boolean>(false);
   const { user, signout } = useAuth();
-  const Client = new InternoMicroserviceClient(undefined, API);
-  const NotificationClient = new NotificationsMicroserviceClient();
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
+  const NotificationClient = new NotificationsMicroserviceClient(
+    config.gatewayUrl,
+    API,
+  );
   const [categories, setCategories] = useState<SubCategoryResponse[]>([]);
-  const [_notifications, setPrivNotifications] = useState<NotificationResponse[]>(
+  const [_notifications, setPrivNotifications] = useState<
+    NotificationResponse[]
+  >([]);
+  const [notifications, setNotifications] = useState<NotificationResponse[]>(
     [],
   );
-  const [notifications, setNotifications] = useState<NotificationResponse[]>([]);
   const [unreadCount, setUnreadCount] = useState<number>(0);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const navRef = useRef<HTMLElement | null>(null);
   const [cartItems, setCartItems] = useState<CartDetailsResponse>(
     new CartDetailsResponse(),
   );
@@ -30,10 +43,8 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const navigator = useNavigate();
   const { cartVersion } = useCartStore();
-  const { toggleDropdown, isDropdownOpen } = useExclusiveDropdowns([
-    "categories",
-    "account",
-  ]);
+  const { toggleDropdown, isDropdownOpen, closeAllDropdowns } =
+    useExclusiveDropdowns(["categories", "account", "notifications"]);
 
   const loadCartItems = async () => {
     if (!user?.userID) return;
@@ -43,7 +54,9 @@ export default function Navbar() {
       if (response.isSuccess && response.data) {
         setCartItems(response.data);
       }
-    } catch (err) {}
+    } catch (err) {
+      console.error(getApiErrorMessage(err));
+    }
   };
   const loadCats = async () => {
     try {
@@ -51,7 +64,9 @@ export default function Navbar() {
       if (response.isSuccess && response.data) {
         setCategories(response.data);
       }
-    } catch (err) {}
+    } catch (err) {
+      console.error(getApiErrorMessage(err));
+    }
   };
   function onSignOut() {
     const SignOutreq = async () => {
@@ -61,7 +76,9 @@ export default function Navbar() {
           signout();
           navigator("/Home");
         }
-      } catch (err) {}
+      } catch (err) {
+        console.error(getApiErrorMessage(err));
+      }
     };
     SignOutreq();
   }
@@ -77,7 +94,7 @@ export default function Navbar() {
         setNotifications(response.data.slice(0, 4));
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {
@@ -100,8 +117,8 @@ export default function Navbar() {
     }
   }, [user]);
 
-  function onToggle() {
-    setIsOpen(!isOpen);
+  function onToggleNotifications() {
+    toggleDropdown("notifications");
   }
 
   function toggleMobileMenu() {
@@ -130,18 +147,15 @@ export default function Navbar() {
     }
   }
 
-  function closeSearch() {
-    setSearchOpen(false);
-    setSearchQuery("");
-  }
   async function handleNotificationClick(notificationID: string) {
     try {
-      const response = await NotificationClient.markNotificationAsRead(notificationID);
+      const response =
+        await NotificationClient.markNotificationAsRead(notificationID);
       if (response.data && response.isSuccess) {
         loadNotifciation();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
   async function onMarkAllAsRead() {
@@ -151,12 +165,22 @@ export default function Navbar() {
         loadNotifciation();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
 
+  useEffect(() => {
+    function handleOutsideClick(event: MouseEvent) {
+      if (!navRef.current?.contains(event.target as Node)) {
+        closeAllDropdowns();
+      }
+    }
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [closeAllDropdowns]);
+
   return (
-    <nav className="navbar">
+    <nav className="navbar" ref={navRef}>
       <div className="nav-container">
         <button
           className="hamburger"
@@ -180,7 +204,12 @@ export default function Navbar() {
           role="navigation"
           aria-label="Main navigation"
         >
-          <Link to={"/Home"} className="nav-link" tabIndex={0}>
+          <Link
+            to={"/Home"}
+            className="nav-link"
+            tabIndex={0}
+            onClick={closeAllDropdowns}
+          >
             Home
           </Link>
 
@@ -188,28 +217,31 @@ export default function Navbar() {
             categories={categories}
             isDropdownOpen={isDropdownOpen("categories")}
             onToggleDropdown={() => toggleDropdown("categories")}
+            onNavigate={closeAllDropdowns}
           />
 
-          <Link to={"/Home/About"} className="nav-link" tabIndex={0}>
+          <Link
+            to={"/Home/About"}
+            className="nav-link"
+            tabIndex={0}
+            onClick={closeAllDropdowns}
+          >
             About
           </Link>
 
-          <Link to={"/Home/Contact"} className="nav-link" tabIndex={0}>
-            Contact
-          </Link>
-
           <Link
-            to={"/Home/Sale"}
-            className="nav-link nav-sale-link"
+            to={"/Home/Contact"}
+            className="nav-link"
             tabIndex={0}
+            onClick={closeAllDropdowns}
           >
-            Sale
+            Contact
           </Link>
         </div>
 
         <div className="nav-icons">
           <div className="notification-dropdown-container">
-            <div className="notification-trigger" onClick={onToggle}>
+            <div className="notification-trigger" onClick={onToggleNotifications}>
               <span className="icon-btn" title="Notifications">
                 <Bell size={18} />
               </span>
@@ -218,7 +250,7 @@ export default function Navbar() {
               )}
             </div>
 
-            {isOpen && (
+            {isDropdownOpen("notifications") && (
               <div className="notification-dropdown">
                 <div className="notification-header">
                   <h3>Notifications</h3>
@@ -301,7 +333,9 @@ export default function Navbar() {
                 <ShoppingCart size={18} />
               </Link>
             </span>
-            <span className="cart-badge ">{cartItems.cartItems?.length ?? 0}</span>
+            <span className="cart-badge ">
+              {cartItems.cartItems?.length ?? 0}
+            </span>
           </div>
           {!user && (
             <>
@@ -320,6 +354,7 @@ export default function Navbar() {
               onSignOut={onSignOut}
               isDropdownOpen={isDropdownOpen("account")}
               onToggleDropdown={() => toggleDropdown("account")}
+              onNavigate={closeAllDropdowns}
             />
           )}
         </div>

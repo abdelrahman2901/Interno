@@ -2,7 +2,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { AuthContextType } from "../../Interface/Auth/AuthContextType";
 import { AuthUserDetailsDTO, InternoMicroserviceClient } from "../../API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../Shared/API-URL";
+import { API, config } from "../../Shared/API-URL";
+import { getApiErrorMessage } from "../../Shared/getApiErrorMessage";
 interface JWTPayload {
   sub: string;
   exp?: number;
@@ -15,7 +16,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<AuthUserDetailsDTO | null>(null);
   const [loading, setLoading] = useState(true);
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const loadUserFromToken = async (token: string) => {
     try {
       const decoded = jwtDecode(token) as JWTPayload;
@@ -31,6 +32,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser(null);
       }
     } catch (err) {
+      console.error(getApiErrorMessage(err));
       setUser(null);
     } finally {
       setLoading(false);

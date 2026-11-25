@@ -3,6 +3,8 @@
     public enum PaymentMethods
     {
         CreditCard,
+        Wallet,
         Cash,
+
     }
 }

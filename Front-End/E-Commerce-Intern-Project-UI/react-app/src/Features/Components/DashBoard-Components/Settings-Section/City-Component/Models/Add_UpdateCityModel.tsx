@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CityRequest, CityResponse, CityUpdateRequest, InternoMicroserviceClient } from "../../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../../../../Core/Shared/getApiErrorMessage";
 type props = {
   cityIDProps: string | null;
   onCloseModel: () => void;
@@ -12,7 +13,7 @@ export default function Add_UpdateCityModel({
   onCloseModel,
   onReloadCities,
 }: props) {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [city, setCity] = useState<CityResponse>(new CityResponse());
   const [error, setError] = useState<string>("");
   const loadCityDetails = async () => {
@@ -22,7 +23,7 @@ export default function Add_UpdateCityModel({
         setCity(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {
@@ -42,7 +43,7 @@ export default function Add_UpdateCityModel({
       }
       onReloadCities();
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
   async function updateCity() {
@@ -59,7 +60,7 @@ export default function Add_UpdateCityModel({
       }
       onReloadCities();
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
   function SaveCity() {

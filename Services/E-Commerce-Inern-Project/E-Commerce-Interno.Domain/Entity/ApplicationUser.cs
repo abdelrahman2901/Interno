@@ -19,6 +19,7 @@ namespace E_Commerce_Interno.Domain.Entity
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpirtation { get; set; }
 
+        public Cart Cart{ get; set; }
         public ICollection<Address> Addresses { get; set; }
         public ICollection<ProductRates> ProductRates { get; set; }
         public ICollection<WishList> WishLists { get; set; }

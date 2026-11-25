@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../../Shared/css/Model.css";
 import { CategoryResponse, FileParameter, InternoMicroserviceClient, SubCategoryResponse } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../../../Core/Shared/getApiErrorMessage";
 type props = {
   onClose: () => void;
   categoires: SubCategoryResponse[];
@@ -15,7 +16,7 @@ export default function AddCategoryModel({
   onAddnewCategory,
   categoryProps,
 }: props) {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [category, setCategory] = useState<CategoryResponse | undefined>(
     undefined,
   );
@@ -27,7 +28,7 @@ export default function AddCategoryModel({
         setCategory(response.data);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {
@@ -87,7 +88,7 @@ export default function AddCategoryModel({
         console.log(response);
         onAddnewCategory();
       } catch (err) {
-        if (err) console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     };
     saveCategory();

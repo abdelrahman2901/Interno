@@ -7,9 +7,10 @@ interface UserMenuProps {
   onSignOut: () => void;
   isDropdownOpen: boolean;
   onToggleDropdown: () => void;
+  onNavigate?: () => void;
 }
 
-export default function UserMenu({ user, onSignOut, isDropdownOpen, onToggleDropdown }: UserMenuProps) {
+export default function UserMenu({ user, onSignOut, isDropdownOpen, onToggleDropdown, onNavigate }: UserMenuProps) {
   return (
     <div className="dropdown">
       <div className="user-profile">
@@ -25,20 +26,20 @@ export default function UserMenu({ user, onSignOut, isDropdownOpen, onToggleDrop
         </span>
       </div>
 
-      <div className={`dropdown-menu categories-menu ${isDropdownOpen ? "show" : ""}`}>
-        <div className="dropdown-item">
-          <Link to={"/Home/ManageAccount"} className="nav-link">
+      <div className={`Nav-dropdown-menu ${isDropdownOpen ? "show" : ""}`}>
+        <div className="nav-dropdown-item">
+          <Link to={"/Home/ManageAccount"} className="nav-dropdown-link" onClick={onNavigate}>
             <span className="icon">✦</span> Manage Account
           </Link>
         </div>
         {user.roles?.includes(RolesEnum.Admin) && (
-          <div className="dropdown-item">
-            <Link to={"/Home/Admin-DashBoard"} className="nav-link">
+          <div className="nav-dropdown-item">
+            <Link to={"/Home/Admin-DashBoard"} className="nav-dropdown-link" onClick={onNavigate}>
               <span className="icon">✦</span> Admin Dashboard
             </Link>
           </div>
         )}
-        <div className="dropdown-item">
+        <div className="nav-dropdown-item">
           <button
             className="auth-btn register-btn"
             onClick={onSignOut}

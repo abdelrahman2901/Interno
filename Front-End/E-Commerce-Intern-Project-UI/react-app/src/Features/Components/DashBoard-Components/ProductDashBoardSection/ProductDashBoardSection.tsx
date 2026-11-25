@@ -2,7 +2,7 @@ import { useState } from "react";
 // import "./ProductDashBoardSection.css";
 import { DeleteModel } from "../Shared/Model/DeleteModel";
 import { InternoMicroserviceClient, ProductDetails_vw } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config, getProductImageUrl } from "../../../../Core/Shared/API-URL";
 import ProductModel from "./Model/ProductModel";
 type props = {
   Products: ProductDetails_vw[];
@@ -26,7 +26,7 @@ export default function ProductDashBoardSection({
 
   function deleteProduct(ProductID: string) {
     const deleteProduct_Req = async () => {
-      const response = await new InternoMicroserviceClient(undefined, API).productDELETE(
+      const response = await new InternoMicroserviceClient(config.gatewayUrl, API).productDELETE(
         ProductID,
       );
       console.log(response);
@@ -76,7 +76,9 @@ export default function ProductDashBoardSection({
               <tr key={product.productID}>
                 <td>
                   <img
-                    src={`http://localhost:5000/ProductsImages/${product.parentCategoryName}/${product.categoryName}/${product.productImageUrl}`}
+                    src={getProductImageUrl(
+                      product.productID ?? product.productImageUrl,
+                    )}
                     alt={product.productName}
                     className="product-image"
                   />

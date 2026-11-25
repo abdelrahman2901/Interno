@@ -1,9 +1,9 @@
 {
-    "runtime": "Net80",
-    "documentGenerator": {
-      "fromDocument": {
-       "url": "http://localhost:5000/swagger/v1/swagger.json",
-       "output": null
+  "runtime": "Net80",
+  "documentGenerator": {
+    "fromDocument": {
+      "url": "https://localhost:7164/swagger/v1/swagger.json",
+      "output": null
     }
   },
   "codeGenerators": {
@@ -17,8 +17,8 @@
       "generateConstructorInterface": true,
       "markOptionalProperties": true,
       "typeScriptVersion": 4.9,
-      "serviceHost":"localhost:5003/gateway",
-      "serviceSchemes": ["http"],
+      "serviceHost": "localhost:7110/gateway",
+      "serviceSchemes": ["https"],
       "output": "Interno-Microservice-Client.ts"
     }
   }

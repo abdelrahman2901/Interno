@@ -7,8 +7,9 @@ import AccountProfileSettings from "../../Components/Manage-Account-Components/P
 import AccountOrders from "../../Components/Manage-Account-Components/Orders/Orders";
 import AccountAddress from "../../Components/Manage-Account-Components/addresses/addresses";
 import { InternoMicroserviceClient, OrderDetails, RolesEnum } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../Core/Shared/API-URL";
+import { API, config } from "../../../Core/Shared/API-URL";
 import { useAuth } from "../../../Core/Services/AuthServices/AuthProvider";
+import { getApiErrorMessage } from "../../../Core/Shared/getApiErrorMessage";
 export default function ManageAccount() {
   const [CurrentSection, SetCurrentSection] = useState<
     "Orders" | "Profile-Settings" | "Security" | "OverView" | "Addresses"
@@ -27,7 +28,7 @@ export default function ManageAccount() {
 
   const [orders, setOrders] = useState<OrderDetails[]>([]);
   const { user } = useAuth();
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const loadOrders = async () => {
     try {
       const response = await Client.getAllUserOrders(user?.userID!);
@@ -35,7 +36,7 @@ export default function ManageAccount() {
         setOrders(response.data);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {

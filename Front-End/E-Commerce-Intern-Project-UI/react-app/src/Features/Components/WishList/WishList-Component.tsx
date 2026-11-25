@@ -6,14 +6,14 @@ import {
   InternoMicroserviceClient,
   WishListDetailsResponse,
 } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../Core/Shared/API-URL";
+import { API, config, getProductImageUrl } from "../../../Core/Shared/API-URL";
 import { useAuth } from "../../../Core/Services/AuthServices/AuthProvider";
 import { Link } from "react-router-dom";
 import { useCartStore } from "../../../Core/Global-State-Management/Zusstand/CartStore/CartUpdateStore";
+import { getApiErrorMessage } from "../../../Core/Shared/getApiErrorMessage";
 export default function WishListComponent() {
-  const Base_Url = "http://localhost:5000";
   const { user } = useAuth();
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [WishListItems, SetWishListItems] = useState<WishListDetailsResponse[]>(
     [],
   );
@@ -30,7 +30,7 @@ export default function WishListComponent() {
         setCart(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 
@@ -46,7 +46,7 @@ export default function WishListComponent() {
         SetWishListItems([]);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 
@@ -58,7 +58,7 @@ export default function WishListComponent() {
           loadWishListItems();
         }
       } catch (err) {
-        if (err) console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     }
   }
@@ -80,7 +80,7 @@ export default function WishListComponent() {
         );
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
   function loadWishListItemsWithFilter() {
@@ -118,7 +118,7 @@ export default function WishListComponent() {
         loadWishListItems();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
   async function addAllToCart() {
@@ -137,7 +137,7 @@ export default function WishListComponent() {
           ClearWishList();
         }
       } catch (err) {
-        if (err) console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     }
   }
@@ -186,7 +186,9 @@ export default function WishListComponent() {
               </div>
               <div className="wishlist-image">
                 <img
-                  src={`${Base_Url}/ProductsImages/${item.product?.parentCategoryName}/${item.product?.categoryName}/${item.product?.productImageUrl}`}
+                  src={getProductImageUrl(
+                    item.product?.productID ?? item.product?.productImageUrl,
+                  )}
                   alt="Linen Wrap Dress"
                 />
               </div>
