@@ -94,9 +94,9 @@ export default function ProductsSection() {
         PAGE_SIZE,
         filter.CategoryID,
         filter.SubCategoryID,
-        filter.Price,
         filter.SizeID,
         filter.ColorID,
+        filter.Price,
         filter.Sort,
       );
       if (response.isSuccess && response.data) {

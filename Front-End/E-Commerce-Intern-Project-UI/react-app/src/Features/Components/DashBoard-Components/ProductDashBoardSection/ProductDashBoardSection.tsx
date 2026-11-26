@@ -108,10 +108,10 @@ export default function ProductDashBoardSection({
                   <span
                     className={
                       "product-status " +
-                      (product.active ? "active" : "inactive")
+                      (  "inactive")
                     }
                   >
-                    {product.active ? "Active" : "Inactive"}
+                    {/* {product.active ? "Active" : "Inactive"} */}
                   </span>
                 </td>
                 <td>
