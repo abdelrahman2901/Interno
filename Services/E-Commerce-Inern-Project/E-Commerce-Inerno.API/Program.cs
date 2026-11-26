@@ -5,6 +5,7 @@ using E_Commerce_Inerno.Infrastructure.ApplicationDbContext;
 using E_Commerce_Inerno.Infrastructure.DependencyInjection;
 using E_Commerce_Inerno.Infrastructure.Repository.PaymentRepo.PaymobProviderService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -160,6 +161,12 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"))
     .AddPolicy("UserOnly", policy => policy.RequireRole("User"));
 
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownIPNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 
 var app = builder.Build();
 
@@ -169,18 +176,20 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 }
 
-app.UseStaticFiles();
-
-app.UseSwagger();
-app.UseSwaggerUI();
-
-app.UseCors();
+app.UseForwardedHeaders();
 
 if (!runningInDocker)
 {
     app.UseHttpsRedirection();
     app.UseHsts();
 }
+
+app.UseStaticFiles();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseCors();
 
 app.UseRouting();
 
