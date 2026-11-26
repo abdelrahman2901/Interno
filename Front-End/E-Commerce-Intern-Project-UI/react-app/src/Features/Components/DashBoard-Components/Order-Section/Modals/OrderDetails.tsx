@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { InternoMicroserviceClient, OrderDetails } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../../Core/Shared/API-URL";
+import { API, config, getProductImageUrl } from "../../../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../../../Core/Shared/getApiErrorMessage";
 type props = {
   orderIDProps: string | null;
   onClose: () => void;
 };
-const Base_Url = "http://localhost:5000";
 
 export default function OrderDetailsModal({ orderIDProps, onClose }: props) {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [orderDetails, setOrderDetails] = useState<OrderDetails>(
     new OrderDetails(),
   );
@@ -19,7 +19,7 @@ export default function OrderDetailsModal({ orderIDProps, onClose }: props) {
         setOrderDetails(response.data);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {
@@ -122,7 +122,10 @@ export default function OrderDetailsModal({ orderIDProps, onClose }: props) {
                       <td>
                         <div className="item-info">
                           <img
-                            src={`${Base_Url}/ProductsImages/${orderItem.product?.parentCategoryName}/${orderItem.product?.categoryName}/${orderItem.product?.productImageUrl}`}
+                            src={getProductImageUrl(
+                              orderItem.product?.productID ??
+                                orderItem.product?.productImageUrl,
+                            )}
                             alt="Product"
                           />
                           <div>

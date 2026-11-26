@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import "./Footer.css";
+
 export default function FooterSection() {
   return (
     <>
@@ -16,27 +18,31 @@ export default function FooterSection() {
               </div>
             </div>
             <div className="footer-column">
-              <div className="footer-heading">Shop</div>
-              <div className="footer-link">Women</div>
-              <div className="footer-link">Men</div>
-              <div className="footer-link">Kids</div>
-              <div className="footer-link">Accessories</div>
-              <div className="footer-link">Sale</div>
+              <div className="footer-heading">Company</div>
+              <Link to="/Home/About" className="footer-link">
+                About
+              </Link>
+              <Link to="/Home/Contact" className="footer-link">
+                Contact
+              </Link>
             </div>
             <div className="footer-column">
               <div className="footer-heading">Help</div>
-              <div className="footer-link">FAQ</div>
-              <div className="footer-link">Shipping</div>
-              <div className="footer-link">Returns</div>
-              <div className="footer-link">Size Guide</div>
-              <div className="footer-link">Contact</div>
-            </div>
-            <div className="footer-column">
-              <div className="footer-heading">Company</div>
-              <div className="footer-link">About Us</div>
-              <div className="footer-link">Careers</div>
-              <div className="footer-link">Press</div>
-              <div className="footer-link">Sustainability</div>
+              <Link to="/Home/FAQ" className="footer-link">
+                FAQ
+              </Link>
+              <Link to="/Home/Shipping" className="footer-link">
+                Shipping
+              </Link>
+              <Link to="/Home/Returns" className="footer-link">
+                Returns
+              </Link>
+              <Link to="/Home/SizeGuide" className="footer-link">
+                Size Guide
+              </Link>
+              <Link to="/Home/Contact" className="footer-link">
+                Contact
+              </Link>
             </div>
           </div>
           <div className="footer-bottom">

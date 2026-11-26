@@ -3,10 +3,11 @@ import {
   AddressDetails,
   InternoMicroserviceClient,
 } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../Core/Shared/API-URL";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
 import { Link } from "react-router-dom";
 import { PaymentCheckOutEnum } from "../../../../Core/Enums/PaymentCheckOutEnum";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 type props = {
   onSelectingAddress: (value: AddressDetails) => void;
   onRedirectToPayment: (value: PaymentCheckOutEnum) => void;
@@ -15,7 +16,7 @@ export default function Shipping({
   onSelectingAddress,
   onRedirectToPayment,
 }: props) {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [addresses, setAddressses] = useState<AddressDetails[]>([]);
   const [selectedAddresses, setSelectedAddresses] = useState<string>("");
   const { user } = useAuth();
@@ -27,7 +28,7 @@ export default function Shipping({
         setActiveAddress(response.data?.find((r) => r.isDefault)!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 

@@ -1,50 +1,62 @@
 import { Link, useNavigate } from "react-router-dom";
 import "../Shared/Shared.css";
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import { IError } from "../../../../Core/Interface/Error/IError";
 import { InternoMicroserviceClient, RegisterUserCommand } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function RegisterPage() {
   const [Errors, SetErrors] = useState<IError>();
   const { refreshUser } = useAuth();
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [request, setRegisterRequest] = useState<RegisterUserCommand>(
     new RegisterUserCommand(),
   );
   const navigator = useNavigate();
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
+  const [isPending, setIsPending] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   function formValidation() {
-    if (
-      request.userName === "" ||
-      request.phoneNumber === "" ||
-      request.email === "" ||
-      request.password === "" ||
-      request.confirmPassword === ""
-    ) {
-      return false;
-    }
+    const email = request.email ?? "";
+    const phone = request.phoneNumber ?? "";
+    const password = request.password ?? "";
+    const confirmPassword = request.confirmPassword ?? "";
+    if (!(request.userName ?? "").trim()) return false;
+    if (!EMAIL_PATTERN.test(email.trim())) return false;
+    if (phone.trim().length < 11) return false;
+    if (password.length < 5) return false;
+    if (!confirmPassword.trim()) return false;
+    if (password !== confirmPassword) return false;
     return true;
   }
   async function onRegister(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsFormSubmitted(true);
-    console.log(request);
+    SetErrors(undefined);
 
     if (!formValidation()) {
-      return;
-    }
-    if (request.password !== request.confirmPassword) {
-      SetErrors({
-        errorType: "ConfirmPassword",
-        ErrorMessage: "Password Doesnt Match",
-      });
+      if (
+        request.password &&
+        request.confirmPassword &&
+        request.password !== request.confirmPassword
+      ) {
+        SetErrors({
+          errorType: "ConfirmPassword",
+          ErrorMessage: "Password Doesnt Match",
+        });
+      }
       return;
     }
 
+    setIsPending(true);
     try {
       const registerResponse = await Client.registerUser(request);
-      console.log(registerResponse);
       if (registerResponse.isSuccess) {
         localStorage.setItem("Token", registerResponse.data?.token!);
         localStorage.setItem(
@@ -57,13 +69,20 @@ export default function RegisterPage() {
         navigator("/Home");
       } else {
         SetErrors({
-          errorType:
-            registerResponse.statusCode === 404 ? "User" : "Invalid Data",
-          ErrorMessage: registerResponse.errorMessage!,
+          errorType: "Invalid Data",
+          ErrorMessage: getApiErrorMessage({
+            statusCode: registerResponse.statusCode,
+            errorMessage: registerResponse.errorMessage || "Invalid Data",
+          }),
         });
       }
     } catch (err) {
-      if (err) console.error(err);
+      SetErrors({
+        errorType: "Invalid Data",
+        ErrorMessage: getApiErrorMessage(err),
+      });
+    } finally {
+      setIsPending(false);
     }
   }
   return (
@@ -94,7 +113,7 @@ export default function RegisterPage() {
                 <p>Join us and start your shopping journey</p>
               </div>
 
-              <form className="auth-form" onSubmit={onRegister}>
+              <form className="auth-form" onSubmit={onRegister} noValidate>
                 <div className="form-group">
                   <label>User Name</label>
                   <input
@@ -138,8 +157,8 @@ export default function RegisterPage() {
                     placeholder="you@example.com"
                   />
                   <span className="error">
-                    {!(request.email ?? "").includes("@") ||
-                    (!(request.email ?? "").includes(".com") && isFormSubmitted)
+                    {isFormSubmitted &&
+                    !EMAIL_PATTERN.test((request.email ?? "").trim())
                       ? "Use Valid Email Format"
                       : ""}
                   </span>
@@ -185,21 +204,31 @@ export default function RegisterPage() {
 
                 <div className="form-group">
                   <label>Password</label>
-                  <input
-                    type="password"
-                    name="Password"
-                    onChange={(e) => {
-                      const password = e.currentTarget.value;
-                      setRegisterRequest(
-                        (prev) =>
-                          new RegisterUserCommand({
-                            ...prev,
-                            password: password,
-                          }),
-                      );
-                    }}
-                    placeholder="Minimum 5 characters"
-                  />
+                  <div className="password-field">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="Password"
+                      onChange={(e) => {
+                        const password = e.currentTarget.value;
+                        setRegisterRequest(
+                          (prev) =>
+                            new RegisterUserCommand({
+                              ...prev,
+                              password: password,
+                            }),
+                        );
+                      }}
+                      placeholder="Minimum 5 characters"
+                    />
+                    <button
+                      type="button"
+                      className="password-toggle"
+                      onClick={() => setShowPassword((open) => !open)}
+                      aria-label={showPassword ? "Hide password" : "Show password"}
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
                   <small className="form-hint">
                     Must be at least 5 characters long
                   </small>
@@ -272,8 +301,15 @@ export default function RegisterPage() {
                   </label>
                 </div> */}
 
-                <button type="submit" className="btn-submit">
-                  Create Account
+                {Errors?.errorType === "Invalid Data" && (
+                  <span className="error">{Errors.ErrorMessage}</span>
+                )}
+                <button
+                  type="submit"
+                  className="btn-submit"
+                  disabled={isPending}
+                >
+                  {isPending ? "Creating Account..." : "Create Account"}
                 </button>
 
                 {/* <div className="divider">

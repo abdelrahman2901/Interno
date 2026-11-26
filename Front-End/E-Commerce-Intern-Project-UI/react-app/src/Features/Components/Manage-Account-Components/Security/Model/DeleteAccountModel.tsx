@@ -2,14 +2,15 @@ import { useState } from "react";
 import { useAuth } from "../../../../../Core/Services/AuthServices/AuthProvider";
 import "../../Shared/CSS/ModelCSS.css";
 import { InternoMicroserviceClient, LoginUserCommand } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../../Core/Shared/API-URL";
 import { useNavigate } from "react-router-dom";
+import { getApiErrorMessage } from "../../../../../Core/Shared/getApiErrorMessage";
 type props = {
   onClose: () => void;
 };
 export default function DeleteAccountModel({ onClose }: props) {
   const { user, signout } = useAuth();
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigator = useNavigate();
@@ -29,7 +30,7 @@ export default function DeleteAccountModel({ onClose }: props) {
           navigator("/Home");
         }
       } catch (err) {
-        if (err) console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     };
     const checkPassAPI = async () => {
@@ -46,7 +47,7 @@ export default function DeleteAccountModel({ onClose }: props) {
           setMessage("Password is InCorrect");
         }
       } catch (err) {
-        if (err) console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     };
     checkPassAPI();

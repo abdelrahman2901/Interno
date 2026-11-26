@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { CategoryResponse, ColorResponse, InternoMicroserviceClient, SizeResponse, SubCategoryResponse } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../Core/Shared/API-URL";
 import { FilterPageModel } from "../Model/FilterPageModel";
 import { useFilterStore } from "../../../../Core/Global-State-Management/Zusstand/FilterStore/FilterStore";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 export default function ProductsSideBarFilter() {
   const [colors, setColors] = useState<ColorResponse[]>([]);
   const [sizes, setSizes] = useState<SizeResponse[]>([]);
@@ -14,7 +15,7 @@ export default function ProductsSideBarFilter() {
   const [selectedSubCategories, setSelectedSubCategories] = useState<
     CategoryResponse[]
   >([]);
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const { setFilter, resetFilter, filter } = useFilterStore();
 
   const loadCategories = async () => {
@@ -25,7 +26,7 @@ export default function ProductsSideBarFilter() {
         setPrivCategories(response.data);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   const loadSizes = async () => {
@@ -35,7 +36,7 @@ export default function ProductsSideBarFilter() {
         setSizes(response.data);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   const loadColors = async () => {
@@ -45,7 +46,7 @@ export default function ProductsSideBarFilter() {
         setColors(response.data);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {
@@ -73,12 +74,12 @@ export default function ProductsSideBarFilter() {
     }
   }, [updatedFIlter?.SubCategory, categories.length]);
 
-  function extractSizeChar(sizeName: string) {
-    if (sizeName.includes(" ")) {
-      return sizeName.slice(0, 2).trim() + sizeName.split(" ")[1].slice(0, 1);
-    }
-    return sizeName.slice(0, 1);
-  }
+  // function extractSizeChar(sizeName: string) {
+  //   if (sizeName.includes(" ")) {
+  //     return sizeName.slice(0, 2).trim() + sizeName.split(" ")[1].slice(0, 1);
+  //   }
+  //   return sizeName.slice(0, 1);
+  // }
   return (
     <>
       <aside className="filters-sidebar">
@@ -328,7 +329,7 @@ export default function ProductsSideBarFilter() {
                 value={size.sizeName}
                 key={size.sizeID}
               >
-                {extractSizeChar(size.sizeName ?? "")}
+                {(size.sizeName ?? "")}
               </button>
             ))}
           </div>

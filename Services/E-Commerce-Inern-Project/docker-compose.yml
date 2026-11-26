@@ -77,7 +77,7 @@ services:
   ApiGateway:
        image: apigateway
        build: 
-         context: .
+         context: ../E-Commerce-Interno.API.Gateway
          dockerfile: E-Commerce-Interno.API.Gateway/Dockerfile
        ports: 
          - "5003:8080"

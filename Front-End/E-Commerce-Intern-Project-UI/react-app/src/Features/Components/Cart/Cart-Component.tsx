@@ -8,8 +8,9 @@ import {
   OrderCouponResponse,
   UpdateCartItemRequest,
 } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../Core/Shared/API-URL";
+import { API, config, getProductImageUrl } from "../../../Core/Shared/API-URL";
 import { useAuth } from "../../../Core/Services/AuthServices/AuthProvider";
+import { getApiErrorMessage } from "../../../Core/Shared/getApiErrorMessage";
 type props = {
   isnewProductAdded: boolean;
   isloadingProducts: () => void;
@@ -21,14 +22,13 @@ export default function CartComponent({
   isloadingProducts,
   finishAddingNewProduct,
 }: props) {
-  const Base_Url = "http://localhost:5000";
   const [Cart, setCart] = useState<CartDetailsResponse>(
     new CartDetailsResponse(),
   );
   const [coupon, setCoupon] = useState<OrderCouponResponse>(
     new OrderCouponResponse(),
   );
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const { user } = useAuth();
   const { triggerCartUpdate } = useCartStore();
   const [appliedCoupon, setAppliedCoupon] = useState<string>("");
@@ -41,7 +41,7 @@ export default function CartComponent({
         setCart(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 
@@ -68,7 +68,7 @@ export default function CartComponent({
         triggerCartUpdate();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
   async function updateItemQuantity(ItemID: string, increase: boolean) {
@@ -81,7 +81,7 @@ export default function CartComponent({
         loadCartItems();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
 
@@ -94,7 +94,7 @@ export default function CartComponent({
         setCoupon(response.data);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
   return (
@@ -125,7 +125,9 @@ export default function CartComponent({
               <div className="cart-item" key={item.cartItemID}>
                 <div className="item-image">
                   <img
-                    src={`${Base_Url}/ProductsImages/${item.product?.parentCategoryName}/${item.product?.categoryName}/${item.product?.productImageUrl}`}
+                    src={getProductImageUrl(
+                      item.product?.productID ?? item.product?.productImageUrl,
+                    )}
                     alt="Linen Wrap Dress"
                   />
                 </div>

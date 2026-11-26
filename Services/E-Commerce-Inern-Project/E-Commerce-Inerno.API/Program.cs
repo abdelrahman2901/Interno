@@ -1,8 +1,9 @@
+using E_Commerce_Inerno.Core.Communication.HttpClients;
 using E_Commerce_Inerno.Core.DependencyInjection;
 using E_Commerce_Inerno.Core.Policies;
 using E_Commerce_Inerno.Infrastructure.ApplicationDbContext;
 using E_Commerce_Inerno.Infrastructure.DependencyInjection;
-using E_Commerce_Inerno.Core.Communication.HttpClients;
+using E_Commerce_Inerno.Infrastructure.Repository.PaymentRepo.PaymobProviderService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using Polly;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 var runningInDocker =
@@ -48,17 +50,29 @@ builder.Services.AddCors(options =>
 builder.Services.AddHttpClient<CreateAuditClient>(client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["AuditService:BaseUrl"]!);
-}).AddPolicyHandler((serviceProvider, request) =>
+}).
+AddPolicyHandler((serviceProvider, request) =>
 {
     var policy = serviceProvider
         .GetRequiredService<IPollyPolicy>().GetPolicy();
 
     return policy.AsAsyncPolicy<HttpResponseMessage>();
 });
+
+builder.Services.AddHttpClient<PaymobHttpClient>()
+   .AddPolicyHandler((serviceProvider, request) =>
+{
+    var policy = serviceProvider
+        .GetRequiredService<IPollyPolicy>().GetPolicy();
+
+    return policy.AsAsyncPolicy<HttpResponseMessage>();
+});
+
 builder.Services.AddHttpClient<CreateNotificationClient>(client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["NotificationsService:BaseUrl"]!);
-}).AddPolicyHandler((serviceProvider, request) =>
+})
+    .AddPolicyHandler((serviceProvider, request) =>
 {
     var policy = serviceProvider
         .GetRequiredService<IPollyPolicy>().GetPolicy();
@@ -93,6 +107,16 @@ builder.Services.AddRateLimiter(options =>
         opt.Window = TimeSpan.FromMinutes(1);
         opt.QueueLimit = 0;
     });
+
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 500,
+                Window = TimeSpan.FromMinutes(1),
+                QueueLimit = 0
+            }));
 
     options.AddFixedWindowLimiter("strict", opt =>
     {

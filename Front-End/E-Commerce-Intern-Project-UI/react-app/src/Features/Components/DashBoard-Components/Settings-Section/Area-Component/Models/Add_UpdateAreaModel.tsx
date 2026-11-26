@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AreaRequest, AreaResponse, AreaUpdateRequest, CityResponse, CreateShippingCostRequest, InternoMicroserviceClient, UpdateShippingCostRequest } from "../../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../../../../Core/Shared/getApiErrorMessage";
 type props = {
   cities: CityResponse[];
   onClose: () => void;
@@ -18,7 +19,7 @@ export default function Add_UpdateAreaModel({
 }: props) {
   const [shippingCost, setShippignCost] = useState<number>(0);
 
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [area, setArea] = useState<AreaResponse>(new AreaResponse());
   const loadArea = async () => {
     try {
@@ -28,9 +29,7 @@ export default function Add_UpdateAreaModel({
         console.log(area);
       }
     } catch (err) {
-      if (err) {
-        console.error(err);
-      }
+      console.error(getApiErrorMessage(err));
     }
   };
   const loadShippingCost = async () => {
@@ -40,7 +39,7 @@ export default function Add_UpdateAreaModel({
         setShippignCost(response.data?.shippingCost!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {
@@ -54,9 +53,7 @@ export default function Add_UpdateAreaModel({
       const response = await Client.putArea(updateAreaRequest);
       return response.isSuccess;
     } catch (err) {
-      if (err) {
-        console.error(err);
-      }
+      console.error(getApiErrorMessage(err));
     }
   };
 
@@ -70,9 +67,7 @@ export default function Add_UpdateAreaModel({
         });
       }
     } catch (err) {
-      if (err) {
-        console.error(err);
-      }
+      console.error(getApiErrorMessage(err));
     }
   };
 
@@ -106,9 +101,7 @@ export default function Add_UpdateAreaModel({
             onFormSuccess();
           }
         } catch (err) {
-          if (err) {
-            console.error(err);
-          }
+          console.error(getApiErrorMessage(err));
         }
       }
     } else //add new
@@ -125,14 +118,10 @@ export default function Add_UpdateAreaModel({
             onFormSuccess();
           }
         } catch (err) {
-          if (err) {
-            console.error(err);
-          }
+          console.error(getApiErrorMessage(err));
         }
       } catch (err) {
-        if (err) {
-          console.error(err);
-        }
+        console.error(getApiErrorMessage(err));
       }
     }
   }

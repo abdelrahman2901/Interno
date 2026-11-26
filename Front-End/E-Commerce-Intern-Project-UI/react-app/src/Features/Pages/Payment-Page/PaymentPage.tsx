@@ -5,14 +5,15 @@ import Shipping from "../../Components/Payment/Shipping-Component/Shipping";
 import "./Payment.css";
 import OrderSideBar from "../../Components/Payment/Order-SideBar/OrderSideBar";
 import { AddressDetails, CreateOrderRequest, InternoMicroserviceClient, OrderCouponResponse } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../Core/Shared/API-URL";
+import { API, config } from "../../../Core/Shared/API-URL";
 import { useSearchParams } from "react-router-dom";
 import { PaymentCheckOutEnum } from "../../../Core/Enums/PaymentCheckOutEnum";
+import { getApiErrorMessage } from "../../../Core/Shared/getApiErrorMessage";
 export default function PaymentPage() {
   const [currentStep, setCurrentStep] = useState<PaymentCheckOutEnum>(
     PaymentCheckOutEnum.Shipping,
   );
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [address, setAddress] = useState<AddressDetails>(new AddressDetails());
   const [orderRequest, setOrderRequest] = useState<CreateOrderRequest>(
     new CreateOrderRequest(),
@@ -29,7 +30,7 @@ export default function PaymentPage() {
         setCoupon(response.data);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 

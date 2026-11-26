@@ -1,6 +1,5 @@
 using E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo;
 using E_Commerce_Inerno.Infrastructure.ApplicationDbContext;
-using E_Commerce_Interno.Domain.DTO.UserDTO;
 using E_Commerce_Interno.Domain.Entity;
 using E_Commerce_Interno.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -35,21 +34,12 @@ namespace E_Commerce_Inerno.Infrastructure.Repository.UserRepo
             }
         }
 
-        public IQueryable<AuthUserDetailsDTO> GetAllUsersQuery()
+        public IQueryable<ApplicationUser> GetAllUsersQuery()
         {
             return _context.ApplicationUser
                 .AsNoTracking()
                 .Where(u => !u.IsDeleted)
-                .OrderBy(u => u.PersonName)
-                .Select(u => new AuthUserDetailsDTO
-                {
-                    userID = u.UserID,
-                    Email = u.Email,
-                    PersonName = u.PersonName,
-                    PhoneNumber = u.PhoneNumber,
-                    IsBlocked = u.IsBlocked,
-                    Roles = u.Roles.Select(r => r.Role.RoleEnumID).ToList()
-                });
+                .OrderBy(u => u.PersonName);               
         }
 
         public async Task<ApplicationUser?> GetApplicationUserByEmail(string email, bool AsTracking)
@@ -146,6 +136,11 @@ namespace E_Commerce_Inerno.Infrastructure.Repository.UserRepo
         public async Task<Guid> GetAdminID()
         {
             return await _context.ApplicationUser.AsNoTracking().Where(r => r.Roles.Any(r => r.Role.RoleEnumID == RolesEnum.Admin)).Select(r => r.UserID).FirstOrDefaultAsync();
+        }
+
+        public IQueryable<ApplicationUser> GetApplicationUserQueryByID(Guid? userid)
+        {
+            return _context.ApplicationUser.Where(u => u.UserID == userid && !u.IsDeleted);
         }
     }
 }

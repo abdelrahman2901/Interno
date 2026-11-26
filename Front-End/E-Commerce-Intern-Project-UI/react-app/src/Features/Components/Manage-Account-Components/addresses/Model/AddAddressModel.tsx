@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../../Shared/CSS/ModelCSS.css";
 import { useAuth } from "../../../../../Core/Services/AuthServices/AuthProvider";
 import { AddressDetails, AreaResponse, CityResponse, CreateAddressRequest, InternoMicroserviceClient } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../../../Core/Shared/getApiErrorMessage";
 type props = {
   onClose: () => void;
   AddressID?: string | null;
@@ -18,7 +19,7 @@ export default function AddAddressModel({
   const [cities, setCities] = useState<CityResponse[]>([]);
   const [_areas, setPrivAreas] = useState<AreaResponse[]>([]);
   const [areas, setAreas] = useState<AreaResponse[]>([]);
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const loadCities = async () => {
     try {
       const response = await Client.getAllCities();
@@ -26,7 +27,7 @@ export default function AddAddressModel({
         setCities(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   const loadAreas = async () => {
@@ -37,7 +38,7 @@ export default function AddAddressModel({
         setAreas(_areas);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {
@@ -52,7 +53,7 @@ export default function AddAddressModel({
         SetAddress(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 
@@ -85,7 +86,7 @@ export default function AddAddressModel({
           onAddingNewAddress();
         }
       } catch (err) {
-        if (err) console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     };
     const updateAddressRequest = async () => {
@@ -95,7 +96,7 @@ export default function AddAddressModel({
           onAddingNewAddress();
         }
       } catch (err) {
-        if (err) console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     };
     const form = new FormData(e.currentTarget);
@@ -128,7 +129,7 @@ export default function AddAddressModel({
 
       setAreas(filteredAreas);
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
   return (

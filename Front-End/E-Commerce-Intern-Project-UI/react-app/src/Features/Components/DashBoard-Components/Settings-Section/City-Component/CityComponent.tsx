@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { AreaResponse, CityResponse, InternoMicroserviceClient } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../../Core/Shared/API-URL";
 import DeleteCityModel from "./Models/DeleteCityMode";
 import Add_UpdateCityModel from "./Models/Add_UpdateCityModel";
+import { getApiErrorMessage } from "../../../../../Core/Shared/getApiErrorMessage";
 type props = {
   citiesProps: CityResponse[];
   areaProps: AreaResponse[];
 };
 
 export default function CityComponent({ citiesProps, areaProps }: props) {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [cities, setCities] = useState<CityResponse[]>([]);
   const [areas, setAreas] = useState<AreaResponse[]>([]);
   const [isOpenModel, setIsOpenModel] = useState<boolean>(false);
@@ -31,7 +32,7 @@ export default function CityComponent({ citiesProps, areaProps }: props) {
         setCities(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   function extractCityID(CityID: string) {
@@ -52,7 +53,7 @@ export default function CityComponent({ citiesProps, areaProps }: props) {
         loadCities();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
 

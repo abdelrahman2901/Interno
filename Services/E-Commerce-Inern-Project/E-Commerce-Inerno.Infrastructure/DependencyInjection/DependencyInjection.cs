@@ -1,5 +1,4 @@
 using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IAddressRepo;
-using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IOrdersRepo;
 using E_Commerce_Inerno.Core.Domain.RepositoryContracts.ITransectionRepo;
 using E_Commerce_Inerno.Core.Domain.RepositoryContracts.IUserRolesRepo;
 using E_Commerce_Inerno.Core.RepositoryContracts.IAreaRepo;
@@ -45,6 +44,8 @@ using E_Commerce_Inerno.Infrastructure.Repository.ProductRepo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using E_Commerce_Inerno.Infrastructure.Repository.PaymentRepo.PaymobProviderService;
+using E_Commerce_Inerno.Core.RepositoryContracts.IOrdersRepo;
 
 
 namespace E_Commerce_Inerno.Infrastructure.DependencyInjection
@@ -111,6 +112,9 @@ namespace E_Commerce_Inerno.Infrastructure.DependencyInjection
 
             //UserRoles
             services.AddScoped<IUserRolesRepository, UserRolesRepository>();
+
+            //Paymob Service
+            services.AddScoped<IPaymobService, PaymobService>();
 
             //Transection
             services.AddScoped<ITransectionRepository, TransectionRepository>();

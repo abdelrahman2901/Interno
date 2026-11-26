@@ -3,13 +3,14 @@ import AreaComponent from "./Area-Component/AreaComponent";
 import CouponsComponent from "./Coupons-Component/CouponsComponent";
 import CityComponent from "./City-Component/CityComponent";
 import { AreaResponse, CityResponse, InternoMicroserviceClient, ShippingCostDetails } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../Core/Shared/API-URL";
 import { SubSectionTypes } from "../../../../Core/Types/SubSectionTypes";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 type props = {
   section: SubSectionTypes;
 };
 export default function SettingsSection({ section }: props) {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [areas, setAreas] = useState<AreaResponse[]>([]);
   const [cities, setCities] = useState<CityResponse[]>([]);
   const [shippingCosts, setShippingCosts] = useState<ShippingCostDetails[]>([]);
@@ -20,9 +21,7 @@ export default function SettingsSection({ section }: props) {
         setShippingCosts(response.data!);
       }
     } catch (err) {
-      if (err) {
-        console.error(err);
-      }
+      console.error(getApiErrorMessage(err));
     }
   };
   const loadcities = async () => {
@@ -32,7 +31,7 @@ export default function SettingsSection({ section }: props) {
         setCities(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   const loadAreas = async () => {
@@ -42,7 +41,7 @@ export default function SettingsSection({ section }: props) {
         setAreas(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {

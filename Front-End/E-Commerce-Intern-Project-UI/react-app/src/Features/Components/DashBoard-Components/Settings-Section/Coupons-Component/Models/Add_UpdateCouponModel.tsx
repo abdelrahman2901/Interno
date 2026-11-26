@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CreateCouponRequest, DiscountTypeEnum, InternoMicroserviceClient, OrderCouponResponse, UpdateCouponRequest } from "../../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../../../../Core/Shared/getApiErrorMessage";
 type props = {
   onClose: () => void;
   CouponIDProps: string | null;
@@ -12,7 +13,7 @@ export default function Add_UpdateCouponModel({
   CouponIDProps,
   onReloadCoupons,
 }: props) {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [coupon, setCoupon] = useState<OrderCouponResponse>(
     new OrderCouponResponse(),
   );
@@ -27,7 +28,7 @@ export default function Add_UpdateCouponModel({
         setCoupon(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {
@@ -59,7 +60,7 @@ export default function Add_UpdateCouponModel({
           onReloadCoupons();
         }
       } catch (err) {
-        if (err) console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     } else {
       try {
@@ -76,7 +77,7 @@ export default function Add_UpdateCouponModel({
           onReloadCoupons();
         }
       } catch (err) {
-        if (err) console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     }
   }

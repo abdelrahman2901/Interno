@@ -5,7 +5,8 @@ import {
   FileParameter,
   InternoMicroserviceClient,
 } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../../Core/Shared/API-URL";
+import { API, config, getBannerImageUrl } from "../../../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../../../Core/Shared/getApiErrorMessage";
 type props = {
   onClose: () => void;
   bannerIDProps: string | null;
@@ -17,7 +18,7 @@ export default function BannerAdd_UpdateModel({
   onClose,
   onActionResult,
 }: props) {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [banner, setBanner] = useState<BannerSlideResponse>(
     new BannerSlideResponse(),
   );
@@ -31,7 +32,7 @@ export default function BannerAdd_UpdateModel({
         setBanner(response.data);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   const loadColors = async () => {
@@ -41,7 +42,7 @@ export default function BannerAdd_UpdateModel({
         setColors(response.data);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {
@@ -94,7 +95,7 @@ export default function BannerAdd_UpdateModel({
           onActionResult();
         }
       } catch (err) {
-        if (err) console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     };
     save();
@@ -361,13 +362,16 @@ export default function BannerAdd_UpdateModel({
                     )}
                   </div>
                   <div className="banner-image">
-                    {!selectedImage && (
-                      // <div className="placeholder-image">📷 Image Preview</div>
-                      <div className="placeholder-image">📷 Image Preview</div>
-                    )}
-                    {selectedImage && (
-                      <img src={URL.createObjectURL(selectedImage)} alt="" />
-                    )}
+                    <img
+                      src={
+                        selectedImage
+                          ? URL.createObjectURL(selectedImage)
+                          : getBannerImageUrl(
+                              banner.bannerSlideID ?? banner.imageUrl,
+                            )
+                      }
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>

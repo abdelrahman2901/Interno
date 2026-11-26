@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { actionTypes } from "./Arrays/ActionTypesArr";
 import { entityNames } from "./Arrays/EntityNamesArr";
 import { AuditMicroserviceClient, AuditResponse } from "../../../../Core/API/Audit-Microservice-Client/Audit-Microservice-Client";
+import { API, config } from "../../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 
 export default function AuditSection() {
   const [_audits, setPrivAudits] = useState<AuditResponse[]>([]);
@@ -13,7 +15,7 @@ export default function AuditSection() {
   useEffect(() => {
     loadAudits();
   }, []);
- const Client = new AuditMicroserviceClient();
+ const Client = new AuditMicroserviceClient(config.gatewayUrl, API);
   const loadAudits = async () => {
     try {
       const response = await Client.getAllAudit();
@@ -24,7 +26,7 @@ export default function AuditSection() {
         // setActionTypes([...new Set(response.data.map((r) => r.actionType))]);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 

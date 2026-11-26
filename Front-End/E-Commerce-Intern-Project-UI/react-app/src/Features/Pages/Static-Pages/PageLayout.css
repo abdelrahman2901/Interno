@@ -1,0 +1,100 @@
+.page-layout,
+.page-layout * {
+  box-sizing: border-box;
+}
+
+.page-layout {
+  min-height: calc(100vh - 52px);
+  background: #faf9f7;
+}
+
+.page-hero {
+  background: linear-gradient(135deg, #f5f0eb 0%, #faf9f7 52%, #efe8e1 100%);
+  border-bottom: 1px solid #e0d8d0;
+  padding: 28px 20px 40px;
+}
+
+.page-hero-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.page-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 18px;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  color: #8b6f5e;
+}
+
+.page-breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page-breadcrumb li:not(:last-child)::after {
+  content: "/";
+  color: #c4b6ab;
+}
+
+.page-breadcrumb a {
+  color: #8b6f5e;
+  text-decoration: none;
+}
+
+.page-breadcrumb a:hover,
+.page-breadcrumb a:focus-visible {
+  text-decoration: underline;
+  outline: none;
+}
+
+.page-breadcrumb [aria-current="page"] {
+  color: #2c2c2c;
+  font-weight: 600;
+}
+
+.page-kicker {
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #8b6f5e;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+
+.page-hero h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(32px, 5vw, 46px);
+  color: #2c2c2c;
+  margin: 0 0 10px;
+  line-height: 1.15;
+}
+
+.page-subtitle {
+  max-width: 640px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #5a5a5a;
+}
+
+.page-body {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 36px 20px 80px;
+}
+
+@media (min-width: 768px) {
+  .page-hero {
+    padding: 40px 24px 56px;
+  }
+
+  .page-body {
+    padding: 48px 24px 96px;
+  }
+}

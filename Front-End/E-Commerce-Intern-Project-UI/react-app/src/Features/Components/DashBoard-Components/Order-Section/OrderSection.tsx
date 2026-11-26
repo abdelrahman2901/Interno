@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { InternoMicroserviceClient, OrderDetails, OrderStatus, UpdateOrderStatusRequest } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../Core/Shared/API-URL";
 import "./OrderSection.css";
 import OrderDetailsModal from "./Modals/OrderDetails";
 import { filterType } from "../../../../Core/Types/filterType";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 export default function OrderSection() {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [_orders, setPrivOrders] = useState<OrderDetails[]>([]);
   const [orders, setOrders] = useState<OrderDetails[]>([]);
   const [selectedOrderID, setSelectedOrderID] = useState<string | null>(null);
@@ -22,9 +23,7 @@ export default function OrderSection() {
         setOrders(response.data!);
       }
     } catch (err) {
-      if (err) {
-        console.error(err);
-      }
+      console.error(getApiErrorMessage(err));
     }
   };
 
@@ -75,7 +74,7 @@ export default function OrderSection() {
         laodOrders();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
   return (

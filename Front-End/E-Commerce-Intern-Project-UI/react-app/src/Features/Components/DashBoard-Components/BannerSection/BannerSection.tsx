@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { BannerSlideResponse, InternoMicroserviceClient } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config, getBannerImageUrl } from "../../../../Core/Shared/API-URL";
 import BannerDeleteModel from "./Models/BannerDeleteModel";
 import BannerAdd_UpdateModel from "./Models/BannerAdd_UpdateModel";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 import "./BannerSection.css";
 
-const Base_Url = "http://localhost:5000/BannerImages";
 type filterTypes = "all" | "active" | "inActive";
 export default function BannerSection() {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [_banners, setPrivBanners] = useState<BannerSlideResponse[]>([]);
   const [banners, setBanners] = useState<BannerSlideResponse[]>([]);
   const [selectedBannerID, setSelectedBannerID] = useState<string | null>(null);
@@ -24,7 +24,7 @@ export default function BannerSection() {
         setPrivBanners(response.data);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   const deleteBanner = async () => {
@@ -34,7 +34,7 @@ export default function BannerSection() {
         loadBanners();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {
@@ -78,7 +78,7 @@ export default function BannerSection() {
         loadBanners();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
   return (
@@ -170,7 +170,12 @@ export default function BannerSection() {
                     </button>
                   </div>
                   <div className="banner-image">
-                    <img src={`${Base_Url}/${banner.imageUrl}`} alt="Banner" />
+                    <img
+                      src={getBannerImageUrl(
+                        banner.bannerSlideID ?? banner.imageUrl,
+                      )}
+                      alt="Banner"
+                    />
                   </div>
                 </div>
                 <div className="banner-info">

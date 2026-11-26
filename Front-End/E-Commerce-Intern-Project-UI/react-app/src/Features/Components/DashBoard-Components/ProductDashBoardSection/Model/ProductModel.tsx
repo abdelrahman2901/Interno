@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../../Shared/css/Model.css";
 import { CategoryResponse, ColorResponse, FileParameter, InternoMicroserviceClient, ProductDetails_vw, SizeResponse, SubCategoryResponse } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../../../Core/Shared/getApiErrorMessage";
 type props = {
   onClose: () => void;
   onAddUpdateProduct: () => void;
@@ -12,7 +13,7 @@ export default function ProductModel({
   onAddUpdateProduct,
   ProductProps,
 }: props) {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [categories, setCategories] = useState<SubCategoryResponse[]>([]);
   const [subcategories, setSubCategories] = useState<CategoryResponse[]>([]);
   const [product, setProduct] = useState<ProductDetails_vw>();
@@ -49,7 +50,7 @@ export default function ProductModel({
       const response = await Client.getAllSizes();
       setSizes(response.data!);
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   const loadColors = async () => {
@@ -57,7 +58,7 @@ export default function ProductModel({
       const response = await Client.getAllColors();
       setColors(response.data!);
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   const loadCats = async () => {
@@ -67,7 +68,7 @@ export default function ProductModel({
 
       setCategories(response.data!);
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 
@@ -89,7 +90,7 @@ export default function ProductModel({
         setProduct(found);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {
@@ -256,7 +257,7 @@ export default function ProductModel({
         console.log(response);
         onAddUpdateProduct();
       } catch (err) {
-        if (err) console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     };
     saveProduct();

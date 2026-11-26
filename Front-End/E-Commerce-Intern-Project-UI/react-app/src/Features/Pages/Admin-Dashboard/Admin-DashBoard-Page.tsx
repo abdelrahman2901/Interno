@@ -5,19 +5,20 @@ import OrderSection from "../../Components/DashBoard-Components/Order-Section/Or
 import OverViewSection from "../../Components/DashBoard-Components/OverView-Section/OverViewSection";
 import ProductDashBoardSection from "../../Components/DashBoard-Components/ProductDashBoardSection/ProductDashBoardSection";
 import { InternoMicroserviceClient, ProductDetails_vw } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../Core/Shared/API-URL";
+import { API, config } from "../../../Core/Shared/API-URL";
 import SettingsSection from "../../Components/DashBoard-Components/Settings-Section/Settings-Section";
 import BannerSection from "../../Components/DashBoard-Components/BannerSection/BannerSection";
 import AuditSection from "../../Components/DashBoard-Components/AuditSection/AuditSection";
 import { SectionTypes } from "../../../Core/Types/SectionTypes";
 import { SubSectionTypes } from "../../../Core/Types/SubSectionTypes";
+import { getApiErrorMessage } from "../../../Core/Shared/getApiErrorMessage";
 import "./AdminDashBoard.css";
 
 export default function Admin_Dashboard() {
   const [CurrentSection, setCurrentSection] = useState<SectionTypes>();
   const [CurrentSubSection, setCurrentSubSection] = useState<SubSectionTypes>();
   const [Products, SetProducts] = useState<ProductDetails_vw[]>([]);
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const loadProducts = async () => {
     try {
       const response = await Client.productDetailsVW();
@@ -26,7 +27,7 @@ export default function Admin_Dashboard() {
         SetProducts(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {

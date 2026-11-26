@@ -2,28 +2,29 @@ import { useEffect, useState } from "react";
 import "./CategorySection.css";
 import { Link } from "react-router-dom";
 import {
-  CategoryResponse,
   InternoMicroserviceClient,
   SubCategoryResponse,
 } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../Core/Shared/API-URL";
+import { API, config } from "../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../Core/Shared/getApiErrorMessage";
+import { getCategoryImage } from "../../../Core/Shared/getCategoryImage";
+
 export default function CategorySection() {
-  const Base_Url = "http://localhost:5000";
   const [Categories, SetCategories] = useState<SubCategoryResponse[]>([]);
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   useEffect(() => {
     const loadCats = async () => {
       try {
         const response = await Client.getCategoriesWithSubCat();
 
         if (response.statusCode! > 200) {
-          console.log(response.errorMessage);
+          console.log(getApiErrorMessage(response));
         }
         if (response.data) {
           SetCategories(response.data!);
         }
       } catch (err) {
-        console.error(err);
+        console.error(getApiErrorMessage(err));
       }
     };
     loadCats();
@@ -38,13 +39,13 @@ export default function CategorySection() {
           <div className="main-title-underline"></div>
         </div>
         <div className="categories-grid">
-          {Categories.map((cat) => (
+          {Categories.map((cat, index) => (
             <div className="category-card" key={cat.categoryID}>
               <Link
                 to={`/Home/Products?Category=${cat.categoryName}&SubCategory=All&Price=0&Size=All&Color=All`}
               >
                 <img
-                  src={`${Base_Url}/CategoryImages/${cat.categoryImageUrl}`}
+                  src={getCategoryImage(cat, index)}
                   alt={cat.categoryName}
                 />
               </Link>

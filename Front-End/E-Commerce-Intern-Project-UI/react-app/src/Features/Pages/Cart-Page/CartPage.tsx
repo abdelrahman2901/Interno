@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import CartComponent from "../../Components/Cart/Cart-Component";
 import "./CartPage.css";
 import { CartDetailsResponse, InternoMicroserviceClient, ProductDetails_vw } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../Core/Shared/API-URL";
+import { API, config } from "../../../Core/Shared/API-URL";
 import { useAuth } from "../../../Core/Services/AuthServices/AuthProvider";
+import { getApiErrorMessage } from "../../../Core/Shared/getApiErrorMessage";
 export default function CartPage() {
-  const Base_Url = "http://localhost:5000";
   const { user } = useAuth();
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [Products, SetProducts] = useState<ProductDetails_vw[]>([]);
   const [Cart, setCart] = useState<CartDetailsResponse>(new CartDetailsResponse());
   const [newProdutAdded, setnewProdutAdded] = useState<boolean>(false);
@@ -21,7 +21,7 @@ export default function CartPage() {
         setCart(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 
@@ -35,7 +35,7 @@ export default function CartPage() {
         SetProducts(response.data!.slice(0, 3));
       }
     } catch (err) {
-      console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   const loadProdWithFilter = async () => {

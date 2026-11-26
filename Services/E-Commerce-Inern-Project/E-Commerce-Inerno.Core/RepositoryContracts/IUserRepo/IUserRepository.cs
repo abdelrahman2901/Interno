@@ -7,7 +7,8 @@ namespace E_Commerce_Inerno.Core.RepositoryContracts.IUserRepo
     {
         Task<IEnumerable<ApplicationUser>> GetAllUsers();
         /// <summary>Projected query — pagination/filtering should happen on this IQueryable before materialization.</summary>
-        IQueryable<AuthUserDetailsDTO> GetAllUsersQuery();
+        IQueryable<ApplicationUser> GetAllUsersQuery();
+        IQueryable<ApplicationUser> GetApplicationUserQueryByID(Guid? userid);
         Task<ApplicationUser?> GetApplicationUserByID(Guid? userid, bool AsTracking);
         Task<ApplicationUser?> GetApplicationUserByPhoneNumber(string Phone, bool AsTracking);
         Task<ApplicationUser?> GetApplicationUserByEmail(string email, bool AsTracking);

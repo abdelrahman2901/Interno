@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../../../Core/Services/AuthServices/AuthProvider";
 import { InternoMicroserviceClient, OrderDetails, ProductRateRequest } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../../Core/Shared/API-URL";
+import { API, config, getProductImageUrl } from "../../../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../../../Core/Shared/getApiErrorMessage";
 type props = {
   orderIDProps: string | null;
   onClose: () => void;
   onActionResult: () => void;
 };
-const Base_Url = "http://localhost:5000";
 
 export default function RatingModal({
   orderIDProps,
   onClose,
   onActionResult,
 }: props) {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [_orders, setPrivOrders] = useState<OrderDetails[]>([]);
   const [order, setOrders] = useState<OrderDetails>(new OrderDetails());
   const { user } = useAuth();
@@ -27,9 +27,7 @@ export default function RatingModal({
         setPrivOrders(response.data!);
       }
     } catch (err) {
-      if (err) {
-        console.error(err);
-      }
+      console.error(getApiErrorMessage(err));
     }
   };
   useEffect(() => {
@@ -63,7 +61,7 @@ export default function RatingModal({
         onActionResult();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
 
@@ -103,7 +101,10 @@ export default function RatingModal({
               <>
                 <div className="rating-product-info" key={orderItem.orderID}>
                   <img
-                    src={`${Base_Url}/ProductsImages/${orderItem.product?.parentCategoryName}/${orderItem.product?.categoryName}/${orderItem.product?.productImageUrl}`}
+                    src={getProductImageUrl(
+                      orderItem.product?.productID ??
+                        orderItem.product?.productImageUrl,
+                    )}
                     alt="Product"
                   />
                   <div className="rating-product-details">

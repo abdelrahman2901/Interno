@@ -3,7 +3,8 @@ import "./addresses.css";
 import AddAddressModel from "./Model/AddAddressModel";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
 import { AddressDetails, InternoMicroserviceClient } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 export default function AccountAddress() {
   const [isAddingNewAddress, SetisAddingNewAddress] = useState(false);
   const [userAddress, setUserAddress] = useState<AddressDetails[]>([]);
@@ -11,7 +12,7 @@ export default function AccountAddress() {
     null,
   );
   const { user } = useAuth();
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const loadAddresses = async () => {
     try {
       const response = await Client.getUserAddress();
@@ -19,7 +20,7 @@ export default function AccountAddress() {
         setUserAddress(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   const DeleteAddress_API = async (addressID: string) => {
@@ -29,7 +30,7 @@ export default function AccountAddress() {
         loadAddresses();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 

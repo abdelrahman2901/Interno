@@ -12,13 +12,13 @@ import {
   UpdateOrderRequest,
   UpdateOrderStatusRequest,
 } from "../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../Core/Shared/API-URL";
+import { API, config, getProductImageUrl } from "../../../../Core/Shared/API-URL";
 import { useAuth } from "../../../../Core/Services/AuthServices/AuthProvider";
+import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
 type props = {
   orders_Prop: OrderDetails[];
 };
 export default function AccountOrders({ orders_Prop }: props) {
-  const Base_Url = "http://localhost:5000";
   const [CurrentOrder, SetCurrentOrder] = useState<
     "all" | "delivered" | "shipped" | "processing" | "cancelled"
   >("all");
@@ -32,7 +32,7 @@ export default function AccountOrders({ orders_Prop }: props) {
   const [isRateDoneSuccessfully, setIsRateDoneSuccessfully] =
     useState<boolean>(false);
   const { user } = useAuth();
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const loadUserRating = async () => {
     try {
       const response = await Client.getUserRating(user?.userID!);
@@ -40,7 +40,7 @@ export default function AccountOrders({ orders_Prop }: props) {
         setUserOrderRating(response.data);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
   const laodOrders = async () => {
@@ -53,9 +53,7 @@ export default function AccountOrders({ orders_Prop }: props) {
         setOrders(response.data!);
       }
     } catch (err) {
-      if (err) {
-        console.error(err);
-      }
+      console.error(getApiErrorMessage(err));
     }
   };
 
@@ -123,7 +121,7 @@ export default function AccountOrders({ orders_Prop }: props) {
         laodOrders();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
 
@@ -153,7 +151,7 @@ export default function AccountOrders({ orders_Prop }: props) {
         laodOrders();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
   return (
@@ -251,7 +249,10 @@ export default function AccountOrders({ orders_Prop }: props) {
                       <div className="Account-order-product">
                         <img
                           alt="Product"
-                          src={`${Base_Url}/ProductsImages/${orderItem.product?.parentCategoryName}/${orderItem.product?.categoryName}/${orderItem.product?.productImageUrl}`}
+                          src={getProductImageUrl(
+                            orderItem.product?.productID ??
+                              orderItem.product?.productImageUrl,
+                          )}
                         />
                         <div className="Account-product-details">
                           <h5>{orderItem.product?.productName}</h5>

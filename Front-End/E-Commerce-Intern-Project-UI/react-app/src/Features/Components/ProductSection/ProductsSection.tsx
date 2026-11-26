@@ -9,7 +9,8 @@ import {
   ProductDetails_vw,
   WishListDetailsResponse,
 } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../Core/Shared/API-URL";
+import { API, config, getProductImageUrl } from "../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../Core/Shared/getApiErrorMessage";
 import { useAuth } from "../../../Core/Services/AuthServices/AuthProvider";
 import "./ProductSection.css";
 import { CategoryfilterType } from "../../../Core/Types/CategoryFIlterTypes";
@@ -19,10 +20,11 @@ type props = {
   filterProps: CategoryfilterType | null;
 };
 
+const PAGE_SIZE = 12;
+
 export default function ProductsSection({ filterProps }: props) {
-  const Base_Url = "http://localhost:5000";
   const { user } = useAuth();
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [Products, SetProducts] = useState<ProductDetails_vw[]>([]);
   const [_Products, SetPrivProducts] = useState<ProductDetails_vw[]>([]);
   const [CurrentFilter, SetCurrentFilter] = useState<string>();
@@ -33,6 +35,11 @@ export default function ProductsSection({ filterProps }: props) {
   const [CartItems, setCartItems] = useState<CartDetailsResponse>();
   const { filter } = useFilterStore();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPreviousPage, setHasPreviousPage] = useState(false);
+  const [loadError, setLoadError] = useState("");
 
   useEffect(() => {
     if (filterProps) {
@@ -54,13 +61,16 @@ export default function ProductsSection({ filterProps }: props) {
         setCartItems(response.data!);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
-  const loadFilter = async () => {
+  const loadFilter = async (page = pageNumber) => {
     setIsLoading(true);
+    setLoadError("");
     try {
       const response = await Client.filterProducts(
+        page,
+        PAGE_SIZE,
         filter.Category,
         filter.SubCategory,
         filter.Price,
@@ -69,11 +79,19 @@ export default function ProductsSection({ filterProps }: props) {
         filter.Sort,
       );
       if (response.isSuccess && response.data) {
-        SetProducts(response.data);
-        SetPrivProducts(response.data);
+        SetProducts(response.data.products ?? []);
+        SetPrivProducts(response.data.products ?? []);
+        setTotalPages(response.data.totalPages || 1);
+        setHasNextPage(!!response.data.hasNextPage);
+        setHasPreviousPage(!!response.data.hasPreviousPage);
+        setPageNumber(response.data.currentPage || page);
+      } else {
+        SetProducts([]);
+        setLoadError(response.errorMessage || "No Products Found");
       }
     } catch (err) {
-      if (err) console.error(err);
+      SetProducts([]);
+      setLoadError(getApiErrorMessage(err));
     } finally {
       setIsLoading(false);
     }
@@ -88,7 +106,7 @@ export default function ProductsSection({ filterProps }: props) {
         setUserWishListItems([]);
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 
@@ -103,12 +121,9 @@ export default function ProductsSection({ filterProps }: props) {
   }, [user]);
 
   useEffect(() => {
-    // if (_Products.length === 0) {
-    console.log("fewfwe");
-
-    loadFilter();
-    // }
-  }, [filter, Products.length]);
+    setPageNumber(1);
+    loadFilter(1);
+  }, [filter]);
 
   async function AddToWishList(productID: string) {
     try {
@@ -122,7 +137,7 @@ export default function ProductsSection({ filterProps }: props) {
         loadWishListItems();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
   function CalculateSalePerc(product: ProductDetails_vw) {
@@ -145,9 +160,11 @@ export default function ProductsSection({ filterProps }: props) {
         triggerCartUpdate();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
+
+  const pageItems = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
     <>
@@ -162,7 +179,9 @@ export default function ProductsSection({ filterProps }: props) {
             <div className="product-card" key={product.productID}>
               <div className="product-image-wrapper">
                 <img
-                  src={`${Base_Url}/ProductsImages/${product.parentCategoryName}/${product.categoryName}/${product.productImageUrl}`}
+                  src={getProductImageUrl(
+                    product.productID ?? product.productImageUrl,
+                  )}
                   alt="Linen Wrap Dress"
                 />
                 <div className="product-badges">
@@ -233,10 +252,53 @@ export default function ProductsSection({ filterProps }: props) {
             <div className="empty-icon">
               <Eye size={48} opacity={0.5} />
             </div>
-            <h3>No Products Found</h3>
+            <h3>{loadError || "No Products Found"}</h3>
           </div>
         )}
       </div>
+      {totalPages > 1 && Products.length > 0 && (
+        <div className="pagination">
+          <button
+            type="button"
+            className="page-btn"
+            disabled={!hasPreviousPage || pageNumber <= 1}
+            onClick={() => {
+              const next = Math.max(1, pageNumber - 1);
+              setPageNumber(next);
+              loadFilter(next);
+            }}
+          >
+            Previous
+          </button>
+          <div className="page-numbers">
+            {pageItems.map((page) => (
+              <button
+                type="button"
+                key={page}
+                className={`page-num ${page === pageNumber ? "active" : ""}`}
+                onClick={() => {
+                  setPageNumber(page);
+                  loadFilter(page);
+                }}
+              >
+                {page}
+              </button>
+            ))}
+          </div>
+          <button
+            type="button"
+            className="page-btn"
+            disabled={!hasNextPage || pageNumber >= totalPages}
+            onClick={() => {
+              const next = pageNumber + 1;
+              setPageNumber(next);
+              loadFilter(next);
+            }}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </>
   );
 }

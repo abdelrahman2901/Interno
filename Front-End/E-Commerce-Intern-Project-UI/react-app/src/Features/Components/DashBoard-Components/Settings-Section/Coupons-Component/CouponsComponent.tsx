@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { InternoMicroserviceClient, OrderCouponResponse } from "../../../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
-import { API } from "../../../../../Core/Shared/API-URL";
+import { API, config } from "../../../../../Core/Shared/API-URL";
 import Add_UpdateCouponModel from "./Models/Add_UpdateCouponModel";
 import DeleteCouponModel from "./Models/DeleteCouponModel";
+import { getApiErrorMessage } from "../../../../../Core/Shared/getApiErrorMessage";
 export default function CouponsComponent() {
-  const Client = new InternoMicroserviceClient(undefined, API);
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [_coupons, setPrivCoupons] = useState<OrderCouponResponse[]>([]);
   const [coupons, setCoupons] = useState<OrderCouponResponse[]>([]);
   const [currentTab, setCurrentTab] = useState<"all" | "active" | "inactive">(
@@ -21,9 +22,7 @@ export default function CouponsComponent() {
         setPrivCoupons(response.data!);
       }
     } catch (err) {
-      if (err) {
-        console.error(err);
-      }
+      console.error(getApiErrorMessage(err));
     }
   };
   const DeleteCoupon = async () => {
@@ -33,7 +32,7 @@ export default function CouponsComponent() {
         loadCoupons();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   };
 
@@ -69,7 +68,7 @@ export default function CouponsComponent() {
         loadCoupons();
       }
     } catch (err) {
-      if (err) console.error(err);
+      console.error(getApiErrorMessage(err));
     }
   }
   function EditCoupon(couponID: string) {
