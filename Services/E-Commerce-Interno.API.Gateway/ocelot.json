@@ -90,24 +90,24 @@
                                                   "Options"
                                               ]
                    },
-                   {
-                       "UpstreamPathTemplate":  "/gateway/Areas",
-                       "DownstreamPathTemplate":  "/api/Areas",
-                       "DownstreamHostAndPorts":  [
-                                                      {
-                                                          "Host":  "InternoMicroservice.api",
-                                                          "Port":  8080
-                                                      },
-                                                      {
-                                                          "Host":  "localhost",
-                                                          "Port":  7164
-                                                      }
-                                                  ],
-                       "UpstreamHttpMethod":  [
-                                                  "Get",
-                                                  "Options"
-                                              ]
-                   },
+      {
+        "UpstreamPathTemplate": "/gateway/Areas/GetAllAreas",
+        "DownstreamPathTemplate": "/api/Areas/GetAllAreas",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "InternoMicroservice.api",
+            "Port": 8080
+          },
+          {
+            "Host": "localhost",
+            "Port": 7164
+          }
+        ],
+        "UpstreamHttpMethod": [
+          "Get",
+          "Options"
+        ]
+      },
                    {
                        "UpstreamPathTemplate":  "/gateway/Areas/GetAreaByID/{AreaID}",
                        "DownstreamPathTemplate":  "/api/Areas/GetAreaByID/{AreaID}",
