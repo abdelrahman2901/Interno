@@ -66,13 +66,13 @@ export default function ProductsSideBarFilter() {
     setUpdatedFIlter(filter);
   }, [filter]);
   useEffect(() => {
-    if (updatedFIlter?.Category !== "All" && categories.length !== 0) {
+    if (updatedFIlter?.CategoryID !== undefined && categories.length !== 0) {
       setSelectedSubCategories(
-        categories.find((r) => r.categoryName === updatedFIlter?.Category)
+        categories.find((r) => r.categoryID === updatedFIlter?.CategoryID)
           ?.subCategories ?? [],
       );
     }
-  }, [updatedFIlter?.SubCategory, categories.length]);
+  }, [updatedFIlter?.SubCategoryID, categories.length]);
 
   // function extractSizeChar(sizeName: string) {
   //   if (sizeName.includes(" ")) {
@@ -122,7 +122,7 @@ export default function ProductsSideBarFilter() {
                   }));
                   setSelectedSubCategories([]);
                 }}
-                checked={updatedFIlter?.Category === "All"}
+                checked={updatedFIlter?.CategoryID === undefined}
               />
               <span>All Categories</span>
             </label>
@@ -130,13 +130,13 @@ export default function ProductsSideBarFilter() {
               <label className="filter-checkbox" key={category.categoryID}>
                 <input
                   type="radio"
-                  value={category.categoryName}
+                  value={category.categoryID}
                   onChange={(e) => {
-                    const categoryName = e.currentTarget.value;
+                    const categoryID = e.currentTarget.value;
 
                     setUpdatedFIlter((prev) => ({
                       ...prev!,
-                      Category: categoryName,
+                      CategoryID: categoryID,
                     }));
 
                     setSelectedSubCategories(category.subCategories ?? []);
@@ -146,13 +146,13 @@ export default function ProductsSideBarFilter() {
                     if (isChecked) {
                       setUpdatedFIlter((prev) => ({
                         ...prev!,
-                        Category: "All",
+                        CategoryID: undefined,
                         SubCategory: "All",
                       }));
                       setSelectedSubCategories([]);
                     }
                   }}
-                  checked={updatedFIlter?.Category === category.categoryName}
+                  checked={updatedFIlter?.CategoryID === category.categoryID}
                 />
                 <span>{category.categoryName}</span>
               </label>
@@ -170,11 +170,11 @@ export default function ProductsSideBarFilter() {
                     <input
                       type="radio"
                       onChange={(e) => {
-                        const subCat = e.currentTarget.value;
+                        const subCatID = e.currentTarget.value;
 
                         setUpdatedFIlter((prev) => ({
                           ...prev!,
-                          SubCategory: subCat,
+                          SubCategoryID: subCatID,
                         }));
                       }}
                       onClick={(e) => {
@@ -182,13 +182,13 @@ export default function ProductsSideBarFilter() {
                         if (isChecked) {
                           setUpdatedFIlter((prev) => ({
                             ...prev!,
-                            SubCategory: "All",
+                            SubCategoryID: undefined,
                           }));
                         }
                       }}
-                      value={subCat.categoryName}
+                      value={subCat.categoryID}
                       checked={
-                        updatedFIlter?.SubCategory === subCat.categoryName
+                        updatedFIlter?.SubCategoryID === subCat.categoryID
                       }
                     />
                     <span>{subCat.categoryName}</span>
@@ -317,16 +317,16 @@ export default function ProductsSideBarFilter() {
           <div className="size-options">
             {sizes.map((size) => (
               <button
-                className={`size-btn ${size.sizeName === updatedFIlter?.Size ? "active" : ""}`}
+                className={`size-btn ${size.sizeName === updatedFIlter?.SizeID ? "active" : ""}`}
                 onClick={(e) => {
-                  const size = e.currentTarget.value;
+                  const sizeID = e.currentTarget.value;
 
                   setUpdatedFIlter((prev) => ({
                     ...prev!,
-                    Size: size !== updatedFIlter.Size ? size : "All",
+                    SizeID: sizeID !== updatedFIlter.SizeID ? sizeID : undefined,
                   }));
                 }}
-                value={size.sizeName}
+                value={size.sizeID}
                 key={size.sizeID}
               >
                 {(size.sizeName ?? "")}
@@ -341,16 +341,16 @@ export default function ProductsSideBarFilter() {
             {colors.map((color) => (
               <button
                 key={color.colorID}
-                className={`color-btn ${color.colorName === updatedFIlter?.Color ? "active" : ""}`}
+                className={`color-btn ${color.colorID === updatedFIlter?.ColorID ? "active" : ""}`}
                 onClick={(e) => {
-                  const color = e.currentTarget.value;
+                  const colorID = e.currentTarget.value;
 
                   setUpdatedFIlter((prev) => ({
                     ...prev!,
-                    Color: color !== updatedFIlter.Color ? color : "All",
+                    ColorID: colorID !== updatedFIlter.ColorID ? colorID : undefined,
                   }));
                 }}
-                value={color.colorName}
+                value={color.colorID}
                 style={{ background: color.colorHexCode }}
                 title={color.colorName}
               ></button>

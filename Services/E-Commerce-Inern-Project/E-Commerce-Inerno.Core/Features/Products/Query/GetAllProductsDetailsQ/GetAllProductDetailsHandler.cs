@@ -19,7 +19,7 @@ namespace E_Commerce_Inerno.Core.Features.Products.Query.GetAllProductsDetailsQ
 
         public async Task<Result<IEnumerable<ProductDetails_vw>>> Handle(GetAllProductDetailsQuery request, CancellationToken cancellationToken)
         {
-            var products = await _productViewRepo.GetAllProductsDetails();
+            var products = await _productViewRepo.GetAllProductsDetails(cancellationToken);
             if (!products.Any())
             {
                 return Result<IEnumerable<ProductDetails_vw>>.NotFound("No Products Was Found");

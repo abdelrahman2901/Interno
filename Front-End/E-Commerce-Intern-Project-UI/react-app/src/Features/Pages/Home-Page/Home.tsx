@@ -6,17 +6,36 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CategoryfilterType } from "../../../Core/Types/CategoryFIlterTypes";
 import { useFilterStore } from "../../../Core/Global-State-Management/Zusstand/FilterStore/FilterStore";
+import {
+  CategoryResponse,
+  InternoMicroserviceClient,
+} from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
+import { config } from "../../../Core/config";
+import { API } from "../../../Core/Shared/API-URL";
+import { getApiErrorMessage } from "../../../Core/Shared/getApiErrorMessage";
 
 export default function Home() {
-  const [CurrentFilter, SetCurrentFilter] =
-    useState<CategoryfilterType | null>();
-  const filter = (filterName: CategoryfilterType) => {
+  const [CurrentFilter, SetCurrentFilter] = useState<string | undefined>();
+  const filter = (filterName: string | undefined) => {
     SetCurrentFilter(filterName);
   };
-  const { resetFilter } = useFilterStore();
+  const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
+  const [categories, setCategories] = useState<CategoryResponse[]>([]);
+  const { setFilter } = useFilterStore();
   useEffect(() => {
-    resetFilter();
+    loadCategories();
   }, []);
+
+  const loadCategories = async () => {
+    try {
+      const response = await Client.getCategoriesWithSubCat();
+      if (response.isSuccess) {
+        setCategories(response.data!);
+      }
+    } catch (err) {
+      console.error(getApiErrorMessage(err));
+    }
+  };
 
   return (
     <>
@@ -43,42 +62,25 @@ export default function Home() {
           <button
             className={`filter-tab ${CurrentFilter === "All" ? "active" : " "}`}
             data-filter="all"
-            onClick={() => filter("All")}
+            onClick={() => filter(undefined)}
           >
             All
           </button>
-          <button
-            className={`filter-tab   ${CurrentFilter === "Women" ? "active" : " "}`}
-            data-filter="women"
-            onClick={() => filter("Women")}
-          >
-            Women
-          </button>
-          <button
-            className={`filter-tab ${CurrentFilter === "Men" ? "active" : " "}`}
-            data-filter="men"
-            onClick={() => filter("Men")}
-          >
-            Men
-          </button>
-          <button
-            className={`filter-tab  ${CurrentFilter === "Kids" ? "active" : " "}`}
-            data-filter="kids"
-            onClick={() => filter("Kids")}
-          >
-            Kids
-          </button>
-          <button
-            className={`filter-tab ${
-              CurrentFilter === "Accessories" ? "active" : " "
-            }`}
-            data-filter="accessories"
-            onClick={() => filter("Accessories")}
-          >
-            Accessories
-          </button>
+          {categories.map((category) => (
+            <button
+              key={category.categoryID}
+              className={`filter-tab ${CurrentFilter === category.categoryName ? "active" : " "}`}
+              data-filter={category.categoryName}
+              onClick={() => {
+                filter(category.categoryName!);
+                setFilter({ CategoryID: category.categoryID });
+              }}
+            >
+              {category.categoryName}
+            </button>
+          ))}
         </div>
-        <ProductsSection filterProps={CurrentFilter!} />
+        <ProductsSection />
       </section>
       <FooterSection />
     </>

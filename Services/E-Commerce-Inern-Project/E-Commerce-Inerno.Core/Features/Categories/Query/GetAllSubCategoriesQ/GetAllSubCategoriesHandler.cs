@@ -13,18 +13,19 @@ namespace E_Commerce_Inerno.Core.Features.Categories.Query.GetAllSubCategoriesQ
         private readonly ICategoryRepository _CatRepo;
         private readonly IMapper _Mapper;
         private readonly IDistributedCache _cache;
-
+        private readonly string _cacheKey = "AllSubCategories";
+        private readonly DistributedCacheEntryOptions _options;
         public GetAllSubCategoriesHandler(ICategoryRepository catRepo, IDistributedCache cache, IMapper mapper)
         {
             _CatRepo = catRepo;
             _Mapper = mapper;
             _cache = cache;
+            _options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(30)).SetAbsoluteExpiration(TimeSpan.FromHours(1));
         }
 
         public async Task<Result<IEnumerable<SubCategoryResponse>>> Handle(GetAllSubCategoriesQuery request, CancellationToken cancellationToken)
         {
-            string CatsKey = "Categories";
-            string? cachedCats = await _cache.GetStringAsync(CatsKey);
+            string? cachedCats = await _cache.GetStringAsync(_cacheKey);
             if (cachedCats != null)
             {
                 var cachedCategories = JsonSerializer.Deserialize<IEnumerable<SubCategoryResponse>>(cachedCats);
@@ -38,9 +39,8 @@ namespace E_Commerce_Inerno.Core.Features.Categories.Query.GetAllSubCategoriesQ
             }
 
             string CatsJson = JsonSerializer.Serialize(Categories.Select(s => _Mapper.Map<SubCategoryResponse>(s)));
-            var options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(30)).SetAbsoluteExpiration(TimeSpan.FromHours(1));
 
-            await _cache.SetStringAsync(CatsKey, CatsJson, options);
+            await _cache.SetStringAsync(_cacheKey, CatsJson, _options);
 
             return Result<IEnumerable<SubCategoryResponse>>.Success(Categories.Select(s => _Mapper.Map<SubCategoryResponse>(s)));
         }

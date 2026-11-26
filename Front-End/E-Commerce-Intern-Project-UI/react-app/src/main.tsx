@@ -5,9 +5,9 @@ import "bootstrap/dist/css/bootstrap.css";
 import { AuthProvider } from "./Core/Services/AuthServices/AuthProvider";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <AuthProvider>
       <App />
     </AuthProvider>
-  </React.StrictMode>,
 );
+{/* </React.StrictMode>, */}

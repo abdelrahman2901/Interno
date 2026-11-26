@@ -1,6 +1,7 @@
 import "./Header.css";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Truck,
   RotateCcw,
@@ -15,6 +16,9 @@ import {
 } from "../../../Core/API/Interno-Microservice-Client/Interno-Microservice-Client";
 import { API, config, getBannerImageUrl } from "../../../Core/Shared/API-URL";
 import { getApiErrorMessage } from "../../../Core/Shared/getApiErrorMessage";
+
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Header() {
   const [slide, setSlide] = useState<BannerSlideResponse>();
   const [slides, setSlides] = useState<BannerSlideResponse[]>([]);
@@ -37,6 +41,8 @@ export default function Header() {
     }
   };
   const heroRef = useRef<HTMLDivElement | null>(null);
+  const heroImageRef = useRef<HTMLDivElement | null>(null);
+  const trustRef = useRef<HTMLDivElement | null>(null);
   const hasAnimated = useRef(false);
   useEffect(() => {
     if (slides.length === 0) {
@@ -46,12 +52,46 @@ export default function Header() {
   useEffect(() => {
     if (!heroRef.current || !slide || hasAnimated.current) return;
     hasAnimated.current = true;
-    gsap.fromTo(
-      heroRef.current,
-      { opacity: 0, y: 16 },
-      { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
-    );
-  }, [slide]);
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        heroRef.current,
+        { opacity: 0, y: 22 },
+        { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" },
+      );
+      if (heroImageRef.current) {
+        gsap.fromTo(
+          heroImageRef.current,
+          { opacity: 0, x: 28, scale: 1.04 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.85, ease: "power3.out" },
+        );
+        gsap.to(heroImageRef.current, {
+          yPercent: 8,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroImageRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
+      if (trustRef.current) {
+        gsap.fromTo(
+          trustRef.current.querySelectorAll(".trust-item"),
+          { opacity: 0, y: 16 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.45,
+            stagger: 0.08,
+            delay: 0.2,
+            ease: "power2.out",
+          },
+        );
+      }
+    });
+    return () => ctx.revert();
+  }, [!!slide]);
 
   function imageSlide(Direction: string) {
     console.log(slide);
@@ -117,7 +157,7 @@ export default function Header() {
               ))}
             </div>
           </div>
-          <div className="hero-image">
+          <div className="hero-image" ref={heroImageRef}>
             <img src={getBannerImageUrl(slide?.bannerSlideID ?? slide?.imageUrl)} />
             <button
               className="slide-btn prev"
@@ -136,7 +176,7 @@ export default function Header() {
       </section>
 
       <section className="trust-badges">
-        <div className="trust-container">
+        <div className="trust-container" ref={trustRef}>
           <div className="trust-item">
             <span className="trust-icon">
               <Truck size={22} />

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { Heart, Eye, Star } from "lucide-react";
 import { ProductCardSkeleton } from "../Shared/SkeletonLoader";
 import {
@@ -16,13 +17,13 @@ import "./ProductSection.css";
 import { CategoryfilterType } from "../../../Core/Types/CategoryFIlterTypes";
 import { useFilterStore } from "../../../Core/Global-State-Management/Zusstand/FilterStore/FilterStore";
 import { useCartStore } from "../../../Core/Global-State-Management/Zusstand/CartStore/CartUpdateStore";
-type props = {
-  filterProps: CategoryfilterType | null;
-};
+// type props = {
+//   filterProps: CategoryfilterType | null;
+// };
 
 const PAGE_SIZE = 12;
 
-export default function ProductsSection({ filterProps }: props) {
+export default function ProductsSection() {
   const { user } = useAuth();
   const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [Products, SetProducts] = useState<ProductDetails_vw[]>([]);
@@ -41,18 +42,35 @@ export default function ProductsSection({ filterProps }: props) {
   const [hasPreviousPage, setHasPreviousPage] = useState(false);
   const [loadError, setLoadError] = useState("");
 
+  // useEffect(() => {
+  //   if (filterProps) {
+  //     SetProducts(
+  //       filterProps === "All"
+  //         ? _Products
+  //         : _Products
+  //             .slice()
+  //             .filter((p) => p.parentCategoryName === filterProps),
+  //     );
+  //     SetCurrentFilter(filterProps);
+  //   }
+  // }, [filterProps]);
+
   useEffect(() => {
-    if (filterProps) {
-      SetProducts(
-        filterProps === "All"
-          ? _Products
-          : _Products
-              .slice()
-              .filter((p) => p.parentCategoryName === filterProps),
-      );
-      SetCurrentFilter(filterProps);
+    if (user) {
+      loadWishListItems();
+      loadCartItems();
+    } else {
+      setUserWishListItems([]);
+      setCartItems(new CartDetailsResponse());
     }
-  }, [filterProps]);
+  }, [user]);
+
+  useEffect(() => {
+    console.log("filter changed", filter);
+    
+    setPageNumber(1);
+    loadFilter(1);
+  }, [filter]);
 
   const loadCartItems = async () => {
     try {
@@ -64,18 +82,21 @@ export default function ProductsSection({ filterProps }: props) {
       console.error(getApiErrorMessage(err));
     }
   };
+
   const loadFilter = async (page = pageNumber) => {
     setIsLoading(true);
     setLoadError("");
+    
     try {
+      console.log("request sent");
       const response = await Client.filterProducts(
         page,
         PAGE_SIZE,
-        filter.Category,
-        filter.SubCategory,
+        filter.CategoryID,
+        filter.SubCategoryID,
         filter.Price,
-        filter.Size,
-        filter.Color,
+        filter.SizeID,
+        filter.ColorID,
         filter.Sort,
       );
       if (response.isSuccess && response.data) {
@@ -109,21 +130,7 @@ export default function ProductsSection({ filterProps }: props) {
       console.error(getApiErrorMessage(err));
     }
   };
-
-  useEffect(() => {
-    if (user) {
-      loadWishListItems();
-      loadCartItems();
-    } else {
-      setUserWishListItems([]);
-      setCartItems(new CartDetailsResponse());
-    }
-  }, [user]);
-
-  useEffect(() => {
-    setPageNumber(1);
-    loadFilter(1);
-  }, [filter]);
+  
 
   async function AddToWishList(productID: string) {
     try {
@@ -164,11 +171,40 @@ export default function ProductsSection({ filterProps }: props) {
     }
   }
 
-  const pageItems = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const PAGE_WINDOW = 5;
+  const windowStart =
+    Math.floor((pageNumber - 1) / PAGE_WINDOW) * PAGE_WINDOW + 1;
+  const windowEnd = Math.min(windowStart + PAGE_WINDOW - 1, totalPages);
+  const visiblePages = Array.from(
+    { length: Math.max(0, windowEnd - windowStart + 1) },
+    (_, i) => windowStart + i,
+  );
+  const hasPrevWindow = windowStart > 1;
+  const hasNextWindow = windowEnd < totalPages;
+
+  function goToPage(page: number) {
+    const next = Math.min(totalPages, Math.max(1, page));
+    setPageNumber(next);
+    loadFilter(next);
+  }
+
+  const gridRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!gridRef.current || Products.length === 0 || isLoading) return;
+    const cards = gridRef.current.querySelectorAll(".product-card");
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ease: "power2.out" },
+      );
+    }, gridRef);
+    return () => ctx.revert();
+  }, [Products, isLoading]);
 
   return (
     <>
-      <div className="products-grid">
+      <div className="products-grid" ref={gridRef}>
         {isLoading ? (
           // Show skeleton loaders while loading
           Array.from({ length: 8 }).map((_, index) => (
@@ -263,27 +299,44 @@ export default function ProductsSection({ filterProps }: props) {
             className="page-btn"
             disabled={!hasPreviousPage || pageNumber <= 1}
             onClick={() => {
-              const next = Math.max(1, pageNumber - 1);
-              setPageNumber(next);
-              loadFilter(next);
+              const previous = Math.max(1, pageNumber - 1);
+              setPageNumber(previous);
+              loadFilter(previous);
             }}
           >
             Previous
           </button>
           <div className="page-numbers">
-            {pageItems.map((page) => (
+            {hasPrevWindow && (
+              <button
+                type="button"
+                className="page-dots"
+                aria-label={`Show pages ${windowStart - PAGE_WINDOW} to ${windowStart - 1}`}
+                onClick={() => goToPage(windowStart - 1)}
+              >
+                ...
+              </button>
+            )}
+            {visiblePages.map((page) => (
               <button
                 type="button"
                 key={page}
                 className={`page-num ${page === pageNumber ? "active" : ""}`}
-                onClick={() => {
-                  setPageNumber(page);
-                  loadFilter(page);
-                }}
+                onClick={() => goToPage(page)}
               >
                 {page}
               </button>
             ))}
+            {hasNextWindow && (
+              <button
+                type="button"
+                className="page-dots"
+                aria-label={`Show pages ${windowEnd + 1} to ${Math.min(windowEnd + PAGE_WINDOW, totalPages)}`}
+                onClick={() => goToPage(windowEnd + 1)}
+              >
+                ...
+              </button>
+            )}
           </div>
           <button
             type="button"

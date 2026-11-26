@@ -19,7 +19,7 @@ namespace E_Commerce_Inerno.Core.Features.Products.Query.GetProductDetailsByIDQ
 
         public async Task<Result<ProductDetails_vw>> Handle(GetProductDetailsByIDQuery request, CancellationToken cancellationToken)
         {
-            var product = await _productViewRepo.GetProductDetailsByID(request.ProductID);
+            var product = await _productViewRepo.GetProductDetailsByID(request.ProductID, cancellationToken);
             if (product == null)
             {
                 return Result<ProductDetails_vw>.NotFound("Product Doesnt Exists");

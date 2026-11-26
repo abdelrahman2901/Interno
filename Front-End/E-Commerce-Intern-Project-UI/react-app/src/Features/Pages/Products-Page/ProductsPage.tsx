@@ -12,11 +12,11 @@ export default function ProductsPage() {
   const { filter, setFilter } = useFilterStore();
   useEffect(() => {
     const paramFilter: FilterPageModel = {
-      Category: params.get("Category")!,
-      SubCategory: params.get("SubCategory")!,
+      CategoryID: params.get("CategoryID")!,
+      SubCategoryID: params.get("SubCategoryID")!,
+      SizeID: params.get("SizeID")!,
+      ColorID: params.get("ColorID")!,
       Price: Number(params.get("Price")),
-      Size: params.get("Size")!,
-      Color: params.get("Color")!,
       Sort: "",
     };
     setFilter(paramFilter);
@@ -46,7 +46,7 @@ export default function ProductsPage() {
               </select>
             </div>
           </div>
-          <ProductsSection filterProps={null} />
+          <ProductsSection />
         </main>
       </div>
     </>

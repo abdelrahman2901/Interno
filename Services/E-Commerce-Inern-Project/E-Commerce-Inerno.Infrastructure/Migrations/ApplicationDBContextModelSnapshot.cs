@@ -672,11 +672,12 @@ namespace E_Commerce_Inerno.Infrastructure.Migrations
 
                     b.HasKey("ProductID");
 
-                    b.HasIndex("CategoryID");
-
                     b.HasIndex("ColorID");
 
                     b.HasIndex("SizeID");
+
+                    b.HasIndex("CategoryID", "CreatedAt")
+                        .IsDescending(false, true);
 
                     b.ToTable("Product");
                 });
@@ -868,8 +869,8 @@ namespace E_Commerce_Inerno.Infrastructure.Migrations
             modelBuilder.Entity("E_Commerce_Interno.Domain.Entity.Cart", b =>
                 {
                     b.HasOne("E_Commerce_Interno.Domain.Entity.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserID")
+                        .WithOne("Cart")
+                        .HasForeignKey("E_Commerce_Interno.Domain.Entity.Cart", "UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1066,6 +1067,9 @@ namespace E_Commerce_Inerno.Infrastructure.Migrations
             modelBuilder.Entity("E_Commerce_Interno.Domain.Entity.ApplicationUser", b =>
                 {
                     b.Navigation("Addresses");
+
+                    b.Navigation("Cart")
+                        .IsRequired();
 
                     b.Navigation("Orders");
 

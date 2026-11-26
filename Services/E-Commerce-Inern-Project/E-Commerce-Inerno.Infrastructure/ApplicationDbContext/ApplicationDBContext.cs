@@ -32,8 +32,11 @@ namespace E_Commerce_Inerno.Infrastructure.ApplicationDbContext
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<Product>()
+                .HasIndex(r => new { r.CategoryID, r.CreatedAt })
+                .IsDescending(false, true);
 
-
+            #region OLD
             builder.Entity<ApplicationRole>().HasData(
               new ApplicationRole
               {
@@ -50,11 +53,6 @@ namespace E_Commerce_Inerno.Infrastructure.ApplicationDbContext
                   RoleEnumID = RolesEnum.Customer,
               });
 
-            builder.Entity<Product>()
-                .HasIndex(r => new { r.ProductID, r.CreatedAt })
-                .IsDescending(false, true);
-
-            #region OLD
             builder.Entity<ApplicationUser>().HasData(new ApplicationUser()
             {
                 UserID = Guid.Parse("D1A9B5C3-4F2E-4A6B-8C1D-9F3E2A1B5C3D"),
@@ -77,7 +75,6 @@ namespace E_Commerce_Inerno.Infrastructure.ApplicationDbContext
                 RoleID = Guid.Parse("BFFBE3E7-4ADF-4BB5-83DB-6880F743D5DA")
             });
             builder.Entity<ApplicationRole>().HasIndex(r => r.RoleEnumID).IsUnique();
-            #region OLD
 
 
             builder.Entity<ProductRates>().ToTable(table =>
