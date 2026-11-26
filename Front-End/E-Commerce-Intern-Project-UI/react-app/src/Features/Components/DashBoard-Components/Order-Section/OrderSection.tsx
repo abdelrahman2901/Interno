@@ -5,6 +5,9 @@ import "./OrderSection.css";
 import OrderDetailsModal from "./Modals/OrderDetails";
 import { filterType } from "../../../../Core/Types/filterType";
 import { getApiErrorMessage } from "../../../../Core/Shared/getApiErrorMessage";
+const PAGE_SIZE = 10;
+const PAGE_WINDOW = 5;
+
 export default function OrderSection() {
   const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   const [_orders, setPrivOrders] = useState<OrderDetails[]>([]);
@@ -13,14 +16,29 @@ export default function OrderSection() {
   const [currentFilter, setCurrentFilter] = useState<filterType>("All");
   const [isShowingDetails, setIsShowingDetails] = useState<boolean>(false);
   const [selectedOrderIDs, setSelectedOrderIDs] = useState<string[]>([]);
-  // const [selectedOrderIDs, setSelectedOrderID] = useState<string>('');
+  const [pageNumber, setPageNumber] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalCount, setTotalCount] = useState(0);
+  const [hasNextPage, setHasNextPage] = useState(false);
+  const [hasPreviousPage, setHasPreviousPage] = useState(false);
 
-  const laodOrders = async () => {
+  const laodOrders = async (page = pageNumber) => {
     try {
-      const response = await Client.getAllOrders();
-      if (response.isSuccess) {
-        setPrivOrders(response.data!);
-        setOrders(response.data!);
+      const response = await Client.getAllOrders(page, PAGE_SIZE);
+      if (response.isSuccess && response.data) {
+        const paged = response.data;
+        const items = paged.items ?? [];
+        setPrivOrders(items);
+        setOrders(
+          currentFilter === "All"
+            ? items
+            : items.filter((r) => r.orderStatus === currentFilter),
+        );
+        setTotalCount(paged.totalCount ?? items.length);
+        setTotalPages(paged.totalPages || 1);
+        setHasNextPage(!!paged.hasNextPage);
+        setHasPreviousPage(!!paged.hasPreviousPage);
+        setPageNumber(paged.currentPage || page);
       }
     } catch (err) {
       console.error(getApiErrorMessage(err));
@@ -28,9 +46,7 @@ export default function OrderSection() {
   };
 
   useEffect(() => {
-    if (_orders.length === 0 || orders.length === 0) {
-      laodOrders();
-    }
+    laodOrders(1);
   }, []);
   function extractDate(orderdate?: Date | string) {
     const date = new Date(orderdate ?? Date.now());
@@ -53,13 +69,28 @@ export default function OrderSection() {
     setIsShowingDetails(false);
   }
   function filter(filterName: filterType) {
-    if (filterName === "All") {
-      setOrders(_orders);
-
-      return;
-    }
     setCurrentFilter(filterName);
-    setOrders(_orders.slice().filter((r) => r.orderStatus === filterName));
+    setOrders(
+      filterName === "All"
+        ? _orders
+        : _orders.filter((r) => r.orderStatus === filterName),
+    );
+  }
+
+  const windowStart =
+    Math.floor((pageNumber - 1) / PAGE_WINDOW) * PAGE_WINDOW + 1;
+  const windowEnd = Math.min(windowStart + PAGE_WINDOW - 1, totalPages);
+  const visiblePages = Array.from(
+    { length: Math.max(0, windowEnd - windowStart + 1) },
+    (_, i) => windowStart + i,
+  );
+  const hasPrevWindow = windowStart > 1;
+  const hasNextWindow = windowEnd < totalPages;
+
+  function goToPage(page: number) {
+    const next = Math.min(totalPages, Math.max(1, page));
+    setPageNumber(next);
+    laodOrders(next);
   }
 
   async function markAction(MarkAs: filterType) {
@@ -84,7 +115,13 @@ export default function OrderSection() {
           <h2>Orders Management</h2>
           <div className="header-actions">
             <button className="btn-secondary">📥 Export Orders</button>
-            <button className="btn-primary">🔄 Refresh</button>
+            <button
+              className="btn-primary"
+              type="button"
+              onClick={() => laodOrders(pageNumber)}
+            >
+              🔄 Refresh
+            </button>
           </div>
         </header>
 
@@ -94,7 +131,7 @@ export default function OrderSection() {
               <div className="stat-icon">📦</div>
               <div className="stat-info">
                 <h4>Total Orders</h4>
-                <p className="stat-value">{_orders.length}</p>
+                <p className="stat-value">{totalCount}</p>
                 <span className="stat-change positive">
                   +N% from last month
                 </span>
@@ -149,7 +186,7 @@ export default function OrderSection() {
                 className={`Order-filter-tab ${currentFilter === "All" ? "active" : ""}`}
                 onClick={() => filter("All")}
               >
-                All Orders ({_orders.length})
+                All Orders ({totalCount})
               </button>
 
               <button
@@ -332,6 +369,57 @@ export default function OrderSection() {
               </tbody>
             </table>
           </div>
+
+          {totalPages > 1 && (
+            <div className="pagination">
+              <button
+                type="button"
+                className="page-btn"
+                disabled={!hasPreviousPage || pageNumber <= 1}
+                onClick={() => goToPage(pageNumber - 1)}
+              >
+                Previous
+              </button>
+              <div className="page-numbers">
+                {hasPrevWindow && (
+                  <button
+                    type="button"
+                    className="page-dots"
+                    onClick={() => goToPage(windowStart - 1)}
+                  >
+                    ...
+                  </button>
+                )}
+                {visiblePages.map((page) => (
+                  <button
+                    type="button"
+                    key={page}
+                    className={`page-num ${page === pageNumber ? "active" : ""}`}
+                    onClick={() => goToPage(page)}
+                  >
+                    {page}
+                  </button>
+                ))}
+                {hasNextWindow && (
+                  <button
+                    type="button"
+                    className="page-dots"
+                    onClick={() => goToPage(windowEnd + 1)}
+                  >
+                    ...
+                  </button>
+                )}
+              </div>
+              <button
+                type="button"
+                className="page-btn"
+                disabled={!hasNextPage || pageNumber >= totalPages}
+                onClick={() => goToPage(pageNumber + 1)}
+              >
+                Next
+              </button>
+            </div>
+          )}
 
           <div className="bulk-actions">
             <div className="bulk-info">

@@ -19,7 +19,7 @@ namespace E_Commerce_Inerno.Infrastructure.Repository.ProductRepo
             _logger = logger;
         }
 
-        public IQueryable<ProductRaw> FilterProductsQuery(FilterProductsDetailsQuery filter)
+        public async Task<(IEnumerable<ProductRaw>, int total)> FilterProductsQuery(FilterProductsDetailsQuery filter, int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Filtering products with: {@Filter}", filter);
 
@@ -27,14 +27,14 @@ namespace E_Commerce_Inerno.Infrastructure.Repository.ProductRepo
                 .AsNoTracking()
                 .Where(p => !p.IsDeleted);
 
-            if (!string.IsNullOrEmpty(filter.Category) && filter.Category != "All")
+            if (filter.CategoryID.HasValue && filter.CategoryID != Guid.Empty)
             {
-                query = query.Where(p => p.Category.ParentCategory.CategoryName == filter.Category);
+                query = query.Where(p => p.Category.ParentCategoryID == filter.CategoryID);
             }
 
-            if (!string.IsNullOrEmpty(filter.SubCategory) && filter.SubCategory != "All")
+            if (filter.SubCategoryID.HasValue && filter.SubCategoryID != Guid.Empty)
             {
-                query = query.Where(p => p.Category.CategoryName == filter.SubCategory);
+                query = query.Where(p => p.CategoryID == filter.SubCategoryID);
             }
 
             if (filter.Price.HasValue && filter.Price != 0)
@@ -61,44 +61,48 @@ namespace E_Commerce_Inerno.Infrastructure.Repository.ProductRepo
                 }
             }
 
-            if (!string.IsNullOrEmpty(filter.Size) && filter.Size != "All")
+            if (filter.SizeID.HasValue && filter.SizeID != Guid.Empty)
             {
-                query = query.Where(p => p.Size.SizeName == filter.Size);
+                query = query.Where(p => p.SizeID == filter.SizeID);
             }
 
-            if (!string.IsNullOrEmpty(filter.Color) && filter.Color != "All")
+            if (filter.ColorID.HasValue && filter.ColorID != Guid.Empty)
             {
-                query = query.Where(p => p.Color.ColorName == filter.Color);
+                query = query.Where(p => p.ColorID == filter.ColorID);
             }
 
             query = ApplySorting(query, filter.Sort);
 
-            return query.Select(p => new ProductRaw
+            //var pageIDs = await query.Select(p => p.ProductID)
+            //  .Skip((pageNumber - 1) * pageSize)
+            //  .Take(pageSize)
+            //  .ToListAsync(cancellationToken);
+
+            var rawProducts = await query
+              .Skip((pageNumber - 1) * pageSize)
+              .Take(pageSize)
+              .Select(p => new ProductRaw
             {
                 ProductID = p.ProductID,
-                CategoryID = p.CategoryID,
-                ParentcategoryID = p.Category.ParentCategory.CategoryID,
-                SizeID = p.SizeID,
-                ColorID = p.ColorID,
                 CategoryName = p.Category.CategoryName,
-                ParentCategoryName = p.Category.ParentCategory.CategoryName,
+                ParentCategoryName = p.Category.ParentCategoryID != null ? p.Category.ParentCategory.CategoryName : null,
                 ProductName = p.ProductName,
                 Price = p.Price,
                 SalePrice = p.SalePrice,
                 Stock = p.Stock,
-                TotalRating = p.ProductRates.Count(r => !r.IsDeleted),
                 RatingCount = p.ProductRates.Count(r => !r.IsDeleted),
                 AvgRating = p.ProductRates.Where(r => !r.IsDeleted).Select(r => (double?)r.Rating).Average() ?? 0,
                 SizeName = p.Size.SizeName,
                 ColorName = p.Color.ColorName ?? p.Color.ColorHexCode,
-                CreatedAt = p.CreatedAt,
                 ProductImageUrl = p.ProductImageUrl,
-                Active = p.Active,
-                IsDeleted = p.IsDeleted
-            });
+            }).ToListAsync(cancellationToken);
+
+            var total = await query.CountAsync(cancellationToken);
+
+            return (rawProducts, total);
         }
 
-        public async Task<IEnumerable<Product>> GetAllProductsDetails()
+        public async Task<IEnumerable<Product>> GetAllProductsDetails(CancellationToken cancellationToken)
         {
             try
             {
@@ -107,7 +111,7 @@ namespace E_Commerce_Inerno.Infrastructure.Repository.ProductRepo
                     .Include(c => c.Category).ThenInclude(c => c.ParentCategory)
                     .Include(c => c.Size)
                     .Include(c => c.Color)
-                    .ToListAsync();
+                    .ToListAsync(cancellationToken);
             }
             catch (Exception ex)
             {
@@ -120,13 +124,13 @@ namespace E_Commerce_Inerno.Infrastructure.Repository.ProductRepo
             }
         }
 
-        public async Task<Product?> GetProductDetailsByID(Guid ProductID)
+        public async Task<Product?> GetProductDetailsByID(Guid ProductID, CancellationToken cancellationToken)
         {
             try
             {
                 return await _context.Product.AsNoTracking()
                     .Include(c => c.Category).ThenInclude(c => c.ParentCategory)
-                    .FirstOrDefaultAsync(p => p.ProductID == ProductID && !p.IsDeleted);
+                    .FirstOrDefaultAsync(p => p.ProductID == ProductID && !p.IsDeleted, cancellationToken);
             }
             catch (Exception ex)
             {
@@ -149,8 +153,8 @@ namespace E_Commerce_Inerno.Infrastructure.Repository.ProductRepo
                 "nameZ" => query.OrderByDescending(p => p.ProductName),
                 "sale" => query.OrderByDescending(p => p.SalePrice),
                 "rating" => query
-                    .OrderByDescending(p => p.ProductRates.Where(r => !r.IsDeleted).Select(r => (double?)r.Rating).Average() ?? 0)
-                    .ThenByDescending(p => p.ProductRates.Count(r => !r.IsDeleted)),
+                    .OrderByDescending(p => p.ProductRates.Count(r => !r.IsDeleted))
+                    .ThenByDescending(p => p.ProductRates.Where(r => !r.IsDeleted).Select(r => (double?)r.Rating).Average() ?? 0),
                 "new" => query.OrderByDescending(p => p.CreatedAt),
                 _ => query.OrderByDescending(p => p.CreatedAt)
             };

@@ -19,7 +19,7 @@ namespace E_Commerce_Inerno.API.Controllers.AreaControl.Queries
             _MediatR = MediatR;
         }
 
-        [HttpGet]
+        [HttpGet("[action]")]
         [AllowAnonymous]
         public async Task<Result<IEnumerable<AreaResponse>>> GetAllAreas()
         {

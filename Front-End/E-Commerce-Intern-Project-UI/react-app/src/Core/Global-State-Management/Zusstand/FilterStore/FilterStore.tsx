@@ -9,11 +9,11 @@ type FilterStore = {
 
 export const useFilterStore = create<FilterStore>((set) => ({
   filter: {
-    Category: "",
-    SubCategory: "",
-    Size: "",
-    Color: "",
-    Sort: "",
+    CategoryID: undefined,
+    SubCategoryID: undefined,
+    SizeID: undefined,
+    ColorID: undefined,
+    Sort: '',
     Price: 0,
   },
 
@@ -25,11 +25,11 @@ export const useFilterStore = create<FilterStore>((set) => ({
   resetFilter: () =>
     set({
       filter: {
-        Category: "All",
-        Color: "All",
-        Sort: "All",
-        SubCategory: "All",
-        Size: "All",
+        CategoryID: undefined,
+        SubCategoryID: undefined,
+        SizeID: undefined,
+        ColorID: undefined,
+        Sort: "",
         Price: 0,
       },
     }),

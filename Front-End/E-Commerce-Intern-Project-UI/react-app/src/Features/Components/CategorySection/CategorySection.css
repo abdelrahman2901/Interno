@@ -44,9 +44,29 @@
   overflow: hidden;
   position: relative;
   cursor: pointer;
+  --spot-x: 50%;
+  --spot-y: 50%;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
+}
+
+.category-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    180px circle at var(--spot-x) var(--spot-y),
+    rgba(255, 255, 255, 0.22),
+    transparent 55%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.category-card:hover::after {
+  opacity: 1;
 }
 
 .category-card:hover {

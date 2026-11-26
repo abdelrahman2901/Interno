@@ -23,7 +23,7 @@ export default function Add_UpdateAreaModel({
   const [area, setArea] = useState<AreaResponse>(new AreaResponse());
   const loadArea = async () => {
     try {
-      const response = await Client.areas(areaID!);
+      const response = await Client.getAreaByID(areaID!);
       if (response.isSuccess) {
         setArea(response.data!);
         console.log(area);

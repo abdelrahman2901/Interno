@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./CategorySection.css";
 import { Link } from "react-router-dom";
 import {
@@ -9,8 +11,11 @@ import { API, config } from "../../../Core/Shared/API-URL";
 import { getApiErrorMessage } from "../../../Core/Shared/getApiErrorMessage";
 import { getCategoryImage } from "../../../Core/Shared/getCategoryImage";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function CategorySection() {
   const [Categories, SetCategories] = useState<SubCategoryResponse[]>([]);
+  const gridRef = useRef<HTMLDivElement | null>(null);
   const Client = new InternoMicroserviceClient(config.gatewayUrl, API);
   useEffect(() => {
     const loadCats = async () => {
@@ -30,6 +35,29 @@ export default function CategorySection() {
     loadCats();
   }, []);
 
+  useEffect(() => {
+    if (!gridRef.current || Categories.length === 0) return;
+    const cards = gridRef.current.querySelectorAll(".category-card");
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 28 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.55,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: "top 85%",
+          },
+        },
+      );
+    }, gridRef);
+    return () => ctx.revert();
+  }, [Categories]);
+
   return (
     <>
       <section className="categories-section">
@@ -38,9 +66,23 @@ export default function CategorySection() {
           <h2 className="main-section-title">Shop By Category</h2>
           <div className="main-title-underline"></div>
         </div>
-        <div className="categories-grid">
+        <div className="categories-grid" ref={gridRef}>
           {Categories.map((cat, index) => (
-            <div className="category-card" key={cat.categoryID}>
+            <div
+              className="category-card"
+              key={cat.categoryID}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty(
+                  "--spot-x",
+                  `${e.clientX - rect.left}px`,
+                );
+                e.currentTarget.style.setProperty(
+                  "--spot-y",
+                  `${e.clientY - rect.top}px`,
+                );
+              }}
+            >
               <Link
                 to={`/Home/Products?Category=${cat.categoryName}&SubCategory=All&Price=0&Size=All&Color=All`}
               >

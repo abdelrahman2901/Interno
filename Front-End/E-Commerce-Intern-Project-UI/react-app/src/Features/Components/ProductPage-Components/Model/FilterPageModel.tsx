@@ -1,8 +1,8 @@
 export class FilterPageModel {
-  Category: string = "All";
-  SubCategory: string = "All";
+  CategoryID: string | undefined = undefined;
+  SubCategoryID: string | undefined = undefined;
+  SizeID: string | undefined = undefined;
+  ColorID: string | undefined = undefined;
   Price: number = 0;
-  Size: string = "All";
-  Color: string = "All";
-  Sort: string = "All";
+  Sort: string = "";
 }

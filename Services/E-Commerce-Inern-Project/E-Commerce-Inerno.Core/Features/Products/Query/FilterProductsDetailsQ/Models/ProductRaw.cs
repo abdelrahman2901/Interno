@@ -3,10 +3,10 @@
     public class ProductRaw
     {
         public Guid ProductID { get; set; }
-        public Guid CategoryID { get; set; }
-        public Guid ParentcategoryID { get; set; }
-        public Guid SizeID { get; set; }
-        public Guid? ColorID { get; set; }
+        //public Guid CategoryID { get; set; }
+        //public Guid ParentcategoryID { get; set; }
+        //public Guid SizeID { get; set; }
+        //public Guid? ColorID { get; set; }
         public string CategoryName { get; set; }
         public string ParentCategoryName { get; set; }
         public string ProductName { get; set; }
@@ -16,11 +16,10 @@
         public decimal Price { get; set; }
         public decimal? SalePrice { get; set; }
         public int Stock { get; set; }
-        public int TotalRating { get; set; }
         public int RatingCount { get; set; }
         public double AvgRating { get; set; }
-        public bool Active { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTime CreatedAt { get; set; }
+        //public bool Active { get; set; }
+        //public bool IsDeleted { get; set; }
+        //public DateTime CreatedAt { get; set; }
     }
 }

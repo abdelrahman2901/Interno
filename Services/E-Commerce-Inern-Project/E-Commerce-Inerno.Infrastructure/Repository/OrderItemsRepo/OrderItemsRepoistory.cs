@@ -88,10 +88,6 @@ namespace E_Commerce_Inerno.Infrastructure.Repository.OrderItemsRepo
                     Product = new ProductDetails_vw
                     {
                         ProductID = i.Product.ProductID,
-                        CategoryID = i.Product.CategoryID,
-                        ParentcategoryID = i.Product.Category.ParentCategory.CategoryID,
-                        SizeID = i.Product.SizeID,
-                        ColorID = i.Product.ColorID,
                         CategoryName = i.Product.Category.CategoryName,
                         ParentCategoryName = i.Product.Category.ParentCategory.CategoryName,
                         ProductName = i.Product.ProductName,
@@ -102,10 +98,7 @@ namespace E_Commerce_Inerno.Infrastructure.Repository.OrderItemsRepo
                         TotalRating = i.Product.ProductRates.Count(r => !r.IsDeleted),
                         SizeName = i.Product.Size.SizeName,
                         ColorName = i.Product.Color.ColorName ?? i.Product.Color.ColorHexCode,
-                        CreatedAt = i.Product.CreatedAt,
                         ProductImageUrl = i.Product.ProductImageUrl,
-                        Active = i.Product.Active,
-                        IsDeleted = i.Product.IsDeleted
                     }
                 });
         }

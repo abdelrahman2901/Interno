@@ -427,7 +427,24 @@
 }
 
 .page-dots {
-  color: #999;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 8px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  color: #8b6f5e;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.page-dots:hover,
+.page-dots:focus-visible {
+  background: #f5f0eb;
+  border-color: #8b6f5e;
+  outline: none;
 }
 
 /* Modal */

@@ -13,6 +13,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\UserControl\Commands\**" />
+    <Content Remove="Controllers\UserControl\Commands\**" />
+    <EmbeddedResource Remove="Controllers\UserControl\Commands\**" />
+    <None Remove="Controllers\UserControl\Commands\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
     <PackageReference Include="MediatR" Version="15.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.12" />
@@ -24,10 +31,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+	 
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.3" />
-    <PackageReference Include="NuGet.Packaging" Version="8.0.0" />
-    <PackageReference Include="NuGet.Protocol" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="11.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="11.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="11.0.1" />
@@ -73,7 +78,6 @@
     <Folder Include="Controllers\ShippingCostsControl\Queries\" />
     <Folder Include="Controllers\SizeControl\Commands\" />
     <Folder Include="Controllers\SizeControl\Queries\" />
-    <Folder Include="Controllers\UserControl\Commands\" />
     <Folder Include="Controllers\UserControl\Queries\" />
     <Folder Include="Controllers\WIshListControl\Commands\" />
     <Folder Include="Controllers\WIshListControl\Queries\" />

@@ -67,7 +67,6 @@ namespace E_Commerce_Inerno.Core.Mapper
             CreateMap<Product, ProductDetails_vw>()
                 .ForMember(dest => dest.CategoryName, src => src.MapFrom(s => s.Category.CategoryName))
                 .ForMember(dest => dest.ParentCategoryName, src => src.MapFrom(s => s.Category.ParentCategory.CategoryName))
-                .ForMember(dest => dest.ParentcategoryID, src => src.MapFrom(s => s.Category.ParentCategory.CategoryID))
                 .ForMember(dest => dest.SizeName, src => src.MapFrom(s => s.Size.SizeName))
                 .ForMember(dest => dest.ColorName, src => src.MapFrom(s => s.Color.ColorName ?? s.Color.ColorHexCode));
 
