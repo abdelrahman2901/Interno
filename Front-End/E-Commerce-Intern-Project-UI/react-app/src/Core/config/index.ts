@@ -6,8 +6,15 @@ export interface AppConfig {
 
 export const config: AppConfig = {
   gatewayUrl:
-    import.meta.env.VITE_GATEWAY_URL || "http://localhost:5003/gateway",
-  filesBaseUrl: import.meta.env.VITE_FILES_BASE_URL || "http://localhost:5000",
+    import.meta.env.VITE_GATEWAY_URL ||
+    (import.meta.env.PROD
+      ? "https://internogateway.runasp.net/gateway"
+      : "http://localhost:5003/gateway"),
+  filesBaseUrl:
+    import.meta.env.VITE_FILES_BASE_URL ||
+    (import.meta.env.PROD
+      ? "https://internoapi.runasp.net"
+      : "http://localhost:5000"),
   avatarApiUrl:
     import.meta.env.VITE_AVATAR_API_URL || "https://ui-avatars.com/api",
 };
