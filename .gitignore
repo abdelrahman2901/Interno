@@ -44,6 +44,10 @@ x86/
 .env
 .env.*
 !.env.example
+!environment/.env.example
+!environment/.env.docker
+!environment/.env.https
+!environment/.env.production
 
 # OS
 Thumbs.db
